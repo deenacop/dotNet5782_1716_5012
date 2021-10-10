@@ -14,8 +14,12 @@ namespace Targil0
         private static void Welcome1716()
         {
             Console.WriteLine("Enter your name: ");
+
             string useName = Console.ReadLine();
+
             Console.WriteLine("{0}, welcome to my first consle application", useName);
+            
+
         }
     }
 }
