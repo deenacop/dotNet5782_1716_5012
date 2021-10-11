@@ -18,8 +18,8 @@ namespace Targil0
             string useName = Console.ReadLine();
 
             Console.WriteLine("{0}, welcome to my first consle application", useName);
-            
 
+            
         }
     }
 }
