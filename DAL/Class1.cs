@@ -9,15 +9,15 @@ namespace IDAL
         /// <summary>
         /// The drone weights
         /// </summary>
-        enum WeightCategories { light, midium, heavy };
+        public enum WeightCategories { light, midium, heavy };
         /// <summary>
         /// In what stage the drone is in
         /// </summary>
-        enum DroneStatus { available, maintenance, delivery };
+        public enum DroneStatus { available, maintenance, delivery };
         /// <summary>
         /// Delivery priorities
         /// </summary>
-        enum Priorities { normal, fast, urgent };
+        public enum Priorities { normal, fast, urgent };
         
         /// <summary>
         /// Staitions details
@@ -35,13 +35,12 @@ namespace IDAL
         /// </summary>
         public struct Drone
         {
-            int ID;
-            string Model;
-            WeightCategories Weight;
-            DroneStatus Status;
-            double Battery;
-            Priorities Priority;
-
+            public int ID { get; set; }
+            public string Model { get; set; }
+            public WeightCategories Weight { get; set; }
+            public DroneStatus Status { get; set; }
+            public double Battery { get; set; }
+            public Priorities Priority { get; set; }
         }
         /// <summary>
         /// Customer details
@@ -59,11 +58,12 @@ namespace IDAL
         /// </summary>
         public struct Parcel
         {
-            int ID;
-            int Sender;
-            int Targetid;
-            WeightCategories Weight;
-            bool DroneActionMode;
+            public int ID { get; set; }
+            public int Sender { get; set; }
+            public int Targetid { get; set; }
+            public WeightCategories Weight { get; set; }
+            public bool DroneActionMode { get; set; }
+            
             DateTime Requested;
             DateTime PickUp;
             DateTime Delivered;
