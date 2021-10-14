@@ -82,9 +82,9 @@ namespace IDAL
         /// </summary>
         public class DataSource
         {
-            public static Random R = new Random(DateTime.Now.Millisecond);
+            static readonly Random rand = new (DateTime.Now.Millisecond);
 
-            static internal Drone[] drones = new Drone[10];
+            static internal Drone[] Drones = new Drone[10];
             static internal Station[] stations = new Station[5];
             static internal Customer[] customers = new Customer[100];
             static internal Parcel[] parcels = new Parcel[1000];
@@ -93,7 +93,7 @@ namespace IDAL
             /// </summary>
             internal class Config
             {
-                static internal int firstAvailable_Drone = 0;
+                static internal int FirstAvailableDrone = 0;
                 static internal int firstAvailable_Station = 0;
                 static internal int firstAvailable_Customer = 0;
                 static internal int firstAvailable_Parcel = 0;
@@ -102,25 +102,23 @@ namespace IDAL
             
             public static void Initialize()
             { 
-                int i = R.Next(2, 5);
-                firstAvailable_Station = i;
-                for (;i>0;i--)
+                Config.FirstAvailableDrone = 0;
+                for (int i = rand.Next(2, 5); i>0;i--)
                 {
-                    stations[i].ID = R.Next();
-                    stations[i].Name = R.Next();
-                    stations[i].ChargeSlot = R.Next(0,100);
-                    stations[i].Latitude = R.Next() / R.Next();
-                    stations[i].Longitude = R.Next() / R.Next();
+                    stations[i].ID = rand.Next();
+                    stations[i].Name = rand.Next();
+                    stations[i].ChargeSlots = rand.Next(0,100);
+                    stations[i].Latitude = rand.Next() / rand.Next();
+                    stations[i].Longitude = rand.Next() / rand.Next();
                 }
 
-                i = R.Next(5, 10);
-                for (; i > 0; i--)
+                for (int i = rand.Next(5, 10); i > 0; i--)
                 {
-                    drones[i].ID = R.Next();
-                    drones[i].Status = R.Next(1,3);
-                    drones[i].Weight = R.Next(1, 3);
-                    drones[i].Battery = R.Next() / R.Next();
-                    drones[i].Model = "A";
+                    Drones[i].ID = rand.Next();
+                    Drones[i].Status = (DroneStatus)rand.Next(0, 2);
+                    Drones[i].Weight =  (WeightCategories)rand.Next(0, 2);
+                    Drones[i].Battery = rand.Next() / rand.Next();
+                    Drones[i].Model = "A";
                 }
 
             }
