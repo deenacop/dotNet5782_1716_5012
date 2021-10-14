@@ -64,10 +64,10 @@ namespace IDAL
             public WeightCategories Weight { get; set; }
             public bool DroneActionMode { get; set; }
             
-            DateTime Requested;
-            DateTime PickUp;
-            DateTime Delivered;
-            DateTime Scheduled;
+            public DateTime Requested { get; set; }
+            public DateTime PickUp { get; set; }
+            public DateTime Delivered { get; set; }
+            public DateTime Scheduled { get; set; }
         }
         /// <summary>
         /// Drone charge details
