@@ -24,11 +24,11 @@ namespace IDAL
         /// </summary>
         public struct Station
         {
-            int ID;
-            int Name;
-            int ChargeSlots;
-            double Longitude;
-            double Latitude;
+           public int ID { get; set; };
+           public int Name { get; set; }
+           public int ChargeSlots { get; set; }
+           public double Longitude { get; set; }
+           public double Latitude { get; set; }
         }
         /// <summary>
         /// Drone details
@@ -48,11 +48,11 @@ namespace IDAL
         /// </summary>
         public struct Customer
         {
-            int ID;
-            string Name;
-            string PhoneNumber;
-            double Longitude;
-            double Latitude;
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public string PhoneNumber { get; set; }
+            public double Longitude { get; set; }
+            public double Latitude { get; set; }
         }
         /// <summary>
         /// Parcel details
@@ -64,18 +64,18 @@ namespace IDAL
             int Targetid;
             WeightCategories Weight;
             bool DroneActionMode;
-            DateTime Requested;
-            DateTime PickUp;
-            DateTime Delivered;
-            DateTime Scheduled;
+            public DateTime Requested { get; set; }
+            public DateTime PickUp { get; set; }
+            public DateTime Delivered { get; set; }
+            public DateTime Scheduled { get; set; }
         }
         /// <summary>
         /// Drone charge details
         /// </summary>
         public struct DroneCharge
         {
-            int RecBaseStation;
-            int RecDrone;
+            public int RecBaseStation { get; set; }
+            public int RecDrone { get; set; }
         }
         /// <summary>
         /// Creates new arrays for each type, and initializes them with variables.
