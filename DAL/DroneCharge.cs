@@ -4,9 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace IDAL
 {
-    class Class2
+    namespace DO
     {
+        /// <summary>
+        /// Drone charge details
+        /// </summary>
+        public struct DroneCharge
+        {
+            public int RecBaseStation { get; set; }
+            public int RecDrone { get; set; }
+        }
     }
 }

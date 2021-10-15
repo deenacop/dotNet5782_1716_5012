@@ -4,9 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace IDAL
 {
-    class Class2
+    namespace DO
     {
+        /// <summary>
+        /// Staitions details
+        /// </summary>
+        public struct Station
+        {
+            public int ID { get; set; }
+            public int Name { get; set; }
+            public int ChargeSlots { get; set; }
+            public double Longitude { get; set; }
+            public double Latitude { get; set; }
+        }
     }
 }

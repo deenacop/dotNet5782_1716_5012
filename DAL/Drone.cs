@@ -15,10 +15,11 @@ namespace IDAL
         {
             public int ID { get; set; }
             public string Model { get; set; }
-            public WeightCategories Weight { get; set; }
-            public DroneStatus Status { get; set; }
+            public @enum.WeightCategories Weight { get; set; }
+            public @enum.DroneStatus Status { get; set; }
             public double Battery { get; set; }
-            public Priorities Priority { get; set; }
+            public @enum.Priorities Priority { get; set; }
         }
     }
+
 }

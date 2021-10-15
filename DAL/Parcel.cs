@@ -4,9 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace IDAL
 {
-    class Class2
+    namespace DO
     {
+        /// <summary>
+        /// Parcel details
+        /// </summary>
+        public struct Parcel
+        {
+            public int ID { get; set; }
+            public int Sender { get; set; }
+            public int Targetid { get; set; }
+            public @enum.WeightCategories Weight { get; set; }
+            public bool DroneActionMode { get; set; }
+            public DateTime Requested { get; set; }
+            public DateTime PickUp { get; set; }
+            public DateTime Delivered { get; set; }
+            public DateTime Scheduled { get; set; }
+        }
     }
 }
