@@ -14,8 +14,8 @@ namespace IDAL
         public struct Station
         {
             public int ID { get; set; }
-            public int Name { get; set; }
-            public int ChargeSlots { get; set; }
+            public string Name { get; set; }
+            public int NumOfChargeSlots { get; set; }
             public double Longitude { get; set; }
             public double Latitude { get; set; }
         }
