@@ -31,26 +31,26 @@ namespace IDAL
             public static void Initialize()
             {
                 // Initializing variables into 2 stations. 
-                for (int i = 0; i <2; i++)
+                for (int i = 0; i < 2; i++)
                 {
-                    Stations[i].ID = rand.Next(1000,9999);
+                    Stations[i].ID = rand.Next(1000, 9999);
                     Stations[i].NumOfChargeSlots = rand.Next(0, 100);
                     //In Jerusalem only
                     Stations[i].Latitude = rand.NextDouble() + 31;
                     Stations[i].Longitude = rand.NextDouble() + 35;
                 }
-                // Initializing variables into 2 stations names. 
+                // Initializing variables into 2 name stations. 
                 Stations[0].Name = "Balfour street, Jerusalem";
                 Stations[1].Name = "4 David Remez Street, Jerusalem";
 
-                //Updates the indicator of the first free elements-Station
+                //Updates the indicator of the first free element-Station
                 Config.firstAvailableStation = 2;
 
                 //Initializing variables into 5 drones.
-                for (int i = 0; i <5; i++)
+                for (int i = 0; i < 5; i++)
                 {
-                    Drones[i].ID = rand.Next(100,999);
-                    Drones[i].Battery = rand.Next(0,100);
+                    Drones[i].ID = rand.Next(100, 999);
+                    Drones[i].Battery = rand.Next(0, 100);
                     Drones[i].Status = (@enum.DroneStatus)rand.Next(0, 2);
                     Drones[i].Weight = (@enum.WeightCategories)rand.Next(0, 2);
                     Drones[i].Priority = (@enum.Priorities)rand.Next(0, 2);
@@ -60,11 +60,11 @@ namespace IDAL
                 Drones[2].Model = "DJI Phantom 4";
                 Drones[3].Model = "3D Robotics Solo";
                 Drones[4].Model = "Flyability Elios Drone";
-                //Updates the indicator of the first free elements-Drone
+                //Updates the indicator of the first free element-Drone
                 Config.FirstAvailableDrone = 5;
 
                 //Initializing variables into 10 customers.
-                for (int i=0;i<10;i++)
+                for (int i = 0; i < 10; i++)
                 {
                     Customers[i].ID = rand.Next(100000000, 999999999);//9 digits
                     Customers[i].Latitude = rand.NextDouble() + 31;
@@ -92,21 +92,28 @@ namespace IDAL
                 Customers[7].PhoneNumber = "0526789997";
                 Customers[8].PhoneNumber = "0547890087";
                 Customers[9].PhoneNumber = "0505678876";
-                //Updates the indicator of the first free elements-Customers
+                //Updates the indicator of the first free element-Customers
                 Config.firstAvailableCustomer = 10;
 
-                for(int i=0;i<10;i++)
+                //Initializing variables into 10 parcels.
+                for (int i = 0; i < 10; i++)
                 {
+                    //Date and time randomly 
                     DateTime DateAndTime = new DateTime(2021, rand.Next(1, 12), rand.Next(1, 29), rand.Next(1, 24), rand.Next(0, 60), rand.Next(0, 60));
                     Parcels[i].ID = rand.Next(100000, 999999);
                     Parcels[i].Sender = rand.Next(100000000, 999999999);
                     Parcels[i].Targetid = rand.Next(100000000, 999999999);
-                    Parcels[i].Requested = rand.Next;
-                    Parcels[i].PickUp = rand.Next;
-                    Parcels[i].Delivered = rand.Next;
-                    Parcels[i].Scheduled = DateAndTime;
-
+                    Parcels[i].DroneActionMode = rand.Next(0, 1);
+                    Parcels[i].Weight = (@enum.WeightCategories)rand.Next(0, 2);
+                    Parcels[i].Requested = DateAndTime;
+                    Parcels[i].Scheduled = DateAndTime.AddMinutes(rand.Next(10, 1000));//adds minutes between requested and scheduled 
+                    Parcels[i].Delivered = DateAndTime.AddHours(rand.Next(10, 1000));//adds hours between scheduled and delivered 
+                    Parcels[i].PickUp = DateAndTime.AddHours(rand.Next(10, 1000));//adds hours between delivered and pick up
                 }
+                //Updates the indicator of the first free element-Parcel
+                Config.firstAvailableCustomer = 10;
+                //Updates the value to a greater num than all the packages that were added 
+                Config.RunnerIDNumParcels = 11;
             }
         }
 

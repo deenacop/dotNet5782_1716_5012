@@ -14,10 +14,10 @@ namespace IDAL
         public struct Parcel
         {
             public int ID { get; set; }
-            public int Sender { get; set; }//acording the ID
-            public int Targetid { get; set; }//acording the ID
+            public int Sender { get; set; }//according the ID
+            public int Targetid { get; set; }//according the ID
             public @enum.WeightCategories Weight { get; set; }
-            public bool DroneActionMode { get; set; }
+            public int DroneActionMode { get; set; }
             public DateTime Requested { get; set; }
             public DateTime PickUp { get; set; }
             public DateTime Delivered { get; set; }
