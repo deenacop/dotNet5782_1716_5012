@@ -22,18 +22,26 @@ namespace IDAL
             internal class Config
             {
                 static internal int FirstAvailableDrone = 0;
-                static internal int firstAvailableStation = 0;
-                static internal int firstAvailableCustomer = 0;
-                static internal int firstAvailableParcel = 0;
+                static internal int FirstAvailableStation = 0;
+                static internal int FirstAvailableCustomer = 0;
+                static internal int FirstAvailableParcel = 0;
                 static internal int RunnerIDNumParcels = 0;
             }
-
             public static void Initialize()
             {
                 // Initializing variables into 2 stations. 
                 for (int i = 0; i < 2; i++)
                 {
                     Stations[i].ID = rand.Next(1000, 9999);
+                    for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each station.
+                    {
+                        if (Stations[j].ID == Stations[i].ID)
+                        {
+                            while (Stations[j].ID == Stations[i].ID)
+                                Stations[i].ID = rand.Next(1000, 9999);
+                            j = 0;
+                        }
+                    }
                     Stations[i].NumOfChargeSlots = rand.Next(0, 100);
                     //In Jerusalem only
                     Stations[i].Latitude = rand.NextDouble() + 31;
@@ -44,12 +52,21 @@ namespace IDAL
                 Stations[1].Name = "4 David Remez Street, Jerusalem";
 
                 //Updates the indicator of the first free element-Station
-                Config.firstAvailableStation = 2;
+                Config.FirstAvailableStation = 2;
 
                 //Initializing variables into 5 drones.
                 for (int i = 0; i < 5; i++)
                 {
                     Drones[i].ID = rand.Next(100, 999);
+                    for (int j = 0; j < i; j++) //Checks that indeed the ID number is unique to each drone.
+                    {
+                        if (Drones[j].ID == Drones[i].ID)
+                        {
+                            while (Drones[j].ID == Drones[i].ID)
+                                Drones[i].ID = rand.Next(1000, 9999);
+                            j = 0;
+                        }
+                    }
                     Drones[i].Battery = rand.Next(0, 100);
                     Drones[i].Status = (@enum.DroneStatus)rand.Next(0, 2);
                     Drones[i].Weight = (@enum.WeightCategories)rand.Next(0, 2);
@@ -93,7 +110,7 @@ namespace IDAL
                 Customers[8].PhoneNumber = "0547890087";
                 Customers[9].PhoneNumber = "0505678876";
                 //Updates the indicator of the first free element-Customers
-                Config.firstAvailableCustomer = 10;
+                Config.FirstAvailableCustomer = 10;
 
                 //Initializing variables into 10 parcels.
                 for (int i = 0; i < 10; i++)
@@ -101,6 +118,15 @@ namespace IDAL
                     //Date and time randomly 
                     DateTime DateAndTime = new DateTime(2021, rand.Next(1, 12), rand.Next(1, 29), rand.Next(1, 24), rand.Next(0, 60), rand.Next(0, 60));
                     Parcels[i].ID = rand.Next(100000, 999999);
+                    for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each parcel.
+                    {
+                        if (Parcels[j].ID == Parcels[i].ID)
+                        {
+                            while (Parcels[j].ID == Parcels[i].ID)
+                                Parcels[i].ID = rand.Next(1000, 9999);
+                            j = 0;
+                        }
+                    }
                     Parcels[i].Sender = rand.Next(100000000, 999999999);
                     Parcels[i].Targetid = rand.Next(100000000, 999999999);
                     Parcels[i].DroneActionMode = rand.Next(0, 1);
@@ -111,7 +137,7 @@ namespace IDAL
                     Parcels[i].PickUp = DateAndTime.AddHours(rand.Next(10, 1000));//adds hours between delivered and pick up
                 }
                 //Updates the indicator of the first free element-Parcel
-                Config.firstAvailableCustomer = 10;
+                Config.FirstAvailableCustomer = 10;
                 //Updates the value to a greater num than all the packages that were added 
                 Config.RunnerIDNumParcels = 11;
             }
