@@ -2,7 +2,7 @@
 
 namespace ConsoleUI
 {
-    class Program
+    class main
     {
         static void Main(string[] args)
         {
