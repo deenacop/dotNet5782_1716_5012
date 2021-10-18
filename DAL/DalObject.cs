@@ -194,6 +194,19 @@ namespace IDAL
 
             }
             /// <summary>
+            /// prints the parcel's detailes
+            /// </summary>
+            /// <param name="ParcelID"> The requested parcel</param>
+            public void ParcelDisplay(int ParcelID)
+            {
+                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
+                {
+                    if (DataSource.Parcels[i].ID == ParcelID)
+                        Console.WriteLine(DataSource.Parcels[i].ToString());
+                }
+
+            }
+            /// <summary>
             /// Prints all the drones in the list.
             /// </summary>
             public void ListDroneDisplay()
@@ -215,19 +228,7 @@ namespace IDAL
                 }
 
             }
-            /// <summary>
-            /// prints the parcel's detailes
-            /// </summary>
-            /// <param name="ParcelID"> The requested parcel</param>
-            public void ParcelDisplay(int ParcelID)
-            {
-                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
-                {
-                    if (DataSource.Parcels[i].ID == ParcelID)
-                        Console.WriteLine(DataSource.Parcels[i].ToString());
-                }
-
-            }
+            
             /// <summary>
             /// prints all the station in the list 
             /// </summary>
@@ -249,6 +250,7 @@ namespace IDAL
                         Console.WriteLine(DataSource.Parcels[i].ToString());
                 }
             }
+
 
         }
 
