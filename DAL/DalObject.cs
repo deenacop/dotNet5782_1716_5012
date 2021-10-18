@@ -39,12 +39,12 @@ namespace IDAL
                 {
                     if (DataSource.Drones[i].Status == @enum.DroneStatus.available)
                     {
-                        //DataSource.Drones[i].Status = @enum.DroneStatus.delivery;
                         DroneIDToParcel = DataSource.Drones[i].ID;//The found drone 
                         break;
                     }
                     if (DroneIDToParcel == 0)
-                        DroneIDToParcel = DataSource.Drones[DataSource.rand.Next(1, 10)].ID;
+                        Console.WriteLine("overflow\n");
+                        //DroneIDToParcel = DataSource.Drones[DataSource.rand.Next(1, 10)].ID;
                 }
                 //finds the wanted parcel
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
@@ -96,6 +96,7 @@ namespace IDAL
                     if (DataSource.Parcels[i].ID == ParcelID)
                     {
                         DataSource.Parcels[i].PickUp = DateTime.Now;
+                        DataSource.Parcels[i].MyDroneID = 0;
                         break;
                     }
                 }
@@ -111,8 +112,11 @@ namespace IDAL
 
             }
 
-            public void SendingDroneForchargingBaseStation(int DroneID)
+            public void SendingDroneForchargingBaseStation(int DroneID,int ChosenStation)//?????????
             {
+                DroneCharge ChargingDroneBattery = new DroneCharge();
+                ChargingDroneBattery.RecDrone = DroneID;
+                ChargingDroneBattery.RecBaseStation = ChosenStation;
                 //changes the status of the drone to be maintenance
                 for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
                 {
@@ -122,9 +126,15 @@ namespace IDAL
                         break;
                     }
                 }
-
-                DroneCharge droneCharge = new DroneCharge();
-
+                //up dates the number of available charging slots
+                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
+                {
+                    if (DataSource.Stations[i].ID == ChosenStation)
+                    {
+                        DataSource.Stations[i].NumOfAvailableChargeSlots--; 
+                        break;
+                    }
+                }
             }
             /// <summary>
             /// Releasing a drone from a charging Base Station.
@@ -250,7 +260,28 @@ namespace IDAL
                         Console.WriteLine(DataSource.Parcels[i].ToString());
                 }
             }
-
+            /// <summary>
+            /// Prints all the Unassigned parcels.
+            /// </summary>
+            public void ListOfUnassignedParcels()
+            {
+                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
+                {
+                    if(DataSource.Parcels[i].MyDroneID==0)
+                        Console.WriteLine(DataSource.Parcels[i].ToString());
+                }
+            }
+            /// <summary>
+            /// Display of base stations with available charging stations
+            /// </summary>
+            public void ListOfAvailableChargingStations()
+            {
+                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
+                {
+                    if (DataSource.Stations[i].NumOfAvailableChargeSlots != 0)
+                        Console.WriteLine(DataSource.Stations[i].ToString());
+                }
+            }
 
         }
 
