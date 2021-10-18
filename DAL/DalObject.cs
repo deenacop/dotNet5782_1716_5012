@@ -180,6 +180,41 @@ namespace IDAL
                 }
 
             }
+            /// <summary>
+            /// prints the customer's detailes
+            /// </summary>
+            /// <param name="CustomerID">The requested customer</param>
+            public void CustomerDisplay(int CustomerID)
+            {
+                for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
+                {
+                    if (DataSource.Customers[i].ID == CustomerID)
+                        Console.WriteLine(DataSource.Customers[i].ToString());
+                }
+
+            }
+            /// <summary>
+            /// Prints all the drones in the list.
+            /// </summary>
+            public void ListDroneDisplay()
+            {
+                for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
+                {
+                        Console.WriteLine(DataSource.Drones[i].ToString());
+                }
+
+            }
+            /// <summary>
+            /// Prints all the customers in the list.
+            /// </summary>
+            public void ListCustomerDisplay()
+            {
+                for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
+                {
+                        Console.WriteLine(DataSource.Customers[i].ToString());
+                }
+
+            }
         }
 
 
