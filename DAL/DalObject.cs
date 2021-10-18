@@ -10,19 +10,19 @@ namespace IDAL
     {
         public class DalObject
         {
-            public void Add(Drone NewDrone)
+            public static void Add(Drone NewDrone)
             {
                 DataSource.Drones[DataSource.Config.FirstAvailableDrone++] = NewDrone;
             }
-            public void Add(Station NewStation)
+            public static void Add(Station NewStation)
             {
                 DataSource.Stations[DataSource.Config.FirstAvailableStation++] = NewStation;
             }
-            public void Add(Parcel NewParcel)
+            public static void Add(Parcel NewParcel)
             {
                 DataSource.Parcels[DataSource.Config.FirstAvailableParcel++] = NewParcel;
             }
-            public void Add(Customer NewCustomer)
+            public static void Add(Customer NewCustomer)
             {
                 DataSource.Customers[DataSource.Config.FirstAvailableCustomer++] = NewCustomer;
             }
@@ -32,7 +32,7 @@ namespace IDAL
             /// Assigns a free drone to the parcel
             /// </summary>
             /// <param name="ParcelID">The parcel's ID that needs to be assigns</param>
-            public void AssignParcelToDrone(int ParcelID)
+            public static void AssignParcelToDrone(int ParcelID)
             {
                 //finds the first available drone
                 for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
@@ -62,7 +62,7 @@ namespace IDAL
             /// Collection of a requested parcel by a drone
             /// </summary>
             /// <param name="ParcelID">The parcel's ID that needs to be collected</param>
-            public void CollectionOfParcelByDrone(int ParcelID)
+            public static void CollectionOfParcelByDrone(int ParcelID)
             {
                 //finds the wanted parcel
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
@@ -88,7 +88,7 @@ namespace IDAL
             /// Delivery parcil to customer
             /// </summary>
             /// <param name="ParcelID">The parcel's ID that needs to be collected</param>
-            public void DeliveryParcelToCustomer(int ParcelID)
+            public static void DeliveryParcelToCustomer(int ParcelID)
             {
                 //finds the wanted parcel and updates the pick up time
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
@@ -112,7 +112,7 @@ namespace IDAL
 
             }
 
-            public void SendingDroneForchargingBaseStation(int DroneID,int ChosenStation)//?????????
+            public static void SendingDroneForchargingBaseStation(int DroneID,int ChosenStation)//?????????
             {
                 DroneCharge ChargingDroneBattery = new DroneCharge();
                 ChargingDroneBattery.RecDrone = DroneID;
@@ -141,7 +141,7 @@ namespace IDAL
             /// </summary>
             /// <param name="DroneID">The ID of the wanted drone</param>
             /// <param name="BaseStationID">The ID of the wanted station</param>
-            public void ReleasingDroneFromChargingBaseStation(int DroneID, int BaseStationID)
+            public static void ReleasingDroneFromChargingBaseStation(int DroneID, int BaseStationID)
             {
                 //changes the status of the drone to be available
                 for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
@@ -167,7 +167,7 @@ namespace IDAL
             /// prints the drone's detailes 
             /// </summary>
             /// <param name="DroneID">The requested drone</param>
-            public void DroneDisplay(int DroneID)
+            public static void DroneDisplay(int DroneID)
             {
                 for(int i =0; i<DataSource.Config.FirstAvailableDrone;i++)
                 {
@@ -181,7 +181,7 @@ namespace IDAL
             /// prints the station's detailes 
             /// </summary>
             /// <param name="StationID">The requested station</param>
-            public void StationDisplay(int StationID)
+            public static void StationDisplay(int StationID)
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
                 {
@@ -194,7 +194,7 @@ namespace IDAL
             /// prints the customer's detailes
             /// </summary>
             /// <param name="CustomerID">The requested customer</param>
-            public void CustomerDisplay(int CustomerID)
+            public static void CustomerDisplay(int CustomerID)
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
                 {
@@ -207,7 +207,7 @@ namespace IDAL
             /// prints the parcel's detailes
             /// </summary>
             /// <param name="ParcelID"> The requested parcel</param>
-            public void ParcelDisplay(int ParcelID)
+            public static void ParcelDisplay(int ParcelID)
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
                 {
@@ -219,7 +219,7 @@ namespace IDAL
             /// <summary>
             /// Prints all the drones in the list.
             /// </summary>
-            public void ListDroneDisplay()
+            public static void ListDroneDisplay()
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
                 {
@@ -230,7 +230,7 @@ namespace IDAL
             /// <summary>
             /// Prints all the customers in the list.
             /// </summary>
-            public void ListCustomerDisplay()
+            public static void ListCustomerDisplay()
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
                 {
@@ -242,7 +242,7 @@ namespace IDAL
             /// <summary>
             /// prints all the station in the list 
             /// </summary>
-            public void ListStationDisplay()
+            public static void ListStationDisplay()
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
                 { 
@@ -253,7 +253,7 @@ namespace IDAL
             /// <summary>
             /// prints all the parcel in the list
             /// </summary>
-            public void ListParcelDisplay(int ParcelID)
+            public static void ListParcelDisplay(int ParcelID)
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
                 {
@@ -263,7 +263,7 @@ namespace IDAL
             /// <summary>
             /// Prints all the Unassigned parcels.
             /// </summary>
-            public void ListOfUnassignedParcels()
+            public static void ListOfUnassignedParcels()
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
                 {
@@ -274,7 +274,7 @@ namespace IDAL
             /// <summary>
             /// Display of base stations with available charging stations
             /// </summary>
-            public void ListOfAvailableChargingStations()
+            public static void ListOfAvailableChargingStations()
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
                 {
