@@ -15,6 +15,11 @@ namespace IDAL
         {
             public int RecBaseStation { get; set; }
             public int RecDrone { get; set; }
+            public override string ToString()
+            {
+                string str = "ID of the base station in drone charge:" + RecBaseStation + "\nID of the drone in drone charge:" + RecDrone + "\n" ;
+                return str;
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace IDAL
         /// </summary>
         public class DataSource
         {
-            static readonly Random rand = new(DateTime.Now.Millisecond);
+            static internal readonly Random rand = new(DateTime.Now.Millisecond);
             //Builds arrays for all the entities
             static internal Drone[] Drones = new Drone[10];
             static internal Station[] Stations = new Station[5];
@@ -42,7 +42,7 @@ namespace IDAL
                             j = 0;
                         }
                     }
-                    Stations[i].NumOfChargeSlots = rand.Next(0, 100);
+                    Stations[i].NumOfAvailableChargeSlots = rand.Next(0, 100);
                     //In Jerusalem only
                     Stations[i].Latitude = rand.NextDouble() + 31;
                     Stations[i].Longitude = rand.NextDouble() + 35;
@@ -68,7 +68,7 @@ namespace IDAL
                         }
                     }
                     Drones[i].Battery = rand.Next(0, 100);
-                    Drones[i].Status = (@enum.DroneStatus)rand.Next(0, 2);
+                    Drones[i].Status = 0;//No delivery have yet been made so all drones are available.
                     Drones[i].Weight = (@enum.WeightCategories)rand.Next(0, 2);
                     Drones[i].Priority = (@enum.Priorities)rand.Next(0, 2);
                 }
@@ -129,7 +129,7 @@ namespace IDAL
                     }
                     Parcels[i].Sender = rand.Next(100000000, 999999999);
                     Parcels[i].Targetid = rand.Next(100000000, 999999999);
-                    Parcels[i].DroneActionMode = rand.Next(0, 1);
+                    Parcels[i].MyDroneID = 0;//In the initialization, the entire ID of the drone is 0 because we did not want to reach contradictions in the introduction of the identity of the drone and also that no deliveries were made yet.
                     Parcels[i].Weight = (@enum.WeightCategories)rand.Next(0, 2);
                     Parcels[i].Requested = DateAndTime;
                     Parcels[i].Scheduled = DateAndTime.AddMinutes(rand.Next(10, 1000));//adds minutes between requested and scheduled 
