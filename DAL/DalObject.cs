@@ -215,6 +215,41 @@ namespace IDAL
                 }
 
             }
+            /// <summary>
+            /// prints the parcel's detailes
+            /// </summary>
+            /// <param name="ParcelID"> The requested parcel</param>
+            public void ParcelDisplay(int ParcelID)
+            {
+                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
+                {
+                    if (DataSource.Parcels[i].ID == ParcelID)
+                        Console.WriteLine(DataSource.Parcels[i].ToString());
+                }
+
+            }
+            /// <summary>
+            /// prints all the station in the list 
+            /// </summary>
+            public void ListStationDisplay()
+            {
+                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
+                { 
+                      Console.WriteLine(DataSource.Stations[i].ToString());
+                }
+
+            }
+            /// <summary>
+            /// prints all the parcel in the list
+            /// </summary>
+            public void ListParcelDisplay(int ParcelID)
+            {
+                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
+                {
+                        Console.WriteLine(DataSource.Parcels[i].ToString());
+                }
+            }
+
         }
 
 
