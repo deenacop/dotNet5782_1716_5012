@@ -79,35 +79,22 @@ namespace IDAL
                 //Updates the indicator of the first free element-Drone
                 Config.FirstAvailableDrone = 5;
 
+                
+                string[] NameArr = { "Shira Segal" , "Deena Copperman" , "Benjamin Netanyahu" , "Yishai Ribu" ,
+                                     "Yossi Cohen","Moshe Leon","Mordechai Glazer","Yehuda Shor","Yigal Eyal","Lior Ackerman"};
+                
+                string[] PhoneArr = { "0548482282" , "0504188440", "0548324567" , "0547687689", "0525678997",
+                                      "0537897889","0527689646","0526789997","0547890087","0505678876"};
                 //Initializing variables into 10 customers.
                 for (int i = 0; i < 10; i++)
                 {
                     Customers[i].ID = rand.Next(100000000, 999999999);//9 digits
                     Customers[i].Latitude = rand.NextDouble() + 31;
                     Customers[i].Longitude = rand.NextDouble() + 35;
+                    Customers[i].Name = NameArr[i];
+                    Customers[i].PhoneNumber = PhoneArr[i];
                 }
-                //Initializing variables into customers names.
-                Customers[0].Name = "Shira Segal";
-                Customers[1].Name = "Deena Copperman";
-                Customers[2].Name = "Benjamin Netanyahu";
-                Customers[3].Name = "Yishai Ribu";
-                Customers[4].Name = "Yossi Cohen";
-                Customers[5].Name = "Moshe Leon";
-                Customers[6].Name = "Mordechai Glazer";
-                Customers[7].Name = "Yehuda Shor";
-                Customers[8].Name = "Yigal Eyal";
-                Customers[9].Name = "Lior Ackerman";
-                //Initializing variables into customers phone numbers.
-                Customers[0].PhoneNumber = "0548482282";
-                Customers[1].PhoneNumber = "0504188440";
-                Customers[2].PhoneNumber = "0548324567";
-                Customers[3].PhoneNumber = "0547687689";
-                Customers[4].PhoneNumber = "0525678997";
-                Customers[5].PhoneNumber = "0537897889";
-                Customers[6].PhoneNumber = "0527689646";
-                Customers[7].PhoneNumber = "0526789997";
-                Customers[8].PhoneNumber = "0547890087";
-                Customers[9].PhoneNumber = "0505678876";
+
                 //Updates the indicator of the first free element-Customers
                 Config.FirstAvailableCustomer = 10;
 

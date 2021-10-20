@@ -20,7 +20,8 @@ namespace IDAL
             public double Latitude { get; set; }
             public override string ToString()
             {
-                string str = "Station ID:" + ID + "\nStation name:" + Name + "\nNumber of available slots:" + NumOfAvailableChargeSlots + "\nStation location:" + Longitude + "," + Latitude + "\n";
+                string str = "Station ID:" + ID + "\nStation name:" + Name + "\nNumber of available slots:" + NumOfAvailableChargeSlots
+                    + "\nStation location:" + Longitude + "," + Latitude + "\n";
                 return str;
             }
         }

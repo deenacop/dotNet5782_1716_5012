@@ -20,7 +20,8 @@ namespace IDAL
             public int Battery { get; set; }
             public override string ToString()
             {
-                string str = "Drone ID:" + ID + "\nDrone model:" + Model + "\nDrone weight:" + Weight + "\nDrone status:" + Status + "\nDrone priority:" + Priority + "\nDrone battery:" + Battery + "\n";
+                string str = "Drone ID:" + ID + "\nDrone model:" + Model + "\nDrone weight:" + Weight + "\nDrone status:" + Status
+                    + "\nDrone battery:" + Battery + "\n";
                 return str;
             }
         }

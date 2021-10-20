@@ -6,7 +6,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            IDAL.DO.DataSource.Initialize();// Boot the system
+            IDAL.DO.DalObject boot = new IDAL.DO.DalObject();
             Console.WriteLine("Welcome to our drone delivery system.\n" +
                 "To insert, type 1." +
                 "\nTo update, type 2." +
@@ -18,14 +18,16 @@ namespace ConsoleUI
             int IDFromUser1, IDFromUser2;
             while (UserAnswer != 5)
             {
-                UserAnswer =(int) Console.Read();
+                Input = Console.ReadLine();
+                int.TryParse(Input, out UserAnswer);
                 switch (UserAnswer)
                 {
                     case (int)IDAL.DO.@enum.options.Add:
                         {
                             Console.WriteLine("To add a drone, type 1.\nTo add a station, type 2.\n" +
                                               "To add a parcel, type 3.\nTo add a customer, type 4.");
-                            UserAnswer = (int)Console.Read();
+                            Input = Console.ReadLine();
+                            int.TryParse(Input, out UserAnswer);
                             switch (UserAnswer)
                             {
                                 case (int)IDAL.DO.@enum.AddOptions.Drone:
@@ -52,7 +54,8 @@ namespace ConsoleUI
                             Console.WriteLine("To assign pacel to drone, type 1.\nTo collect parcel by a drone, type 2.\n" +
                                           "To deliver parcel to a customer, type 3.\nTo send drone to a charging base station, type 4.\n" +
                                           "To release drone from charging station, type 5.");
-                            UserAnswer = (int)Console.Read();
+                            Input = Console.ReadLine();
+                            int.TryParse(Input, out UserAnswer);
                             switch (UserAnswer)
                             {
 
@@ -87,7 +90,8 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter drone ID (3 digits).");
                                         Input = Console.ReadLine();
                                         int.TryParse(Input, out IDFromUser1);
-                                        Console.WriteLine("Enter station ID (4 digits).");
+                                        Console.WriteLine("Choose from the following available stations. Enter the chosen ID (4 digits).");
+                                        IDAL.DO.DalObject.ListOfAvailableChargingStations();
                                         Input = Console.ReadLine();
                                         int.TryParse(Input, out IDFromUser2);
                                         IDAL.DO.DalObject.SendingDroneToChargingBaseStation(IDFromUser1, IDFromUser2);
@@ -105,7 +109,9 @@ namespace ConsoleUI
                                         IDAL.DO.DalObject.ReleasingDroneFromChargingBaseStation(IDFromUser1, IDFromUser2);
                                         break;
                                     }
+
                             }
+                            UserAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
                             break;
                         }
 
@@ -115,7 +121,8 @@ namespace ConsoleUI
                         {
                             Console.WriteLine("To to print a drone, type 1.\nTo print a station, type 2.\n" +
                                              "To print a parcel, type 3.\nTo print a customer, type 4.");
-                            UserAnswer = (int)Console.Read();
+                            Input = Console.ReadLine();
+                            int.TryParse(Input, out UserAnswer);
                             switch (UserAnswer)
                             {
 
@@ -165,8 +172,8 @@ namespace ConsoleUI
                             Console.WriteLine("To to print all drones, type 1.\nTo print all stations, type 2.\n" +
                                             "To print all parcels, type 3.\nTo print all customers, type 4.\n" +
                                             "To print all unassign parcels, type 5.\nTo print all available charge station, type 6.");
-                            UserAnswer = (int)Console.Read();
-
+                            Input = Console.ReadLine();
+                            int.TryParse(Input, out UserAnswer);
                             switch (UserAnswer)
                             {
                                 case (int)IDAL.DO.@enum.DisplayListOptions.DisplyDroneList:
@@ -193,13 +200,14 @@ namespace ConsoleUI
                                     IDAL.DO.DalObject.ListOfAvailableChargingStations();
                                     break;
                             }
+                            UserAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
                             break;
                         }
 
 
 
                     case (int)IDAL.DO.@enum.options.Exit:
-                        Console.WriteLine("by🙋‍♀️");
+                        Console.WriteLine("\nThank you for using our drones system, looking forward to see you again!");
                         break;
 
                     default:
@@ -207,6 +215,12 @@ namespace ConsoleUI
                         break;
 
                 }
+
+                Console.WriteLine("To insert, type 1." +
+                "\nTo update, type 2." +
+                "\nTo view a single item, type 3." +
+                "\nTo view a list, type 4." +
+                "\nTo exit, type 5.");
             }
         }
     }

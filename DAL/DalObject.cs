@@ -10,6 +10,7 @@ namespace IDAL
     {
         public class DalObject
         {
+            public DalObject() { DataSource.Initialize(); }
             public static void Add(Drone NewDrone)
             {
                 DataSource.Drones[DataSource.Config.FirstAvailableDrone++] = NewDrone;
@@ -44,7 +45,7 @@ namespace IDAL
                     }
                     if (DroneIDToParcel == 0)
                         Console.WriteLine("overflow\n");
-                        //DroneIDToParcel = DataSource.Drones[DataSource.rand.Next(1, 10)].ID;
+                    //DroneIDToParcel = DataSource.Drones[DataSource.rand.Next(1, 10)].ID;
                 }
                 //finds the wanted parcel
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
@@ -112,7 +113,7 @@ namespace IDAL
 
             }
 
-            public static void SendingDroneToChargingBaseStation(int DroneID,int ChosenStation)//?????????
+            public static void SendingDroneToChargingBaseStation(int DroneID, int ChosenStation)//?????????
             {
                 DroneCharge ChargingDroneBattery = new DroneCharge();
                 ChargingDroneBattery.RecDrone = DroneID;
@@ -131,7 +132,7 @@ namespace IDAL
                 {
                     if (DataSource.Stations[i].ID == ChosenStation)
                     {
-                        DataSource.Stations[i].NumOfAvailableChargeSlots--; 
+                        DataSource.Stations[i].NumOfAvailableChargeSlots--;
                         break;
                     }
                 }
@@ -169,12 +170,12 @@ namespace IDAL
             /// <param name="DroneID">The requested drone</param>
             public static void DroneDisplay(int DroneID)
             {
-                for(int i =0; i<DataSource.Config.FirstAvailableDrone;i++)
+                for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
                 {
-                    if(DataSource.Drones[i].ID==DroneID)
+                    if (DataSource.Drones[i].ID == DroneID)
                         Console.WriteLine(DataSource.Drones[i].ToString());
                 }
-                
+
             }
 
             /// <summary>
@@ -223,7 +224,7 @@ namespace IDAL
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
                 {
-                        Console.WriteLine(DataSource.Drones[i].ToString());
+                    Console.WriteLine(DataSource.Drones[i].ToString());
                 }
 
             }
@@ -234,19 +235,19 @@ namespace IDAL
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
                 {
-                        Console.WriteLine(DataSource.Customers[i].ToString());
+                    Console.WriteLine(DataSource.Customers[i].ToString());
                 }
 
             }
-            
+
             /// <summary>
             /// prints all the station in the list 
             /// </summary>
             public static void ListStationDisplay()
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
-                { 
-                      Console.WriteLine(DataSource.Stations[i].ToString());
+                {
+                    Console.WriteLine(DataSource.Stations[i].ToString());
                 }
 
             }
@@ -257,7 +258,7 @@ namespace IDAL
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
                 {
-                        Console.WriteLine(DataSource.Parcels[i].ToString());
+                    Console.WriteLine(DataSource.Parcels[i].ToString());
                 }
             }
             /// <summary>
@@ -267,7 +268,7 @@ namespace IDAL
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
                 {
-                    if(DataSource.Parcels[i].MyDroneID==0)
+                    if (DataSource.Parcels[i].MyDroneID == 0)
                         Console.WriteLine(DataSource.Parcels[i].ToString());
                 }
             }

@@ -25,7 +25,7 @@ namespace IDAL
             public DateTime Scheduled { get; set; }
             public override string ToString()
             {
-                string str = "Parcel ID:" + ID + "\nParcel sender:" + Sender + "\nParcel targetid:" + Targetid + "\nParcel weight:" + Weight +
+                string str = "Parcel ID:" + ID + "\nParcel sender:" + Sender + "\nParcel targetid:" + Targetid + "\nParcel weight:" + Weight + "\nParcel priority:" + Priority +
                 "\nParcel drone ID:" + MyDroneID + "\nParcel time of request:" + Requested + "\nParcel time of schedule:" + Scheduled + "\nParcel time of delivery:" + Delivered + "\nParcel time of pick up:" + PickUp + "\n";
                 return str;
             }
