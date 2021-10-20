@@ -132,9 +132,9 @@ namespace IDAL
                     Parcels[i].Weight = (@enum.WeightCategories)rand.Next(0, 2);
                     Parcels[i].Priority = (@enum.Priorities)rand.Next(0, 2);
                     Parcels[i].Requested = DateAndTime;
-                    Parcels[i].Scheduled = DateAndTime.AddMinutes(rand.Next(10, 1000));//adds minutes between requested and scheduled 
-                    Parcels[i].Delivered = DateAndTime.AddHours(rand.Next(10, 1000));//adds hours between scheduled and delivered 
-                    Parcels[i].PickUp = DateAndTime.AddHours(rand.Next(10, 1000));//adds hours between delivered and pick up
+                    Parcels[i].Scheduled = Parcels[i].Requested.AddMinutes(rand.Next(10, 1000));//adds minutes between requested and scheduled 
+                    Parcels[i].Delivered = Parcels[i].Scheduled.AddHours(rand.Next(10, 1000));//adds hours between scheduled and delivered 
+                    Parcels[i].PickUp = Parcels[i].Delivered.AddHours(rand.Next(10, 1000));//adds hours between delivered and pick up
                 }
                 //Updates the indicator of the first free element-Parcel
                 Config.FirstAvailableParcel = 10;

@@ -105,7 +105,7 @@ namespace IDAL
                 {
                     if (DataSource.Drones[i].ID == DroneIDToParcel)
                     {
-                        DataSource.Drones[i].Status = @enum.DroneStatus.available;//???
+                        DataSource.Drones[i].Status = @enum.DroneStatus.available;
                         break;
                     }
                 }
