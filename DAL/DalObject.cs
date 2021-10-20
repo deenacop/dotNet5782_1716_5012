@@ -112,7 +112,7 @@ namespace IDAL
 
             }
 
-            public static void SendingDroneForchargingBaseStation(int DroneID,int ChosenStation)//?????????
+            public static void SendingDroneToChargingBaseStation(int DroneID,int ChosenStation)//?????????
             {
                 DroneCharge ChargingDroneBattery = new DroneCharge();
                 ChargingDroneBattery.RecDrone = DroneID;
@@ -253,7 +253,7 @@ namespace IDAL
             /// <summary>
             /// prints all the parcel in the list
             /// </summary>
-            public static void ListParcelDisplay(int ParcelID)
+            public static void ListParcelDisplay()
             {
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
                 {

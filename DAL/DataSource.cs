@@ -137,7 +137,7 @@ namespace IDAL
                     Parcels[i].PickUp = DateAndTime.AddHours(rand.Next(10, 1000));//adds hours between delivered and pick up
                 }
                 //Updates the indicator of the first free element-Parcel
-                Config.FirstAvailableCustomer = 10;
+                Config.FirstAvailableParcel = 10;
                 //Updates the value to a greater num than all the packages that were added 
                 Config.RunnerIDNumParcels = 11;
             }
