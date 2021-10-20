@@ -29,6 +29,7 @@ namespace IDAL
             }
             public static void Initialize()
             {
+                String[] AddresArr = { "Balfour street, Jerusalem", "4 David Remez Street, Jerusalem" };
                 // Initializing variables into 2 stations. 
                 for (int i = 0; i < 2; i++)
                 {
@@ -43,17 +44,15 @@ namespace IDAL
                         }
                     }
                     Stations[i].NumOfAvailableChargeSlots = rand.Next(0, 100);
+                    Stations[i].Name = AddresArr[i];
                     //In Jerusalem only
                     Stations[i].Latitude = rand.NextDouble() + 31;
                     Stations[i].Longitude = rand.NextDouble() + 35;
                 }
-                // Initializing variables into 2 name stations. 
-                Stations[0].Name = "Balfour street, Jerusalem";
-                Stations[1].Name = "4 David Remez Street, Jerusalem";
 
                 //Updates the indicator of the first free element-Station
                 Config.FirstAvailableStation = 2;
-
+                String[] ModelArr = { "Yuneec H520", "DJI Mavic 2 Zoom", "DJI Phantom 4", "3D Robotics Solo", "Flyability Elios Drone" };
                 //Initializing variables into 5 drones.
                 for (int i = 0; i < 5; i++)
                 {
@@ -67,15 +66,11 @@ namespace IDAL
                             j = 0;
                         }
                     }
+                    Drones[i].Model = ModelArr[i];
                     Drones[i].Battery = rand.Next(0, 100);
                     Drones[i].Status = 0;//No delivery have yet been made so all drones are available.
                     Drones[i].Weight = (@enum.WeightCategories)rand.Next(0, 2);
                 }
-                Drones[0].Model = "Yuneec H520";
-                Drones[1].Model = "DJI Mavic 2 Zoom";
-                Drones[2].Model = "DJI Phantom 4";
-                Drones[3].Model = "3D Robotics Solo";
-                Drones[4].Model = "Flyability Elios Drone";
                 //Updates the indicator of the first free element-Drone
                 Config.FirstAvailableDrone = 5;
 
