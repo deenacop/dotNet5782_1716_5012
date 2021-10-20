@@ -14,7 +14,14 @@ namespace IDAL
             /// DalObject constructor
             /// </summary>
             public DalObject() { DataSource.Initialize(); }
-
+            /// <summary>
+            /// Adds a new DroneCharge
+            /// </summary>
+            /// <param name="droneCharge">The new DroneCharge that we will added to the list of DroneCharges</param>
+            public static void Add (DroneCharge droneCharge)
+            {
+                DataSource.DroneCharges[DataSource.Config.FirstAvailableDroneCharge++]= droneCharge;
+            }
             /// <summary>
             /// Adds a new drone
             /// </summary>
@@ -134,11 +141,12 @@ namespace IDAL
 
             }
 
-            public static void SendingDroneToChargingBaseStation(int DroneID, int ChosenStation)//?????????
+            public static void SendingDroneToChargingBaseStation(int DroneID, int ChosenStation)
             {
                 DroneCharge ChargingDroneBattery = new DroneCharge();
                 ChargingDroneBattery.RecDrone = DroneID;
                 ChargingDroneBattery.RecBaseStation = ChosenStation;
+                Add(ChargingDroneBattery);
                 //changes the status of the drone to be maintenance
                 for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
                 {

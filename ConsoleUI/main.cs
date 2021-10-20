@@ -12,11 +12,12 @@ namespace ConsoleUI
                 "\nTo update, type 2." +
                 "\nTo view a single item, type 3." +
                 "\nTo view a list, type 4." +
-                "\nTo exit, type 5.");
+                "\nTo find a distance between a point and a station or between a point and the customer, type 5." +
+                "\nTo exit, type 6.");
             int UserAnswer = 0;
             string Input;
             int IDFromUser1, IDFromUser2;
-            while (UserAnswer != 5)
+            while (UserAnswer != 6)
             {
                 Input = Console.ReadLine();
                 int.TryParse(Input, out UserAnswer);
@@ -111,7 +112,7 @@ namespace ConsoleUI
                                     }
 
                             }
-                            UserAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
+                            UserAnswer = 0;//if UserAnswer will stay 6 the progrom will finish without wanting it to.
                             break;
                         }
 
@@ -228,10 +229,25 @@ namespace ConsoleUI
                                     }
 
                             }
-                            UserAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
+                            UserAnswer = 0;//if UserAnswer will stay 6 the progrom will finish without wanting it to.
                             break;
                         }
-
+                    case (int)IDAL.DO.@enum.options.FindTheDistance:
+                        {
+                            double lat1, lon1;
+                            int ID;
+                            Console.WriteLine("Enter the latitude of the point from which you want to calculate distance");
+                            Input = Console.ReadLine();
+                            double.TryParse(Input, out lat1);
+                            Console.WriteLine("Enter the longitude of the point from which you want to calculate distance");
+                            Input = Console.ReadLine();
+                            double.TryParse(Input, out lon1);
+                            Console.WriteLine("Enter the ID number of the customer or station from which you would like to measure distance. (For a 9-digit customer and for a 6-digit station). ");
+                            Input = Console.ReadLine();
+                            int.TryParse(Input, out ID);
+                            Console.WriteLine(IDAL.DO.DistanceCalculation.Calculate(lat1, lon1, ID));
+                            break;
+                        }
 
 
                     case (int)IDAL.DO.@enum.options.Exit:
@@ -248,7 +264,8 @@ namespace ConsoleUI
                 "\nTo update, type 2." +
                 "\nTo view a single item, type 3." +
                 "\nTo view a list, type 4." +
-                "\nTo exit, type 5.");
+                "\nTo find a distance between a point and a station or between a point and the customer, type 5." +
+                "\nTo exit, type 6.");
             }
         }
     }

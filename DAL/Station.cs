@@ -21,7 +21,8 @@ namespace IDAL
             public override string ToString()
             {
                 string str = "Station ID:" + ID + "\nStation name:" + Name + "\nNumber of available slots:" + NumOfAvailableChargeSlots
-                    + "\nStation location:\n"+ (SexagesimalDegree.convert(Longitude,Latitude));
+                    + "\nStation location:\n"+ (SexagesimalDegree.convert(Longitude,Latitude))+
+                    (float)Longitude + "    " + (float)Latitude;
                 return str;
             }
         }

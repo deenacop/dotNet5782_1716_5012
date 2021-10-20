@@ -21,7 +21,8 @@ namespace IDAL
             public override string ToString()
             {
                 string str = "Customer ID:" + ID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
-                    PhoneNumber + "\nCustomer location:\n" + (SexagesimalDegree.convert(Longitude, Latitude));
+                    PhoneNumber + "\nCustomer location:\n" + (SexagesimalDegree.convert(Longitude, Latitude))+
+                    (float)Longitude +"    "+ (float)Latitude;
                 return str;
             }
         }

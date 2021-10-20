@@ -23,9 +23,9 @@ namespace IDAL
             /// </summary>
             public enum Priorities { normal, fast, urgent };
             /// <summary>
-            /// Add , Update, DisplayIndividual, DisplayList, Exit 
+            /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit 
             /// </summary>
-            public enum options { Add = 1, Update, DisplayIndividual, DisplayList, Exit };
+            public enum options { Add = 1, Update, DisplayIndividual, DisplayList,FindTheDistance, Exit };
             /// <summary>
             /// Which item to add
             /// </summary>

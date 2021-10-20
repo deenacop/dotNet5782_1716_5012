@@ -15,7 +15,7 @@ namespace IDAL
             static internal Station[] Stations = new Station[5];
             static internal Customer[] Customers = new Customer[100];
             static internal Parcel[] Parcels = new Parcel[1000];
-
+            static internal DroneCharge[] DroneCharges = new DroneCharge[100];
             /// <summary>
             ///Defines an index variable for each array that indicates a free space.
             /// </summary>
@@ -25,6 +25,7 @@ namespace IDAL
                 static internal int FirstAvailableStation = 0;
                 static internal int FirstAvailableCustomer = 0;
                 static internal int FirstAvailableParcel = 0;
+                static internal int FirstAvailableDroneCharge = 0;
                 static internal int RunnerIDNumParcels = 0;
             }
             public static void Initialize()
