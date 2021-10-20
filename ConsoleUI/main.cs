@@ -37,15 +37,14 @@ namespace ConsoleUI
                                     {
                                         case (int)AddOptions.Drone:
                                             {
-                                                IDAL.DO.Drone drone = new IDAL.DO.Drone();
-                                                IDAL.DO.DalObject.Add(drone);
+                                                
                                             }
                                             break;
 
                                         case (int)AddOptions.Station:
                                             {
-                                                IDAL.DO.Station s = new IDAL.DO.Station();
-                                                IDAL.DO.DalObject.Add(s);
+                                                
+                                                IDAL.DO.mainFuncAdd.AddStation();
                                             }
                                             break;
 
@@ -175,3 +174,5 @@ namespace ConsoleUI
         }
     }
 }
+          
+          
