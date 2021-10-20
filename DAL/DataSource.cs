@@ -7,7 +7,7 @@ namespace IDAL
         /// <summary>
         /// Creates new arrays for each type, and initializes them with variables.
         /// </summary>
-        public class DataSource
+        internal class DataSource
         {
             static internal readonly Random rand = new(DateTime.Now.Millisecond);
             //Builds arrays for all the entities
@@ -29,7 +29,7 @@ namespace IDAL
             }
             public static void Initialize()
             {
-                String[] AddresArr = { "Balfour street, Jerusalem", "4 David Remez Street, Jerusalem" };
+                string[] AddresArr = { "Balfour street, Jerusalem", "4 David Remez Street, Jerusalem" };
                 // Initializing variables into 2 stations. 
                 for (int i = 0; i < 2; i++)
                 {
@@ -52,7 +52,7 @@ namespace IDAL
 
                 //Updates the indicator of the first free element-Station
                 Config.FirstAvailableStation = 2;
-                String[] ModelArr = { "Yuneec H520", "DJI Mavic 2 Zoom", "DJI Phantom 4", "3D Robotics Solo", "Flyability Elios Drone" };
+                string[] ModelArr = { "Yuneec H520", "DJI Mavic 2 Zoom", "DJI Phantom 4", "3D Robotics Solo", "Flyability Elios Drone" };
                 //Initializing variables into 5 drones.
                 for (int i = 0; i < 5; i++)
                 {

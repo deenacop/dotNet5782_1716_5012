@@ -220,47 +220,62 @@ namespace IDAL
             /// <summary>
             /// Prints all the drones in the list.
             /// </summary>
-            public static void ListDroneDisplay()
+            public static Drone[] ListDroneDisplay()
             {
+                Drone[] ListOfDrones = new Drone[DataSource.Config.FirstAvailableDrone];
                 for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
                 {
-                    Console.WriteLine(DataSource.Drones[i].ToString());
+                    ListOfDrones[i] = DataSource.Drones[i];
+                    Console.WriteLine(ListOfDrones[i].ToString());
                 }
+                return ListOfDrones;
 
             }
             /// <summary>
             /// Prints all the customers in the list.
             /// </summary>
-            public static void ListCustomerDisplay()
+            public static Customer[] ListCustomerDisplay()
             {
+                Customer[] ListOfCustomers = new Customer[DataSource.Config.FirstAvailableCustomer];
+
                 for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
                 {
+                    ListOfCustomers[i] = DataSource.Customers[i];
                     Console.WriteLine(DataSource.Customers[i].ToString());
                 }
-
+                return ListOfCustomers;
             }
 
             /// <summary>
             /// prints all the station in the list 
             /// </summary>
-            public static void ListStationDisplay()
+            public static Station[] ListStationDisplay()
             {
+                Station[] ListOfStation = new Station[DataSource.Config.FirstAvailableStation];
+
                 for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
                 {
-                    Console.WriteLine(DataSource.Stations[i].ToString());
-                }
+                    ListOfStation[i] = DataSource.Stations[i];
+                    Console.WriteLine((ListOfStation[i].ToString()));
 
+                }
+                return ListOfStation;
             }
             /// <summary>
             /// prints all the parcel in the list
             /// </summary>
-            public static void ListParcelDisplay()
+            public static Parcel[] ListParcelDisplay()
             {
+                Parcel[] ListOfParcel = new Parcel[DataSource.Config.FirstAvailableParcel];
+
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
                 {
-                    Console.WriteLine(DataSource.Parcels[i].ToString());
+                    ListOfParcel[i] = DataSource.Parcels[i];
+                    Console.WriteLine(ListOfParcel[i].ToString());
                 }
+                return ListOfParcel;
             }
+
             /// <summary>
             /// Prints all the Unassigned parcels.
             /// </summary>
@@ -272,6 +287,7 @@ namespace IDAL
                         Console.WriteLine(DataSource.Parcels[i].ToString());
                 }
             }
+
             /// <summary>
             /// Display of base stations with available charging stations
             /// </summary>

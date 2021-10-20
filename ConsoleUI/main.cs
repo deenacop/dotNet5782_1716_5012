@@ -48,7 +48,7 @@ namespace ConsoleUI
                             }
                             break;
                         }
-
+                       
                     case (int)IDAL.DO.@enum.options.Update:
                         {
                             Console.WriteLine("To assign pacel to drone, type 1.\nTo collect parcel by a drone, type 2.\n" +
@@ -177,10 +177,13 @@ namespace ConsoleUI
                             switch (UserAnswer)
                             {
                                 case (int)IDAL.DO.@enum.DisplayListOptions.DisplyDroneList:
+
                                     IDAL.DO.DalObject.ListDroneDisplay();
                                     break;
 
                                 case (int)IDAL.DO.@enum.DisplayListOptions.DisplyStationList:
+                                    //Console.WriteLine((IDAL.DO.DalObject.ListOfStation[0].ToString()));
+
                                     IDAL.DO.DalObject.ListStationDisplay();
                                     break;
 
