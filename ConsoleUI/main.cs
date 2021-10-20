@@ -31,24 +31,24 @@ namespace ConsoleUI
                             switch (UserAnswer)
                             {
                                 case (int)IDAL.DO.@enum.AddOptions.Drone:
-                                    IDAL.DO.mainFuncAdd.AddDrone();
+                                    IDAL.DO.MainFuncAdd.AddDrone();
                                     break;
 
                                 case (int)IDAL.DO.@enum.AddOptions.Station:
-                                    IDAL.DO.mainFuncAdd.AddStation();
+                                    IDAL.DO.MainFuncAdd.AddStation();
                                     break;
 
                                 case (int)IDAL.DO.@enum.AddOptions.Parcel:
-                                    IDAL.DO.mainFuncAdd.AddParcel();
+                                    IDAL.DO.MainFuncAdd.AddParcel();
                                     break;
 
                                 case (int)IDAL.DO.@enum.AddOptions.Customer:
-                                    IDAL.DO.mainFuncAdd.AddCustomer();
+                                    IDAL.DO.MainFuncAdd.AddCustomer();
                                     break;
                             }
                             break;
                         }
-                       
+
                     case (int)IDAL.DO.@enum.options.Update:
                         {
                             Console.WriteLine("To assign pacel to drone, type 1.\nTo collect parcel by a drone, type 2.\n" +
@@ -131,7 +131,8 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter drone ID (3 digits).");
                                         Input = Console.ReadLine();
                                         int.TryParse(Input, out IDFromUser1);
-                                        IDAL.DO.DalObject.DroneDisplay(IDFromUser1);
+                                        IDAL.DO.Drone droneWanted = IDAL.DO.DalObject.DroneDisplay(IDFromUser1);
+                                        Console.WriteLine(droneWanted);
                                         break;
                                     }
 
@@ -140,7 +141,8 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter station ID (4 digits).");
                                         Input = Console.ReadLine();
                                         int.TryParse(Input, out IDFromUser1);
-                                        IDAL.DO.DalObject.StationDisplay(IDFromUser1);
+                                        IDAL.DO.Station stationWanted = IDAL.DO.DalObject.StationDisplay(IDFromUser1);
+                                        Console.WriteLine(stationWanted);
                                         break;
                                     }
 
@@ -149,7 +151,8 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter parcel ID (6 digits).");
                                         Input = Console.ReadLine();
                                         int.TryParse(Input, out IDFromUser1);
-                                        IDAL.DO.DalObject.ParcelDisplay(IDFromUser1);
+                                        IDAL.DO.Parcel parcelWanted = IDAL.DO.DalObject.ParcelDisplay(IDFromUser1);
+                                        Console.WriteLine(parcelWanted);
                                         break;
                                     }
 
@@ -158,7 +161,8 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter customer ID (9 digits).");
                                         Input = Console.ReadLine();
                                         int.TryParse(Input, out IDFromUser1);
-                                        IDAL.DO.DalObject.CustomerDisplay(IDFromUser1);
+                                        IDAL.DO.Customer custumerWanted = IDAL.DO.DalObject.CustomerDisplay(IDFromUser1);
+                                        Console.WriteLine(custumerWanted);
                                         break;
                                     }
                             }
@@ -177,31 +181,52 @@ namespace ConsoleUI
                             switch (UserAnswer)
                             {
                                 case (int)IDAL.DO.@enum.DisplayListOptions.DisplyDroneList:
-
-                                    IDAL.DO.DalObject.ListDroneDisplay();
+                                    {
+                                        IDAL.DO.Drone[] ListOfDrones = IDAL.DO.DalObject.ListDroneDisplay();
+                                        for (int i = 0; i < ListOfDrones.Length; i++)
+                                            Console.WriteLine(ListOfDrones[i]);
+                                    }
                                     break;
 
                                 case (int)IDAL.DO.@enum.DisplayListOptions.DisplyStationList:
-                                    //Console.WriteLine((IDAL.DO.DalObject.ListOfStation[0].ToString()));
-
-                                    IDAL.DO.DalObject.ListStationDisplay();
+                                    {
+                                        IDAL.DO.Station[] ListOfStation = IDAL.DO.DalObject.ListStationDisplay();
+                                        for (int i = 0; i < ListOfStation.Length; i++)
+                                            Console.WriteLine(ListOfStation[i]);
+                                    }
                                     break;
 
                                 case (int)IDAL.DO.@enum.DisplayListOptions.DisplayParcelList:
-                                    IDAL.DO.DalObject.ListParcelDisplay();
+                                    {
+                                        IDAL.DO.Parcel[] ListOfParcel = IDAL.DO.DalObject.ListParcelDisplay();
+                                        for (int i = 0; i < ListOfParcel.Length; i++)
+                                            Console.WriteLine(ListOfParcel[i]);
+                                    }
                                     break;
 
                                 case (int)IDAL.DO.@enum.DisplayListOptions.DisplayCustomerList:
-                                    IDAL.DO.DalObject.ListCustomerDisplay();
+                                    {
+                                        IDAL.DO.Customer[] ListOfCustomers = IDAL.DO.DalObject.ListCustomerDisplay();
+                                        for (int i = 0; i < ListOfCustomers.Length; i++)
+                                            Console.WriteLine(ListOfCustomers[i]);
+                                    }
                                     break;
-
                                 case (int)IDAL.DO.@enum.DisplayListOptions.ListOfUnassignedParcels:
-                                    IDAL.DO.DalObject.ListOfUnassignedParcels();
-                                    break;
+                                    {
+                                        IDAL.DO.Parcel[] ListOfParcel = IDAL.DO.DalObject.ListOfUnassignedParcels();
+                                        for (int i = 0; i < ListOfParcel.Length; i++)
+                                            Console.WriteLine(ListOfParcel[i]);
+                                        break;
+                                    }
 
                                 case (int)IDAL.DO.@enum.DisplayListOptions.ListOfAvailableChargingStations:
-                                    IDAL.DO.DalObject.ListOfAvailableChargingStations();
-                                    break;
+                                    {
+                                        IDAL.DO.Station[] ListOfStation = IDAL.DO.DalObject.ListOfAvailableChargingStations();
+                                        for (int i = 0; i < ListOfStation.Length; i++)
+                                            Console.WriteLine(ListOfStation[i]);
+                                        break;
+                                    }
+
                             }
                             UserAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
                             break;

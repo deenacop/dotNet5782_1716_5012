@@ -67,9 +67,6 @@ namespace IDAL
                         DroneIDToParcel = DataSource.Drones[i].ID;//The found drone 
                         break;
                     }
-                    if (DroneIDToParcel == 0)
-                        Console.WriteLine("overflow\n");
-                    //DroneIDToParcel = DataSource.Drones[DataSource.rand.Next(1, 10)].ID;
                 }
                 //finds the wanted parcel
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
@@ -189,139 +186,146 @@ namespace IDAL
                 }
             }
             /// <summary>
-            /// prints the drone's detailes 
+            /// Return the wanted drone
             /// </summary>
             /// <param name="DroneID">The requested drone</param>
-            public static void DroneDisplay(int DroneID)
+            public static Drone DroneDisplay(int DroneID)
             {
+                Drone droneWanted=new Drone();
                 for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
                 {
                     if (DataSource.Drones[i].ID == DroneID)
-                        Console.WriteLine(DataSource.Drones[i].ToString());
+                        droneWanted = DataSource.Drones[i];
                 }
-
+                return droneWanted;
             }
 
             /// <summary>
-            /// prints the station's detailes 
+            /// Return the wanted station
             /// </summary>
             /// <param name="StationID">The requested station</param>
-            public static void StationDisplay(int StationID)
+            public static Station StationDisplay(int StationID)
             {
+                Station stationWanted = new Station();
                 for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
                 {
                     if (DataSource.Stations[i].ID == StationID)
-                        Console.WriteLine(DataSource.Stations[i].ToString());
+                        stationWanted= DataSource.Stations[i];
                 }
-
+                return stationWanted;
             }
             /// <summary>
-            /// prints the customer's detailes
+            /// Return the wanted customer
             /// </summary>
             /// <param name="CustomerID">The requested customer</param>
-            public static void CustomerDisplay(int CustomerID)
+            public static Customer CustomerDisplay(int CustomerID)
             {
+                Customer custumerWanted = new Customer();
                 for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
                 {
                     if (DataSource.Customers[i].ID == CustomerID)
-                        Console.WriteLine(DataSource.Customers[i].ToString());
+                        custumerWanted = DataSource.Customers[i];
                 }
-
+                return custumerWanted;
             }
             /// <summary>
-            /// prints the parcel's detailes
+            /// Return the wanted parcel
             /// </summary>
             /// <param name="ParcelID"> The requested parcel</param>
-            public static void ParcelDisplay(int ParcelID)
+            public static Parcel ParcelDisplay(int ParcelID)
             {
+                Parcel parcelWanted = new Parcel();
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
                 {
                     if (DataSource.Parcels[i].ID == ParcelID)
-                        Console.WriteLine(DataSource.Parcels[i].ToString());
+                        parcelWanted=DataSource.Parcels[i];
                 }
-
+                return parcelWanted;
             }
             /// <summary>
-            /// Prints all the drones in the list.
+            /// Returns all the drones in the list.
             /// </summary>
             public static Drone[] ListDroneDisplay()
             {
                 Drone[] ListOfDrones = new Drone[DataSource.Config.FirstAvailableDrone];
                 for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
-                {
                     ListOfDrones[i] = DataSource.Drones[i];
-                    Console.WriteLine(ListOfDrones[i].ToString());
-                }
                 return ListOfDrones;
 
             }
             /// <summary>
-            /// Prints all the customers in the list.
+            /// Returns all the customers in the list.
             /// </summary>
             public static Customer[] ListCustomerDisplay()
             {
                 Customer[] ListOfCustomers = new Customer[DataSource.Config.FirstAvailableCustomer];
 
                 for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
-                {
                     ListOfCustomers[i] = DataSource.Customers[i];
-                    Console.WriteLine(DataSource.Customers[i].ToString());
-                }
                 return ListOfCustomers;
             }
 
             /// <summary>
-            /// prints all the station in the list 
+            /// Returns all the station in the list 
             /// </summary>
             public static Station[] ListStationDisplay()
             {
                 Station[] ListOfStation = new Station[DataSource.Config.FirstAvailableStation];
 
                 for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
-                {
                     ListOfStation[i] = DataSource.Stations[i];
-                    Console.WriteLine((ListOfStation[i].ToString()));
-
-                }
                 return ListOfStation;
             }
             /// <summary>
-            /// prints all the parcel in the list
+            /// Returns all the parcel in the list
             /// </summary>
             public static Parcel[] ListParcelDisplay()
             {
                 Parcel[] ListOfParcel = new Parcel[DataSource.Config.FirstAvailableParcel];
 
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
-                {
                     ListOfParcel[i] = DataSource.Parcels[i];
-                    Console.WriteLine(ListOfParcel[i].ToString());
-                }
                 return ListOfParcel;
             }
 
             /// <summary>
-            /// Prints all the Unassigned parcels.
+            /// Returns all the Unassigned parcels.
             /// </summary>
-            public static void ListOfUnassignedParcels()
+            public static Parcel[] ListOfUnassignedParcels()
             {
+                int amountOfUnassignedParcels = 0;
                 for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
                 {
                     if (DataSource.Parcels[i].MyDroneID == 0)
-                        Console.WriteLine(DataSource.Parcels[i].ToString());
+                        amountOfUnassignedParcels++;
                 }
+                Parcel[] UnassignedParcels = new Parcel[amountOfUnassignedParcels];
+                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
+                {
+                    if (DataSource.Parcels[i].MyDroneID == 0)
+                        UnassignedParcels[i] = DataSource.Parcels[i];
+                }
+                return UnassignedParcels;
             }
 
             /// <summary>
-            /// Display of base stations with available charging stations
+            /// Returns all the base stations with available charging stations
             /// </summary>
-            public static void ListOfAvailableChargingStations()
+            public static Station[] ListOfAvailableChargingStations()
             {
+                int amountOfAvailableChargingStations = 0;
                 for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
                 {
                     if (DataSource.Stations[i].NumOfAvailableChargeSlots != 0)
-                        Console.WriteLine(DataSource.Stations[i].ToString());
+                        amountOfAvailableChargingStations++;
                 }
+                Station[] AvailableChargingStations = new Station[amountOfAvailableChargingStations];
+                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
+                {
+                    if (DataSource.Stations[i].NumOfAvailableChargeSlots != 0)
+                        AvailableChargingStations[i] = DataSource.Stations[i];
+                }
+                return AvailableChargingStations;
             }
 
         }
