@@ -4,14 +4,9 @@ namespace ConsoleUI
 {
     class main
     {
-        enum options { Add = 1, Update, DisplayIndividual, DisplayList, Exit };
-        enum AddOptions { Drone = 1, Station, Parcel, Customer };
-        enum UpdateOptions { AssignParcelToDrone = 1, CollectParcelByDrone, DelivereParcelToCustomer, SendDroneToChargingBaseStation, ReleaseDroneFromChargingBaseStation };
-        enum DisplayIndividualOptions { DisplyDrone = 1, DisplyStation, DisplayParcel, DisplayCustomer };
-        enum DisplayListOptions { DisplyDroneList = 1, DisplyStationList, DisplayParcelList, DisplayCustomerList, ListOfUnassignedParcels, ListOfAvailableChargingStations };
         static void Main(string[] args)
         {
-            IDAL.DO.DataSource.Initialize();
+            IDAL.DO.DataSource.Initialize();// Boot the system
             Console.WriteLine("Welcome to our drone delivery system.\n" +
                 "To insert, type 1." +
                 "\nTo update, type 2." +
@@ -19,148 +14,202 @@ namespace ConsoleUI
                 "\nTo view a list, type 4." +
                 "\nTo exit, type 5.");
             int UserAnswer = 0;
+            string Input;
+            int IDFromUser1, IDFromUser2;
             while (UserAnswer != 5)
             {
-                String input = Console.ReadLine();
-                if (int.TryParse(input, out UserAnswer))
+                UserAnswer =(int) Console.Read();
+                switch (UserAnswer)
                 {
-                    switch (UserAnswer)
-                    {
-                        case (int)options.Add:
+                    case (int)IDAL.DO.@enum.options.Add:
+                        {
+                            Console.WriteLine("To add a drone, type 1.\nTo add a station, type 2.\n" +
+                                              "To add a parcel, type 3.\nTo add a customer, type 4.");
+                            UserAnswer = (int)Console.Read();
+                            switch (UserAnswer)
                             {
-                                Console.WriteLine("To add a drone, type 1.\n To add a station, type 2.\n" +
-                                                  "To add a parcel, type 3.\n To add a customer, type 4.");
-                                input = Console.ReadLine();
-                                if (int.TryParse(input, out UserAnswer))
-                                {
-                                    switch (UserAnswer)
-                                    {
-                                        case (int)AddOptions.Drone:
-                                            IDAL.DO.mainFuncAdd.AddDrone();
-                                            break;
+                                case (int)IDAL.DO.@enum.AddOptions.Drone:
+                                    IDAL.DO.mainFuncAdd.AddDrone();
+                                    break;
 
-                                        case (int)AddOptions.Station:
-                                            IDAL.DO.mainFuncAdd.AddStation(); 
-                                            break;
+                                case (int)IDAL.DO.@enum.AddOptions.Station:
+                                    IDAL.DO.mainFuncAdd.AddStation();
+                                    break;
 
-                                        case (int)AddOptions.Parcel:
-                                            IDAL.DO.mainFuncAdd.AddParcel();
-                                            break;
+                                case (int)IDAL.DO.@enum.AddOptions.Parcel:
+                                    IDAL.DO.mainFuncAdd.AddParcel();
+                                    break;
 
-                                        case (int)AddOptions.Customer:
-                                            IDAL.DO.mainFuncAdd.AddCustomer();
-                                            break;
-                                    }
-                                }
-                                break;
+                                case (int)IDAL.DO.@enum.AddOptions.Customer:
+                                    IDAL.DO.mainFuncAdd.AddCustomer();
+                                    break;
                             }
-
-
-                        case (int)options.Update:
-                            {
-                                input = Console.ReadLine();
-                                if (int.TryParse(input, out UserAnswer))
-                                {
-                                    switch (UserAnswer)
-                                    {
-                                        case (int)UpdateOptions.AssignParcelToDrone:
-                                            IDAL.DO.DalObject.AssignParcelToDrone(345678);
-                                            break;
-
-                                        case (int)UpdateOptions.CollectParcelByDrone:
-                                            IDAL.DO.DalObject.CollectionOfParcelByDrone(123456);
-                                            break;
-
-                                        case (int)UpdateOptions.DelivereParcelToCustomer:
-                                            IDAL.DO.DalObject.DeliveryParcelToCustomer(123456);
-                                            break;
-
-                                        case (int)UpdateOptions.SendDroneToChargingBaseStation:
-                                            IDAL.DO.DalObject.SendingDroneToChargingBaseStation(123, 1234);
-                                            break;
-
-                                        case (int)UpdateOptions.ReleaseDroneFromChargingBaseStation:
-                                            IDAL.DO.DalObject.ReleasingDroneFromChargingBaseStation(123, 1234);
-                                            break;
-                                    }
-                                }
-                                break;
-                            }
-
-                        case (int)options.DisplayIndividual:
-                            {
-                                input = Console.ReadLine();
-                                if (int.TryParse(input, out UserAnswer))
-                                {
-                                    switch (UserAnswer)
-                                    {
-                                        case (int)DisplayIndividualOptions.DisplyDrone:
-                                            IDAL.DO.DalObject.DroneDisplay(123);
-                                            break;
-
-                                        case (int)DisplayIndividualOptions.DisplyStation:
-                                            IDAL.DO.DalObject.StationDisplay(1234);
-                                            break;
-
-                                        case (int)DisplayIndividualOptions.DisplayParcel:
-                                            IDAL.DO.DalObject.ParcelDisplay(123456);
-                                            break;
-
-                                        case (int)DisplayIndividualOptions.DisplayCustomer:
-                                            IDAL.DO.DalObject.CustomerDisplay(324281716);
-                                            break;
-                                    }
-                                }
-                                break;
-                            }
-
-                        case (int)options.DisplayList:
-                            {
-                                input = Console.ReadLine();
-                                if (int.TryParse(input, out UserAnswer))
-                                {
-                                    switch (UserAnswer)
-                                    {
-                                        case (int)DisplayListOptions.DisplyDroneList:
-                                            IDAL.DO.DalObject.ListDroneDisplay();
-                                            break;
-
-                                        case (int)DisplayListOptions.DisplyStationList:
-                                            IDAL.DO.DalObject.ListStationDisplay();
-                                            break;
-
-                                        case (int)DisplayListOptions.DisplayParcelList:
-                                            IDAL.DO.DalObject.ListParcelDisplay();
-                                            break;
-
-                                        case (int)DisplayListOptions.DisplayCustomerList:
-                                            IDAL.DO.DalObject.ListCustomerDisplay();
-                                            break;
-
-                                        case (int)DisplayListOptions.ListOfUnassignedParcels:
-                                            IDAL.DO.DalObject.ListOfUnassignedParcels();
-                                            break;
-
-                                        case (int)DisplayListOptions.ListOfAvailableChargingStations:
-                                            IDAL.DO.DalObject.ListOfAvailableChargingStations();
-                                            break;
-                                    }
-                                }
-                                break;
-                            }
-
-                        case (int)options.Exit:
-                            Console.WriteLine("bey");
                             break;
+                        }
 
-                        default:
-                            Console.WriteLine("Rong input");
+                    case (int)IDAL.DO.@enum.options.Update:
+                        {
+                            Console.WriteLine("To assign pacel to drone, type 1.\nTo collect parcel by a drone, type 2.\n" +
+                                          "To deliver parcel to a customer, type 3.\nTo send drone to a charging base station, type 4.\n" +
+                                          "To release drone from charging station, type 5.");
+                            UserAnswer = (int)Console.Read();
+                            switch (UserAnswer)
+                            {
+
+                                case (int)IDAL.DO.@enum.UpdateOptions.AssignParcelToDrone:
+                                    {
+                                        Console.WriteLine("Enter parcel ID (6 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser1);
+                                        IDAL.DO.DalObject.AssignParcelToDrone(IDFromUser1);
+                                        break;
+                                    }
+
+                                case (int)IDAL.DO.@enum.UpdateOptions.CollectParcelByDrone:
+                                    {
+                                        Console.WriteLine("Enter parcel ID (6 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser1);
+                                        IDAL.DO.DalObject.CollectionOfParcelByDrone(IDFromUser1);
+                                        break;
+                                    }
+
+                                case (int)IDAL.DO.@enum.UpdateOptions.DelivereParcelToCustomer:
+                                    {
+                                        Console.WriteLine("Enter parcel ID (6 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser1);
+                                        IDAL.DO.DalObject.DeliveryParcelToCustomer(IDFromUser1);
+                                        break;
+                                    }
+                                case (int)IDAL.DO.@enum.UpdateOptions.SendDroneToChargingBaseStation:
+                                    {
+                                        Console.WriteLine("Enter drone ID (3 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser1);
+                                        Console.WriteLine("Enter station ID (4 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser2);
+                                        IDAL.DO.DalObject.SendingDroneToChargingBaseStation(IDFromUser1, IDFromUser2);
+                                        break;
+                                    }
+
+                                case (int)IDAL.DO.@enum.UpdateOptions.ReleaseDroneFromChargingBaseStation:
+                                    {
+                                        Console.WriteLine("Enter drone ID (3 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser1);
+                                        Console.WriteLine("Enter station ID (4 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser2);
+                                        IDAL.DO.DalObject.ReleasingDroneFromChargingBaseStation(IDFromUser1, IDFromUser2);
+                                        break;
+                                    }
+                            }
                             break;
+                        }
 
-                    }
+
+
+                    case (int)IDAL.DO.@enum.options.DisplayIndividual:
+                        {
+                            Console.WriteLine("To to print a drone, type 1.\nTo print a station, type 2.\n" +
+                                             "To print a parcel, type 3.\nTo print a customer, type 4.");
+                            UserAnswer = (int)Console.Read();
+                            switch (UserAnswer)
+                            {
+
+                                case (int)IDAL.DO.@enum.DisplayIndividualOptions.DisplyDrone:
+                                    {
+                                        Console.WriteLine("Enter drone ID (3 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser1);
+                                        IDAL.DO.DalObject.DroneDisplay(IDFromUser1);
+                                        break;
+                                    }
+
+                                case (int)IDAL.DO.@enum.DisplayIndividualOptions.DisplyStation:
+                                    {
+                                        Console.WriteLine("Enter station ID (4 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser1);
+                                        IDAL.DO.DalObject.StationDisplay(IDFromUser1);
+                                        break;
+                                    }
+
+                                case (int)IDAL.DO.@enum.DisplayIndividualOptions.DisplayParcel:
+                                    {
+                                        Console.WriteLine("Enter parcel ID (6 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser1);
+                                        IDAL.DO.DalObject.ParcelDisplay(IDFromUser1);
+                                        break;
+                                    }
+
+                                case (int)IDAL.DO.@enum.DisplayIndividualOptions.DisplayCustomer:
+                                    {
+                                        Console.WriteLine("Enter customer ID (9 digits).");
+                                        Input = Console.ReadLine();
+                                        int.TryParse(Input, out IDFromUser1);
+                                        IDAL.DO.DalObject.CustomerDisplay(IDFromUser1);
+                                        break;
+                                    }
+                            }
+                            break;
+                        }
+
+
+
+                    case (int)IDAL.DO.@enum.options.DisplayList:
+                        {
+                            Console.WriteLine("To to print all drones, type 1.\nTo print all stations, type 2.\n" +
+                                            "To print all parcels, type 3.\nTo print all customers, type 4.\n" +
+                                            "To print all unassign parcels, type 5.\nTo print all available charge station, type 6.");
+                            UserAnswer = (int)Console.Read();
+
+                            switch (UserAnswer)
+                            {
+                                case (int)IDAL.DO.@enum.DisplayListOptions.DisplyDroneList:
+                                    IDAL.DO.DalObject.ListDroneDisplay();
+                                    break;
+
+                                case (int)IDAL.DO.@enum.DisplayListOptions.DisplyStationList:
+                                    IDAL.DO.DalObject.ListStationDisplay();
+                                    break;
+
+                                case (int)IDAL.DO.@enum.DisplayListOptions.DisplayParcelList:
+                                    IDAL.DO.DalObject.ListParcelDisplay();
+                                    break;
+
+                                case (int)IDAL.DO.@enum.DisplayListOptions.DisplayCustomerList:
+                                    IDAL.DO.DalObject.ListCustomerDisplay();
+                                    break;
+
+                                case (int)IDAL.DO.@enum.DisplayListOptions.ListOfUnassignedParcels:
+                                    IDAL.DO.DalObject.ListOfUnassignedParcels();
+                                    break;
+
+                                case (int)IDAL.DO.@enum.DisplayListOptions.ListOfAvailableChargingStations:
+                                    IDAL.DO.DalObject.ListOfAvailableChargingStations();
+                                    break;
+                            }
+                            break;
+                        }
+
+
+
+                    case (int)IDAL.DO.@enum.options.Exit:
+                        Console.WriteLine("by🙋‍♀️");
+                        break;
+
+                    default:
+                        Console.WriteLine("Wrong input");
+                        break;
+
                 }
             }
         }
     }
 }
+
 
