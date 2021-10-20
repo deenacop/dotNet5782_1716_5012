@@ -11,7 +11,7 @@ namespace IDAL
         /// <summary>
         /// Auxiliary function to add an item to one of the lists
         /// </summary>
-        public class mainFuncAdd
+        public class MainFuncAdd
         {
             public static String Input;
             public static int TmpInt;
