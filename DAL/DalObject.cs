@@ -10,23 +10,47 @@ namespace IDAL
     {
         public class DalObject
         {
+            /// <summary>
+            /// DalObject constructor
+            /// </summary>
             public DalObject() { DataSource.Initialize(); }
+
+            /// <summary>
+            /// Adds a new drone
+            /// </summary>
+            /// <param name="NewDrone">The new drone that will be added to the list of drones</param>
             public static void Add(Drone NewDrone)
             {
                 DataSource.Drones[DataSource.Config.FirstAvailableDrone++] = NewDrone;
             }
+
+            /// <summary>
+            /// Adds a new station 
+            /// </summary>
+            /// <param name="NewStation">The new station that will be added to the list of stations</param>
             public static void Add(Station NewStation)
             {
                 DataSource.Stations[DataSource.Config.FirstAvailableStation++] = NewStation;
             }
+
+            /// <summary>
+            /// Adds a new parcel
+            /// </summary>
+            /// <param name="NewParcel">The new parcel that will be added to the list of parcels</param>
             public static void Add(Parcel NewParcel)
             {
                 DataSource.Parcels[DataSource.Config.FirstAvailableParcel++] = NewParcel;
             }
+
+            /// <summary>
+            /// Adds a new customer
+            /// </summary>
+            /// <param name="NewCustomer">The new Customer that will be added to the list of customer</param>
             public static void Add(Customer NewCustomer)
             {
                 DataSource.Customers[DataSource.Config.FirstAvailableCustomer++] = NewCustomer;
             }
+
             public static int DroneIDToParcel = 0;
 
             /// <summary>
