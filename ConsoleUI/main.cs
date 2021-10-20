@@ -28,38 +28,27 @@ namespace ConsoleUI
                     {
                         case (int)options.Add:
                             {
-                                Console.WriteLine("To add a drone, type 1.\n To add a station, type 2.\n"+
-                                                  "To add a parcel, type 3.\n To add a customer, type 4." );
+                                Console.WriteLine("To add a drone, type 1.\n To add a station, type 2.\n" +
+                                                  "To add a parcel, type 3.\n To add a customer, type 4.");
                                 input = Console.ReadLine();
                                 if (int.TryParse(input, out UserAnswer))
                                 {
                                     switch (UserAnswer)
                                     {
                                         case (int)AddOptions.Drone:
-                                            {
-                                                
-                                            }
+                                            IDAL.DO.mainFuncAdd.AddDrone();
                                             break;
 
                                         case (int)AddOptions.Station:
-                                            {
-                                                
-                                                IDAL.DO.mainFuncAdd.AddStation();
-                                            }
+                                            IDAL.DO.mainFuncAdd.AddStation(); 
                                             break;
 
                                         case (int)AddOptions.Parcel:
-                                            {
-                                                IDAL.DO.Parcel p = new IDAL.DO.Parcel();
-                                                IDAL.DO.DalObject.Add(p);
-                                            }
+                                            IDAL.DO.mainFuncAdd.AddParcel();
                                             break;
 
                                         case (int)AddOptions.Customer:
-                                            {
-                                                IDAL.DO.Customer c = new IDAL.DO.Customer();
-                                                IDAL.DO.DalObject.Add(c);
-                                            }
+                                            IDAL.DO.mainFuncAdd.AddCustomer();
                                             break;
                                     }
                                 }
@@ -174,5 +163,4 @@ namespace ConsoleUI
         }
     }
 }
-          
-          
+
