@@ -13,7 +13,7 @@ namespace IDAL
         /// </summary>
         public class DistanceCalculation
         {
-            public static float Calculate(double lan1, double lot1,int ID)
+            public static float Calculate(double lat1, double lon1,int ID)
             {
                 double[] Coordinates = FindTheCoordinates(ID);
                 double Distance;
