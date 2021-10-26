@@ -26,7 +26,7 @@ namespace IDAL
                 static internal int FirstAvailableCustomer = 0;
                 static internal int FirstAvailableParcel = 0;
                 static internal int FirstAvailableDroneCharge = 0;
-                static internal int RunnerIDNumParcels = 0;
+                static internal int RunnerIDNumParcels = 100000;
             }
             public static void Initialize()
             {
@@ -121,8 +121,8 @@ namespace IDAL
                 }
                 //Updates the indicator of the first free element-Parcel
                 Config.FirstAvailableParcel = 10;
-                //Updates the value to a greater num than all the packages that were added 
-                Config.RunnerIDNumParcels = 11;
+                ////Updates the value to a greater num than all the packages that were added 
+                //Config.RunnerIDNumParcels = 11;
             }
         }
 
