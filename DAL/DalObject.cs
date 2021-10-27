@@ -22,6 +22,7 @@ namespace IDAL
             {
                 DataSource.DroneCharges[DataSource.Config.FirstAvailableDroneCharge++]= droneCharge;
             }
+
             /// <summary>
             /// Adds a new drone
             /// </summary>
