@@ -99,16 +99,17 @@ namespace IDAL
                 {
                     //Date and time randomly 
                     DateTime DateAndTime = new DateTime(2021, rand.Next(1, 12), rand.Next(1, 29), rand.Next(1, 24), rand.Next(0, 60), rand.Next(0, 60));
-                    Parcels[i].ID = rand.Next(100000, 999999);
-                    for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each parcel.
-                    {
-                        if (Parcels[j].ID == Parcels[i].ID)
-                        {
-                            while (Parcels[j].ID == Parcels[i].ID)
-                                Parcels[i].ID = rand.Next(1000, 9999);
-                            j = 0;
-                        }
-                    }
+                    Parcels[i].ID = ++Config.RunnerIDNumParcels;
+                    //Parcels[i].ID = rand.Next(100000, 999999);
+                    //for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each parcel.
+                    //{
+                    //    if (Parcels[j].ID == Parcels[i].ID)
+                    //    {
+                    //        while (Parcels[j].ID == Parcels[i].ID)
+                    //            Parcels[i].ID = rand.Next(1000, 9999);
+                    //        j = 0;
+                    //    }
+                    //}
                     Parcels[i].Sender = rand.Next(100000000, 999999999);
                     Parcels[i].Targetid = rand.Next(100000000, 999999999);
                     Parcels[i].MyDroneID = 0;//In the initialization, the entire ID of the drone is 0 because we did not want to reach contradictions in the introduction of the identity of the drone and also that no deliveries were made yet.

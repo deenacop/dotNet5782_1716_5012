@@ -51,7 +51,7 @@ namespace IDAL
                 Console.WriteLine("Enter the new parcel details: *pracel ID (6 digits)");
                 //Input = Console.ReadLine();
                 //if (int.TryParse(Input, out TmpInt))
-                    NewParcel.ID = ++IDAL.DO.DataSource.Config.RunnerIDNumParcels;
+                NewParcel.ID = ++IDAL.DO.DataSource.Config.RunnerIDNumParcels;
                 Console.WriteLine("*parcel sender ID (6 digits)");
                 Input = Console.ReadLine();
                 if (int.TryParse(Input, out TmpInt))

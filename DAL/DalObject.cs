@@ -184,6 +184,7 @@ namespace IDAL
                         break;
                     }
                 }
+
                 //Finds the station that the drone was released from and updates the number of available charging slots.
                 for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
                 {
@@ -191,6 +192,13 @@ namespace IDAL
                     {
                         DataSource.Stations[i].NumOfAvailableChargeSlots++;
                         break;
+                    }
+                }
+                for(int i=0;i<DataSource.Config.FirstAvailableDroneCharge;i++)//Resets the requested instance. (To "delete" it from the array of DroneCharge)
+                {
+                    if(DataSource.DroneCharges[i].RecDrone== DroneID&& DataSource.DroneCharges[i].RecBaseStation == BaseStationID)
+                    {
+                        DataSource.DroneCharges[i].RecDrone = 0; DataSource.DroneCharges[i].RecBaseStation = 0;
                     }
                 }
             }
