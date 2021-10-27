@@ -13,40 +13,41 @@ namespace IDAL
         /// </summary>
         public class DistanceCalculation
         {
-            public static float Calculate(double lan1, double lot1,int ID)
+            const double PI = Math.PI;
+            const int RADIUS = 6371;//the earth radius
+            public static double Calculation(double lon1,double lat1,Customer wanted)
             {
-                double[] Coordinates = FindTheCoordinates(ID);
-                double Distance;
-                double latitude = lat1 - Coordinates[0];//Latitude difference
-                double longitude = lon1 - Coordinates[1]; //Longitude difference
-                latitude = Math.Pow(latitude, 2);//To the power of 2 to reach the Pythagorean theorem
-                longitude = Math.Pow(longitude, 2);//To the power of 2 to reach the Pythagorean theorem
-                Distance = latitude + longitude;//a^2+b^2=D^2
-               return (float)Math.Sqrt(Distance);//Perform a Sqrt operation on the result and convert to float
+                double RadiusOfLon = (lon1 - wanted.Longitude) * PI / 180;
+                double RadiusOfLat = (lat1 - wanted.Latitude) * PI / 180;
+                double havd = Math.Pow(Math.Sin(RadiusOfLat / 2), 2) + (Math.Cos(wanted.Latitude)) * (Math.Cos(lat1)) * Math.Pow(Math.Sin(RadiusOfLon), 2);
+                double distance = 2 * RADIUS * Math.Asin(havd);
+                return distance;
             }
-            public static double[] FindTheCoordinates(int ID)
+            public static double Calculation(double lon1, double lat1, Station wanted)
             {
-                double[] coordinates=new double[2];
-                int t = ID -999999;
-                if (ID - 999999 >0)//Customer -999999 =>0 but Station -999999=<0
-                {
-                    for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
-                        if (ID == DataSource.Customers[i].ID)
-                        {
-                            coordinates[0] = DataSource.Customers[i].Latitude;
-                            coordinates[1] = DataSource.Customers[i].Longitude;
-                        }
-                }
-                else//station
-                {
-                    for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
-                        if (ID == DataSource.Stations[i].ID)
-                        {
-                            coordinates[0] = DataSource.Stations[i].Latitude;
-                            coordinates[1] = DataSource.Stations[i].Longitude;
-                        }
-                }
-                return coordinates;
+                double RadiusOfLon = (lon1 - wanted.Longitude) * PI / 180;
+                double RadiusOfLat = (lat1 - wanted.Latitude) * PI / 180;
+                double havd = Math.Pow(Math.Sin(RadiusOfLat / 2), 2) + (Math.Cos(wanted.Latitude)) * (Math.Cos(lat1)) * Math.Pow(Math.Sin(RadiusOfLon), 2);
+                double distance = 2 * RADIUS * Math.Asin(havd);
+                return distance;
+            }
+            public static Customer FindTheCustomerCoordinates(int ID)
+            {
+                Customer ForNotFoundCase = new Customer();
+                ForNotFoundCase.ID = 0;
+                for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
+                    if (ID == DataSource.Customers[i].ID)
+                        return DataSource.Customers[i];
+                return ForNotFoundCase;
+            }
+            public static Station FindTheStationCoordinates(int ID)
+            {
+                Station ForNotFoundCase = new Station();
+                ForNotFoundCase.ID = 0;
+                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
+                    if (ID == DataSource.Stations[i].ID)
+                        return DataSource.Stations[i];
+                return ForNotFoundCase;
             }
         }
     }
