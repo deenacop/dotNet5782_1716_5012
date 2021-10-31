@@ -16,6 +16,7 @@ namespace IDAL
             static internal Customer[] Customers = new Customer[100];
             static internal Parcel[] Parcels = new Parcel[1000];
             static internal DroneCharge[] DroneCharges = new DroneCharge[100];
+
             /// <summary>
             ///Defines an index variable for each array that indicates a free space.
             /// </summary>
@@ -28,6 +29,7 @@ namespace IDAL
                 static internal int FirstAvailableDroneCharge = 0;
                 static internal int RunnerIDNumParcels = 100000;
             }
+
             public static void Initialize()
             {
                 string[] AddresArr = { "Balfour street, Jerusalem", "4 David Remez Street, Jerusalem" };
@@ -112,7 +114,9 @@ namespace IDAL
                     //}
                     Parcels[i].Sender = rand.Next(100000000, 999999999);
                     Parcels[i].Targetid = rand.Next(100000000, 999999999);
-                    Parcels[i].MyDroneID = 0;//In the initialization, the entire ID of the drone is 0 because we did not want to reach contradictions in the introduction of the identity of the drone and also that no deliveries were made yet.
+                    Parcels[i].MyDroneID = 0;
+                    //In the initialization, the entire ID of the drone is 0 because we did not want to reach contradictions in the introduction of the identity of the drone
+                    //and also that no deliveries were made yet.
                     Parcels[i].Weight = (@enum.WeightCategories)rand.Next(0, 2);
                     Parcels[i].Priority = (@enum.Priorities)rand.Next(0, 2);
                     Parcels[i].Requested = DateAndTime;

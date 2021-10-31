@@ -33,7 +33,8 @@ namespace IDAL
             /// <summary>
             ///  What kind of update is needed 
             /// </summary>
-            public enum UpdateOptions { AssignParcelToDrone = 1, CollectParcelByDrone, DelivereParcelToCustomer, SendDroneToChargingBaseStation, ReleaseDroneFromChargingBaseStation };
+            public enum UpdateOptions { AssignParcelToDrone = 1, CollectParcelByDrone, DelivereParcelToCustomer,
+                SendDroneToChargingBaseStation, ReleaseDroneFromChargingBaseStation };
             /// <summary>
             /// What item to print
             /// </summary>
@@ -41,8 +42,8 @@ namespace IDAL
             /// <summary>
             /// What list of items to print
             /// </summary>
-            public enum DisplayListOptions { DisplyDroneList = 1, DisplyStationList, DisplayParcelList, DisplayCustomerList, ListOfUnassignedParcels, ListOfAvailableChargingStations };
-
+            public enum DisplayListOptions { DisplyDroneList = 1, DisplyStationList, DisplayParcelList, 
+                DisplayCustomerList, ListOfUnassignedParcels, ListOfAvailableChargingStations };
         }
     }
 }

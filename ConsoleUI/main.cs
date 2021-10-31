@@ -6,7 +6,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            DalObject boot = new DalObject();
+            DalObject boot = new DalObject();//Boot the program
             Console.WriteLine("Welcome to our drone delivery system.\n" +
                 "To insert, type 1." +
                 "\nTo update, type 2." +
@@ -39,7 +39,7 @@ namespace ConsoleUI
                                     MainFuncAdd.AddStation();
                                     break;
 
-                                case (int) @enum.AddOptions.Parcel:
+                                case (int)@enum.AddOptions.Parcel:
                                     MainFuncAdd.AddParcel();
                                     break;
 
@@ -118,8 +118,6 @@ namespace ConsoleUI
                             break;
                         }
 
-
-
                     case (int)@enum.options.DisplayIndividual:
                         {
                             Console.WriteLine("To to print a drone, type 1.\nTo print a station, type 2.\n" +
@@ -171,8 +169,6 @@ namespace ConsoleUI
                             }
                             break;
                         }
-
-
 
                     case (int)@enum.options.DisplayList:
                         {
@@ -237,23 +233,18 @@ namespace ConsoleUI
                     case (int)@enum.options.FindTheDistance:
                         {
                             double lat1, lon1;
-                            int ID,answer;
+                            int ID, answer;
                             Console.WriteLine("Enter the latitude of the point from which you want to calculate distance");
                             Input = Console.ReadLine();
                             double.TryParse(Input, out lat1);
                             Console.WriteLine("Enter the longitude of the point from which you want to calculate distance");
                             Input = Console.ReadLine();
                             double.TryParse(Input, out lon1);
-                            Console.WriteLine("To find the distance from the point you entered to a station, type 1\nTo find the distance from the point you entered to a customer type 0");
+                            Console.WriteLine("To find the distance from the point you entered to a station, type 1\n" +
+                                "To find the distance from the point you entered to a customer type 0");
                             Input = Console.ReadLine();
                             int.TryParse(Input, out answer);
-                            while (answer!=0 || answer!=1)
-                            {
-                                Console.WriteLine("To find the distance from the point you entered to a station, type 1\nTo find the distance from the point you entered to a customer type 0");
-                                Input = Console.ReadLine();
-                                int.TryParse(Input, out answer);
-                            }
-                            if (answer==1)//station
+                            if (answer == 1)//station
                             {
                                 Console.WriteLine("Enter the ID number of the station from which you would like to measure distance ( 6-digit). ");
                                 Input = Console.ReadLine();
@@ -265,12 +256,11 @@ namespace ConsoleUI
                                 Console.WriteLine("Enter the ID number of the customer from which you would like to measure distance (9-digit). ");
                                 Input = Console.ReadLine();
                                 int.TryParse(Input, out ID);
-                                Console.WriteLine(DistanceCalculation.Calculation(lon1,lat1,DistanceCalculation.FindTheCustomerCoordinates(ID)));
+                                Console.WriteLine(DistanceCalculation.Calculation(lon1, lat1, DistanceCalculation.FindTheCustomerCoordinates(ID)));
 
                             }
                             break;
                         }
-
 
                     case (int)@enum.options.Exit:
                         Console.WriteLine("\nThank you for using our drones system, looking forward to see you again!");

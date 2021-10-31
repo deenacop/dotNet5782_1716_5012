@@ -47,6 +47,7 @@ namespace IDAL
             /// <param name="NewParcel">The new parcel that will be added to the list of parcels</param>
             public static void Add(Parcel NewParcel)
             {
+                NewParcel.ID = ++IDAL.DO.DataSource.Config.RunnerIDNumParcels;
                 DataSource.Parcels[DataSource.Config.FirstAvailableParcel++] = NewParcel;
             }
 
@@ -59,7 +60,7 @@ namespace IDAL
                 DataSource.Customers[DataSource.Config.FirstAvailableCustomer++] = NewCustomer;
             }
 
-            public static int DroneIDToParcel = 0;
+            public static int DroneIDToParcel = 0;//A variable known to all functions. The ID number of a drone for a particular package
 
             /// <summary>
             /// Assigns a free drone to the parcel
@@ -139,7 +140,6 @@ namespace IDAL
                         break;
                     }
                 }
-
             }
 
             public static void SendingDroneToChargingBaseStation(int DroneID, int ChosenStation)
@@ -167,6 +167,7 @@ namespace IDAL
                     }
                 }
             }
+
             /// <summary>
             /// Releasing a drone from a charging Base Station.
             /// </summary>
@@ -184,7 +185,6 @@ namespace IDAL
                         break;
                     }
                 }
-
                 //Finds the station that the drone was released from and updates the number of available charging slots.
                 for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
                 {
@@ -202,6 +202,7 @@ namespace IDAL
                     }
                 }
             }
+
             /// <summary>
             /// Return the wanted drone
             /// </summary>
@@ -231,6 +232,7 @@ namespace IDAL
                 }
                 return stationWanted;
             }
+
             /// <summary>
             /// Return the wanted customer
             /// </summary>
@@ -245,6 +247,7 @@ namespace IDAL
                 }
                 return custumerWanted;
             }
+
             /// <summary>
             /// Return the wanted parcel
             /// </summary>
@@ -259,6 +262,7 @@ namespace IDAL
                 }
                 return parcelWanted;
             }
+
             /// <summary>
             /// Returns all the drones in the list.
             /// </summary>
@@ -270,6 +274,7 @@ namespace IDAL
                 return ListOfDrones;
 
             }
+
             /// <summary>
             /// Returns all the customers in the list.
             /// </summary>
@@ -293,6 +298,7 @@ namespace IDAL
                     ListOfStation[i] = DataSource.Stations[i];
                 return ListOfStation;
             }
+
             /// <summary>
             /// Returns all the parcel in the list
             /// </summary>
@@ -344,9 +350,6 @@ namespace IDAL
                 }
                 return AvailableChargingStations;
             }
-
         }
-
-
     }
 }

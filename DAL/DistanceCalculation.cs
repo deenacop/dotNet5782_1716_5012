@@ -19,7 +19,8 @@ namespace IDAL
             {
                 double RadiusOfLon = (lon1 - wanted.Longitude) * PI / 180;
                 double RadiusOfLat = (lat1 - wanted.Latitude) * PI / 180;
-                double havd = Math.Pow(Math.Sin(RadiusOfLat / 2), 2) + (Math.Cos(wanted.Latitude)) * (Math.Cos(lat1)) * Math.Pow(Math.Sin(RadiusOfLon), 2);
+                double havd = Math.Pow(Math.Sin(RadiusOfLat / 2), 2) + 
+                    (Math.Cos(wanted.Latitude)) * (Math.Cos(lat1)) * Math.Pow(Math.Sin(RadiusOfLon), 2);
                 double distance = 2 * RADIUS * Math.Asin(havd);
                 return distance;
             }
@@ -27,7 +28,8 @@ namespace IDAL
             {
                 double RadiusOfLon = (lon1 - wanted.Longitude) * PI / 180;
                 double RadiusOfLat = (lat1 - wanted.Latitude) * PI / 180;
-                double havd = Math.Pow(Math.Sin(RadiusOfLat / 2), 2) + (Math.Cos(wanted.Latitude)) * (Math.Cos(lat1)) * Math.Pow(Math.Sin(RadiusOfLon), 2);
+                double havd = Math.Pow(Math.Sin(RadiusOfLat / 2), 2) + 
+                    (Math.Cos(wanted.Latitude)) * (Math.Cos(lat1)) * Math.Pow(Math.Sin(RadiusOfLon), 2);
                 double distance = 2 * RADIUS * Math.Asin(havd);
                 return distance;
             }

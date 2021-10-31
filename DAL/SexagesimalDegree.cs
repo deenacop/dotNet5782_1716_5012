@@ -55,7 +55,6 @@ namespace IDAL
 
                 return LatitudeAndLongitude;
             }
-
         }
     }
 }

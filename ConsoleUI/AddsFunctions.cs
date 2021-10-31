@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IDAL.DO;
+
 //We wanted to shorten the main so we added this function
-namespace IDAL
+namespace ConsoleUI
 {
-    namespace DO
-    {
+    //namespace DO
+    //{
         /// <summary>
         /// Auxiliary function to add an item to one of the lists
         /// </summary>
@@ -49,10 +51,10 @@ namespace IDAL
             public static void AddParcel()
             {
                 IDAL.DO.Parcel NewParcel = new IDAL.DO.Parcel();
-                Console.WriteLine("Enter the new parcel details: *pracel ID (6 digits)");
+                //Console.WriteLine("Enter the new parcel details: *pracel ID (6 digits)");
                 //Input = Console.ReadLine();
                 //if (int.TryParse(Input, out TmpInt))
-                NewParcel.ID = ++IDAL.DO.DataSource.Config.RunnerIDNumParcels;
+            //    NewParcel.ID = ++IDAL.DO.DataSource.Config.RunnerIDNumParcels;
                 Console.WriteLine("*parcel sender ID (6 digits)");
                 Input = Console.ReadLine();
                 if (int.TryParse(Input, out TmpInt))
@@ -121,5 +123,5 @@ namespace IDAL
                 IDAL.DO.DalObject.Add(NewDrone);
             }
         }
-    }
+    //}
 }
