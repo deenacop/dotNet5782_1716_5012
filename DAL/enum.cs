@@ -22,28 +22,6 @@ namespace IDAL
             /// Delivery priorities
             /// </summary>
             public enum Priorities { normal, fast, urgent };
-            /// <summary>
-            /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit 
-            /// </summary>
-            public enum options { Add = 1, Update, DisplayIndividual, DisplayList,FindTheDistance, Exit };
-            /// <summary>
-            /// Which item to add
-            /// </summary>
-            public enum AddOptions { Drone = 1, Station, Parcel, Customer };
-            /// <summary>
-            ///  What kind of update is needed 
-            /// </summary>
-            public enum UpdateOptions { AssignParcelToDrone = 1, CollectParcelByDrone, DelivereParcelToCustomer,
-                SendDroneToChargingBaseStation, ReleaseDroneFromChargingBaseStation };
-            /// <summary>
-            /// What item to print
-            /// </summary>
-            public enum DisplayIndividualOptions { DisplyDrone = 1, DisplyStation, DisplayParcel, DisplayCustomer };
-            /// <summary>
-            /// What list of items to print
-            /// </summary>
-            public enum DisplayListOptions { DisplyDroneList = 1, DisplyStationList, DisplayParcelList, 
-                DisplayCustomerList, ListOfUnassignedParcels, ListOfAvailableChargingStations };
         }
     }
 }

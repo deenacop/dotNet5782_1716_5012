@@ -77,10 +77,10 @@ namespace IDAL
                 //Updates the indicator of the first free element-Drone
                 Config.FirstAvailableDrone = 5;
 
-                
+
                 string[] NameArr = { "Shira Segal" , "Deena Copperman" , "Benjamin Netanyahu" , "Yishai Ribu" ,
                                      "Yossi Cohen","Moshe Leon","Mordechai Glazer","Yehuda Shor","Yigal Eyal","Lior Ackerman"};
-                
+
                 string[] PhoneArr = { "0548482282" , "0504188440", "0548324567" , "0547687689", "0525678997",
                                       "0537897889","0527689646","0526789997","0547890087","0505678876"};
                 //Initializing variables into 10 customers.
@@ -102,16 +102,6 @@ namespace IDAL
                     //Date and time randomly 
                     DateTime DateAndTime = new DateTime(2021, rand.Next(1, 12), rand.Next(1, 29), rand.Next(1, 24), rand.Next(0, 60), rand.Next(0, 60));
                     Parcels[i].ID = ++Config.RunnerIDNumParcels;
-                    //Parcels[i].ID = rand.Next(100000, 999999);
-                    //for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each parcel.
-                    //{
-                    //    if (Parcels[j].ID == Parcels[i].ID)
-                    //    {
-                    //        while (Parcels[j].ID == Parcels[i].ID)
-                    //            Parcels[i].ID = rand.Next(1000, 9999);
-                    //        j = 0;
-                    //    }
-                    //}
                     Parcels[i].Sender = rand.Next(100000000, 999999999);
                     Parcels[i].Targetid = rand.Next(100000000, 999999999);
                     Parcels[i].MyDroneID = 0;
@@ -126,10 +116,7 @@ namespace IDAL
                 }
                 //Updates the indicator of the first free element-Parcel
                 Config.FirstAvailableParcel = 10;
-                ////Updates the value to a greater num than all the packages that were added 
-                //Config.RunnerIDNumParcels = 11;
             }
         }
-
     }
 }

@@ -15,45 +15,45 @@ namespace IDAL
         {
             public static string convert(double lon, double lat)
             {
-                string LatitudeAndLongitude = "";
-                double LatDegreesWithFraction = lat;
-                char LonDirection;
-                char Latdirection;
+                string latitudeAndLongitude = "";
+                double latDegreesWithFraction = lat;
+                char lonDirection;
+                char latdirection;
                 if (lat < 0)
-                    Latdirection = 'W';
+                    latdirection = 'W';
                 else
-                    Latdirection = 'E';
-                double LonDegreesWithFraction = lon;//example: 48.858222
+                    latdirection = 'E';
+                double lonDegreesWithFraction = lon;//example: 48.858222
                 if (lon < 0)
-                    LonDirection = 'S';
+                    lonDirection = 'S';
                 else
-                    LonDirection = 'N';//example: =N
+                    lonDirection = 'N';//example: =N
 
-                int LatDegrees = (int)LatDegreesWithFraction; // Converts the degrees to an integer
-                int LonDegrees = (int)LonDegreesWithFraction; //example:  = 48
+                int latDegrees = (int)latDegreesWithFraction; // Converts the degrees to an integer
+                int lonDegrees = (int)lonDegreesWithFraction; //example:  = 48
 
-                double LatFractionalDegrees = LatDegreesWithFraction - LatDegrees; // Finds the minutes by finding the fraction within the initial number he received and then multiplying by 60
-                double LonFractionalDegrees = LonDegreesWithFraction - LonDegrees; //example:  = .858222
+                double latFractionalDegrees = latDegreesWithFraction - latDegrees; // Finds the minutes by finding the fraction within the initial number he received and then multiplying by 60
+                double lonFractionalDegrees = lonDegreesWithFraction - lonDegrees; //example:  = .858222
 
-                double LatMinutesWithFraction = 60 * LatFractionalDegrees; //multiplying the fraction by 60
-                double LonMinutesWithFraction = 60 * LonFractionalDegrees; //example:  = 51.49332
+                double latMinutesWithFraction = 60 * latFractionalDegrees; //multiplying the fraction by 60
+                double lonMinutesWithFraction = 60 * lonFractionalDegrees; //example:  = 51.49332
 
-                int LatMinutes = (int)LatMinutesWithFraction; // Converts the minutes to an integer
-                int LonMinutes = (int)LonMinutesWithFraction; //example:  = 51
+                int latMinutes = (int)latMinutesWithFraction; // Converts the minutes to an integer
+                int lonMinutes = (int)lonMinutesWithFraction; //example:  = 51
 
-                double LatFractionalMinutes = LatMinutesWithFraction - LatMinutes; // Finds the seconds by finding the fraction within the initial number he received and then multiplying by 60
-                double LonFractionalMinutes = LonMinutesWithFraction - LonMinutes; //example:  = .49332
+                double latFractionalMinutes = latMinutesWithFraction - latMinutes; // Finds the seconds by finding the fraction within the initial number he received and then multiplying by 60
+                double lonFractionalMinutes = lonMinutesWithFraction - lonMinutes; //example:  = .49332
 
-                double LatSecondsWithFraction = 60 * LatFractionalMinutes; // multiplying the fraction by 60
-                double LonSecondsWithFraction = 60 * LonFractionalMinutes; //example:  = 29.6
+                double latSecondsWithFraction = 60 * latFractionalMinutes; // multiplying the fraction by 60
+                double lonSecondsWithFraction = 60 * lonFractionalMinutes; //example:  = 29.6
 
-                float LatSeconds = (float)LatSecondsWithFraction; // Convert the seconds to a float
-                float LonSeconds = (float)LonSecondsWithFraction; //example:  = 30
+                float latSeconds = (float)latSecondsWithFraction; // Convert the seconds to a float
+                float lonSeconds = (float)lonSecondsWithFraction; //example:  = 30
 
-                LatitudeAndLongitude += LonDegrees + "°" + LonMinutes + "’" + LonSeconds + "’’" + LonDirection + "\n" +
-                       LatDegrees + "°" + LatMinutes + "’" + LatSeconds + "’’" + Latdirection + "\n";
+                latitudeAndLongitude += lonDegrees + "°" + lonMinutes + "’" + lonSeconds + "’’" + lonDirection + "\n" +
+                       latDegrees + "°" + latMinutes + "’" + latSeconds + "’’" + latdirection ;
 
-                return LatitudeAndLongitude;
+                return latitudeAndLongitude;
             }
         }
     }
