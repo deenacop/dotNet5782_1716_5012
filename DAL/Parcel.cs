@@ -20,9 +20,10 @@ namespace IDAL
             public @enum.Priorities Priority { get; set; }
             public int MyDroneID { get; set; }
             public DateTime Requested { get; set; }
+            public DateTime Scheduled { get; set; }
             public DateTime PickUp { get; set; }
             public DateTime Delivered { get; set; }
-            public DateTime Scheduled { get; set; }
+
             public override string ToString()
             {
                 string str = "Parcel ID:" + ID + "\nParcel sender:" + Sender + "\nParcel targetid:" + Targetid +

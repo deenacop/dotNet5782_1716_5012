@@ -16,12 +16,9 @@ namespace IDAL
             public int ID { get; set; }
             public string Model { get; set; }
             public @enum.WeightCategories Weight { get; set; }
-            public @enum.DroneStatus Status { get; set; }
-            public int Battery { get; set; }
             public override string ToString()
             {
-                string str = "Drone ID:" + ID + "\nDrone model:" + Model + "\nDrone weight:" + Weight + "\nDrone status:" + Status
-                    + "\nDrone battery:" + Battery + "\n";
+                string str = "Drone ID:" + ID + "\nDrone model:" + Model + "\nDrone weight:" + Weight +  "\n";
                 return str;
             }
         }

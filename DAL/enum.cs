@@ -15,10 +15,6 @@ namespace IDAL
             /// </summary>
             public enum WeightCategories { light, midium, heavy };
             /// <summary>
-            /// In what stage the drone is in
-            /// </summary>
-            public enum DroneStatus { available, maintenance, delivery };
-            /// <summary>
             /// Delivery priorities
             /// </summary>
             public enum Priorities { normal, fast, urgent };

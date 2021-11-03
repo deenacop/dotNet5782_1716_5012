@@ -14,14 +14,6 @@ namespace IDAL
             /// DalObject constructor
             /// </summary>
             public DalObject() { DataSource.Initialize(); }
-            /// <summary>
-            /// Adds a new DroneCharge
-            /// </summary>
-            /// <param name="droneCharge">The new DroneCharge that we will added to the list of DroneCharges</param>
-            public void Add(DroneCharge droneCharge)
-            {
-                DataSource.DroneCharges[DataSource.Config.FirstAvailableDroneCharge++] = droneCharge;
-            }
 
             /// <summary>
             /// Adds a new drone
@@ -29,7 +21,7 @@ namespace IDAL
             /// <param name="NewDrone">The new drone that will be added to the list of drones</param>
             public void Add(Drone NewDrone)
             {
-                DataSource.Drones[DataSource.Config.FirstAvailableDrone++] = NewDrone;
+                DataSource.Drones.Add(NewDrone);
             }
 
             /// <summary>
@@ -38,7 +30,7 @@ namespace IDAL
             /// <param name="NewStation">The new station that will be added to the list of stations</param>
             public void Add(Station NewStation)
             {
-                DataSource.Stations[DataSource.Config.FirstAvailableStation++] = NewStation;
+                DataSource.Stations.Add(NewStation);
             }
 
             /// <summary>
@@ -48,7 +40,7 @@ namespace IDAL
             public void Add(Parcel NewParcel)
             {
                 NewParcel.ID = ++IDAL.DO.DataSource.Config.RunnerIDNumParcels;
-                DataSource.Parcels[DataSource.Config.FirstAvailableParcel++] = NewParcel;
+                DataSource.Parcels.Add(NewParcel);
             }
 
             /// <summary>
@@ -57,33 +49,26 @@ namespace IDAL
             /// <param name="NewCustomer">The new Customer that will be added to the list of customer</param>
             public void Add(Customer NewCustomer)
             {
-                DataSource.Customers[DataSource.Config.FirstAvailableCustomer++] = NewCustomer;
+                DataSource.Customers.Add(NewCustomer);
             }
 
-            public int DroneIDToParcel = 0;//A variable known to all functions. The ID number of a drone for a particular package
-
             /// <summary>
-            /// Assigns a free drone to the parcel
+            /// Assigns a drone to the parcel
             /// </summary>
             /// <param name="ParcelID">The parcel's ID that needs to be assigns</param>
-            public void AssignParcelToDrone(int ParcelID)
+            /// <param name="DroneID">The drone's ID that needs to be assigns</param>
+            public void AssignParcelToDrone(int ParcelID, int DroneID)
             {
-                //finds the first available drone
-                for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
+                IEnumerator<Parcel> iter = DataSource.Parcels.GetEnumerator();
+                //finds the wanted parcel and assign the drone to the parcel
+                for (int i = 0; iter.MoveNext(); i++)
                 {
-                    if (DataSource.Drones[i].Status == @enum.DroneStatus.available)
+                    if (iter.Current.ID == ParcelID)
                     {
-                        DroneIDToParcel = DataSource.Drones[i].ID;//The found drone 
-                        break;
-                    }
-                }
-                //finds the wanted parcel
-                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
-                {
-                    if (DataSource.Parcels[i].ID == ParcelID)
-                    {
-                        DataSource.Parcels[i].MyDroneID = DroneIDToParcel;
-                        DataSource.Parcels[i].Scheduled = DateTime.Now;
+                        Parcel tmp = iter.Current;
+                        tmp.MyDroneID = DroneID;
+                        tmp.Scheduled = DateTime.Now;
+                        DataSource.Parcels[i] = tmp;
                         break;
                     }
                 }
@@ -93,26 +78,22 @@ namespace IDAL
             /// Collection of a requested parcel by a drone
             /// </summary>
             /// <param name="ParcelID">The parcel's ID that needs to be collected</param>
-            public void CollectionOfParcelByDrone(int ParcelID)
+            public void CollectionOfParcelByDrone(int ParcelID, int DroneID)
             {
+                IEnumerator<Parcel> iter = DataSource.Parcels.GetEnumerator();
                 //finds the wanted parcel
-                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
+                for (int i = 0; iter.MoveNext(); i++)
                 {
-                    if (DataSource.Parcels[i].ID == ParcelID)
+                    if (iter.Current.ID == ParcelID)
                     {
-                        DataSource.Parcels[i].Delivered = DateTime.Now;
+                        Parcel tmp = iter.Current;
+                        tmp.MyDroneID = DroneID;
+                        tmp.PickUp = DateTime.Now;
+                        DataSource.Parcels[i] = tmp;
                         break;
                     }
                 }
-                //finds the assigned drone to the corrent parcel
-                for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
-                {
-                    if (DataSource.Drones[i].ID == DroneIDToParcel)
-                    {
-                        DataSource.Drones[i].Status = @enum.DroneStatus.delivery;
-                        break;
-                    }
-                }
+
 
             }
             /// <summary>
@@ -121,50 +102,39 @@ namespace IDAL
             /// <param name="ParcelID">The parcel's ID that needs to be collected</param>
             public void DeliveryParcelToCustomer(int ParcelID)
             {
-                //finds the wanted parcel and updates the pick up time
-                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
+                IEnumerator<Parcel> iter = DataSource.Parcels.GetEnumerator();
+                //finds the wanted parcel
+                for (int i = 0; iter.MoveNext(); i++)
                 {
-                    if (DataSource.Parcels[i].ID == ParcelID)
+                    if (iter.Current.ID == ParcelID)
                     {
-                        DataSource.Parcels[i].PickUp = DateTime.Now;
-                        DataSource.Parcels[i].MyDroneID = 0;
-                        break;
-                    }
-                }
-                //changes the status of the drone after the delivery to be available
-                for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
-                {
-                    if (DataSource.Drones[i].ID == DroneIDToParcel)
-                    {
-                        DataSource.Drones[i].Status = @enum.DroneStatus.available;
+                        Parcel tmp = iter.Current;
+                        tmp.MyDroneID = 0;
+                        tmp.Delivered = DateTime.Now;
+                        DataSource.Parcels[i] = tmp;
                         break;
                     }
                 }
             }
 
-            public void SendingDroneToChargingBaseStation(int DroneID, int ChosenStation)
+            public void SendingDroneToChargingBaseStation(int DroneID, int StationID)
             {
-                DroneCharge ChargingDroneBattery = new DroneCharge();
+                DroneCharge ChargingDroneBattery = new();
                 ChargingDroneBattery.RecDrone = DroneID;
-                ChargingDroneBattery.RecBaseStation = ChosenStation;
-                Add(ChargingDroneBattery);
-                //changes the status of the drone to be maintenance
-                for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
-                {
-                    if (DataSource.Drones[i].ID == DroneID)
-                    {
-                        DataSource.Drones[i].Status = @enum.DroneStatus.maintenance;
-                        break;
-                    }
-                }
+                ChargingDroneBattery.RecBaseStation = DroneID;
+                DataSource.DroneCharges.Add(ChargingDroneBattery);
                 //up dates the number of available charging slots
-                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
+                IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
+                for (int i = 0; iter.MoveNext(); i++)
                 {
-                    if (DataSource.Stations[i].ID == ChosenStation)
+                    if (iter.Current.ID == StationID)
                     {
-                        DataSource.Stations[i].NumOfAvailableChargeSlots--;
+                        Station tmp = iter.Current;
+                        tmp.NumOfAvailableChargeSlots--;
+                        DataSource.Stations[i] = tmp;
                         break;
                     }
+
                 }
             }
 
@@ -173,32 +143,26 @@ namespace IDAL
             /// </summary>
             /// <param name="DroneID">The ID of the wanted drone</param>
             /// <param name="BaseStationID">The ID of the wanted station</param>
+            /// 
             public void ReleasingDroneFromChargingBaseStation(int DroneID, int BaseStationID)
             {
-                //changes the status of the drone to be available
-                for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
-                {
-                    if (DataSource.Drones[i].ID == DroneID)
-                    {
-                        DataSource.Drones[i].Status = @enum.DroneStatus.available;
-                        DataSource.Drones[i].Battery = 100;
-                        break;
-                    }
-                }
+                IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
                 //Finds the station that the drone was released from and updates the number of available charging slots.
-                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
+                for (int i = 0; iter.MoveNext(); i++)
                 {
-                    if (DataSource.Stations[i].ID == BaseStationID)
+                    if (iter.Current.ID == BaseStationID)
                     {
-                        DataSource.Stations[i].NumOfAvailableChargeSlots++;
+                        Station tmp = iter.Current;
+                        tmp.NumOfAvailableChargeSlots++;
+                        DataSource.Stations[i] = tmp;
                         break;
                     }
                 }
-                for (int i = 0; i < DataSource.Config.FirstAvailableDroneCharge; i++)//Resets the requested instance. (To "delete" it from the array of DroneCharge)
+                foreach (DroneCharge delDroneCharge in DataSource.DroneCharges)//delete the dronecharge from the list of DroneCharge)
                 {
-                    if (DataSource.DroneCharges[i].RecDrone == DroneID && DataSource.DroneCharges[i].RecBaseStation == BaseStationID)
+                    if (delDroneCharge.RecDrone == DroneID && delDroneCharge.RecBaseStation == BaseStationID)
                     {
-                        DataSource.DroneCharges[i].RecDrone = 0; DataSource.DroneCharges[i].RecBaseStation = 0;
+                        DataSource.DroneCharges.Remove(delDroneCharge); break;
                     }
                 }
             }
@@ -209,11 +173,13 @@ namespace IDAL
             /// <param name="DroneID">The requested drone</param>
             public Drone DroneDisplay(int DroneID)
             {
+                IEnumerator<Drone> iter = DataSource.Drones.GetEnumerator();
+
                 Drone droneWanted = new Drone();
-                for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
+                for (int i = 0; iter.MoveNext(); i++)
                 {
-                    if (DataSource.Drones[i].ID == DroneID)
-                        droneWanted = DataSource.Drones[i];
+                    if (iter.Current.ID == DroneID)
+                        droneWanted = DataSource.Drones[i]; break;
                 }
                 return droneWanted;
             }
@@ -224,10 +190,12 @@ namespace IDAL
             /// <param name="StationID">The requested station</param>
             public Station StationDisplay(int StationID)
             {
+                IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
+
                 Station stationWanted = new Station();
-                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
+                for (int i = 0; iter.MoveNext(); i++)
                 {
-                    if (DataSource.Stations[i].ID == StationID)
+                    if (iter.Current.ID == StationID)
                         stationWanted = DataSource.Stations[i];
                 }
                 return stationWanted;
@@ -239,10 +207,12 @@ namespace IDAL
             /// <param name="CustomerID">The requested customer</param>
             public Customer CustomerDisplay(int CustomerID)
             {
+                IEnumerator<Customer> iter = DataSource.Customers.GetEnumerator();
+
                 Customer custumerWanted = new Customer();
-                for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
+                for (int i = 0; iter.MoveNext(); i++)
                 {
-                    if (DataSource.Customers[i].ID == CustomerID)
+                    if (iter.Current.ID == CustomerID)
                         custumerWanted = DataSource.Customers[i];
                 }
                 return custumerWanted;
@@ -254,10 +224,12 @@ namespace IDAL
             /// <param name="ParcelID"> The requested parcel</param>
             public Parcel ParcelDisplay(int ParcelID)
             {
+                IEnumerator<Parcel> iter = DataSource.Parcels.GetEnumerator();
+
                 Parcel parcelWanted = new Parcel();
-                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
+                for (int i = 0; iter.MoveNext(); i++)
                 {
-                    if (DataSource.Parcels[i].ID == ParcelID)
+                    if (iter.Current.ID == ParcelID)
                         parcelWanted = DataSource.Parcels[i];
                 }
                 return parcelWanted;
@@ -266,67 +238,52 @@ namespace IDAL
             /// <summary>
             /// Returns all the drones in the list.
             /// </summary>
-            public Drone[] ListDroneDisplay()
+            public List<Drone> ListDroneDisplay()
             {
-                Drone[] ListOfDrones = new Drone[DataSource.Config.FirstAvailableDrone];
-                for (int i = 0; i < DataSource.Config.FirstAvailableDrone; i++)
-                    ListOfDrones[i] = DataSource.Drones[i];
+                List<Drone> ListOfDrones = new();
+                foreach (Drone currentDrone in DataSource.Drones) { ListOfDrones.Add(currentDrone); }
                 return ListOfDrones;
-
             }
 
             /// <summary>
             /// Returns all the customers in the list.
             /// </summary>
-            public Customer[] ListCustomerDisplay()
+            public List<Customer> ListCustomerDisplay()
             {
-                Customer[] ListOfCustomers = new Customer[DataSource.Config.FirstAvailableCustomer];
-
-                for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
-                    ListOfCustomers[i] = DataSource.Customers[i];
+                List<Customer> ListOfCustomers = new();
+                foreach (Customer currentCostomer in DataSource.Customers) { ListOfCustomers.Add(currentCostomer); }
                 return ListOfCustomers;
             }
 
             /// <summary>
             /// Returns all the station in the list 
             /// </summary>
-            public Station[] ListStationDisplay()
+            public List<Station> ListStationDisplay()
             {
-                Station[] ListOfStation = new Station[DataSource.Config.FirstAvailableStation];
-
-                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
-                    ListOfStation[i] = DataSource.Stations[i];
+                List<Station> ListOfStation = new();
+                foreach (Station currentStation in DataSource.Stations) { ListOfStation.Add(currentStation); }
                 return ListOfStation;
             }
 
             /// <summary>
             /// Returns all the parcel in the list
             /// </summary>
-            public Parcel[] ListParcelDisplay()
+            public List<Parcel> ListParcelDisplay()
             {
-                Parcel[] ListOfParcel = new Parcel[DataSource.Config.FirstAvailableParcel];
-
-                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
-                    ListOfParcel[i] = DataSource.Parcels[i];
+                List<Parcel> ListOfParcel = new();
+                foreach (Parcel currentParcel in DataSource.Parcels) { ListOfParcel.Add(currentParcel); }
                 return ListOfParcel;
             }
 
             /// <summary>
             /// Returns all the Unassigned parcels.
             /// </summary>
-            public Parcel[] ListOfUnassignedParcels()
+            public List<Parcel> ListOfUnassignedParcels()
             {
-                int amountOfUnassignedParcels = 0;
-                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
+                List<Parcel> UnassignedParcels = new();
+                foreach (Parcel currentParcel in DataSource.Parcels)
                 {
-                    if (DataSource.Parcels[i].MyDroneID == 0)
-                        amountOfUnassignedParcels++;
-                }
-                Parcel[] UnassignedParcels = new Parcel[amountOfUnassignedParcels];
-                for (int i = 0; i < DataSource.Config.FirstAvailableParcel; i++)
-                {
-                    if (DataSource.Parcels[i].MyDroneID == 0)
-                        UnassignedParcels[i] = DataSource.Parcels[i];
+                    if (currentParcel.MyDroneID == 0) UnassignedParcels.Add(currentParcel);
                 }
                 return UnassignedParcels;
             }
@@ -334,22 +291,16 @@ namespace IDAL
             /// <summary>
             /// Returns all the base stations with available charging stations
             /// </summary>
-            public Station[] ListOfAvailableChargingStations()
+            public List<Station> ListOfAvailableChargingStations()
             {
-                int amountOfAvailableChargingStations = 0;
-                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
+                List<Station> AvailableChargingStations = new();
+                foreach (Station currentStation in DataSource.Stations)
                 {
-                    if (DataSource.Stations[i].NumOfAvailableChargeSlots != 0)
-                        amountOfAvailableChargingStations++;
-                }
-                Station[] AvailableChargingStations = new Station[amountOfAvailableChargingStations];
-                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
-                {
-                    if (DataSource.Stations[i].NumOfAvailableChargeSlots != 0)
-                        AvailableChargingStations[i] = DataSource.Stations[i];
+                    if (currentStation.NumOfAvailableChargeSlots != 0) AvailableChargingStations.Add(currentStation);
                 }
                 return AvailableChargingStations;
             }
         }
     }
 }
+

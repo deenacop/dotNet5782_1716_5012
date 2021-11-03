@@ -1,121 +1,123 @@
 ﻿using System;
 using IDAL.DO;
+using System.Collections.Generic;
 namespace IDAL
 {
     namespace DO
     {
         /// <summary>
-        /// Creates new arrays for each type, and initializes them with variables.
+        /// Creates new lists for each type, and initializes them with variables.
         /// </summary>
         internal class DataSource
         {
             static internal readonly Random rand = new(DateTime.Now.Millisecond);
-            //Builds arrays for all the entities
-            static internal Drone[] Drones = new Drone[10];
-            static internal Station[] Stations = new Station[5];
-            static internal Customer[] Customers = new Customer[100];
-            static internal Parcel[] Parcels = new Parcel[1000];
-            static internal DroneCharge[] DroneCharges = new DroneCharge[100];
+            //creates lists for all the entities
+            static internal List<Drone> Drones = new(10);
+            static internal List<Parcel> Parcels = new(1000);
+            static internal List<Station> Stations = new(5);
+            static internal List<Customer> Customers = new(100);
+            static internal List<DroneCharge> DroneCharges = new(10);
 
             /// <summary>
-            ///Defines an index variable for each array that indicates a free space.
+            ///Defines a variable for a parcel
             /// </summary>
             internal class Config
             {
-                static internal int FirstAvailableDrone = 0;
-                static internal int FirstAvailableStation = 0;
-                static internal int FirstAvailableCustomer = 0;
-                static internal int FirstAvailableParcel = 0;
-                static internal int FirstAvailableDroneCharge = 0;
                 static internal int RunnerIDNumParcels = 100000;
             }
 
             public static void Initialize()
             {
-                string[] AddresArr = { "Balfour street, Jerusalem", "4 David Remez Street, Jerusalem" };
+                string[] addresArr = { "Balfour street, Jerusalem", "4 David Remez Street, Jerusalem" };
                 // Initializing variables into 2 stations. 
                 for (int i = 0; i < 2; i++)
                 {
-                    Stations[i].ID = rand.Next(1000, 9999);
+                    Stations.Insert(i, new()
+                    {
+                        ID = rand.Next(1000, 10000),
+                        NumOfAvailableChargeSlots = rand.Next(0, 100),
+                        Name = addresArr[i],
+                        Latitude = rand.NextDouble() + 31,
+                        Longitude = rand.NextDouble() + 35
+                    });
                     for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each station.
                     {
                         if (Stations[j].ID == Stations[i].ID)
                         {
-                            while (Stations[j].ID == Stations[i].ID)
-                                Stations[i].ID = rand.Next(1000, 9999);
-                            j = 0;
+                            i--;
+                            break;
                         }
                     }
-                    Stations[i].NumOfAvailableChargeSlots = rand.Next(0, 100);
-                    Stations[i].Name = AddresArr[i];
-                    //In Jerusalem only
-                    Stations[i].Latitude = rand.NextDouble() + 31;
-                    Stations[i].Longitude = rand.NextDouble() + 35;
                 }
 
-                //Updates the indicator of the first free element-Station
-                Config.FirstAvailableStation = 2;
-                string[] ModelArr = { "Yuneec H520", "DJI Mavic 2 Zoom", "DJI Phantom 4", "3D Robotics Solo", "Flyability Elios Drone" };
+                string[] modelArr = { "Yuneec H520", "DJI Mavic 2 Zoom", "DJI Phantom 4", "3D Robotics Solo", "Flyability Elios Drone" };
                 //Initializing variables into 5 drones.
                 for (int i = 0; i < 5; i++)
                 {
-                    Drones[i].ID = rand.Next(100, 999);
-                    for (int j = 0; j < i; j++) //Checks that indeed the ID number is unique to each drone.
+                    Drones.Insert(i, new()
+                    {
+                        ID = rand.Next(1000, 10000),
+                        Model = modelArr[i],
+                        Weight = (@enum.WeightCategories)rand.Next(0, 2)
+
+                    });
+                    for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each drone.
                     {
                         if (Drones[j].ID == Drones[i].ID)
                         {
-                            while (Drones[j].ID == Drones[i].ID)
-                                Drones[i].ID = rand.Next(1000, 9999);
-                            j = 0;
+                            i--;
+                            break;
                         }
                     }
-                    Drones[i].Model = ModelArr[i];
-                    Drones[i].Battery = rand.Next(0, 100);
-                    Drones[i].Status = 0;//No delivery have yet been made so all drones are available.
-                    Drones[i].Weight = (@enum.WeightCategories)rand.Next(0, 2);
                 }
-                //Updates the indicator of the first free element-Drone
-                Config.FirstAvailableDrone = 5;
 
-
-                string[] NameArr = { "Shira Segal" , "Deena Copperman" , "Benjamin Netanyahu" , "Yishai Ribu" ,
+                string[] nameArr = { "Shira Segal" , "Deena Copperman" , "Benjamin Netanyahu" , "Yishai Ribu" ,
                                      "Yossi Cohen","Moshe Leon","Mordechai Glazer","Yehuda Shor","Yigal Eyal","Lior Ackerman"};
 
-                string[] PhoneArr = { "0548482282" , "0504188440", "0548324567" , "0547687689", "0525678997",
+                string[] phoneArr = { "0548482282" , "0504188440", "0548324567" , "0547687689", "0525678997",
                                       "0537897889","0527689646","0526789997","0547890087","0505678876"};
-                //Initializing variables into 10 customers.
                 for (int i = 0; i < 10; i++)
                 {
-                    Customers[i].ID = rand.Next(100000000, 999999999);//9 digits
-                    Customers[i].Latitude = rand.NextDouble() + 31;
-                    Customers[i].Longitude = rand.NextDouble() + 35;
-                    Customers[i].Name = NameArr[i];
-                    Customers[i].PhoneNumber = PhoneArr[i];
-                }
+                    //Initializing variables into 10 customers.
+                    Customers.Insert(i, new()
+                    {
+                        ID = rand.Next(100000000, 1000000000),//9 digits
+                        Latitude = rand.NextDouble() + 31,
+                        Longitude = rand.NextDouble() + 35,
+                        Name = nameArr[i],
+                        PhoneNumber = phoneArr[i]
 
-                //Updates the indicator of the first free element-Customers
-                Config.FirstAvailableCustomer = 10;
+                    });
+                    for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each customer.
+                    {
+                        if (Customers[j].ID == Customers[i].ID)
+                        {
+                            i--;
+                            break;
+                        }
+                    }
+                }
 
                 //Initializing variables into 10 parcels.
                 for (int i = 0; i < 10; i++)
                 {
-                    //Date and time randomly 
-                    DateTime DateAndTime = new DateTime(2021, rand.Next(1, 12), rand.Next(1, 29), rand.Next(1, 24), rand.Next(0, 60), rand.Next(0, 60));
-                    Parcels[i].ID = ++Config.RunnerIDNumParcels;
-                    Parcels[i].Sender = rand.Next(100000000, 999999999);
-                    Parcels[i].Targetid = rand.Next(100000000, 999999999);
-                    Parcels[i].MyDroneID = 0;
-                    //In the initialization, the entire ID of the drone is 0 because we did not want to reach contradictions in the introduction of the identity of the drone
-                    //and also that no deliveries were made yet.
-                    Parcels[i].Weight = (@enum.WeightCategories)rand.Next(0, 2);
-                    Parcels[i].Priority = (@enum.Priorities)rand.Next(0, 2);
-                    Parcels[i].Requested = DateAndTime;
-                    Parcels[i].Scheduled = Parcels[i].Requested.AddMinutes(rand.Next(10, 1000));//adds minutes between requested and scheduled 
-                    Parcels[i].Delivered = Parcels[i].Scheduled.AddHours(rand.Next(10, 1000));//adds hours between scheduled and delivered 
-                    Parcels[i].PickUp = Parcels[i].Delivered.AddHours(rand.Next(10, 1000));//adds hours between delivered and pick up
+                    DateTime DateAndTime = new DateTime(0, 0, 0);
+                    Parcels.Insert(i, new()
+                    {
+                        ID = ++Config.RunnerIDNumParcels,
+                        Sender = rand.Next(100000000, 999999999),
+                        Targetid = rand.Next(100000000, 999999999),
+                        MyDroneID = 0,
+                        //In the initialization, the entire ID of the drone is 0 because we did not want to reach contradictions in the introduction of the identity of the drone
+                        //and also that no deliveries were made yet.
+                        Weight = (@enum.WeightCategories)rand.Next(0, 2),
+                        Priority = (@enum.Priorities)rand.Next(0, 2),
+                        Requested = DateTime.Now,
+                        Scheduled = DateAndTime,
+                        PickUp = DateAndTime,
+                        Delivered = DateAndTime                       
+                    }) ;
                 }
-                //Updates the indicator of the first free element-Parcel
-                Config.FirstAvailableParcel = 10;
             }
         }
     }

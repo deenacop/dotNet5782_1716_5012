@@ -112,8 +112,6 @@ namespace ConsoleUI
             input = Console.ReadLine();
             int.TryParse(input, out tmpInt);
             NewDrone.Weight = (@enum.WeightCategories)tmpInt;
-            NewDrone.Battery = 100;
-            NewDrone.Status = 0;
             main.DalObj.Add(NewDrone);
         }
     }
