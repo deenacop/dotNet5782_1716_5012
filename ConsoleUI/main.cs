@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
 using IDAL.DO;
 namespace ConsoleUI
 {
@@ -35,18 +36,17 @@ namespace ConsoleUI
         static public DalObject DalObj = new DalObject();
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to our drone delivery system.\n" +
-                "To insert, type 1." +
-                "\nTo update, type 2." +
-                "\nTo view a single item, type 3." +
-                "\nTo view a list, type 4." +
-                "\nTo find a distance between a point and a station or between a point and the customer, type 5." +
-                "\nTo exit, type 6.");
             int userAnswer = 0;
             string input;
             int IDFromUser1, IDFromUser2;
             while (userAnswer != 6)
             {
+                Console.WriteLine("To insert, type 1." +
+             "\nTo update, type 2." +
+             "\nTo view a single item, type 3." +
+             "\nTo view a list, type 4." +
+             "\nTo find a distance between a point and a station or between a point and the customer, type 5." +
+             "\nTo exit, type 6.");
                 input = Console.ReadLine();
                 int.TryParse(input, out userAnswer);
                 switch (userAnswer)
@@ -93,7 +93,10 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter parcel ID (6 digits).");
                                         input = Console.ReadLine();
                                         int.TryParse(input, out IDFromUser1);
-                                        DalObj.AssignParcelToDrone(IDFromUser1);
+                                        Console.WriteLine("Enter drone ID (4 digits).");
+                                        input = Console.ReadLine();
+                                        int.TryParse(input, out IDFromUser2);
+                                        DalObj.AssignParcelToDrone(IDFromUser1, IDFromUser2);
                                         break;
                                     }
 
@@ -102,7 +105,10 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter parcel ID (6 digits).");
                                         input = Console.ReadLine();
                                         int.TryParse(input, out IDFromUser1);
-                                        DalObj.CollectionOfParcelByDrone(IDFromUser1);
+                                        Console.WriteLine("Enter drone ID (4 digits).");
+                                        input = Console.ReadLine();
+                                        int.TryParse(input, out IDFromUser2);
+                                        DalObj.CollectionOfParcelByDrone(IDFromUser1, IDFromUser2);
                                         break;
                                     }
 
@@ -120,9 +126,8 @@ namespace ConsoleUI
                                         input = Console.ReadLine();
                                         int.TryParse(input, out IDFromUser1);
                                         Console.WriteLine("Choose from the following available stations. Enter the chosen ID (4 digits).");
-                                        Station[] ListOfStation = DalObj.ListOfAvailableChargingStations();
-                                        for (int i = 0; i < ListOfStation.Length; i++)
-                                            Console.WriteLine(ListOfStation[i]);
+                                        List<Station> ListOfStation = DalObj.ListOfAvailableChargingStations();
+                                        foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
                                         input = Console.ReadLine();
                                         int.TryParse(input, out IDFromUser2);
                                         DalObj.SendingDroneToChargingBaseStation(IDFromUser1, IDFromUser2);
@@ -209,48 +214,42 @@ namespace ConsoleUI
                             {
                                 case (int)DisplayListOptions.DisplyDroneList:
                                     {
-                                        Drone[] ListOfDrones = DalObj.ListDroneDisplay();
-                                        for (int i = 0; i < ListOfDrones.Length; i++)
-                                            Console.WriteLine(ListOfDrones[i]);
+                                        List<Drone> ListOfDrones = DalObj.ListDroneDisplay();
+                                        foreach (Drone tmp in ListOfDrones) { Console.WriteLine(tmp); }
                                     }
                                     break;
 
                                 case (int)DisplayListOptions.DisplyStationList:
                                     {
-                                        Station[] ListOfStation = DalObj.ListStationDisplay();
-                                        for (int i = 0; i < ListOfStation.Length; i++)
-                                            Console.WriteLine(ListOfStation[i]);
+                                        List<Station> ListOfStation = DalObj.ListStationDisplay();
+                                        foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
                                     }
                                     break;
 
                                 case (int)DisplayListOptions.DisplayParcelList:
                                     {
-                                        Parcel[] ListOfParcel = DalObj.ListParcelDisplay();
-                                        for (int i = 0; i < ListOfParcel.Length; i++)
-                                            Console.WriteLine(ListOfParcel[i]);
+                                        List<Parcel> ListOfParcel = DalObj.ListParcelDisplay();
+                                        foreach (Parcel tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                     }
                                     break;
 
                                 case (int)DisplayListOptions.DisplayCustomerList:
                                     {
-                                        Customer[] ListOfCustomers = DalObj.ListCustomerDisplay();
-                                        for (int i = 0; i < ListOfCustomers.Length; i++)
-                                            Console.WriteLine(ListOfCustomers[i]);
+                                        List<Customer> ListOfCustomer = DalObj.ListCustomerDisplay();
+                                        foreach (Customer tmp in ListOfCustomer) { Console.WriteLine(tmp); }
                                     }
                                     break;
                                 case (int)DisplayListOptions.ListOfUnassignedParcels:
                                     {
-                                        Parcel[] ListOfParcel = DalObj.ListOfUnassignedParcels();
-                                        for (int i = 0; i < ListOfParcel.Length; i++)
-                                            Console.WriteLine(ListOfParcel[i]);
+                                        List<Parcel> ListOfParcel = DalObj.ListParcelDisplay();
+                                        foreach (Parcel tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                         break;
                                     }
 
                                 case (int)DisplayListOptions.ListOfAvailableChargingStations:
                                     {
-                                        Station[] ListOfStation = DalObj.ListOfAvailableChargingStations();
-                                        for (int i = 0; i < ListOfStation.Length; i++)
-                                            Console.WriteLine(ListOfStation[i]);
+                                        List<Station> ListOfStation = DalObj.ListStationDisplay();
+                                        foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
                                         break;
                                     }
 
@@ -274,7 +273,7 @@ namespace ConsoleUI
                             int.TryParse(input, out answer);
                             if (answer == 1)//station
                             {
-                                Console.WriteLine("Enter the ID number of the station from which you would like to measure distance ( 6-digit). ");
+                                Console.WriteLine("Enter the ID number of the station from which you would like to measure distance ( 4-digit). ");
                                 input = Console.ReadLine();
                                 int.TryParse(input, out ID);
                                 Console.WriteLine(DistanceCalculation.Calculation(lon1, lat1, DistanceCalculation.FindTheStationCoordinates(ID)));
@@ -297,15 +296,7 @@ namespace ConsoleUI
                     default:
                         Console.WriteLine("Wrong input");
                         break;
-
                 }
-
-                Console.WriteLine("To insert, type 1." +
-                "\nTo update, type 2." +
-                "\nTo view a single item, type 3." +
-                "\nTo view a list, type 4." +
-                "\nTo find a distance between a point and a station or between a point and the customer, type 5." +
-                "\nTo exit, type 6.");
             }
         }
     }

@@ -48,6 +48,7 @@ namespace ConsoleUI
         /// </summary>
         public static void AddParcel()
         {
+            DateTime DateAndTime = new DateTime(1, 1, 1);
             IDAL.DO.Parcel NewParcel = new IDAL.DO.Parcel();
             Console.WriteLine("*parcel sender ID (6 digits)");
             input = Console.ReadLine();
@@ -67,9 +68,9 @@ namespace ConsoleUI
             NewParcel.Priority = (@enum.Priorities)tmpInt;
             NewParcel.MyDroneID = 0;
             NewParcel.Requested = DateTime.Now;
-            NewParcel.Scheduled = DateTime.Now;
-            NewParcel.PickUp = DateTime.Now;
-            NewParcel.Delivered = DateTime.Now;
+            NewParcel.Scheduled = DateAndTime;
+            NewParcel.PickUp = DateAndTime;
+            NewParcel.Delivered = DateAndTime;
             main.DalObj.Add(NewParcel);
         }
 
@@ -85,6 +86,8 @@ namespace ConsoleUI
                 NewCustomer.ID = tmpInt;
             Console.WriteLine("*customer name");
             NewCustomer.Name = Console.ReadLine();
+            Console.WriteLine("*customer phone number");
+            NewCustomer.PhoneNumber = Console.ReadLine();
             Console.WriteLine("*customer longitude");
             input = Console.ReadLine();
             double.TryParse(input, out tmpDouble);

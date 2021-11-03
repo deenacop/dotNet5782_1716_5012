@@ -101,10 +101,10 @@ namespace IDAL
                 //Initializing variables into 10 parcels.
                 for (int i = 0; i < 10; i++)
                 {
-                    DateTime DateAndTime = new DateTime(0, 0, 0);
+                    DateTime DateAndTime = new DateTime(1, 1, 1);
                     Parcels.Insert(i, new()
                     {
-                        ID = ++Config.RunnerIDNumParcels,
+                        ID = Config.RunnerIDNumParcels++,
                         Sender = rand.Next(100000000, 999999999),
                         Targetid = rand.Next(100000000, 999999999),
                         MyDroneID = 0,

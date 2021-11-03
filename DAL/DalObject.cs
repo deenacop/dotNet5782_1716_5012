@@ -67,7 +67,7 @@ namespace IDAL
                     {
                         Parcel tmp = iter.Current;
                         tmp.MyDroneID = DroneID;
-                        tmp.Scheduled = DateTime.Now;
+                        tmp.Scheduled = DateTime.Now;//updates the scheduled time
                         DataSource.Parcels[i] = tmp;
                         break;
                     }
@@ -81,7 +81,7 @@ namespace IDAL
             public void CollectionOfParcelByDrone(int ParcelID, int DroneID)
             {
                 IEnumerator<Parcel> iter = DataSource.Parcels.GetEnumerator();
-                //finds the wanted parcel
+                //finds the wanted parcel and updates the pick up time and the parcel's ID drone
                 for (int i = 0; iter.MoveNext(); i++)
                 {
                     if (iter.Current.ID == ParcelID)
@@ -93,9 +93,8 @@ namespace IDAL
                         break;
                     }
                 }
-
-
             }
+
             /// <summary>
             /// Delivery parcil to customer
             /// </summary>
@@ -103,7 +102,7 @@ namespace IDAL
             public void DeliveryParcelToCustomer(int ParcelID)
             {
                 IEnumerator<Parcel> iter = DataSource.Parcels.GetEnumerator();
-                //finds the wanted parcel
+                //finds the wanted parcel and updates the parcel
                 for (int i = 0; iter.MoveNext(); i++)
                 {
                     if (iter.Current.ID == ParcelID)
@@ -116,13 +115,18 @@ namespace IDAL
                     }
                 }
             }
-
+            /// <summary>
+            /// Sending drone to charging base station
+            /// </summary>
+            /// <param name="DroneID">the wanted drone</param>
+            /// <param name="StationID">the wanted station</param>
             public void SendingDroneToChargingBaseStation(int DroneID, int StationID)
             {
+                //creates a new  dronecharge's varible
                 DroneCharge ChargingDroneBattery = new();
                 ChargingDroneBattery.RecDrone = DroneID;
                 ChargingDroneBattery.RecBaseStation = DroneID;
-                DataSource.DroneCharges.Add(ChargingDroneBattery);
+                DataSource.DroneCharges.Add(ChargingDroneBattery);//adds
                 //up dates the number of available charging slots
                 IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
                 for (int i = 0; iter.MoveNext(); i++)
@@ -134,7 +138,6 @@ namespace IDAL
                         DataSource.Stations[i] = tmp;
                         break;
                     }
-
                 }
             }
 
@@ -143,7 +146,6 @@ namespace IDAL
             /// </summary>
             /// <param name="DroneID">The ID of the wanted drone</param>
             /// <param name="BaseStationID">The ID of the wanted station</param>
-            /// 
             public void ReleasingDroneFromChargingBaseStation(int DroneID, int BaseStationID)
             {
                 IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
@@ -162,7 +164,8 @@ namespace IDAL
                 {
                     if (delDroneCharge.RecDrone == DroneID && delDroneCharge.RecBaseStation == BaseStationID)
                     {
-                        DataSource.DroneCharges.Remove(delDroneCharge); break;
+                        DataSource.DroneCharges.Remove(delDroneCharge);
+                        break;
                     }
                 }
             }
@@ -174,12 +177,14 @@ namespace IDAL
             public Drone DroneDisplay(int DroneID)
             {
                 IEnumerator<Drone> iter = DataSource.Drones.GetEnumerator();
-
                 Drone droneWanted = new Drone();
-                for (int i = 0; iter.MoveNext(); i++)
+                while ( iter.MoveNext())
                 {
                     if (iter.Current.ID == DroneID)
-                        droneWanted = DataSource.Drones[i]; break;
+                    {
+                        droneWanted = iter.Current;
+                        break;
+                    }
                 }
                 return droneWanted;
             }
@@ -191,12 +196,14 @@ namespace IDAL
             public Station StationDisplay(int StationID)
             {
                 IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
-
                 Station stationWanted = new Station();
-                for (int i = 0; iter.MoveNext(); i++)
+                while ( iter.MoveNext())
                 {
                     if (iter.Current.ID == StationID)
-                        stationWanted = DataSource.Stations[i];
+                    {
+                        stationWanted = iter.Current;
+                        break;
+                    }
                 }
                 return stationWanted;
             }
@@ -208,12 +215,14 @@ namespace IDAL
             public Customer CustomerDisplay(int CustomerID)
             {
                 IEnumerator<Customer> iter = DataSource.Customers.GetEnumerator();
-
                 Customer custumerWanted = new Customer();
-                for (int i = 0; iter.MoveNext(); i++)
+                while ( iter.MoveNext())
                 {
                     if (iter.Current.ID == CustomerID)
-                        custumerWanted = DataSource.Customers[i];
+                    {
+                        custumerWanted = iter.Current;
+                        break;
+                    }
                 }
                 return custumerWanted;
             }
@@ -225,12 +234,14 @@ namespace IDAL
             public Parcel ParcelDisplay(int ParcelID)
             {
                 IEnumerator<Parcel> iter = DataSource.Parcels.GetEnumerator();
-
                 Parcel parcelWanted = new Parcel();
-                for (int i = 0; iter.MoveNext(); i++)
+                while (iter.MoveNext())
                 {
                     if (iter.Current.ID == ParcelID)
-                        parcelWanted = DataSource.Parcels[i];
+                    {
+                        parcelWanted = iter.Current;
+                        break;
+                    }
                 }
                 return parcelWanted;
             }

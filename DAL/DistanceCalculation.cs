@@ -35,20 +35,26 @@ namespace IDAL
             }
             public static Customer FindTheCustomerCoordinates(int ID)
             {
-                Customer forNotFoundCase = new Customer();
+                Customer forNotFoundCase = new Customer();//for not found case
                 forNotFoundCase.ID = 0;
-                for (int i = 0; i < DataSource.Config.FirstAvailableCustomer; i++)
-                    if (ID == DataSource.Customers[i].ID)
-                        return DataSource.Customers[i];
+                IEnumerator<Customer> iter = DataSource.Customers.GetEnumerator();
+                while (iter.MoveNext())
+                {
+                    if (ID == iter.Current.ID)
+                        return iter.Current;
+                }
                 return forNotFoundCase;
             }
             public static Station FindTheStationCoordinates(int ID)
             {
                 Station forNotFoundCase = new Station();
                 forNotFoundCase.ID = 0;
-                for (int i = 0; i < DataSource.Config.FirstAvailableStation; i++)
-                    if (ID == DataSource.Stations[i].ID)
-                        return DataSource.Stations[i];
+                IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
+                while (iter.MoveNext())
+                {
+                    if (ID == iter.Current.ID)
+                        return iter.Current;
+                }
                 return forNotFoundCase;
             }
         }
