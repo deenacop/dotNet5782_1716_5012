@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System;
 using IDAL.DO;
-using IDAL;
+using DalObject;
+
 namespace ConsoleUI
-{ 
-    class main
+{
+    class Program
     {
         /// <summary>
         /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit 
@@ -34,9 +35,7 @@ namespace ConsoleUI
             DisplyDroneList = 1, DisplyStationList, DisplayParcelList,
             DisplayCustomerList, ListOfUnassignedParcels, ListOfAvailableChargingStations
         };
-        IDal DalObj = new DalObject();
-
-        //static public DalObject DalObj = new DalObject();
+        IDal myDalObject = new DalObject();
         static void Main(string[] args)
         {
             int userAnswer = 0;

@@ -28,14 +28,5 @@ namespace IDAL
         public List<Parcel> ListOfUnassignedParcels();
         public List<Station> ListOfAvailableChargingStations();
         public double[] ChargingDrone();
-
-
-
-
-
-
-
-
-
     }
 }

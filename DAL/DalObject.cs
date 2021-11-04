@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL;
+using IDAL.DO;
 
-namespace IDAL.DO
+namespace DalObject
 {
     public class DalObject : IDal
     {
@@ -44,7 +45,7 @@ namespace IDAL.DO
         /// <param name="NewParcel">The new parcel that will be added to the list of parcels</param>
         public void Add(Parcel NewParcel)
         {
-            NewParcel.ID = ++IDAL.DO.DataSource.Config.RunnerIDNumParcels;
+            NewParcel.ID = DataSource.Config.RunnerIDNumParcels++;
             DataSource.Parcels.Add(NewParcel);
         }
 
