@@ -4,7 +4,7 @@ using IDAL.DO;
 namespace ConsoleUI
 {
     class main
-    {
+    { 
         /// <summary>
         /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit 
         /// </summary>

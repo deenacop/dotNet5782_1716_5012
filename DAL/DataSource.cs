@@ -24,6 +24,11 @@ namespace IDAL
             internal class Config
             {
                 static internal int RunnerIDNumParcels = 100000;
+                static internal double vacant;
+                static internal double CarriesLightWeight;
+                static internal double CarriesMediumWeight;
+                static internal double CarriesHeavyWeight;
+                static internal double DroneLoadingRate;
             }
 
             public static void Initialize()
