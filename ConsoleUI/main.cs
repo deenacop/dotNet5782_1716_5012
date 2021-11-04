@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System;
 using IDAL.DO;
+using IDAL;
 namespace ConsoleUI
-{
+{ 
     class main
-    { 
+    {
         /// <summary>
         /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit 
         /// </summary>
@@ -33,7 +34,9 @@ namespace ConsoleUI
             DisplyDroneList = 1, DisplyStationList, DisplayParcelList,
             DisplayCustomerList, ListOfUnassignedParcels, ListOfAvailableChargingStations
         };
-        static public DalObject DalObj = new DalObject();
+        IDal DalObj = new DalObject();
+
+        //static public DalObject DalObj = new DalObject();
         static void Main(string[] args)
         {
             int userAnswer = 0;
@@ -93,7 +96,7 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter parcel ID (6 digits).");
                                         input = Console.ReadLine();
                                         int.TryParse(input, out IDFromUser1);
-                                        Console.WriteLine("Enter drone ID (4 digits).");
+                                        Console.WriteLine("Enter drone ID (3 digits).");
                                         input = Console.ReadLine();
                                         int.TryParse(input, out IDFromUser2);
                                         DalObj.AssignParcelToDrone(IDFromUser1, IDFromUser2);
@@ -105,7 +108,7 @@ namespace ConsoleUI
                                         Console.WriteLine("Enter parcel ID (6 digits).");
                                         input = Console.ReadLine();
                                         int.TryParse(input, out IDFromUser1);
-                                        Console.WriteLine("Enter drone ID (4 digits).");
+                                        Console.WriteLine("Enter drone ID (3 digits).");
                                         input = Console.ReadLine();
                                         int.TryParse(input, out IDFromUser2);
                                         DalObj.CollectionOfParcelByDrone(IDFromUser1, IDFromUser2);
