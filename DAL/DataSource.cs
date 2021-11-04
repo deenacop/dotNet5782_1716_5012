@@ -56,7 +56,7 @@ namespace IDAL
                 {
                     Drones.Insert(i, new()
                     {
-                        ID = rand.Next(1000, 10000),
+                        ID = rand.Next(100, 1000),
                         Model = modelArr[i],
                         Weight = (@enum.WeightCategories)rand.Next(0, 2)
 
