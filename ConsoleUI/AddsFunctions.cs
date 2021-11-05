@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
-
+using DalObject;
+using IDAL;
 //We wanted to shorten the main so we added this function
 namespace ConsoleUI
 {
@@ -40,7 +41,7 @@ namespace ConsoleUI
             input = Console.ReadLine();
             if (double.TryParse(input, out tmpDouble))
                 NewStation.Latitude = tmpDouble;
-            main.DalObj.Add(NewStation);
+            Program.DalObj.Add(NewStation);
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace ConsoleUI
             NewParcel.Scheduled = DateAndTime;
             NewParcel.PickUp = DateAndTime;
             NewParcel.Delivered = DateAndTime;
-            main.DalObj.Add(NewParcel);
+            Program.DalObj.Add(NewParcel);
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace ConsoleUI
             input = Console.ReadLine();
             double.TryParse(input, out tmpDouble);
             NewCustomer.Latitude = tmpDouble;
-            main.DalObj.Add(NewCustomer);
+            Program.DalObj.Add(NewCustomer);
         }
 
         /// <summary>
@@ -115,7 +116,7 @@ namespace ConsoleUI
             input = Console.ReadLine();
             int.TryParse(input, out tmpInt);
             NewDrone.Weight = (@enum.WeightCategories)tmpInt;
-            main.DalObj.Add(NewDrone);
+            Program.DalObj.Add(NewDrone);
         }
     }
 }

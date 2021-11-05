@@ -24,6 +24,7 @@ namespace IDAL
         public Parcel ParcelDisplay(int ParcelID);
         public List<Drone> ListDroneDisplay();
         public List<Customer> ListCustomerDisplay();
+        public List<Station> ListStationDisplay();
         public List<Parcel> ListParcelDisplay();
         public List<Parcel> ListOfUnassignedParcels();
         public List<Station> ListOfAvailableChargingStations();

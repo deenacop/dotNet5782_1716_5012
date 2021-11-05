@@ -37,7 +37,7 @@ namespace IDAL
             {
                 Customer forNotFoundCase = new Customer();//for not found case
                 forNotFoundCase.ID = 0;
-                IEnumerator<Customer> iter = DataSource.Customers.GetEnumerator();
+                IEnumerator<Customer> iter = DalObject.DataSource.Customers.GetEnumerator();
                 while (iter.MoveNext())
                 {
                     if (ID == iter.Current.ID)
@@ -49,7 +49,7 @@ namespace IDAL
             {
                 Station forNotFoundCase = new Station();
                 forNotFoundCase.ID = 0;
-                IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
+                IEnumerator<Station> iter = DalObject.DataSource.Stations.GetEnumerator();
                 while (iter.MoveNext())
                 {
                     if (ID == iter.Current.ID)
