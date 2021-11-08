@@ -68,18 +68,22 @@ namespace DalObject
         /// <param name="DroneID">The drone's ID that needs to be assigns</param>
         public void AssignParcelToDrone(int ParcelID, int DroneID)
         {
-            //checks if the drone exists and if not throws an exception
-            if (!DataSource.Drones.Exists(item => item.ID == DroneID))
-                throw new ItemNotExistException("The drone does not exists");
-            //finds the wanted parcel
-            int index = DataSource.Parcels.FindIndex(item => item.ID == ParcelID);
-            if (index < 0)//not found
-                throw new ItemNotExistException("The station does not exists");
-            //updates the parcel
-            Parcel tmp = DataSource.Parcels[index];
-            tmp.MyDroneID = DroneID;
-            tmp.Scheduled = DateTime.Now;//updates the scheduled time
-            DataSource.Parcels[index] = tmp;
+           
+            
+                //checks if the drone exists and if not throws an exception
+                if (!DataSource.Drones.Exists(item => item.ID == DroneID))
+                    throw new ItemNotExistException("The drone does not exists");
+                //finds the wanted parcel
+                int index = DataSource.Parcels.FindIndex(item => item.ID == ParcelID);
+                if (index < 0)//not found
+                    throw new ItemNotExistException("The station does not exists");
+                //updates the parcel
+                Parcel tmp = DataSource.Parcels[index];
+                tmp.MyDroneID = DroneID;
+                tmp.Scheduled = DateTime.Now;//updates the scheduled time
+                DataSource.Parcels[index] = tmp;
+            
+            
         }
 
         /// <summary>
