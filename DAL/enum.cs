@@ -13,11 +13,11 @@ namespace IDAL
             /// <summary>
             /// The drone weights
             /// </summary>
-            public enum WeightCategories { light, midium, heavy };
+            public enum WeightCategories { Light, Midium, Heavy };
             /// <summary>
             /// Delivery priorities
             /// </summary>
-            public enum Priorities { normal, fast, urgent };
+            public enum Priorities { Normal, Fast, Urgent };
         }
     }
 }
