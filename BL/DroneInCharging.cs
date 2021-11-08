@@ -9,7 +9,7 @@ namespace IBL.BO
     /// <summary>
     /// Drone in the charging slot
     /// </summary>
-    class DroneInCharging
+    public class DroneInCharging
     {
         public int DroneID { get; set; }
         public int Battery { get; set; }

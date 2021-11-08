@@ -9,7 +9,7 @@ namespace IBL.BO
     /// <summary>
     /// The drone that is carring the parcel
     /// </summary>
-    class DroneInParcel
+    public class DroneInParcel
     {
         public int DroneID { get; set; }
         public int Battery { get; set; }
