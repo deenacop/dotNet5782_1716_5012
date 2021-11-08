@@ -14,8 +14,8 @@ namespace IBL.BO
         public int ParcelID { get; set; }
         public string  NameCustomerSendidng { get; set; }
         public string NameCustomerReceiving { get; set; }
-        public @enum.WeightCategores Weight { get; set; }
-        public @enum.Priority Priority { get; set; }
+        public @enum.WeightCategories Weight { get; set; }
+        public @enum.Priorities Priority { get; set; }
         public @enum.ParcelStatus Status { get; set; }
         public override string ToString()
         {

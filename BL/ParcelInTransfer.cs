@@ -13,7 +13,7 @@ namespace IBL.BO
     {
         public int ParcelID { get; set; }
         public bool Status { get; set; }//Waiting for collection / on the way to the destination
-        public @enum.WeightCategores Weight { get; set; }
+        public @enum.WeightCategories Weight { get; set; }
         public CustomerInParcel Sender { get; set; }
         public CustomerInParcel Receiver { get; set; }
         public Location Collection { get; set; }
