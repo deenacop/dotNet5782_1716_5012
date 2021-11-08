@@ -2,6 +2,9 @@
 
 namespace IBL.BO
 {
+    /// <summary>
+    /// location longitude and latitude
+    /// </summary>
     public class Location
     {
         public double Longitude { get; set; }

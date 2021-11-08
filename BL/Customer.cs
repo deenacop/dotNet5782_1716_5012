@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
+    /// <summary>
+    /// customer detailes
+    /// </summary>
     public class Customer
     {
         public int ID { get; set; }
