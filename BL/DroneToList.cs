@@ -17,13 +17,13 @@ namespace IBL.BO
         public int Battery { get; set; }
         public @enum.DroneStatus DroneStatus { get; set; }
         public Location MyCurrentLocation { get; set; }
-        public int ParcelNumberTransferred { get; set; }
+        public int ParcelNumberTransfered { get; set; }
         public override string ToString()
         {
             return "The drone ID: " + DroneID + "\n" + "The drone model: " + Model + "\n" +
                 "Drone Weight: " + Weight + "\n" + "Drone's battery: " + Battery + "\n" +
                 "Drone Status: " + DroneStatus + "\n" + "Drone location: " + MyCurrentLocation + "\n" +
-                "The parcel number which is transferred: " + ParcelNumberTransferred + "\n";
+                "The parcel number which is transferred: " + ParcelNumberTransfered + "\n";
             ;
         }
     }
