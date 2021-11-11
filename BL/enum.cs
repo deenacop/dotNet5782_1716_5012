@@ -21,7 +21,7 @@ namespace IBL.BO
         /// </summary>
         public enum ParcelStatus { Defined, Associated, PickedUp, Delivered }
         /// <summary>
-        /// The Drone status
+        /// The Drone status(פנוי,תחוזקה,משלוח)
         /// </summary>
         public enum DroneStatus { Available, Maintenance, Delivery }
     }
