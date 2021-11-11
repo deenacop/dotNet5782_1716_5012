@@ -24,9 +24,9 @@ namespace DalObject
         {
             static internal int RunnerIDNumParcels = 100000;
             static internal double vacant = 0.05;//per km
-            static internal double CarriesLightWeight = 0.08;//per km
-            static internal double CarriesMediumWeight = 0.1;//per km
-            static internal double CarriesHeavyWeight = 0.13;//per km
+            static internal double CarriesLightWeight = 8;//per km
+            static internal double CarriesMediumWeight = 10;//per km
+            static internal double CarriesHeavyWeight = 13;//per km
             static internal double DroneLoadingRate = 0.3;//per min
         }
 
