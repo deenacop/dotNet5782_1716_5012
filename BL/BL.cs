@@ -40,12 +40,12 @@ namespace BL
                 ParcelToList parcelInDrone = ParcelListBL.Find(item => item.ParcelID == currentDrone.ParcelNumberTransfered);//finds the parcel which is assigned to the current drone.
                 if (currentDrone.ParcelNumberTransfered != 0)//if the drone is assigned
                 {
-                    if (parcelInDrone.Status != @enum.ParcelStatus.Delivered)//if the parcel is not provided
+                    if (parcelInDrone.ParcelStatus != @enum.ParcelStatus.Delivered)//if the parcel is not provided
                     {
                         currentDrone.DroneStatus = @enum.DroneStatus.Delivery;
-                        Customer sender = CustomerListBL.Find(item => item.Name == parcelInDrone.NameCustomerSendidng);//found the customer that is getting the parcel
+                        Customer sender = CustomerListBL.Find(item => item.Name == parcelInDrone.NameOfSender);//found the customer that is getting the parcel
                         double minDistance = 0;
-                        if (parcelInDrone.Status != @enum.ParcelStatus.PickedUp)
+                        if (parcelInDrone.ParcelStatus != @enum.ParcelStatus.PickedUp)
                         {
                             Location closestStation = null;
                             //finds the closest station from the sender
@@ -63,7 +63,7 @@ namespace BL
                         {
                             currentDrone.MyCurrentLocation = sender.CustomerLocation;
                         }
-                        Customer receiver = CustomerListBL.Find(item => item.Name == parcelInDrone.NameCustomerReceiving);//found the customer that is
+                        Customer receiver = CustomerListBL.Find(item => item.Name == parcelInDrone.NameOfTargetaed);//found the customer that is
                         //finds the closest station from the targeted
                         foreach (BaseStation currentStation in BaseStationListBL)
                         {
