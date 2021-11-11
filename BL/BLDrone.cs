@@ -9,13 +9,19 @@ using IBL.BO;
 
 namespace BL
 {
-    internal partial class BL : IBL
+    internal partial class BL : IBL.IBL
     {
         public BL()
         {
             IDal DalObj = new DalObject.DalObject();
             double[] ElectricityUse = DalObj.ChargingDrone();//*צריך לבדוק מה הוא מעתיק
-            List <Drone> DroneList= DalObj.ListDroneDisplay();
+            List<Drone> DroneListBL = null;
+            List<IDAL.DO.Drone> DroneListDL = DalObj.ListDroneDisplay();
+            DroneListBL.CopyPropertiesTo(DroneListDL);
+
+
+
+
         }
         
         
