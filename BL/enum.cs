@@ -17,7 +17,7 @@ namespace IBL.BO
         /// </summary>
         public enum Priorities { Normal, Fast, Urgent };
         /// <summary>
-        /// The parcel status
+        /// The parcel status(הוגדר,שויך,נאסף עי רחפן,סופק ללקוח)
         /// </summary>
         public enum ParcelStatus { Defined, Associated, PickedUp, Delivered }
         /// <summary>

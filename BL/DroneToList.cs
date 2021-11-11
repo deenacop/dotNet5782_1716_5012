@@ -17,6 +17,9 @@ namespace IBL.BO
         public int Battery { get; set; }
         public @enum.DroneStatus DroneStatus { get; set; }
         public Location MyCurrentLocation { get; set; }
+        /// <summary>
+        /// The number of the parcel that is transfered
+        /// </summary>
         public int ParcelNumberTransfered { get; set; }
         public override string ToString()
         {
