@@ -132,7 +132,7 @@ namespace ConsoleUI
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser1);
                                             Console.WriteLine("Choose from the following available stations. Enter the chosen ID (4 digits).");
-                                            List<Station> ListOfStation = DalObj.ListOfAvailableChargingStations();
+                                            IEnumerable<Station> ListOfStation = DalObj.ListOfAvailableChargingStations();
                                             foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser2);
