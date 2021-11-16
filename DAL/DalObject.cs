@@ -10,6 +10,7 @@ namespace DalObject
 {
     public class DalObject : IDal
     {
+        #region Add
         /// <summary>
         /// DalObject constructor
         /// </summary>
@@ -60,7 +61,9 @@ namespace DalObject
                 throw new AlreadyExistedItemException("The customer already exists");
             DataSource.Customers.Add(NewCustomer);
         }
+        #endregion
 
+        #region Updates
         /// <summary>
         /// Assigns a drone to the parcel
         /// </summary>
@@ -183,7 +186,9 @@ namespace DalObject
             //tmp.NumOfAvailableChargeSlots++;
             //DataSource.Stations[index] = tmp;
         }
+        #endregion 
 
+        #region Display one item
         /// <summary>
         /// Return the wanted drone
         /// </summary>
@@ -194,7 +199,7 @@ namespace DalObject
                 throw new ItemNotExistException("The drone does not exists");
             return DataSource.Drones.Find(item => item.ID == DroneID);
         }
-
+       
         /// <summary>
         /// Return the wanted station
         /// </summary>
@@ -227,11 +232,13 @@ namespace DalObject
                 throw new ItemNotExistException("The drone does not exists");
             return DataSource.Parcels.Find(item => item.ID == ParcelID);
         }
+        #endregion
 
+        #region Lists of items
         /// <summary>
         /// Returns all the drones in the list.
         /// </summary>
-        public List<Drone> ListDroneDisplay()
+        public IEnumerable<Drone> ListDroneDisplay()
         {
             List<Drone> ListOfDrones = new();
             foreach (Drone currentDrone in DataSource.Drones) { ListOfDrones.Add(currentDrone); }
@@ -241,7 +248,7 @@ namespace DalObject
         /// <summary>
         /// Returns all the customers in the list.
         /// </summary>
-        public List<Customer> ListCustomerDisplay()
+        public IEnumerable<Customer> ListCustomerDisplay()
         {
             List<Customer> ListOfCustomers = new();
             foreach (Customer currentCostomer in DataSource.Customers) { ListOfCustomers.Add(currentCostomer); }
@@ -251,7 +258,7 @@ namespace DalObject
         /// <summary>
         /// Returns all the station in the list 
         /// </summary>
-        public List<Station> ListStationDisplay()
+        public IEnumerable<Station> ListStationDisplay()
         {
             List<Station> ListOfStation = new();
             foreach (Station currentStation in DataSource.Stations) { ListOfStation.Add(currentStation); }
@@ -261,7 +268,7 @@ namespace DalObject
         /// <summary>
         /// Returns all the parcel in the list
         /// </summary>
-        public List<Parcel> ListParcelDisplay()
+        public IEnumerable<Parcel> ListParcelDisplay()
         {
             List<Parcel> ListOfParcel = new();
             foreach (Parcel currentParcel in DataSource.Parcels) { ListOfParcel.Add(currentParcel); }
@@ -271,7 +278,7 @@ namespace DalObject
         /// <summary>
         /// Returns all the Unassigned parcels.
         /// </summary>
-        public List<Parcel> ListOfUnassignedParcels()
+        public IEnumerable<Parcel> ListOfUnassignedParcels()
         {
             List<Parcel> UnassignedParcels = new();
             foreach (Parcel currentParcel in DataSource.Parcels)
@@ -284,7 +291,7 @@ namespace DalObject
         /// <summary>
         /// Returns all the base stations with available charging stations
         /// </summary>
-        public List<Station> ListOfAvailableChargingStations()
+        public IEnumerable<Station> ListOfAvailableChargingStations()
         {
             List<Station> AvailableChargingStations = new();
             foreach (Station currentStation in DataSource.Stations)
@@ -293,6 +300,7 @@ namespace DalObject
             }
             return AvailableChargingStations;
         }
+        #endregion
 
         /// <summary>
         /// requests power consumption by a drone 

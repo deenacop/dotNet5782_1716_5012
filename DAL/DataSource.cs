@@ -11,12 +11,13 @@ namespace DalObject
     {
         static internal readonly Random rand = new(DateTime.Now.Millisecond);
         //creates lists for all the entities
+        #region Creats lists
         static internal List<Drone> Drones = new(10);
         static internal List<Parcel> Parcels = new(1000);
         static internal List<Station> Stations = new(5);
         static internal List<Customer> Customers = new(100);
         static internal List<DroneCharge> DroneCharges = new(10);
-
+        #endregion
         /// <summary>
         ///Defines a variable for a parcel
         /// </summary>
@@ -29,7 +30,10 @@ namespace DalObject
             static internal double CarriesHeavyWeight = 13;//per km
             static internal double DroneLoadingRate = 0.05;//per min
         }
-
+        #region Initialize
+        /// <summary>
+        /// Initializes all the lists we have built in the config function at default values
+        /// </summary>
         public static void Initialize()
         {
             string[] addresArr = { "Balfour street, Jerusalem", "4 David Remez Street, Jerusalem" };
@@ -123,6 +127,7 @@ namespace DalObject
                 });
             }
         }
+        #endregion
     }
 
 }

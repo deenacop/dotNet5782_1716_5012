@@ -220,41 +220,41 @@ namespace ConsoleUI
                                 {
                                     case (int)DisplayListOptions.DisplyDroneList:
                                         {
-                                            List<Drone> ListOfDrones = DalObj.ListDroneDisplay();
+                                            IEnumerable<Drone> ListOfDrones = DalObj.ListDroneDisplay();
                                             foreach (Drone tmp in ListOfDrones) { Console.WriteLine(tmp); }
                                         }
                                         break;
 
                                     case (int)DisplayListOptions.DisplyStationList:
                                         {
-                                            List<Station> ListOfStation = DalObj.ListStationDisplay();
+                                            IEnumerable<Station> ListOfStation = DalObj.ListStationDisplay();
                                             foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
                                         }
                                         break;
 
                                     case (int)DisplayListOptions.DisplayParcelList:
                                         {
-                                            List<Parcel> ListOfParcel = DalObj.ListParcelDisplay();
+                                            IEnumerable<Parcel> ListOfParcel = DalObj.ListParcelDisplay();
                                             foreach (Parcel tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                         }
                                         break;
 
                                     case (int)DisplayListOptions.DisplayCustomerList:
                                         {
-                                            List<Customer> ListOfCustomer = DalObj.ListCustomerDisplay();
+                                            IEnumerable<Customer> ListOfCustomer = DalObj.ListCustomerDisplay();
                                             foreach (Customer tmp in ListOfCustomer) { Console.WriteLine(tmp); }
                                         }
                                         break;
                                     case (int)DisplayListOptions.ListOfUnassignedParcels:
                                         {
-                                            List<Parcel> ListOfParcel = DalObj.ListParcelDisplay();
+                                            IEnumerable<Parcel> ListOfParcel = DalObj.ListParcelDisplay();
                                             foreach (Parcel tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                             break;
                                         }
 
                                     case (int)DisplayListOptions.ListOfAvailableChargingStations:
                                         {
-                                            List<Station> ListOfStation = DalObj.ListStationDisplay();
+                                            IEnumerable<Station> ListOfStation = DalObj.ListStationDisplay();
                                             foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
                                             break;
                                         }

@@ -11,7 +11,7 @@ namespace IBL.BO
         /// <summary>
         /// Drone details
         /// </summary>
-        public int ID { get; set; }
+        public int DroneID { get; set; }
         public string Model { get; set; }
         public @enum.WeightCategories Weight { get; set; }
         public int Battery { get; set; }
@@ -20,11 +20,9 @@ namespace IBL.BO
         public Location MyCurrentLocation { get; set; }
         public override string ToString()
         {
-            return "Drone ID: " + ID + "\n" + "Drone model: " + Model + "\n" +
-                "Drone whight: " + Weight + "\n" + "Drone Battery: " + Battery + "\n"
-                + "Drone status: " + DroneStatus + "\n" + "The parcel that is transfer:" + MyParcel + "\n" +
-                "location:" + MyCurrentLocation + "\n";
+            return "Drone ID: " + DroneID + "\nDrone model: " + Model + "\nDrone whight: " + Weight +
+                "\nDrone Battery: " + Battery + "\nDrone status: " + DroneStatus + "\nThe parcel that is transfer:" +
+                MyParcel + "\nlocation:" + MyCurrentLocation + "\n";
         }
-
     }
 }

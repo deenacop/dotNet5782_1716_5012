@@ -23,10 +23,9 @@ namespace IBL.BO
         public int ParcelNumberTransfered { get; set; }
         public override string ToString()
         {
-            return "The drone ID: " + DroneID + "\n" + "The drone model: " + Model + "\n" +
-                "Drone Weight: " + Weight + "\n" + "Drone's battery: " + Battery + "\n" +
-                "Drone Status: " + DroneStatus + "\n" + "Drone location: " + MyCurrentLocation + "\n" +
-                "The parcel number which is transferred: " + ParcelNumberTransfered + "\n";
+            return "Drone ID: " + DroneID + "\nDrone model: " + Model + "\nDrone Weight: " + Weight + "\nDrone's battery: " + 
+                Battery + "\nDrone Status: " + DroneStatus + "\nDrone's location: " + MyCurrentLocation + 
+                "\nThe parcel number which is transferred: " + ParcelNumberTransfered + "\n";
             ;
         }
     }
