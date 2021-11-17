@@ -20,6 +20,7 @@ namespace ConsoleUI
         /// <summary>
         /// Asks station details from the user and adds the new station to the current list.
         /// </summary>
+        #region Add
         public static void AddStation()
         {
             IDAL.DO.Station NewStation = new IDAL.DO.Station();
@@ -118,5 +119,6 @@ namespace ConsoleUI
             NewDrone.Weight = (@enum.WeightCategories)tmpInt;
             Program.DalObj.Add(NewDrone);
         }
+        #endregion
     }
 }

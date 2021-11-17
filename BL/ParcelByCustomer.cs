@@ -18,9 +18,9 @@ namespace IBL.BO
         public CustomerInParcel SecondSideOfParcelCustomer { get; set; }
         public override string ToString()
         {
-            return "Parcel ID: " + ParcelID + "\n" + "Parcel weight: " + Weight + "\n" +
-                "Parcel priority: " + Priority + "\n" + "Parcel status: " + ParcelStatus + "\n" +
-                "The second side of the parcel custumer: " + SecondSideOfParcelCustomer + "\n";
+            return "Parcel ID: " + ParcelID + "\nParcel weight: " + Weight + "\nParcel priority: " +
+                Priority + "\nParcel status: " + ParcelStatus + "\nThe second side of the parcel custumer: " +
+                SecondSideOfParcelCustomer + "\n";
         }
     }
 }

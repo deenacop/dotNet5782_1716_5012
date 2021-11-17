@@ -11,7 +11,7 @@ namespace IBL.BO
     /// </summary>
     public class Customer
     {
-        public int ID { get; set; }
+        public int CustomerID { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public Location CustomerLocation { get; set; }
@@ -19,7 +19,7 @@ namespace IBL.BO
         public List<Parcel> TOCustomer { get; set; }
         public override string ToString()
         {
-            string str = "Customer ID:" + ID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
+            string str = "Customer ID:" + CustomerID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
                 PhoneNumber + "\nCustomer location:\n" + CustomerLocation + "\n";
             return str;
         }

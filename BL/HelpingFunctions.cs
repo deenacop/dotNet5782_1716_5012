@@ -9,6 +9,7 @@ namespace BL
 {
     internal partial class BL
     {
+        #region Distance
         const double PI = Math.PI;
         const int RADIUS = 6371;//the earth radius
         /// <summary>
@@ -26,7 +27,6 @@ namespace BL
             double distance = 2 * RADIUS * Math.Asin(havd);
             return distance;
         }
-
-
+        #endregion
     }
 }
