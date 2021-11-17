@@ -18,27 +18,39 @@ namespace IBL.BO
         }
     }
 
-        [Serializable]
-        public class AlreadyExistedItemException : Exception
+    [Serializable]
+    public class AlreadyExistedItemException : Exception
+    {
+        public AlreadyExistedItemException() : base() { }
+        public AlreadyExistedItemException(string message) : base(message) { }
+        public AlreadyExistedItemException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
         {
-            public AlreadyExistedItemException() : base() { }
-            public AlreadyExistedItemException(string message) : base(message) { }
-            public AlreadyExistedItemException(string message, Exception inner) : base(message, inner) { }
-            public override string ToString()
-            {
-                return Message;
-            }
+            return Message;
         }
-        [Serializable]
-        public class UnlogicalLocation:Exception
+    }
+    [Serializable]
+    public class WorngIDException : Exception
+    {
+        public WorngIDException() : base() { }
+        public WorngIDException(string message) : base(message) { }
+        public WorngIDException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
         {
-            public UnlogicalLocation() : base() { }
-            public UnlogicalLocation(string message) : base(message) { }
-            public UnlogicalLocation(string message, Exception inner) : base(message, inner) { }
-            public override string ToString()
-            {
-                return Message;
-            }
+            return Message;
         }
-    
+    }
+
+    [Serializable]
+    public class UnlogicalLocation : Exception
+    {
+        public UnlogicalLocation() : base() { }
+        public UnlogicalLocation(string message) : base(message) { }
+        public UnlogicalLocation(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
+        {
+            return Message;
+        }
+    }
+
 }
