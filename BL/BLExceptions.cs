@@ -18,27 +18,27 @@ namespace IBL.BO
         }
     }
 
-    [Serializable]
-    public class AlreadyExistedItemException : Exception
-    {
-        public AlreadyExistedItemException() : base() { }
-        public AlreadyExistedItemException(string message) : base(message) { }
-        public AlreadyExistedItemException(string message, Exception inner) : base(message, inner) { }
-        public override string ToString()
+        [Serializable]
+        public class AlreadyExistedItemException : Exception
         {
-            return Message;
+            public AlreadyExistedItemException() : base() { }
+            public AlreadyExistedItemException(string message) : base(message) { }
+            public AlreadyExistedItemException(string message, Exception inner) : base(message, inner) { }
+            public override string ToString()
+            {
+                return Message;
+            }
         }
-    }
-
-    [Serializable]
-    public class WorngIDException : Exception
-    {
-        public WorngIDException() : base() { }
-        public WorngIDException(string message) : base(message) { }
-        public WorngIDException(string message, Exception inner) : base(message, inner) { }
-        public override string ToString()
+        [Serializable]
+        public class UnlogicalLocation:Exception
         {
-            return Message;
+            public UnlogicalLocation() : base() { }
+            public UnlogicalLocation(string message) : base(message) { }
+            public UnlogicalLocation(string message, Exception inner) : base(message, inner) { }
+            public override string ToString()
+            {
+                return Message;
+            }
         }
-    }
+    
 }
