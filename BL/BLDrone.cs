@@ -19,10 +19,10 @@ namespace BL
         public void AddDrone(Drone drone, int stationID)
         {
             if (ChackingNumOfDigits(drone.DroneID) != 3)
-                throw new Exception("worng ID\n");
+                throw new WorngIDException("worng ID");
             BaseStation wantedStation = FindBaseStation(stationID);
             if (wantedStation.StationID == 0)
-                throw new Exception("station not exist\n");
+                throw new AlreadyExistedItemException("The station for charging the drone, does not exist");
             drone.MyCurrentLocation = wantedStation.StationLocation;
             drone.Battery = rand.Next(20, 41);
             drone.DroneStatus = @enum.DroneStatus.Maintenance;
@@ -34,7 +34,7 @@ namespace BL
             }
             catch(IDAL.DO.AlreadyExistedItemException ex)
             {
-                throw new Exception(ex.Message);
+                throw new AlreadyExistedItemException(ex.Message);
             }
         }
     }

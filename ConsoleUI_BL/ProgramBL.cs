@@ -40,7 +40,6 @@ namespace ConsoleUI_BL
         {
 
             int userAnswer = 0;
-            string input;
             int IDFromUser1, IDFromUser2;
             while (userAnswer != 6)
             {
@@ -52,20 +51,25 @@ namespace ConsoleUI_BL
                  "\nTo view a list, type 4." +
                  "\nTo find a distance between a point and a station or between a point and the customer, type 5." +
                  "\nTo exit, type 6.");
-                    input = Console.ReadLine();
-                    int.TryParse(input, out userAnswer);
+                    int.TryParse(Console.ReadLine(), out userAnswer);
                     switch (userAnswer)
                     {
                         case (int)options.Add:
                             {
-                                Console.WriteLine("To add a drone, type 1.\nTo add a station, type 2.\n" +
+                                Console.WriteLine("To add a drone, type 1.\nTo add a Base station, type 2.\n" +
                                                   "To add a parcel, type 3.\nTo add a customer, type 4.");
-                                input = Console.ReadLine();
-                                int.TryParse(input, out userAnswer);
+                                int.TryParse(Console.ReadLine(), out userAnswer);
                                 switch (userAnswer)
                                 {
                                     case (int)AddOptions.Drone:
                                         Drone newDrone = new Drone();
+                                        Console.WriteLine("Enter the drone ID (3 digits)");
+                                        newDrone.DroneID = Console.Read();
+                                        Console.WriteLine("Enter the drone model");
+                                        newDrone.Model = Console.ReadLine();
+                                        Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
+                                        newDrone.Weight = (@enum.WeightCategories)Console.Read();
+                                        Console.WriteLine("Enter the ID station which in you whant to charge the new drone (4 digits)");
                                         break;
 
                                     case (int)AddOptions.Station:

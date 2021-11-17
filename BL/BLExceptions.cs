@@ -6,30 +6,39 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class BLExceptions
+    [Serializable]
+    public class ItemNotExistException : Exception
     {
-        [Serializable]
-        public class ItemNotExistException : Exception
+        public ItemNotExistException() : base() { }
+        public ItemNotExistException(string message) : base(message) { }
+        public ItemNotExistException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
         {
-            public ItemNotExistException() : base() { }
-            public ItemNotExistException(string message) : base(message) { }
-            public ItemNotExistException(string message, Exception inner) : base(message, inner) { }
-            public override string ToString()
-            {
-                return Message;
-            }
+            return Message;
         }
+    }
 
-        [Serializable]
-        public class AlreadyExistedItemException : Exception
+    [Serializable]
+    public class AlreadyExistedItemException : Exception
+    {
+        public AlreadyExistedItemException() : base() { }
+        public AlreadyExistedItemException(string message) : base(message) { }
+        public AlreadyExistedItemException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
         {
-            public AlreadyExistedItemException() : base() { }
-            public AlreadyExistedItemException(string message) : base(message) { }
-            public AlreadyExistedItemException(string message, Exception inner) : base(message, inner) { }
-            public override string ToString()
-            {
-                return Message;
-            }
+            return Message;
+        }
+    }
+
+    [Serializable]
+    public class WorngIDException : Exception
+    {
+        public WorngIDException() : base() { }
+        public WorngIDException(string message) : base(message) { }
+        public WorngIDException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
+        {
+            return Message;
         }
     }
 }

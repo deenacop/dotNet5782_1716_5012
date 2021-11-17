@@ -19,12 +19,12 @@ namespace BL
         public void AddBaseStation(BaseStation station)
         {
             if (ChackingNumOfDigits(station.StationID) == 4)
-                throw new Exception("the ID is with not the right mount of digits");
+                throw new Exception("Worng ID");
             if (station.StationLocation.Latitude < 31 || station.StationLocation.Latitude > 32
                 || station.StationLocation.Longitude < 35 || station.StationLocation.Longitude > 36)
-                throw new Exception("the location is not logical");
+                throw new Exception("The location is not logical");
             if (station.NumOfAvailableChargingSlots < 0)
-                throw new Exception("cant be negative");
+                throw new Exception("The number of slots cant be negative");
             try
             {
                 IDAL.DO.Station tmpStation = new();
