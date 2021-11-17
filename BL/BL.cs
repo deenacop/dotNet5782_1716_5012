@@ -24,6 +24,7 @@ namespace BL
             double[] ElectricityUse = dal.ChargingDrone();//*צריך לבדוק מה הוא מעתיק
 
             #region Brings lists from IDAL
+
             List<DroneToList> DroneListBL = null;
             IEnumerable<IDAL.DO.Drone> DroneListDL = dal.ListDroneDisplay();//Receive the drone list from the data layer.
             DroneListBL.CopyPropertiesTo(DroneListDL);//convret from IDAT to IBL
@@ -44,6 +45,7 @@ namespace BL
             IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the drone list from the data layer.
             BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
             #endregion
+
 
             foreach (DroneToList currentDrone in DroneListBL)
             {
@@ -102,7 +104,7 @@ namespace BL
                     }
                 }
             }
-            
+
             foreach (DroneToList currentDrone in DroneListBL)
             {
                 int index = rand.Next(0, BaseStationListBL.Capacity);//one of the staitions

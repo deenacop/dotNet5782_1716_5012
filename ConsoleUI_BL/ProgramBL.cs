@@ -65,7 +65,7 @@ namespace ConsoleUI_BL
                                 switch (userAnswer)
                                 {
                                     case (int)AddOptions.Drone:
-                                        MainFuncAdd.AddDrone();
+                                        Drone newDrone = new Drone();
                                         break;
 
                                     case (int)AddOptions.Station:

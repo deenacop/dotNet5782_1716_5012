@@ -28,6 +28,7 @@ namespace BL
             return distance;
         }
         #endregion
+
         /// <summary>
         /// checks if the ID of the item has the right amount of digits
         /// </summary>
@@ -37,5 +38,17 @@ namespace BL
         {
             return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1); 
         }
+
+        #region Find
+        BaseStation FindBaseStation(int ID)
+        {
+            List<BaseStation> BaseStationListBL = null;
+            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the drone list from the data layer.
+            BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
+            return BaseStationListBL.Find(item => item.StationID == ID);
+        }
+
+        #endregion 
+
     }
 }
