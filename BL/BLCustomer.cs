@@ -11,7 +11,7 @@ namespace BL
         public void AddCustomer(Customer customer)
         {
             if (ChackingNumOfDigits(customer.CustomerID) != 9)
-                throw new WorngIDException("Worng ID");
+                throw new WrongIDException("Worng ID");
             if (customer.CustomerLocation.Latitude < 31 || customer.CustomerLocation.Latitude > 32
              || customer.CustomerLocation.Longitude < 35 || customer.CustomerLocation.Longitude > 36)
                 throw new UnlogicalLocation("The location is not logical");

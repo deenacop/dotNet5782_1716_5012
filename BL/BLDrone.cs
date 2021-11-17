@@ -19,7 +19,7 @@ namespace BL
         public void AddDrone(Drone drone, int stationID)
         {
             if (ChackingNumOfDigits(drone.DroneID) != 3)
-                throw new WorngIDException("worng ID");
+                throw new WrongIDException("worng ID");
             BaseStation wantedStation = FindBaseStation(stationID);
             if (wantedStation.StationID == 0)
                 throw new AlreadyExistedItemException("The station for charging the drone, does not exist");

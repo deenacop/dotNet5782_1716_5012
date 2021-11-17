@@ -30,11 +30,11 @@ namespace IBL.BO
         }
     }
     [Serializable]
-    public class WorngIDException : Exception
+    public class WrongIDException : Exception
     {
-        public WorngIDException() : base() { }
-        public WorngIDException(string message) : base(message) { }
-        public WorngIDException(string message, Exception inner) : base(message, inner) { }
+        public WrongIDException() : base() { }
+        public WrongIDException(string message) : base(message) { }
+        public WrongIDException(string message, Exception inner) : base(message, inner) { }
         public override string ToString()
         {
             return Message;

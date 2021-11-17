@@ -12,7 +12,7 @@ namespace BL
         public void AddParcel(Parcel parcel)
         {
             if (ChackingNumOfDigits(parcel.Sender.CustomerID) != 9)
-                throw new WrongIDException("Wrong ID");
+                throw new WrongIDException("Wrong ID"); 
             if (ChackingNumOfDigits(parcel.Targeted.CustomerID) != 9)
                 throw new WrongIDException("Wrong ID");
             DateTime? DateAndTime = null;
