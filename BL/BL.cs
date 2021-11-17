@@ -15,6 +15,8 @@ namespace BL
 
         static internal readonly Random rand = new(DateTime.Now.Millisecond);
 
+        List<DroneToList> DroneListBL = new();
+        
         #region ctor
         public BL()
         {
@@ -23,23 +25,23 @@ namespace BL
 
             #region Brings lists from IDAL
             List<DroneToList> DroneListBL = null;
-            IEnumerable<IDAL.DO.Drone> DroneListDL = DalObj.ListDroneDisplay();//Receive the drone list from the data layer.
+            IEnumerable<IDAL.DO.Drone> DroneListDL = dal.ListDroneDisplay();//Receive the drone list from the data layer.
             DroneListBL.CopyPropertiesTo(DroneListDL);//convret from IDAT to IBL
 
             List<ParcelToList> ParcelListBL = null;
-            IEnumerable<IDAL.DO.Parcel> ParcelListDL = DalObj.ListParcelDisplay();//Receive the parcel list from the data layer.
+            IEnumerable<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay();//Receive the parcel list from the data layer.
             ParcelListBL.CopyPropertiesTo(ParcelListDL);//convret from IDAT to IBL
 
             List<Customer> CustomerBL = null;
-            IEnumerable<IDAL.DO.Customer> CustomerDL = DalObj.ListCustomerDisplay();//Receive the customer list from the data layer.
+            IEnumerable<IDAL.DO.Customer> CustomerDL = dal.ListCustomerDisplay();//Receive the customer list from the data layer.
             CustomerBL.CopyPropertiesTo(CustomerDL);//convret from IDAT to IBL
 
             List<CustomerToList> CustomerListBL = null;
-            IEnumerable<IDAL.DO.Customer> CustomerListDL = DalObj.ListCustomerDisplay();//Receive the customer list from the data layer.
+            IEnumerable<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay();//Receive the customer list from the data layer.
             CustomerListBL.CopyPropertiesTo(CustomerListDL);//convret from IDAT to IBL
 
             List<BaseStation> BaseStationListBL = null;
-            IEnumerable<IDAL.DO.Station> StationListDL = DalObj.ListStationDisplay();//Receive the drone list from the data layer.
+            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the drone list from the data layer.
             BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
             #endregion
 
