@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    class BLExceptions
-    {
         [Serializable]
         public class ItemNotExistException : Exception
         {
@@ -31,5 +29,16 @@ namespace IBL.BO
                 return Message;
             }
         }
-    }
+        [Serializable]
+        public class UnlogicalLocation:Exception
+        {
+            public UnlogicalLocation() : base() { }
+            public UnlogicalLocation(string message) : base(message) { }
+            public UnlogicalLocation(string message, Exception inner) : base(message, inner) { }
+            public override string ToString()
+            {
+                return Message;
+            }
+        }
+    
 }

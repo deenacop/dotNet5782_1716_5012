@@ -17,10 +17,10 @@ namespace IBL.BO
         public @enum.WeightCategories Weight { get; set; }
         public @enum.Priorities Priority { get; set; }
         public DroneInParcel MyDrone { get; set; }
-        public DateTime Requested { get; set; }
-        public DateTime Scheduled { get; set; }
-        public DateTime PickUp { get; set; }
-        public DateTime Delivered { get; set; }
+        public DateTime? Requested { get; set; }
+        public DateTime? Scheduled { get; set; }
+        public DateTime? PickUp { get; set; }
+        public DateTime? Delivered { get; set; }
         public override string ToString()
         {
             return "Parcel ID: " + ParcelID + "\nThe sender details: " + Sender + "\nThe tergeted details: " + Targeted +

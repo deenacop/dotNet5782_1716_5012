@@ -18,13 +18,14 @@ namespace BL
         /// <param name="station">The station that is being </param>
         public void AddBaseStation(BaseStation station)
         {
-            if (ChackingNumOfDigits(station.StationID) == 4)
-                throw new Exception("the ID is with not the right mount of digits");
+            if (ChackingNumOfDigits(station.StationID) != 4)
+                throw new WrongIDException("Wrong ID");
             if (station.StationLocation.Latitude < 31 || station.StationLocation.Latitude > 32
                 || station.StationLocation.Longitude < 35 || station.StationLocation.Longitude > 36)
-                throw new Exception("the location is not logical");
+                throw new UnlogicalLocation("the location is not logical");
             if (station.NumOfAvailableChargingSlots < 0)
-                throw new Exception("cant be negative");
+                throw new ArgumentOutOfRangeException("cant be negative");
+            station.DronesInCharging.Clear();
             try
             {
                 IDAL.DO.Station tmpStation = new();
@@ -33,7 +34,7 @@ namespace BL
             }
             catch(IDAL.DO.AlreadyExistedItemException ex)
             {
-                throw new Exception(ex.Message);
+                throw new AlreadyExistedItemException(ex.Message);
             }
 
         }
