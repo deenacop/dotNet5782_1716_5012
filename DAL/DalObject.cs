@@ -14,7 +14,7 @@ namespace DalObject
         /// <summary>
         /// DalObject constructor
         /// </summary>
-        public DalObject() { DataSource.Initialize(); }
+        public  DalObject() { DataSource.Initialize(); }
 
         /// <summary>
         /// Adds a new drone

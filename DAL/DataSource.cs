@@ -109,7 +109,7 @@ namespace DalObject
             //Initializing variables into 10 parcels.
             for (int i = 0; i < 10; i++)
             {
-                DateTime DateAndTime = new DateTime(1, 1, 1);
+                DateTime ? DateAndTime = null;
                 Parcels.Insert(i, new()
                 {
                     ID = Config.RunnerIDNumParcels++,

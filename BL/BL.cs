@@ -117,7 +117,7 @@ namespace BL
                 {
                     foreach (CustomerToList currentCustomer in CustomerListBL)
                     {
-                        Customer customerDelivery = CustomerBL.Find(item => item.ID == currentCustomer.CustomerID);//finds the current customer
+                        Customer customerDelivery = CustomerBL.Find(item => item.CustomerID == currentCustomer.CustomerID);//finds the current customer
 
                         if (currentCustomer.NumberParcelSentAndDelivered > 0)//the custumer had deliveries
                         {
