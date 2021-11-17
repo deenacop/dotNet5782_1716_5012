@@ -36,7 +36,18 @@ namespace BL
             {
                 throw new AlreadyExistedItemException(ex.Message);
             }
+        }
 
+
+        /// <summary>
+        /// Return the wanted station
+        /// </summary>
+        /// <param name="StationID">The requested station</param>
+        public BaseStation StationDisplay(int StationID)
+        {
+            BaseStation baseStation;
+            baseStation =FindBaseStation(StationID);
+            for(IDAL.DO.DroneCharge droneCharge; dal.)
         }
 
 
