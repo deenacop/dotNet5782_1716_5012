@@ -7,7 +7,7 @@ using IBL.BO;
 
 namespace BL
 {
-    internal partial class BL
+    public partial class BL
     {
         #region Distance
         const double PI = Math.PI;
@@ -28,5 +28,14 @@ namespace BL
             return distance;
         }
         #endregion
+        /// <summary>
+        /// checks if the ID of the item has the right amount of digits
+        /// </summary>
+        /// <param name="num">ID item</param>
+        /// <returns>amount of digits in the ID</returns>
+        internal int ChackingNumOfDigits(int num)
+        {
+            return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1); 
+        }
     }
 }

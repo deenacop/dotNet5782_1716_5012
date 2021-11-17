@@ -14,7 +14,6 @@ namespace ConsoleUI
     /// </summary>
     public class MainFuncAdd
     {
-        static String input;
         static int tmpInt;
         static double tmpDouble;
         /// <summary>
@@ -24,23 +23,19 @@ namespace ConsoleUI
         public static void AddStation()
         {
             IDAL.DO.Station NewStation = new IDAL.DO.Station();
-            Console.WriteLine("Enter the new station details: *station ID (4 digits)");
-            input = Console.ReadLine();
-            if (int.TryParse(input, out tmpInt))
+            Console.WriteLine("Enter the new station details: *station ID (4 digits)");        
+            if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewStation.ID = tmpInt;
             Console.WriteLine("*station name");
             NewStation.Name = Console.ReadLine();
             Console.WriteLine("*station number of available charge slots");
-            input = Console.ReadLine();
-            int.TryParse(input, out tmpInt);
+            int.TryParse(Console.ReadLine(), out tmpInt);
             NewStation.NumOfAvailableChargeSlots = tmpInt;
             Console.WriteLine("*station longitude");
-            input = Console.ReadLine();
-            if (double.TryParse(input, out tmpDouble))
+            if (double.TryParse(Console.ReadLine(), out tmpDouble))
                 NewStation.Longitude = tmpDouble;
             Console.WriteLine("*station latitude");
-            input = Console.ReadLine();
-            if (double.TryParse(input, out tmpDouble))
+            if (double.TryParse(Console.ReadLine(), out tmpDouble))
                 NewStation.Latitude = tmpDouble;
             Program.DalObj.Add(NewStation);
         }
@@ -53,20 +48,16 @@ namespace ConsoleUI
             DateTime DateAndTime = new DateTime(1, 1, 1);
             IDAL.DO.Parcel NewParcel = new IDAL.DO.Parcel();
             Console.WriteLine("*parcel sender ID (6 digits)");
-            input = Console.ReadLine();
-            if (int.TryParse(input, out tmpInt))
+            if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewParcel.Sender = tmpInt;
             Console.WriteLine("*parcel targetid");
-            input = Console.ReadLine();
-            if (int.TryParse(input, out tmpInt))
+            if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewParcel.Targetid = tmpInt;
             Console.WriteLine("*weight- for light type 0, for midium type 1, for heavy type 2");
-            input = Console.ReadLine();
-            int.TryParse(input, out tmpInt);
+            int.TryParse(Console.ReadLine(), out tmpInt);
             NewParcel.Weight = (@enum.WeightCategories)tmpInt;
             Console.WriteLine("*parcel Priority- for normal type 0, for fast type 1, for urgent type 2");
-            input = Console.ReadLine();
-            int.TryParse(input, out tmpInt);
+            int.TryParse(Console.ReadLine(), out tmpInt);
             NewParcel.Priority = (@enum.Priorities)tmpInt;
             NewParcel.MyDroneID = 0;
             NewParcel.Requested = DateTime.Now;
@@ -83,20 +74,17 @@ namespace ConsoleUI
         {
             IDAL.DO.Customer NewCustomer = new IDAL.DO.Customer();
             Console.WriteLine("Enter the new customer details: *customer ID (9 digits)");
-            input = Console.ReadLine();
-            if (int.TryParse(input, out tmpInt))
+            if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewCustomer.ID = tmpInt;
             Console.WriteLine("*customer name");
             NewCustomer.Name = Console.ReadLine();
             Console.WriteLine("*customer phone number");
             NewCustomer.PhoneNumber = Console.ReadLine();
             Console.WriteLine("*customer longitude");
-            input = Console.ReadLine();
-            double.TryParse(input, out tmpDouble);
+            double.TryParse(Console.ReadLine(), out tmpDouble);
             NewCustomer.Longitude = tmpDouble;
             Console.WriteLine("*customer latitude");
-            input = Console.ReadLine();
-            double.TryParse(input, out tmpDouble);
+            double.TryParse(Console.ReadLine(), out tmpDouble);
             NewCustomer.Latitude = tmpDouble;
             Program.DalObj.Add(NewCustomer);
         }
@@ -108,14 +96,12 @@ namespace ConsoleUI
         {
             IDAL.DO.Drone NewDrone = new IDAL.DO.Drone();
             Console.WriteLine("Enter the new drone details: *drone ID (3 digits)");
-            input = Console.ReadLine();
-            if (int.TryParse(input, out tmpInt))
+            if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewDrone.ID = tmpInt;
             Console.WriteLine("*drone model");
             NewDrone.Model = Console.ReadLine();
             Console.WriteLine("*drones weight (for light type 0, midium type 1, heavy type 2)");
-            input = Console.ReadLine();
-            int.TryParse(input, out tmpInt);
+            int.TryParse(Console.ReadLine(), out tmpInt);
             NewDrone.Weight = (@enum.WeightCategories)tmpInt;
             Program.DalObj.Add(NewDrone);
         }

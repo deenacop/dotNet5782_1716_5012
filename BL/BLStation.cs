@@ -11,9 +11,9 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
-        public void AddBaseStation()
+        public void AddBaseStation(BaseStation station)
         {
-
+            if(station.StationID)
         }
 
 
