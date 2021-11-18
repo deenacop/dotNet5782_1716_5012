@@ -42,7 +42,7 @@ namespace BL
 
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
 
-            List<T> BaseStationListBL = null;
+            List<BaseStation> BaseStationListBL = null;
             List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
             StationListDL.CopyPropertiesTo(BaseStationListBL);//convret from IDAT to IBL
             #endregion

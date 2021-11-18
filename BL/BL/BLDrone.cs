@@ -37,33 +37,33 @@ namespace BL
                 throw new AlreadyExistedItemException(ex.Message);
             }
         }
-
+        /// <summary>
+        /// The function send a specific drone to the closest available station
+        /// </summary>
+        /// <param name="ID">drone ID</param>
         public void SendDroneToCharge(int ID)
         {
             int index = DroneListBL.FindIndex(item => item.DroneID == ID);//finds the drone with the wanted ID
             if (index == -1 || DroneListBL[index].DroneStatus != @enum.DroneStatus.Available)//if the drone does not exist or the drone is not available
                 throw new ItemNotExistException("Drone does not exist or is not available");
-          
-            List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay(i=>i.NumOfAvailableChargeSlots>0).ToList();//Receive the drone list with available slots from the data layer.
 
-            double minDistance = 0;
-         
-            //finds the closest station from the sender
-            foreach (IDAL.DO.Station currentStation in StationListDL)
-            {
-                Location currrentStationLocation = new Location
-                {
-                    Latitude = currentStation.Latitude,
-                    Longitude = currentStation.Longitude
-                };
-                double distance = DistanceCalculation(DroneListBL[index].MyCurrentLocation, currrentStationLocation);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    currrentStationLocation = currentStation.StationLocation;
-                }
-            }
-
+            List<BaseStation> BaseStationListBL = null;
+            List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay(i => i.NumOfAvailableChargeSlots > 0).ToList();//Receive the drone list from the data layer.
+            StationListDL.CopyPropertiesTo(BaseStationListBL);//convret from IDAT to IBL
+            if (BaseStationListBL == null)
+                throw new ItemNotExistException("There is no stations with available slots");
+            //finds the closest station from the drone
+            double distance = MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item2;
+            double[] ElectricityUse = dal.ChargingDrone();//brings the the amount of battery that is use when the drone is available
+            double vacant = ElectricityUse[0];
+            if (distance * vacant > DroneListBL[index].Battery)
+                throw new NotEnoughBatteryException("The drone cant go to a baseStation");
+            //if the drone *can* go to a charging station:
+            DroneToList tmp = DroneListBL[index];
+            tmp.Battery -= (int)(distance * vacant);
+            tmp.DroneStatus = @enum.DroneStatus.Maintenance;
+            tmp.MyCurrentLocation = MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item1;
+            DroneListBL[index] = tmp;
         }
     }
 }

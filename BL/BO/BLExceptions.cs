@@ -53,4 +53,17 @@ namespace IBL.BO
         }
     }
 
+    [Serializable]
+    public class NotEnoughBatteryException : Exception
+    {
+        public NotEnoughBatteryException() : base() { }
+        public NotEnoughBatteryException(string message) : base(message) { }
+        public NotEnoughBatteryException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
+        {
+            return Message;
+        }
+    }
+    
+
 }
