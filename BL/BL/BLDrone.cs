@@ -108,6 +108,19 @@ namespace BL
             DroneListBL[index] = tmp;
         }
 
+        public void AssignParcelToDrone(int ID)
+        {
+            if (DroneListBL.Exists(item => item.DroneID == ID))//NOT FOUND
+                throw new ItemNotExistException("The drone does not exist");
+            DroneToList currentDrone= DroneListBL.Find(item => item.DroneID == ID);
+            if(currentDrone.DroneStatus!=@enum.DroneStatus.Available)
+                throw new NotAvailableException("The drone is not available");
+            List<Parcel> ParcelListBL = null;
+            //Receive the parcel list of parcels that are assign to drone (from the data layer).
+            List<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay(i => i.MyDroneID != 0).ToList();
+            ParcelListDL.CopyPropertiesTo(ParcelListBL);//convret from IDAT to IBL
+        }
+
         public void CollectionOfParcelByDrone(int ID)
         {
             int droneIndex = DroneListBL.FindIndex(item => item.DroneID == ID);

@@ -13,7 +13,7 @@ namespace IBL.BO
     {
         public int ParcelID { get; set; }
         public CustomerInParcel Sender { get; set; }
-        public CustomerInParcel Targeted { get; set; }
+        public CustomerInParcel Targetid { get; set; }
         public @enum.WeightCategories Weight { get; set; }
         public @enum.Priorities Priority { get; set; }
         public DroneInParcel MyDrone { get; set; }
@@ -23,7 +23,7 @@ namespace IBL.BO
         public DateTime Delivered { get; set; }
         public override string ToString()
         {
-            return "Parcel ID: " + ParcelID + "\nThe sender details: " + Sender + "\nThe tergeted details: " + Targeted +
+            return "Parcel ID: " + ParcelID + "\nThe sender details: " + Sender + "\nThe tergeted details: " + Targetid +
                 "\nParcel weight: " + Weight + "\nParcel priority: " + Priority + "\nThe drone that associated with this parcel: " +
                 MyDrone + "\nTime of requested: " + Requested + "\nTime of schedual: " + Scheduled + "\nTime of pick up: " + PickUp +
                 "\nTime of delivery: " + Delivered + "\n";
