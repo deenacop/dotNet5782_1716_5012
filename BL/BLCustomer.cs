@@ -1,8 +1,12 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using DalObject;
 using IBL.BO;
 using IDAL;
+using BL;
 
 namespace BL
 {
@@ -21,9 +25,21 @@ namespace BL
                 customer.CopyPropertiesTo(customerDO);
                 dal.Add(customerDO);
             }
-            catch (IDAL.DO.AlreadyExistedItemException ex)
+            catch (Exception ex)
             {
                 throw new AlreadyExistedItemException(ex.Message);
+            }
+        }
+
+        public void UpdateCustomer(int ID, string name = null,string phone =null)
+        {
+            try
+            {
+                dal.UpdateCustomer(ID, name, phone);
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
             }
         }
     }
