@@ -225,9 +225,6 @@ namespace DalObject
                 DataSource.Customers[index] = tmp;
             }
         }
-
-        #endregion
-
         public void UpdateDroneName(int ID, string model)
         {
             int index = DataSource.Drones.FindIndex(item => item.ID == ID);
@@ -289,11 +286,11 @@ namespace DalObject
         /// <summary>
         /// Returns all the drones in the list.
         /// </summary>
-        public IEnumerable<Drone> ListDroneDisplay()
+        public IEnumerable<Drone> ListDroneDisplay(Predicate<Drone> predicate = null)
         {
             List<Drone> ListOfDrones = new();
             foreach (Drone currentDrone in DataSource.Drones) { ListOfDrones.Add(currentDrone); }
-            return ListOfDrones;
+            return ListOfDrones.FindAll(i => predicate == null ? true : predicate(i)); ;
         }
 
         /// <summary>

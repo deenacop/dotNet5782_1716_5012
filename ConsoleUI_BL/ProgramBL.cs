@@ -70,7 +70,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
                                         newDrone.Weight = (@enum.WeightCategories)Console.Read();
                                         Console.WriteLine("Enter the ID station which in you whant to charge the new drone (4 digits)");
-                                        int chosenStation =Console.Read();
+                                        int chosenStation = Console.Read();
                                         break;
 
                                     case (int)AddOptions.Station:
@@ -81,9 +81,9 @@ namespace ConsoleUI_BL
                                         newStation.Name = Console.ReadLine();
                                         Console.WriteLine("Enter the location- longitude and latitude");
                                         newStation.StationLocation.Longitude = Console.Read();
-                                        newStation.StationLocation.Latitude= Console.Read();
+                                        newStation.StationLocation.Latitude = Console.Read();
                                         Console.WriteLine("Enter the number of available slots");
-                                        newStation.NumOfAvailableChargingSlots= Console.Read();
+                                        newStation.NumOfAvailableChargingSlots = Console.Read();
                                         break;
 
                                     case (int)AddOptions.Parcel:
@@ -348,3 +348,4 @@ namespace ConsoleUI_BL
 
         }
     }
+}
