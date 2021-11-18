@@ -43,9 +43,27 @@ namespace BL
         BaseStation FindBaseStation(int ID)
         {
             List<BaseStation> BaseStationListBL = null;
-            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the drone list from the data layer.
+            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the station from the data layer.
             BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
-            return BaseStationListBL.Find(item => item.StationID == ID);
+            //if(BaseStationListBL.)
+                //////////////////////////////////////
+                return BaseStationListBL.Find(item => item.StationID == ID);
+        }
+
+        /// <summary>
+        /// Finds the minimum distance from the Station to a location
+        /// </summary>
+        /// <param name="BaseStationListBL">list of stationBL</param>
+        /// <param name="location">current location</param>
+        /// <returns>location/distance</returns>
+        private (Location, double) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
+        {
+            List<double> locations = new List<double>();
+            foreach (BaseStation currentStation in BaseStationListBL)
+            {
+                locations.Add(DistanceCalculation(location, currentStation.StationLocation));
+            }
+            return (BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationLocation, locations.Min());
         }
 
         #endregion 

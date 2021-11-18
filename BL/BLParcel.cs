@@ -15,11 +15,10 @@ namespace BL
                 throw new WrongIDException("Wrong ID"); 
             if (ChackingNumOfDigits(parcel.Targeted.CustomerID) != 9)
                 throw new WrongIDException("Wrong ID");
-            DateTime? DateAndTime = null;
             parcel.Requested = DateTime.Now;
-            parcel.Scheduled = DateAndTime;
-            parcel.PickUp = DateAndTime;
-            parcel.Delivered = DateAndTime;
+            parcel.Scheduled = DateTime.MinValue;
+            parcel.PickUp = DateTime.MinValue;
+            parcel.Delivered = DateTime.MinValue;
             parcel.MyDrone = null;
             try
             {

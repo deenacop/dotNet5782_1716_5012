@@ -19,10 +19,10 @@ namespace IDAL
             public @enum.WeightCategories Weight { get; set; }
             public @enum.Priorities Priority { get; set; }
             public int MyDroneID { get; set; }
-            public DateTime? Requested { get; set; }
-            public DateTime? Scheduled { get; set; }
-            public DateTime? PickUp { get; set; }
-            public DateTime? Delivered { get; set; }
+            public DateTime Requested { get; set; }
+            public DateTime Scheduled { get; set; }
+            public DateTime PickUp { get; set; }
+            public DateTime Delivered { get; set; }
 
             public override string ToString()
             {

@@ -16,149 +16,152 @@ namespace BL
         static internal readonly Random rand = new(DateTime.Now.Millisecond);
 
         List<DroneToList> DroneListBL = new();
-        
+
         #region ctor
         public BL()
         {
-
+            #region Electricity use
             double[] ElectricityUse = dal.ChargingDrone();//*צריך לבדוק מה הוא מעתיק
+            double vacant = ElectricityUse[0],
+            carriesLightWeight = ElectricityUse[1],
+            carriesMediumWeight = ElectricityUse[2],
+            carriesHeavyWeight = ElectricityUse[3],
+            droneLoadingRate = ElectricityUse[4];
+            #endregion
 
             #region Brings lists from IDAL
 
             List<DroneToList> DroneListBL = null;
-            IEnumerable<IDAL.DO.Drone> DroneListDL = dal.ListDroneDisplay();//Receive the drone list from the data layer.
+            List<IDAL.DO.Drone> DroneListDL = dal.ListDroneDisplay().ToList();//Receive the drone list from the data layer.
             DroneListBL.CopyPropertiesTo(DroneListDL);//convret from IDAT to IBL
 
             List<ParcelToList> ParcelListBL = null;
-            IEnumerable<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay();//Receive the parcel list from the data layer.
+            //Receive the parcel list of parcels that are assign to drone (from the data layer).
+            List<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay(i => i.MyDroneID != 0).ToList();
             ParcelListBL.CopyPropertiesTo(ParcelListDL);//convret from IDAT to IBL
 
-            List<Customer> CustomerBL = null;
-            IEnumerable<IDAL.DO.Customer> CustomerDL = dal.ListCustomerDisplay();//Receive the customer list from the data layer.
-            CustomerBL.CopyPropertiesTo(CustomerDL);//convret from IDAT to IBL
-
-            List<CustomerToList> CustomerListBL = null;
-            IEnumerable<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay();//Receive the customer list from the data layer.
-            CustomerListBL.CopyPropertiesTo(CustomerListDL);//convret from IDAT to IBL
+            List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
 
             List<BaseStation> BaseStationListBL = null;
-            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the drone list from the data layer.
+            List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
             BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
             #endregion
 
-
             foreach (DroneToList currentDrone in DroneListBL)
             {
-                ParcelToList parcelInDrone = ParcelListBL.Find(item => item.ParcelID == currentDrone.ParcelNumberTransfered);//finds the parcel which is assigned to the current drone.
-                if (currentDrone.ParcelNumberTransfered != 0)//if the drone is assigned
+                int index = ParcelListDL.FindIndex(item => item.MyDroneID == currentDrone.DroneID
+                && item.Delivered == DateTime.MinValue);//finds the parcel which is assigned to the current drone and the drone has been assigned .
+                if (index != -1)
                 {
-                    if (parcelInDrone.ParcelStatus != @enum.ParcelStatus.Delivered)//if the parcel is not provided
+                    currentDrone.DroneStatus = @enum.DroneStatus.Delivery;//מבצע משלוח
+
+                    IDAL.DO.Customer senderCustomer = CustomerListDL.Find(i => i.ID == ParcelListDL[index].Sender);//sender customer
+
+                    Location locationOfSender = new Location
                     {
-                        currentDrone.DroneStatus = @enum.DroneStatus.Delivery;
-                        Customer sender = CustomerBL.Find(item => item.Name == parcelInDrone.NameOfSender);//found the customer that is getting the parcel
-                        double minDistance = 0;
-                        if (parcelInDrone.ParcelStatus != @enum.ParcelStatus.PickedUp)
-                        {
-                            Location closestStation = null;
-                            //finds the closest station from the sender
-                            foreach (BaseStation currentStation in BaseStationListBL)
-                            {
-                                if (DistanceCalculation(sender.CustomerLocation, currentStation.StationLocation) < minDistance)
-                                {
-                                    minDistance = DistanceCalculation(sender.CustomerLocation, currentStation.StationLocation);
-                                    closestStation = currentStation.StationLocation;
-                                }
-                            }
-                            currentDrone.MyCurrentLocation = closestStation;
-                        }
-                        else
-                        {
-                            currentDrone.MyCurrentLocation = sender.CustomerLocation;
-                        }
-                        Customer receiver = CustomerBL.Find(item => item.Name == parcelInDrone.NameOfTargetaed);//found the customer that is
-                        //finds the closest station from the targeted
-                        foreach (BaseStation currentStation in BaseStationListBL)
-                        {
-                            if (DistanceCalculation(receiver.CustomerLocation, currentStation.StationLocation) < minDistance)
-                            {
-                                minDistance = DistanceCalculation(receiver.CustomerLocation, currentStation.StationLocation);
-                            }
-                        }
-                        double distanceToTargeted = DistanceCalculation(receiver.CustomerLocation, currentDrone.MyCurrentLocation);
-                        int minBatteryDrone = 0;
-                        int weight = (int)currentDrone.Weight;
-                        switch (weight)
-                        {
-                            case (int)@enum.WeightCategories.Light:
-                                minBatteryDrone = (int)distanceToTargeted * (int)ElectricityUse[1];
-                                break;
-                            case (int)@enum.WeightCategories.Midium:
-                                minBatteryDrone = (int)distanceToTargeted * (int)ElectricityUse[2];
-                                break;
-                            case (int)@enum.WeightCategories.Heavy:
-                                minBatteryDrone = (int)distanceToTargeted * (int)ElectricityUse[3];
-                                break;
-                        }
-                        minBatteryDrone += (int)minDistance * (int)ElectricityUse[0];//minimum battery the drone needs
-                        currentDrone.Battery = rand.Next(minBatteryDrone, 100);
-                    }
-                }
-            }
+                        Latitude = senderCustomer.Latitude,
+                        Longitude = senderCustomer.Longitude
+                    };
 
-            foreach (DroneToList currentDrone in DroneListBL)
-            {
-                int index = rand.Next(0, BaseStationListBL.Capacity);//one of the staitions
-                if (currentDrone.DroneStatus != @enum.DroneStatus.Delivery)//if the drone is not in delivery mode
-                    currentDrone.DroneStatus = (@enum.DroneStatus)rand.Next(0, 1);
-
-                if (currentDrone.DroneStatus == @enum.DroneStatus.Maintenance)//if the drone is not in maintenance mode
-                {
-                    currentDrone.MyCurrentLocation = BaseStationListBL[index].StationLocation;
-                    currentDrone.Battery = rand.Next(0, 20);
-                    break;
-                }
-
-                if (currentDrone.DroneStatus == @enum.DroneStatus.Available)//if the drone is available
-                {
-                    foreach (CustomerToList currentCustomer in CustomerListBL)
+                    if (ParcelListDL[index].PickUp == DateTime.MinValue)//שויכה ולא נאספה
                     {
-                        Customer customerDelivery = CustomerBL.Find(item => item.CustomerID == currentCustomer.CustomerID);//finds the current customer
-
-                        if (currentCustomer.NumberParcelSentAndDelivered > 0)//the custumer had deliveries
-                        {
-                            currentDrone.MyCurrentLocation = customerDelivery.CustomerLocation;
-                            break;
-                        }
+                        //finds the closest station from the sender
+                        currentDrone.MyCurrentLocation = MinDistanceLocation(BaseStationListBL, locationOfSender).Item1;
                     }
-                    double minDistance = 0;
+                    else
+                    {
+                        currentDrone.MyCurrentLocation = locationOfSender;
+                    }
+
+                    //מצב סוללה:
+                    IDAL.DO.Customer receiverCustomer = CustomerListDL.Find(item => item.ID == ParcelListDL[index].Targetid);//found the customer that is the targetid one
+                    Location locationOfReceiver = new Location
+                    {
+                        Latitude = receiverCustomer.Latitude,
+                        Longitude = receiverCustomer.Longitude
+                    };
+
                     //finds the closest station from the targeted
-                    foreach (BaseStation currentStation in BaseStationListBL)
-                    {
-                        if (DistanceCalculation(currentDrone.MyCurrentLocation, currentStation.StationLocation) < minDistance)
-                        {
-                            minDistance = DistanceCalculation(currentDrone.MyCurrentLocation, currentStation.StationLocation);
-                        }
-                    }
-                    //the minimum battery the drones needs
+                    double minDistance = MinDistanceLocation(BaseStationListBL, locationOfReceiver).Item2; //from the targetid to the closest station
+                    double distanceToTargeted = DistanceCalculation(locationOfReceiver, currentDrone.MyCurrentLocation);//from the current location to the targetid
+
                     int minBatteryDrone = 0;
                     int weight = (int)currentDrone.Weight;
                     switch (weight)
                     {
                         case (int)@enum.WeightCategories.Light:
-                            minBatteryDrone = (int)minDistance * (int)ElectricityUse[1];
+                            minBatteryDrone = (int)distanceToTargeted * (int)carriesLightWeight;
                             break;
                         case (int)@enum.WeightCategories.Midium:
-                            minBatteryDrone = (int)minDistance * (int)ElectricityUse[2];
+                            minBatteryDrone = (int)distanceToTargeted * (int)carriesMediumWeight;
                             break;
                         case (int)@enum.WeightCategories.Heavy:
-                            minBatteryDrone = (int)minDistance * (int)ElectricityUse[3];
+                            minBatteryDrone = (int)distanceToTargeted * (int)carriesHeavyWeight;
                             break;
                     }
-                    currentDrone.Battery = rand.Next(minBatteryDrone, 100);
+                    minBatteryDrone += (int)minDistance * (int)vacant;//minimum battery the drone needs
+                    currentDrone.Battery = rand.Next(minBatteryDrone, 101);
                 }
             }
+            List<IDAL.DO.Parcel> deliveredParcel = dal.ListParcelDisplay(i => i.Delivered != DateTime.MinValue).ToList();//lists of all the delivered parcels
+            List<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargeSlots > 0).ToList();//lists of all the available stations
+            foreach (DroneToList currentDrone in DroneListBL)
+            {
+                //אם הרחפן לא מבצע משלוח:
+                if (currentDrone.DroneStatus != @enum.DroneStatus.Delivery)//if the drone is not in delivery mode
+                    currentDrone.DroneStatus = (@enum.DroneStatus)rand.Next(0, 2);//פנוי לתחזוקה
+                //בתחזוקה?
+                if (currentDrone.DroneStatus == @enum.DroneStatus.Maintenance)//if the drone is not in maintenance mode
+                {
+                    int index = rand.Next(0, availableStations.Capacity);//one of the staitions
+                    Location location1 = new Location()
+                    {
+                        Latitude = availableStations[index].Latitude,
+                        Longitude = availableStations[index].Longitude
+                    };
+                    currentDrone.MyCurrentLocation = location1;
+                    IDAL.DO.Station tmp = availableStations[index];
+                    if (--tmp.NumOfAvailableChargeSlots == 0)
+                        availableStations.RemoveAt(index);
+                    else
+                        availableStations[index] = tmp;
+                    currentDrone.Battery = rand.Next(0, 21);
+                    break;
+                }
+                //פנוי
+                if (currentDrone.DroneStatus == @enum.DroneStatus.Available)//if the drone is not in maintenance mode
+                {
+                    int index = rand.Next(0, deliveredParcel.Capacity);//one of the staitions
+                    IDAL.DO.Customer targetid = CustomerListDL.Find(item => item.ID == deliveredParcel[index].Targetid);
+                    Location location2 = new Location()
+                    {
+                        Latitude = targetid.Latitude,
+                        Longitude = targetid.Longitude
+                    };
+                    currentDrone.MyCurrentLocation = location2;
+                    break;
+                }
+                //finds the closest station from the targeted
+                double minDistance = MinDistanceLocation(BaseStationListBL, currentDrone.MyCurrentLocation).Item2;
+                //the minimum battery the drones needs
+                int minBatteryDrone = 0;
+                int weight = (int)currentDrone.Weight;
+                switch (weight)
+                {
+                    case (int)@enum.WeightCategories.Light:
+                        minBatteryDrone = (int)minDistance * (int)carriesLightWeight;
+                        break;
+                    case (int)@enum.WeightCategories.Midium:
+                        minBatteryDrone = (int)minDistance * (int)carriesMediumWeight;
+                        break;
+                    case (int)@enum.WeightCategories.Heavy:
+                        minBatteryDrone = (int)minDistance * (int)carriesHeavyWeight;
+                        break;
+                }
+                currentDrone.Battery = rand.Next(minBatteryDrone, 101);
+            }
         }
-        #endregion
-
     }
+    #endregion
 }
+

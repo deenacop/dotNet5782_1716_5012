@@ -18,14 +18,15 @@ namespace IDAL
         public void DeliveryParcelToCustomer(int ParcelID);
         public void SendingDroneToChargingBaseStation(int DroneID, int StationID);
         public void ReleasingDroneFromChargingBaseStation(int DroneID, int BaseStationID);
+        public void UpdateDroneName(int ID, string model);
         public Drone DroneDisplay(int DroneID);
         public Station StationDisplay(int StationID);
         public Customer CustomerDisplay(int CustomerID);
         public Parcel ParcelDisplay(int ParcelID);
         public IEnumerable<Drone> ListDroneDisplay();
-        public IEnumerable<Customer> ListCustomerDisplay();
-        public IEnumerable<Station> ListStationDisplay();
-        public IEnumerable<Parcel> ListParcelDisplay();
+        public IEnumerable<Customer> ListCustomerDisplay(Predicate<Customer> predicate = null);
+        public IEnumerable<Station> ListStationDisplay(Predicate<Station> predicate = null);
+        public IEnumerable<Parcel> ListParcelDisplay(Predicate<Parcel> predicate = null);
         public IEnumerable<Parcel> ListOfUnassignedParcels();
         public IEnumerable<Station> ListOfAvailableChargingStations();
         public double[] ChargingDrone();

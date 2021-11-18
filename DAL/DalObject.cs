@@ -136,7 +136,7 @@ namespace DalObject
             //creates a new varible of drone charge
             DroneCharge ChargingDroneBattery = new();
             ChargingDroneBattery.RecDrone = DroneID;
-            ChargingDroneBattery.RecBaseStation = DroneID;
+            ChargingDroneBattery.RecBaseStation = StationID;
             //adds
             DataSource.DroneCharges.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
@@ -185,6 +185,16 @@ namespace DalObject
             //Station tmp = DataSource.Stations[index];
             //tmp.NumOfAvailableChargeSlots++;
             //DataSource.Stations[index] = tmp;
+        }
+
+        public void UpdateDroneName(int ID, string model)
+        {
+            int index = DataSource.Drones.FindIndex(item => item.ID == ID);
+            if (index == -1)
+                throw new ItemNotExistException("Drone does not exist");
+            Drone tmp = DataSource.Drones[index];
+            tmp.Model = model;
+            DataSource.Drones[index]=tmp;
         }
         #endregion 
 
@@ -248,31 +258,31 @@ namespace DalObject
         /// <summary>
         /// Returns all the customers in the list.
         /// </summary>
-        public IEnumerable<Customer> ListCustomerDisplay()
+        public IEnumerable<Customer> ListCustomerDisplay(Predicate<Customer> predicate = null)
         {
             List<Customer> ListOfCustomers = new();
             foreach (Customer currentCostomer in DataSource.Customers) { ListOfCustomers.Add(currentCostomer); }
-            return ListOfCustomers;
+            return ListOfCustomers.FindAll(i => predicate == null ? true : predicate(i));
         }
 
         /// <summary>
         /// Returns all the station in the list 
         /// </summary>
-        public IEnumerable<Station> ListStationDisplay()
+        public IEnumerable<Station> ListStationDisplay(Predicate<Station> predicate = null)
         {
             List<Station> ListOfStation = new();
             foreach (Station currentStation in DataSource.Stations) { ListOfStation.Add(currentStation); }
-            return ListOfStation;
+            return ListOfStation.FindAll(i => predicate == null ? true : predicate(i));
         }
 
         /// <summary>
         /// Returns all the parcel in the list
         /// </summary>
-        public IEnumerable<Parcel> ListParcelDisplay()
+        public IEnumerable<Parcel> ListParcelDisplay(Predicate<Parcel> predicate = null)
         {
             List<Parcel> ListOfParcel = new();
             foreach (Parcel currentParcel in DataSource.Parcels) { ListOfParcel.Add(currentParcel); }
-            return ListOfParcel;
+            return ListOfParcel.FindAll(i => predicate == null ? true : predicate(i));
         }
 
         /// <summary>

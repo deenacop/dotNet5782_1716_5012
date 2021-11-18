@@ -109,7 +109,6 @@ namespace DalObject
             //Initializing variables into 10 parcels.
             for (int i = 0; i < 10; i++)
             {
-                DateTime ? DateAndTime = null;
                 Parcels.Insert(i, new()
                 {
                     ID = Config.RunnerIDNumParcels++,
@@ -121,9 +120,9 @@ namespace DalObject
                     Weight = (@enum.WeightCategories)rand.Next(0, 2),
                     Priority = (@enum.Priorities)rand.Next(0, 2),
                     Requested = DateTime.Now,
-                    Scheduled = DateAndTime,
-                    PickUp = DateAndTime,
-                    Delivered = DateAndTime
+                    Scheduled = DateTime.MinValue,
+                    PickUp = DateTime.MinValue,
+                    Delivered = DateTime.MinValue
                 });
             }
         }

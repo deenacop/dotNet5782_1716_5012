@@ -11,7 +11,7 @@ namespace IDAL
         /// <summary>
         /// Calculate the distance beteen tow coordinates
         /// </summary>
-        public class DistanceCalculation
+        public static class DistanceCalculation
         {
             const double PI = Math.PI;
             const int RADIUS = 6371;//the earth radius

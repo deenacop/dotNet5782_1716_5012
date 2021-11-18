@@ -32,9 +32,25 @@ namespace BL
                 drone.CopyPropertiesTo(droneDO);
                 dal.Add(droneDO);
             }
-            catch(IDAL.DO.AlreadyExistedItemException ex)
+            catch (IDAL.DO.AlreadyExistedItemException ex)
             {
                 throw new AlreadyExistedItemException(ex.Message);
+            }
+        }
+        /// <summary>
+        /// The function updates the model of a specific drone
+        /// </summary>
+        /// <param name="ID">Drone ID</param>
+        /// <param name="model">Drone model</param>
+        public void UpdateDroneName(int ID, string model)
+        {
+            try
+            {
+                dal.UpdateDroneName( ID,  model);//sends to IDAL
+            }
+            catch(ItemNotExistException ex)
+            {
+                throw new ItemNotExistException(ex.Message);
             }
         }
     }
