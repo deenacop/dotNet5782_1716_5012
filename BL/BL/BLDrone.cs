@@ -58,13 +58,53 @@ namespace BL
             double vacant = ElectricityUse[0];
             if (distance * vacant > DroneListBL[index].Battery)
                 throw new NotEnoughBatteryException("The drone cant go to a baseStation");
+            try
+            {
+                dal.SendingDroneToChargingBaseStation(ID, MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item3);
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
             //if the drone *can* go to a charging station:
             DroneToList tmp = DroneListBL[index];
             tmp.Battery -= (int)(distance * vacant);
             tmp.DroneStatus = @enum.DroneStatus.Maintenance;
             tmp.MyCurrentLocation = MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item1;
             DroneListBL[index] = tmp;
-            dal.SendingDroneToChargingBaseStation(ID, MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item3);
+        }
+
+        /// <summary>
+        /// This function is relaesing a drone
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        /// <param name="minuteInCharge">the amount of time(by minute) that the drone was in charge</param>
+        public void ReleasingDroneFromBaseStation(int ID, int minuteInCharge)
+        {
+            int index = DroneListBL.FindIndex(item => item.DroneID == ID);
+            if (index == -1)//NOT FOUND
+                throw new ItemNotExistException("The drone does not exist");
+            if (DroneListBL[index].Battery <= 100)
+                throw new NotEnoughBatteryException("The drone needs to be charged");
+
+            List<BaseStation> BaseStationListBL = null;
+            List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
+            StationListDL.CopyPropertiesTo(BaseStationListBL);//convret from IDAT to IBL
+            //if drone *can* be released
+            try
+            {
+                dal.ReleasingDroneFromChargingBaseStation(ID,  BaseStationListBL.Find(item=>item.StationLocation== DroneListBL[index].MyCurrentLocation).StationID);
+            }
+            catch(Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+            double[] ElectricityUse = dal.ChargingDrone();//*צריך לבדוק מה הוא מעתיק
+            double droneChargingRate = ElectricityUse[4];//Rate of charge per minute
+            DroneToList tmp = DroneListBL[index];
+            tmp.Battery += (int)(minuteInCharge * droneChargingRate);
+            tmp.DroneStatus = @enum.DroneStatus.Available;
+            DroneListBL[index] = tmp;
         }
     }
 }
