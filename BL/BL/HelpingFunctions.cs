@@ -55,15 +55,15 @@ namespace BL
         /// </summary>
         /// <param name="BaseStationListBL">list of stationBL</param>
         /// <param name="location">current location</param>
-        /// <returns>location/distance</returns>
-        private (Location, double) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
+        /// <returns>location/distance/StationID</returns>
+        private (Location, double,int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
         {
             List<double> locations = new List<double>();
             foreach (BaseStation currentStation in BaseStationListBL)
             {
                 locations.Add(DistanceCalculation(location, currentStation.StationLocation));
             }
-            return (BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationLocation, locations.Min());
+            return (BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationLocation, locations.Min(), BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationID);
         }
         #endregion 
 

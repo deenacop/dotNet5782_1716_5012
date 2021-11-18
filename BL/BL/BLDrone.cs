@@ -64,6 +64,8 @@ namespace BL
             tmp.DroneStatus = @enum.DroneStatus.Maintenance;
             tmp.MyCurrentLocation = MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item1;
             DroneListBL[index] = tmp;
+            dal.SendingDroneToChargingBaseStation(ID, MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item3)
+
         }
     }
 }
