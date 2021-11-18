@@ -40,9 +40,9 @@ namespace BL
         }
 
         #region Find
-        BaseStation FindBaseStation(int ID)
+        T FindBaseStation(int ID)
         {
-            List<BaseStation> BaseStationListBL = null;
+            List<T> BaseStationListBL = null;
             IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the station from the data layer.
             BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
             //if(BaseStationListBL.)
@@ -65,7 +65,6 @@ namespace BL
             }
             return (BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationLocation, locations.Min());
         }
-
         #endregion 
 
     }

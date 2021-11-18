@@ -9,7 +9,7 @@ namespace IBL.BO
     /// <summary>
     /// Base stations details
     /// </summary>
-    public class BaseStation
+    public class T
     {
         public int StationID { get; set; }
         public string Name { get; set; }

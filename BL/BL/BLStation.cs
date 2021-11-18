@@ -16,7 +16,7 @@ namespace BL
         /// Adds a station to the list of stations in the IDAL
         /// </summary>
         /// <param name="station">The station that is being </param>
-        public void AddBaseStation(BaseStation station)
+        public void AddBaseStation(T station)
         {
             if (ChackingNumOfDigits(station.StationID) != 4)
                 throw new WrongIDException("Wrong ID");

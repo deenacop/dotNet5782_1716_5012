@@ -20,7 +20,7 @@ namespace BL
         {
             if (ChackingNumOfDigits(drone.DroneID) != 3)
                 throw new WrongIDException("worng ID");
-            BaseStation wantedStation = FindBaseStation(stationID);
+            T wantedStation = FindBaseStation(stationID);
             if (wantedStation.StationID == 0)
                 throw new AlreadyExistedItemException("The station for charging the drone, does not exist");
             drone.MyCurrentLocation = wantedStation.StationLocation;
@@ -40,24 +40,27 @@ namespace BL
 
         public void SendDroneToCharge(int ID)
         {
-            int index = DroneListBL.FindIndex(item => item.DroneID == ID);
-            if (index == -1 || DroneListBL[index].DroneStatus != @enum.DroneStatus.Available)
+            int index = DroneListBL.FindIndex(item => item.DroneID == ID);//finds the drone with the wanted ID
+            if (index == -1 || DroneListBL[index].DroneStatus != @enum.DroneStatus.Available)//if the drone does not exist or the drone is not available
                 throw new ItemNotExistException("Drone does not exist or is not available");
-
-            List<BaseStation> BaseStationListBL = null;
-            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the drone list from the data layer.
-            BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
+          
+            List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay(i=>i.NumOfAvailableChargeSlots>0).ToList();//Receive the drone list with available slots from the data layer.
 
             double minDistance = 0;
-            Location closestStation = null;
+         
             //finds the closest station from the sender
-            foreach (BaseStation currentStation in BaseStationListBL)
+            foreach (IDAL.DO.Station currentStation in StationListDL)
             {
-                double distance = DistanceCalculation(DroneListBL[index].MyCurrentLocation, currentStation.StationLocation);
+                Location currrentStationLocation = new Location
+                {
+                    Latitude = currentStation.Latitude,
+                    Longitude = currentStation.Longitude
+                };
+                double distance = DistanceCalculation(DroneListBL[index].MyCurrentLocation, currrentStationLocation);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
-                    closestStation = currentStation.StationLocation;
+                    currrentStationLocation = currentStation.StationLocation;
                 }
             }
 
