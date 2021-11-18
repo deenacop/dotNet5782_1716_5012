@@ -202,7 +202,7 @@ namespace DalObject
             }
             if (numOfSlots != null)
             {
-                int numOfFullSlots = DataSource.DroneCharges.Count(item => item.RecBaseStation == ID);//does it work??
+                int numOfFullSlots = DataSource.DroneCharges.FindAll(item => item.RecBaseStation == ID).Count;//does it work??
                 tmp.NumOfAvailableChargeSlots = (int)(numOfSlots - numOfFullSlots);
                 DataSource.Stations[index] = tmp;
             }

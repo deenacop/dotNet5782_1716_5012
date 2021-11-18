@@ -40,9 +40,9 @@ namespace BL
         }
 
         #region Find
-        T FindBaseStation(int ID)
+        BaseStation FindBaseStation(int ID)
         {
-            List<T> BaseStationListBL = null;
+            List<BaseStation> BaseStationListBL = null;
             IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the station from the data layer.
             BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
             //if(BaseStationListBL.)

@@ -20,7 +20,7 @@ namespace BL
         {
             if (ChackingNumOfDigits(drone.DroneID) != 3)
                 throw new WrongIDException("worng ID");
-            T wantedStation = FindBaseStation(stationID);
+            BaseStation wantedStation = FindBaseStation(stationID);
             if (wantedStation.StationID == 0)
                 throw new AlreadyExistedItemException("The station for charging the drone, does not exist");
             drone.MyCurrentLocation = wantedStation.StationLocation;
@@ -64,8 +64,7 @@ namespace BL
             tmp.DroneStatus = @enum.DroneStatus.Maintenance;
             tmp.MyCurrentLocation = MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item1;
             DroneListBL[index] = tmp;
-            dal.SendingDroneToChargingBaseStation(ID, MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item3)
-
+            dal.SendingDroneToChargingBaseStation(ID, MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item3);
         }
     }
 }
