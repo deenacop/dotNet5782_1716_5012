@@ -37,6 +37,7 @@ namespace BL
                 throw new AlreadyExistedItemException(ex.Message);
             }
         }
+
         /// <summary>
         /// The function send a specific drone to the closest available station
         /// </summary>
@@ -105,6 +106,13 @@ namespace BL
             tmp.Battery += (int)(minuteInCharge * droneChargingRate);
             tmp.DroneStatus = @enum.DroneStatus.Available;
             DroneListBL[index] = tmp;
+        }
+
+        public void CollectionOfParcelByDrone(int ID)
+        {
+            int droneIndex = DroneListBL.FindIndex(item => item.DroneID == ID);
+            if (droneIndex == -1 || DroneListBL[droneIndex].DroneStatus != @enum.DroneStatus.Delivery)//NOT FOUND or NOT AVAILABLE
+                throw new ItemNotExistException("The drone does not exist or not available"); 
         }
     }
 }

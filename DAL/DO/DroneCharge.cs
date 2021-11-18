@@ -13,11 +13,11 @@ namespace IDAL
         /// </summary>
         public struct DroneCharge
         {
-            public int RecBaseStation { get; set; }
-            public int RecDrone { get; set; }
+            public int BaseStationID { get; set; }
+            public int DroneID { get; set; }
             public override string ToString()
             {
-                string str = "ID of the base station in drone charge:" + RecBaseStation + "\nID of the drone in drone charge:" + RecDrone + "\n";
+                string str = "ID of the base station in drone charge:" + BaseStationID + "\nID of the drone in drone charge:" + DroneID + "\n";
                 return str;
             }
         }

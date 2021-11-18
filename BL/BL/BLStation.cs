@@ -39,16 +39,28 @@ namespace BL
         }
 
 
-        ///// <summary>
-        ///// Return the wanted station
-        ///// </summary>
-        ///// <param name="StationID">The requested station</param>
-        //public BaseStation StationDisplay(int StationID)
-        //{
-        //    BaseStation baseStation;
-        //    baseStation =FindBaseStation(StationID);
-        //    for(IDAL.DO.DroneCharge droneCharge; dal.)
-        //}
+        /// <summary>
+        /// Return the wanted station
+        /// </summary>
+        /// <param name="StationID">The requested station</param>
+        public BaseStation BaseStationDisplay(int StationID)
+        {
+            IDAL.DO.Station station = dal.StationDisplay(StationID);
+            BaseStation baseStation = new BaseStation();
+            station.CopyPropertiesTo(baseStation);//we got the station details from DAL
+            baseStation.StationLocation.Longitude = station.Longitude;
+            baseStation.StationLocation.Latitude = station.Latitude;//set the location
+
+            List<DroneInCharging> DroneChargingBL = null;
+            List<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.ListOfDroneCharge().ToList();//Receive the drone list from the data layer.
+            DroneChargeingListDL.CopyPropertiesTo(DroneChargingBL);//convret from IDAT to IBL
+
+
+
+
+
+            return baseStation;
+        }
 
         public void UpdateStation(int ID, string name=null,int? numOfSlots=null)
         {

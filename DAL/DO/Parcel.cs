@@ -13,7 +13,7 @@ namespace IDAL
         /// </summary>
         public struct Parcel
         {
-            public int ID { get; set; }
+            public int ParcelID { get; set; }
             public int Sender { get; set; }//according the ID
             public int Targetid { get; set; }//according the ID
             public @enum.WeightCategories Weight { get; set; }
@@ -26,7 +26,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                string str = "Parcel ID:" + ID + "\nParcel sender:" + Sender + "\nParcel targetid:" + Targetid +
+                string str = "Parcel ID:" + ParcelID + "\nParcel sender:" + Sender + "\nParcel targetid:" + Targetid +
                 "\nParcel weight:" + Weight + "\nParcel priority:" + Priority +
                 "\nParcel drone ID:" + MyDroneID + "\nParcel time of request:" + Requested +
                 "\nParcel time of schedule:" + Scheduled + "\nParcel time of pick up:" + PickUp +
