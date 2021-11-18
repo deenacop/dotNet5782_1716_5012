@@ -13,7 +13,7 @@ namespace BL
         {
             if (ChackingNumOfDigits(parcel.Sender.CustomerID) != 9)
                 throw new WrongIDException("Wrong ID"); 
-            if (ChackingNumOfDigits(parcel.Targeted.CustomerID) != 9)
+            if (ChackingNumOfDigits(parcel.Targetid.CustomerID) != 9)
                 throw new WrongIDException("Wrong ID");
             parcel.Requested = DateTime.Now;
             parcel.Scheduled = DateTime.MinValue;

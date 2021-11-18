@@ -22,7 +22,7 @@ namespace BL
                 throw new WrongIDException("Wrong ID");
             if (station.StationLocation.Latitude < 31 || station.StationLocation.Latitude > 32
                 || station.StationLocation.Longitude < 35 || station.StationLocation.Longitude > 36)
-                throw new UnlogicalLocation("the location is not logical");
+                throw new UnlogicalLocationException("the location is not logical");
             if (station.NumOfAvailableChargingSlots < 0)
                 throw new ArgumentOutOfRangeException("cant be negative");
             station.DronesInCharging.Clear();

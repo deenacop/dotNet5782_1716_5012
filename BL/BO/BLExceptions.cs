@@ -42,11 +42,11 @@ namespace IBL.BO
     }
 
     [Serializable]
-    public class UnlogicalLocation : Exception
+    public class UnlogicalLocationException : Exception
     {
-        public UnlogicalLocation() : base() { }
-        public UnlogicalLocation(string message) : base(message) { }
-        public UnlogicalLocation(string message, Exception inner) : base(message, inner) { }
+        public UnlogicalLocationException() : base() { }
+        public UnlogicalLocationException(string message) : base(message) { }
+        public UnlogicalLocationException(string message, Exception inner) : base(message, inner) { }
         public override string ToString()
         {
             return Message;
@@ -64,6 +64,16 @@ namespace IBL.BO
             return Message;
         }
     }
-    
 
+    [Serializable]
+    public class NotAvailableException : Exception
+    {
+        public NotAvailableException() : base() { }
+        public NotAvailableException(string message) : base(message) { }
+        public NotAvailableException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
+        {
+            return Message;
+        }
+    }
 }
