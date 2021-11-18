@@ -13,14 +13,14 @@ namespace IDAL
         /// </summary>
         public struct Station
         {
-            public int ID { get; set; }
+            public int StationID { get; set; }
             public string Name { get; set; }
-            public int NumOfAvailableChargeSlots { get; set; }
+            public int NumOfAvailableChargingSlots { get; set; }
             public double Longitude { get; set; }
             public double Latitude { get; set; }
             public override string ToString()
             {
-                string str = "Station ID:" + ID + "\nStation name:" + Name + "\nNumber of available slots:" + NumOfAvailableChargeSlots
+                string str = "Station ID:" + StationID + "\nStation name:" + Name + "\nNumber of available slots:" + NumOfAvailableChargingSlots
                     + "\nStation location:\n" + (SexagesimalDegree.convert(Longitude, Latitude)) + "\n";
                 return str;
             }

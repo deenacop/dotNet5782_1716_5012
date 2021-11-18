@@ -13,12 +13,12 @@ namespace IDAL
         /// </summary>
         public struct Drone
         {
-            public int ID { get; set; }
+            public int DroneID { get; set; }
             public string Model { get; set; }
             public @enum.WeightCategories Weight { get; set; }
             public override string ToString()
             {
-                string str = "Drone ID:" + ID + "\nDrone model:" + Model + "\nDrone weight:" + Weight +  "\n";
+                string str = "Drone ID:" + DroneID + "\nDrone model:" + Model + "\nDrone weight:" + Weight +  "\n";
                 return str;
             }
         }

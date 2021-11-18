@@ -102,66 +102,66 @@ namespace BL
                     minBatteryDrone += (int)minDistance * (int)vacant;//minimum battery the drone needs
                     currentDrone.Battery = rand.Next(minBatteryDrone, 101);
                 }
-            }
-            List<IDAL.DO.Parcel> deliveredParcel = dal.ListParcelDisplay(i => i.Delivered != DateTime.MinValue).ToList();//lists of all the delivered parcels
-            List<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargeSlots > 0).ToList();//lists of all the available stations
-            foreach (DroneToList currentDrone in DroneListBL)
-            {
                 //אם הרחפן לא מבצע משלוח:
-                if (currentDrone.DroneStatus != @enum.DroneStatus.Delivery)//if the drone is not in delivery mode
+                else
+                {
+                    List<IDAL.DO.Parcel> deliveredParcel = dal.ListParcelDisplay(i => i.Delivered != DateTime.MinValue).ToList();//lists of all the delivered parcels
+                    List<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargeSlots > 0).ToList();//lists of all the available stations
                     currentDrone.DroneStatus = (@enum.DroneStatus)rand.Next(0, 2);//פנוי לתחזוקה
-                //בתחזוקה?
-                if (currentDrone.DroneStatus == @enum.DroneStatus.Maintenance)//if the drone is not in maintenance mode
-                {
-                    int index = rand.Next(0, availableStations.Capacity);//one of the staitions
-                    Location location1 = new Location()
-                    {
-                        Latitude = availableStations[index].Latitude,
-                        Longitude = availableStations[index].Longitude
-                    };
-                    currentDrone.MyCurrentLocation = location1;
-                    IDAL.DO.Station tmp = availableStations[index];
-                    if (--tmp.NumOfAvailableChargeSlots == 0)
-                        availableStations.RemoveAt(index);
-                    else
-                        availableStations[index] = tmp;
-                    currentDrone.Battery = rand.Next(0, 21);
-                    break;
-                }
-                //פנוי
-                if (currentDrone.DroneStatus == @enum.DroneStatus.Available)//if the drone is not in maintenance mode
-                {
-                    int index = rand.Next(0, deliveredParcel.Capacity);//one of the staitions
-                    IDAL.DO.Customer targetid = CustomerListDL.Find(item => item.ID == deliveredParcel[index].Targetid);
-                    Location location2 = new Location()
-                    {
-                        Latitude = targetid.Latitude,
-                        Longitude = targetid.Longitude
-                    };
-                    currentDrone.MyCurrentLocation = location2;
-                    break;
-                }
-                //finds the closest station from the targeted
-                double minDistance = MinDistanceLocation(BaseStationListBL, currentDrone.MyCurrentLocation).Item2;
-                //the minimum battery the drones needs
-                int minBatteryDrone = 0;
-                int weight = (int)currentDrone.Weight;
-                switch (weight)
-                {
-                    case (int)@enum.WeightCategories.Light:
-                        minBatteryDrone = (int)minDistance * (int)carriesLightWeight;
+                    if (currentDrone.DroneStatus == @enum.DroneStatus.Maintenance)//if the drone is not in maintenance mode
+                    {//בתחזוקה
+                        index = rand.Next(0, availableStations.Capacity);//one of the staitions
+                        Location location1 = new Location()
+                        {
+                            Latitude = availableStations[index].Latitude,
+                            Longitude = availableStations[index].Longitude
+                        };
+                        currentDrone.MyCurrentLocation = location1;
+                        IDAL.DO.Station tmp = availableStations[index];
+                        if (--tmp.NumOfAvailableChargeSlots == 0)
+                            availableStations.RemoveAt(index);
+                        else
+                            availableStations[index] = tmp;
+                        currentDrone.Battery = rand.Next(0, 21);
                         break;
-                    case (int)@enum.WeightCategories.Midium:
-                        minBatteryDrone = (int)minDistance * (int)carriesMediumWeight;
-                        break;
-                    case (int)@enum.WeightCategories.Heavy:
-                        minBatteryDrone = (int)minDistance * (int)carriesHeavyWeight;
-                        break;
+                    }
+                    if (currentDrone.DroneStatus == @enum.DroneStatus.Available)//if the drone is not in maintenance mode
+                    {//פנוי
+                        index = rand.Next(0, deliveredParcel.Capacity);//one of the staitions
+                        IDAL.DO.Customer targetid = CustomerListDL.Find(item => item.ID == deliveredParcel[index].Targetid);
+                        Location location2 = new Location()
+                        {
+                            Latitude = targetid.Latitude,
+                            Longitude = targetid.Longitude
+                        };
+                        currentDrone.MyCurrentLocation = location2;
+                        //finds the closest station from the targeted
+                        double minDistance = MinDistanceLocation(BaseStationListBL, currentDrone.MyCurrentLocation).Item2;
+                        //the minimum battery the drones needs
+                        int minBatteryDrone = 0;
+                        int weight = (int)currentDrone.Weight;
+                        switch (weight)
+                        {
+                            case (int)@enum.WeightCategories.Light:
+                                minBatteryDrone = (int)minDistance * (int)carriesLightWeight;
+                                break;
+                            case (int)@enum.WeightCategories.Midium:
+                                minBatteryDrone = (int)minDistance * (int)carriesMediumWeight;
+                                break;
+                            case (int)@enum.WeightCategories.Heavy:
+                                minBatteryDrone = (int)minDistance * (int)carriesHeavyWeight;
+                                break;
+                        }
+                        currentDrone.Battery = rand.Next(minBatteryDrone, 101);
+                    }
                 }
-                currentDrone.Battery = rand.Next(minBatteryDrone, 101);
             }
+
         }
+        #endregion
     }
-    #endregion
 }
+
+
+
 

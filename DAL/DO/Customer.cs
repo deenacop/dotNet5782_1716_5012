@@ -13,14 +13,14 @@ namespace IDAL
         /// </summary>
         public struct Customer
         {
-            public int ID { get; set; }
+            public int CustomerID { get; set; }
             public string Name { get; set; }
             public string PhoneNumber { get; set; }
             public double Longitude { get; set; }
             public double Latitude { get; set; }
             public override string ToString()
             {
-                string str = "Customer ID:" + ID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
+                string str = "Customer ID:" + CustomerID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
                     PhoneNumber + "\nCustomer location:\n" + (SexagesimalDegree.convert(Longitude, Latitude))+"\n" ;
                 return str;
             }

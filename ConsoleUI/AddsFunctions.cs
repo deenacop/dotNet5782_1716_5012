@@ -25,12 +25,12 @@ namespace ConsoleUI
             IDAL.DO.Station NewStation = new IDAL.DO.Station();
             Console.WriteLine("Enter the new station details: *station ID (4 digits)");        
             if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewStation.ID = tmpInt;
+                NewStation.StationID = tmpInt;
             Console.WriteLine("*station name");
             NewStation.Name = Console.ReadLine();
             Console.WriteLine("*station number of available charge slots");
             int.TryParse(Console.ReadLine(), out tmpInt);
-            NewStation.NumOfAvailableChargeSlots = tmpInt;
+            NewStation.NumOfAvailableChargingSlots = tmpInt;
             Console.WriteLine("*station longitude");
             if (double.TryParse(Console.ReadLine(), out tmpDouble))
                 NewStation.Longitude = tmpDouble;
@@ -75,7 +75,7 @@ namespace ConsoleUI
             IDAL.DO.Customer NewCustomer = new IDAL.DO.Customer();
             Console.WriteLine("Enter the new customer details: *customer ID (9 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewCustomer.ID = tmpInt;
+                NewCustomer.CustomerID = tmpInt;
             Console.WriteLine("*customer name");
             NewCustomer.Name = Console.ReadLine();
             Console.WriteLine("*customer phone number");
@@ -97,7 +97,7 @@ namespace ConsoleUI
             IDAL.DO.Drone NewDrone = new IDAL.DO.Drone();
             Console.WriteLine("Enter the new drone details: *drone ID (3 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewDrone.ID = tmpInt;
+                NewDrone.DroneID = tmpInt;
             Console.WriteLine("*drone model");
             NewDrone.Model = Console.ReadLine();
             Console.WriteLine("*drones weight (for light type 0, midium type 1, heavy type 2)");

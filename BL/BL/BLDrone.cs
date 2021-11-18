@@ -37,6 +37,7 @@ namespace BL
                 throw new AlreadyExistedItemException(ex.Message);
             }
         }
+
         /// <summary>
         /// The function send a specific drone to the closest available station
         /// </summary>
@@ -118,6 +119,13 @@ namespace BL
             //Receive the parcel list of parcels that are assign to drone (from the data layer).
             List<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay(i => i.MyDroneID != 0).ToList();
             ParcelListDL.CopyPropertiesTo(ParcelListBL);//convret from IDAT to IBL
+        }
+
+        public void CollectionOfParcelByDrone(int ID)
+        {
+            int droneIndex = DroneListBL.FindIndex(item => item.DroneID == ID);
+            if (droneIndex == -1 || DroneListBL[droneIndex].DroneStatus != @enum.DroneStatus.Delivery)//NOT FOUND or NOT AVAILABLE
+                throw new ItemNotExistException("The drone does not exist or not available"); 
         }
     }
 }

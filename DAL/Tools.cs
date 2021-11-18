@@ -23,6 +23,11 @@ namespace IDAL
                 {
                     propTo.SetValue(to, value);
                 }
+                //else if (!(value is IEnumerable))
+                //{
+                //    object target = propTo.GetValue(to, null);
+                //    value.CopyPropertiesTo(target);
+                //}
             }
         }
         public static void CopyPropertiesToIEnumerable<T, S>(this IEnumerable<S> from, List<T> to)

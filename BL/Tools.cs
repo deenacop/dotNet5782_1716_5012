@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace BL
 {
     public static class Tools
@@ -23,6 +25,11 @@ namespace BL
                 {
                     propTo.SetValue(to, value);
                 }
+                //else if (!(value is IEnumerable))
+                //{
+                //    object target = propTo.GetValue(to, null);
+                //    value.CopyPropertiesTo(target);
+                //}
             }
         }
         public static void CopyPropertiesToIEnumerable<T, S>(this IEnumerable<S> from, List<T> to)
