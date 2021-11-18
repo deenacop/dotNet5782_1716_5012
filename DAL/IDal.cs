@@ -24,7 +24,7 @@ namespace IDAL
         public Station StationDisplay(int StationID);
         public Customer CustomerDisplay(int CustomerID);
         public Parcel ParcelDisplay(int ParcelID);
-        public IEnumerable<Drone> ListDroneDisplay();
+        public IEnumerable<Drone> ListDroneDisplay(Predicate<Drone> predicate = null);
         public IEnumerable<Customer> ListCustomerDisplay(Predicate<Customer> predicate = null);
         public IEnumerable<Station> ListStationDisplay(Predicate<Station> predicate = null);
         public IEnumerable<Parcel> ListParcelDisplay(Predicate<Parcel> predicate = null);

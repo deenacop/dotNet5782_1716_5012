@@ -33,18 +33,18 @@ namespace BL
 
             List<DroneToList> DroneListBL = null;
             List<IDAL.DO.Drone> DroneListDL = dal.ListDroneDisplay().ToList();//Receive the drone list from the data layer.
-            DroneListBL.CopyPropertiesTo(DroneListDL);//convret from IDAT to IBL
+            DroneListDL.CopyPropertiesTo(DroneListBL);//convret from IDAT to IBL
 
             List<ParcelToList> ParcelListBL = null;
             //Receive the parcel list of parcels that are assign to drone (from the data layer).
             List<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay(i => i.MyDroneID != 0).ToList();
-            ParcelListBL.CopyPropertiesTo(ParcelListDL);//convret from IDAT to IBL
+            ParcelListDL.CopyPropertiesTo(ParcelListBL);//convret from IDAT to IBL
 
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
 
             List<BaseStation> BaseStationListBL = null;
             List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
-            BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
+            StationListDL.CopyPropertiesTo(BaseStationListBL);//convret from IDAT to IBL
             #endregion
 
             foreach (DroneToList currentDrone in DroneListBL)

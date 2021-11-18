@@ -11,7 +11,7 @@ namespace ConsoleUI
         /// <summary>
         /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit 
         /// </summary>
-        public enum options { Add = 1, Update, DisplayIndividual, DisplayList, FindTheDistance, Exit };
+        public enum options { Add = 1, Update, DisplayIndividual, DisplayList/*, FindTheDistance*/, Exit };
         /// <summary>
         /// Which item to add
         /// </summary>
@@ -51,7 +51,7 @@ namespace ConsoleUI
                  "\nTo update, type 2." +
                  "\nTo view a single item, type 3." +
                  "\nTo view a list, type 4." +
-                 "\nTo find a distance between a point and a station or between a point and the customer, type 5." +
+                 //"\nTo find a distance between a point and a station or between a point and the customer, type 5." +
                  "\nTo exit, type 6.");
                     input = Console.ReadLine();
                     int.TryParse(input, out userAnswer);
@@ -263,37 +263,37 @@ namespace ConsoleUI
                                 userAnswer = 0;//if UserAnswer will stay 6 the progrom will finish without wanting it to.
                                 break;
                             }
-                        case (int)options.FindTheDistance:
-                            {
-                                double lat1, lon1;
-                                int ID, answer;
-                                Console.WriteLine("Enter the latitude of the point from which you want to calculate distance");
-                                input = Console.ReadLine();
-                                double.TryParse(input, out lat1);
-                                Console.WriteLine("Enter the longitude of the point from which you want to calculate distance");
-                                input = Console.ReadLine();
-                                double.TryParse(input, out lon1);
-                                Console.WriteLine("To find the distance from the point you entered to a station, type 1\n" +
-                                    "To find the distance from the point you entered to a customer type 0");
-                                input = Console.ReadLine();
-                                int.TryParse(input, out answer);
-                                if (answer == 1)//station
-                                {
-                                    Console.WriteLine("Enter the ID number of the station from which you would like to measure distance ( 4-digit). ");
-                                    input = Console.ReadLine();
-                                    int.TryParse(input, out ID);
-                                    Console.WriteLine(DistanceCalculation.Calculation(lon1, lat1, DistanceCalculation.FindTheStationCoordinates(ID)));
-                                }
-                                if (answer == 0)//customer
-                                {
-                                    Console.WriteLine("Enter the ID number of the customer from which you would like to measure distance (9-digit). ");
-                                    input = Console.ReadLine();
-                                    int.TryParse(input, out ID);
-                                    Console.WriteLine(DistanceCalculation.Calculation(lon1, lat1, DistanceCalculation.FindTheCustomerCoordinates(ID)));
+                        //case (int)options.FindTheDistance:
+                        //    {
+                        //        double lat1, lon1;
+                        //        int ID, answer;
+                        //        Console.WriteLine("Enter the latitude of the point from which you want to calculate distance");
+                        //        input = Console.ReadLine();
+                        //        double.TryParse(input, out lat1);
+                        //        Console.WriteLine("Enter the longitude of the point from which you want to calculate distance");
+                        //        input = Console.ReadLine();
+                        //        double.TryParse(input, out lon1);
+                        //        Console.WriteLine("To find the distance from the point you entered to a station, type 1\n" +
+                        //            "To find the distance from the point you entered to a customer type 0");
+                        //        input = Console.ReadLine();
+                        //        int.TryParse(input, out answer);
+                        //        if (answer == 1)//station
+                        //        {
+                        //            Console.WriteLine("Enter the ID number of the station from which you would like to measure distance ( 4-digit). ");
+                        //            input = Console.ReadLine();
+                        //            int.TryParse(input, out ID);
+                        //            Console.WriteLine(DistanceCalculation.Calculation(lon1, lat1, DistanceCalculation.FindTheStationCoordinates(ID)));
+                        //        }
+                        //        if (answer == 0)//customer
+                        //        {
+                        //            Console.WriteLine("Enter the ID number of the customer from which you would like to measure distance (9-digit). ");
+                        //            input = Console.ReadLine();
+                        //            int.TryParse(input, out ID);
+                        //            Console.WriteLine(DistanceCalculation.Calculation(lon1, lat1, DistanceCalculation.FindTheCustomerCoordinates(ID)));
 
-                                }
-                                break;
-                            }
+                        //        }
+                        //        break;
+                        //    }
 
                         case (int)options.Exit:
                             Console.WriteLine("\nThank you for using our drones system, looking forward to see you again!");
