@@ -45,9 +45,8 @@ namespace BL
             List<BaseStation> BaseStationListBL = null;
             IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the station from the data layer.
             BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
-            //if(BaseStationListBL.)
-                //////////////////////////////////////
-                return BaseStationListBL.Find(item => item.StationID == ID);
+            
+            return BaseStationListBL.Find(item => item.StationID == ID);
         }
 
         /// <summary>
