@@ -55,10 +55,18 @@ namespace BL
             List<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.ListOfDroneCharge().ToList();//Receive the drone list from the data layer.
             DroneChargeingListDL.CopyPropertiesTo(DroneChargingBL);//convret from IDAT to IBL
 
-
-
-
-
+            foreach (DroneInCharging currentDronCharge in DroneChargingBL)//running on all the drone charge of BL
+            {
+                foreach (DroneToList currentDrone in DroneListBL)//running on all the drones
+                {
+                    if(currentDronCharge.DroneID== currentDrone.DroneID)
+                    {
+                        currentDronCharge.Battery = currentDrone.Battery;
+                        break;
+                    }
+                }
+            }
+            baseStation.DronesInCharging = DroneChargingBL;
             return baseStation;
         }
 
