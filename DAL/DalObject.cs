@@ -226,8 +226,6 @@ namespace DalObject
             }
         }
 
-        #endregion
-
         public void UpdateDroneName(int ID, string model)
         {
             int index = DataSource.Drones.FindIndex(item => item.ID == ID);
