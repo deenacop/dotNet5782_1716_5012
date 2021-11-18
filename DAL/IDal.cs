@@ -18,6 +18,8 @@ namespace IDAL
         public void DeliveryParcelToCustomer(int ParcelID);
         public void SendingDroneToChargingBaseStation(int DroneID, int StationID);
         public void ReleasingDroneFromChargingBaseStation(int DroneID, int BaseStationID);
+        public void UpdateStation(int ID, string name = null, int? numOfSlots = null);
+        public void UpdateCustomer(int ID, string name = null, string phone = null);
         public Drone DroneDisplay(int DroneID);
         public Station StationDisplay(int StationID);
         public Customer CustomerDisplay(int CustomerID);

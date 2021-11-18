@@ -32,10 +32,35 @@ namespace BL
                 drone.CopyPropertiesTo(droneDO);
                 dal.Add(droneDO);
             }
-            catch(IDAL.DO.AlreadyExistedItemException ex)
+            catch (IDAL.DO.AlreadyExistedItemException ex)
             {
                 throw new AlreadyExistedItemException(ex.Message);
             }
+        }
+
+        public void SendDroneToCharge(int ID)
+        {
+            int index = DroneListBL.FindIndex(item => item.DroneID == ID);
+            if (index == -1 || DroneListBL[index].DroneStatus != @enum.DroneStatus.Available)
+                throw new ItemNotExistException("Drone does not exist or is not available");
+
+            List<BaseStation> BaseStationListBL = null;
+            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the drone list from the data layer.
+            BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
+
+            double minDistance = 0;
+            Location closestStation = null;
+            //finds the closest station from the sender
+            foreach (BaseStation currentStation in BaseStationListBL)
+            {
+                double distance = DistanceCalculation(DroneListBL[index].MyCurrentLocation, currentStation.StationLocation);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestStation = currentStation.StationLocation;
+                }
+            }
+
         }
     }
 }

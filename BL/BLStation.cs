@@ -32,22 +32,34 @@ namespace BL
                 station.CopyPropertiesTo(tmpStation);
                 dal.Add(tmpStation);
             }
-            catch(IDAL.DO.AlreadyExistedItemException ex)
+            catch(Exception ex)
             {
                 throw new AlreadyExistedItemException(ex.Message);
             }
         }
 
 
-        /// <summary>
-        /// Return the wanted station
-        /// </summary>
-        /// <param name="StationID">The requested station</param>
-        public BaseStation StationDisplay(int StationID)
+        ///// <summary>
+        ///// Return the wanted station
+        ///// </summary>
+        ///// <param name="StationID">The requested station</param>
+        //public BaseStation StationDisplay(int StationID)
+        //{
+        //    BaseStation baseStation;
+        //    baseStation =FindBaseStation(StationID);
+        //    for(IDAL.DO.DroneCharge droneCharge; dal.)
+        //}
+
+        public void UpdateStation(int ID, string name=null,int? numOfSlots=null)
         {
-            BaseStation baseStation;
-            baseStation =FindBaseStation(StationID);
-            for(IDAL.DO.DroneCharge droneCharge; dal.)
+            try
+            {
+                dal.UpdateStation(ID, name, numOfSlots);
+            }
+            catch(Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
         }
 
 

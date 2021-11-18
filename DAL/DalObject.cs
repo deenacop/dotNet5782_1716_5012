@@ -14,7 +14,7 @@ namespace DalObject
         /// <summary>
         /// DalObject constructor
         /// </summary>
-        public  DalObject() { DataSource.Initialize(); }
+        public DalObject() { DataSource.Initialize(); }
 
         /// <summary>
         /// Adds a new drone
@@ -177,6 +177,8 @@ namespace DalObject
                     break;
                 }
             }
+
+
             //int index = DataSource.DroneCharges.FindIndex(item => item.RecDrone == DroneID  && item.RecBaseStation == BaseStationID);//finds the drone charge 
             //if (index< 0)//not found
             //    throw new ItemNotExistException("the drone does not exist in the wanted base station");
@@ -186,7 +188,45 @@ namespace DalObject
             //tmp.NumOfAvailableChargeSlots++;
             //DataSource.Stations[index] = tmp;
         }
-        #endregion 
+
+        public void UpdateStation(int ID, string name = null, int? numOfSlots = null)
+        {
+            int index = DataSource.Stations.FindIndex(item => item.ID == ID);
+            if (index == -1)
+                throw new ItemNotExistException("The station does not exist");
+            Station tmp = DataSource.Stations[index];
+            if (name != null)
+            {
+                tmp.Name = name;
+                DataSource.Stations[index] = tmp;
+            }
+            if (numOfSlots != null)
+            {
+                int numOfFullSlots = DataSource.DroneCharges.Count(item => item.RecBaseStation == ID);//does it work??
+                tmp.NumOfAvailableChargeSlots = (int)(numOfSlots - numOfFullSlots);
+                DataSource.Stations[index] = tmp;
+            }
+        }
+
+        public void UpdateCustomer(int ID, string name = null, string phone = null)
+        {
+            int index = DataSource.Customers.FindIndex(item => item.ID == ID);
+            if (index == -1)
+                throw new ItemNotExistException("The customer does not exsit");
+            Customer tmp = DataSource.Customers[index];
+            if (name != null)
+            {
+                tmp.Name = name;
+                DataSource.Customers[index] = tmp;
+            }
+            if (phone != null)
+            {
+                tmp.PhoneNumber = phone;
+                DataSource.Customers[index] = tmp;
+            }
+        }
+
+        #endregion
 
         #region Display one item
         /// <summary>
@@ -199,7 +239,7 @@ namespace DalObject
                 throw new ItemNotExistException("The drone does not exists");
             return DataSource.Drones.Find(item => item.ID == DroneID);
         }
-       
+
         /// <summary>
         /// Return the wanted station
         /// </summary>
@@ -313,7 +353,9 @@ namespace DalObject
             return arr;
 
         }
+
     }
 }
+
 
 
