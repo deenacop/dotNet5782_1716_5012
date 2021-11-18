@@ -55,7 +55,7 @@ namespace BL
                 {
                     currentDrone.DroneStatus = @enum.DroneStatus.Delivery;//מבצע משלוח
 
-                    IDAL.DO.Customer senderCustomer = CustomerListDL.Find(i => i.ID == ParcelListDL[index].Sender);//sender customer
+                    IDAL.DO.Customer senderCustomer = CustomerListDL.Find(i => i.CustomerID == ParcelListDL[index].Sender);//sender customer
 
                     Location locationOfSender = new Location
                     {
@@ -74,7 +74,7 @@ namespace BL
                     }
 
                     //מצב סוללה:
-                    IDAL.DO.Customer receiverCustomer = CustomerListDL.Find(item => item.ID == ParcelListDL[index].Targetid);//found the customer that is the targetid one
+                    IDAL.DO.Customer receiverCustomer = CustomerListDL.Find(item => item.CustomerID == ParcelListDL[index].Targetid);//found the customer that is the targetid one
                     Location locationOfReceiver = new Location
                     {
                         Latitude = receiverCustomer.Latitude,
@@ -106,7 +106,7 @@ namespace BL
                 else
                 {
                     List<IDAL.DO.Parcel> deliveredParcel = dal.ListParcelDisplay(i => i.Delivered != DateTime.MinValue).ToList();//lists of all the delivered parcels
-                    List<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargeSlots > 0).ToList();//lists of all the available stations
+                    List<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();//lists of all the available stations
                     currentDrone.DroneStatus = (@enum.DroneStatus)rand.Next(0, 2);//פנוי לתחזוקה
                     if (currentDrone.DroneStatus == @enum.DroneStatus.Maintenance)//if the drone is not in maintenance mode
                     {//בתחזוקה
@@ -118,7 +118,7 @@ namespace BL
                         };
                         currentDrone.MyCurrentLocation = location1;
                         IDAL.DO.Station tmp = availableStations[index];
-                        if (--tmp.NumOfAvailableChargeSlots == 0)
+                        if (--tmp.NumOfAvailableChargingSlots == 0)
                             availableStations.RemoveAt(index);
                         else
                             availableStations[index] = tmp;
@@ -128,7 +128,7 @@ namespace BL
                     if (currentDrone.DroneStatus == @enum.DroneStatus.Available)//if the drone is not in maintenance mode
                     {//פנוי
                         index = rand.Next(0, deliveredParcel.Capacity);//one of the staitions
-                        IDAL.DO.Customer targetid = CustomerListDL.Find(item => item.ID == deliveredParcel[index].Targetid);
+                        IDAL.DO.Customer targetid = CustomerListDL.Find(item => item.CustomerID == deliveredParcel[index].Targetid);
                         Location location2 = new Location()
                         {
                             Latitude = targetid.Latitude,
