@@ -16,7 +16,7 @@ namespace BL
         public void AddParcel(Parcel parcel)
         {
             if (ChackingNumOfDigits(parcel.Sender.CustomerID) != 9)
-                throw new WrongIDException("Wrong ID"); 
+                throw new WrongIDException("Wrong ID");
             if (ChackingNumOfDigits(parcel.Targetid.CustomerID) != 9)
                 throw new WrongIDException("Wrong ID");
             parcel.Requested = DateTime.Now;
@@ -35,6 +35,7 @@ namespace BL
                 throw new Exception(ex.Message);
             }
         }
+
         /// <summary>
         /// Display parcel
         /// </summary>
@@ -47,17 +48,25 @@ namespace BL
             {
                 parcelDO = dal.ParcelDisplay(ID);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
             Parcel parcelBO = new();
             parcelDO.CopyPropertiesTo(parcelBO);
-            parcelBO.Sender.CustomerID = dal.CustomerDisplay(parcelDO.Sender).CustomerID;
-            parcelBO.Sender.Name = dal.CustomerDisplay(parcelDO.Sender).Name;
-            parcelBO.Targetid.CustomerID = dal.CustomerDisplay(parcelDO.Targetid).CustomerID;
-            parcelBO.Targetid.Name = dal.CustomerDisplay(parcelDO.Targetid).Name;
-            if(parcelDO.Scheduled!=DateTime.MinValue)//if the parel is assigned
+            try
+            {
+                parcelBO.Sender.CustomerID = dal.CustomerDisplay(parcelDO.Sender).CustomerID;
+                parcelBO.Sender.Name = dal.CustomerDisplay(parcelDO.Sender).Name;
+                parcelBO.Targetid.CustomerID = dal.CustomerDisplay(parcelDO.Targetid).CustomerID;
+                parcelBO.Targetid.Name = dal.CustomerDisplay(parcelDO.Targetid).Name;
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+            ///האם קיים הdrone?
+            if (parcelDO.Scheduled != DateTime.MinValue)//if the parel is assigned
             {
                 DroneToList drone = DroneListBL.Find(i => i.DroneID == parcelDO.MyDroneID);
                 drone.CopyPropertiesTo(parcelBO.MyDrone);

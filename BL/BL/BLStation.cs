@@ -45,8 +45,16 @@ namespace BL
         /// <returns>Returns the wanted base station</returns>
         public BaseStation BaseStationDisplay(int StationID)
         {
-            IDAL.DO.Station station = dal.StationDisplay(StationID);
-            BaseStation baseStation = new BaseStation();
+            IDAL.DO.Station station = new();
+            try
+            {
+                station = dal.StationDisplay(StationID);
+            }
+            catch(Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+            BaseStation baseStation = new ();
             station.CopyPropertiesTo(baseStation);//we got the station details from DAL
             baseStation.StationLocation.Longitude = station.Longitude;
             baseStation.StationLocation.Latitude = station.Latitude;//set the location
@@ -69,6 +77,7 @@ namespace BL
             baseStation.DronesInCharging = DroneChargingBL;
             return baseStation;
         }
+
         /// <summary>
         /// Updates the station 
         /// </summary>

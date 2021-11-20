@@ -30,6 +30,7 @@ namespace DalObject
             static internal double CarriesHeavyWeight = 13;//per km
             static internal double DroneLoadingRate = 0.05;//per min
         }
+
         #region Initialize
         /// <summary>
         /// Initializes all the lists we have built in the config function at default values

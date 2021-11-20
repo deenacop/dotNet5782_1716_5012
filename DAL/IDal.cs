@@ -29,8 +29,6 @@ namespace IDAL
         public IEnumerable<Station> ListStationDisplay(Predicate<Station> predicate = null);
         public IEnumerable<Parcel> ListParcelDisplay(Predicate<Parcel> predicate = null);
         public IEnumerable<DroneCharge> ListOfDroneCharge(Predicate<DroneCharge> predicate = null);
-        public IEnumerable<Parcel> ListOfUnassignedParcels();
-        public IEnumerable<Station> ListOfAvailableChargingStations();
         public double[] ChargingDrone();
     }
 }

@@ -20,17 +20,24 @@ namespace BL
         {
             if (ChackingNumOfDigits(drone.DroneID) != 3)
                 throw new WrongIDException("worng ID");
-            BaseStation wantedStation = FindBaseStation(stationID);
-            if (wantedStation.StationID == 0)
-                throw new AlreadyExistedItemException("The station for charging the drone, does not exist");
-            drone.MyCurrentLocation = wantedStation.StationLocation;
+            IDAL.DO.Station wantedStation = new();
+            try
+            {
+                wantedStation = dal.StationDisplay(stationID);
+            }
+            catch(Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+            drone.MyCurrentLocation.Longitude = wantedStation.Longitude;
+            drone.MyCurrentLocation.Latitude = wantedStation.Latitude;
             drone.Battery = rand.Next(20, 41);
             drone.DroneStatus = @enum.DroneStatus.Maintenance;
             try
             {
-                IDAL.DO.Drone droneDO = new IDAL.DO.Drone();
+                IDAL.DO.Drone droneDO = new();
                 drone.CopyPropertiesTo(droneDO);
-                dal.Add(droneDO);
+                dal.Add(droneDO);//calls the function from DALOBJECT
             }
             catch (Exception ex)
             {
@@ -45,7 +52,7 @@ namespace BL
         public void SendDroneToCharge(int ID)
         {
             int index = DroneListBL.FindIndex(item => item.DroneID == ID);//finds the drone with the wanted ID
-            if (index == -1 || DroneListBL[index].DroneStatus != @enum.DroneStatus.Available)//if the drone does not exist or the drone is not available
+            if (index<0 || DroneListBL[index].DroneStatus != @enum.DroneStatus.Available)//if the drone does not exist or the drone is not available
                 throw new ItemNotExistException("Drone does not exist or is not available");
 
             List<BaseStation> BaseStationListBL = null;
@@ -61,7 +68,8 @@ namespace BL
                 throw new NotEnoughBatteryException("The drone cant go to a baseStation");
             try
             {
-                dal.SendingDroneToChargingBaseStation(ID, MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item3);
+                dal.SendingDroneToChargingBaseStation(
+                    ID, MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item3);//calls the function from DALOBJECT
             }
             catch (Exception ex)
             {
@@ -82,10 +90,12 @@ namespace BL
         /// <param name="minuteInCharge">the amount of time(by minute) that the drone was in charge</param>
         public void ReleasingDroneFromBaseStation(int ID, int minuteInCharge)
         {
+            double[] ElectricityUse = dal.ChargingDrone();//*צריך לבדוק מה הוא מעתיק
+            double droneChargingRate = ElectricityUse[4];//Rate of charge per minute
             int index = DroneListBL.FindIndex(item => item.DroneID == ID);
-            if (index == -1)//NOT FOUND
+            if (index <0)//NOT FOUND
                 throw new ItemNotExistException("The drone does not exist");
-            if (DroneListBL[index].Battery <= 100)
+            if (DroneListBL[index].Battery+ (int)(minuteInCharge * droneChargingRate) <= 50)//the drone is half charged and can be used
                 throw new NotEnoughBatteryException("The drone needs to be charged");
 
             List<BaseStation> BaseStationListBL = null;
@@ -94,39 +104,40 @@ namespace BL
             //if drone *can* be released
             try
             {
-                dal.ReleasingDroneFromChargingBaseStation(ID, BaseStationListBL.Find(item => item.StationLocation == DroneListBL[index].MyCurrentLocation).StationID);
+                dal.ReleasingDroneFromChargingBaseStation(
+                    ID, BaseStationListBL.Find(item => item.StationLocation == DroneListBL[index].MyCurrentLocation).StationID);//calls the function from DALOBJECT
             }
             catch (Exception ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
-            double[] ElectricityUse = dal.ChargingDrone();//*צריך לבדוק מה הוא מעתיק
-            double droneChargingRate = ElectricityUse[4];//Rate of charge per minute
             DroneToList tmp = DroneListBL[index];
             tmp.Battery += (int)(minuteInCharge * droneChargingRate);
+            if (tmp.Battery > 100)
+                tmp.Battery = 100;
             tmp.DroneStatus = @enum.DroneStatus.Available;
             DroneListBL[index] = tmp;
         }
 
-        public void AssignParcelToDrone(int ID)
-        {
-            if (DroneListBL.Exists(item => item.DroneID == ID))//NOT FOUND
-                throw new ItemNotExistException("The drone does not exist");
-            DroneToList currentDrone = DroneListBL.Find(item => item.DroneID == ID);
-            if (currentDrone.DroneStatus != @enum.DroneStatus.Available)
-                throw new NotAvailableException("The drone is not available");
-            List<Parcel> ParcelListBL = null;
-            //Receive the parcel list of parcels that are assign to drone (from the data layer).
-            List<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay(i => i.MyDroneID != 0).ToList();
-            ParcelListDL.CopyPropertiesTo(ParcelListBL);//convret from IDAT to IBL
-        }
+        //public void AssignParcelToDrone(int ID)
+        //{
+        //    if (DroneListBL.Exists(item => item.DroneID == ID))//NOT FOUND
+        //        throw new ItemNotExistException("The drone does not exist");
+        //    DroneToList currentDrone = DroneListBL.Find(item => item.DroneID == ID);
+        //    if (currentDrone.DroneStatus != @enum.DroneStatus.Available)
+        //        throw new NotAvailableException("The drone is not available");
+        //    List<Parcel> ParcelListBL = null;
+        //    Receive the parcel list of parcels that are assign to drone(from the data layer).
+        //    List < IDAL.DO.Parcel > ParcelListDL = dal.ListParcelDisplay(i => i.MyDroneID != 0).ToList();
+        //    ParcelListDL.CopyPropertiesTo(ParcelListBL);//convret from IDAT to IBL
+        //}
 
-        public void CollectionOfParcelByDrone(int ID)
-        {
-            int droneIndex = DroneListBL.FindIndex(item => item.DroneID == ID);
-            if (droneIndex == -1 || DroneListBL[droneIndex].DroneStatus != @enum.DroneStatus.Delivery)//NOT FOUND or NOT AVAILABLE
-                throw new ItemNotExistException("The drone does not exist or not available");
-        }
+        //public void CollectionOfParcelByDrone(int ID)
+        //{
+        //    int droneIndex = DroneListBL.FindIndex(item => item.DroneID == ID);
+        //    if (droneIndex == -1 || DroneListBL[droneIndex].DroneStatus != @enum.DroneStatus.Delivery)//NOT FOUND or NOT AVAILABLE
+        //        throw new ItemNotExistException("The drone does not exist or not available");
+        //}
 
         /// <summary>
         /// Display one BL drone

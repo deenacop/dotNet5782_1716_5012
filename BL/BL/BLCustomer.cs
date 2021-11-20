@@ -27,7 +27,7 @@ namespace BL
             {
                 IDAL.DO.Customer customerDO = new IDAL.DO.Customer();
                 customer.CopyPropertiesTo(customerDO);
-                dal.Add(customerDO);
+                dal.Add(customerDO);//calls the function from DALOBJECT
             }
             catch (Exception ex)
             {
@@ -45,7 +45,7 @@ namespace BL
         {
             try
             {
-                dal.UpdateCustomer(ID, name, phone);
+                dal.UpdateCustomer(ID, name, phone);//calls the function from DALOBJECT
             }
             catch (Exception ex)
             {

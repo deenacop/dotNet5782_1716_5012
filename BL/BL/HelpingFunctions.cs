@@ -27,6 +27,23 @@ namespace BL
             double distance = 2 * RADIUS * Math.Asin(havd);
             return distance;
         }
+
+        /// <summary>
+        /// Finds the minimum distance from the Station to a location
+        /// </summary>
+        /// <param name="BaseStationListBL">list of stationBL</param>
+        /// <param name="location">current location</param>
+        /// <returns>location/distance/StationID</returns>
+        private (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
+        {
+            List<double> locations = new List<double>();
+            foreach (BaseStation currentStation in BaseStationListBL)
+            {
+                locations.Add(DistanceCalculation(location, currentStation.StationLocation));
+            }
+            return (BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationLocation, locations.Min(), BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationID);
+        }
+
         #endregion
 
         /// <summary>
@@ -36,35 +53,7 @@ namespace BL
         /// <returns>amount of digits in the ID</returns>
         internal int ChackingNumOfDigits(int num)
         {
-            return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1); 
-        }
-
-        #region Find
-        BaseStation FindBaseStation(int ID)
-        {
-            List<BaseStation> BaseStationListBL = null;
-            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay();//Receive the station from the data layer.
-            BaseStationListBL.CopyPropertiesTo(StationListDL);//convret from IDAT to IBL
-            
-            return BaseStationListBL.Find(item => item.StationID == ID);
-        }
-
-        /// <summary>
-        /// Finds the minimum distance from the Station to a location
-        /// </summary>
-        /// <param name="BaseStationListBL">list of stationBL</param>
-        /// <param name="location">current location</param>
-        /// <returns>location/distance/StationID</returns>
-        private (Location, double,int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
-        {
-            List<double> locations = new List<double>();
-            foreach (BaseStation currentStation in BaseStationListBL)
-            {
-                locations.Add(DistanceCalculation(location, currentStation.StationLocation));
-            }
-            return (BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationLocation, locations.Min(), BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationID);
-        }
-        #endregion 
-
+            return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1);
+        }        
     }
 }

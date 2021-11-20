@@ -69,6 +69,7 @@ namespace DalObject
         /// </summary>
         /// <param name="ParcelID">The parcel's ID that needs to be assigns</param>
         /// <param name="DroneID">The drone's ID that needs to be assigns</param>
+       
         public void AssignParcelToDrone(int ParcelID, int DroneID)
         {
             //checks if the drone exists and if not throws an exception
@@ -158,6 +159,16 @@ namespace DalObject
                 throw new ItemNotExistException("The drone does not exists");
             if (!DataSource.Stations.Exists(item => item.StationID == BaseStationID))
                 throw new ItemNotExistException("The station does not exists");
+            int index = DataSource.DroneCharges.FindIndex(item => item.DroneID == DroneID && item.BaseStationID == BaseStationID);//finds the drone charge 
+            if (index < 0)//not found
+                throw new ItemNotExistException("the drone does not exist in the wanted base station");
+            DroneCharge tmp1 = DataSource.DroneCharges[index];
+            tmp1.FinishedRecharging = DateTime.Now; ;//delete the drone from the list of the drone charge
+            DataSource.DroneCharges[index] = tmp1;
+            index = DataSource.Stations.FindIndex(item => item.StationID == BaseStationID);//finds the station
+            Station tmp2 = DataSource.Stations[index];
+            tmp2.NumOfAvailableChargingSlots++;
+            DataSource.Stations[index] = tmp2;
             //IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
             ////Finds the station that the drone was released from and updates the number of available charging slots.
             //for (int i = 0; iter.MoveNext(); i++)
@@ -182,24 +193,17 @@ namespace DalObject
             //        break;
             //    }
             //}
-
-
-            int index = DataSource.DroneCharges.FindIndex(item => item.DroneID == DroneID && item.BaseStationID == BaseStationID);//finds the drone charge 
-            if (index < 0)//not found
-                throw new ItemNotExistException("the drone does not exist in the wanted base station");
-            DroneCharge tmp1 = DataSource.DroneCharges[index];
-            tmp1.FinishedRecharging = DateTime.Now; ;//delete the drone from the list of the drone charge
-            DataSource.DroneCharges[index] = tmp1;
-            index = DataSource.Stations.FindIndex(item => item.StationID == BaseStationID);//finds the station
-            Station tmp2 = DataSource.Stations[index];
-            tmp2.NumOfAvailableChargingSlots++;
-            DataSource.Stations[index] = tmp2;
         }
-
+        /// <summary>
+        /// The function updates station name or number of slots by the user request
+        /// </summary>
+        /// <param name="ID">station ID</param>
+        /// <param name="name">new station name</param>
+        /// <param name="numOfSlots">new number of slots</param>
         public void UpdateStation(int ID, string name = null, int? numOfSlots = null)
         {
             int index = DataSource.Stations.FindIndex(item => item.StationID == ID);
-            if (index == -1)
+            if (index <0)
                 throw new ItemNotExistException("The station does not exist");
             Station tmp = DataSource.Stations[index];
             if (name != null)
@@ -214,11 +218,16 @@ namespace DalObject
                 DataSource.Stations[index] = tmp;
             }
         }
-
+        /// <summary>
+        /// The function updates parcel name or phone number by the user request
+        /// </summary>
+        /// <param name="ID">customer ID</param>
+        /// <param name="name">new customer name</param>
+        /// <param name="phone">new customer phone number</param>
         public void UpdateCustomer(int ID, string name = null, string phone = null)
         {
             int index = DataSource.Customers.FindIndex(item => item.CustomerID == ID);
-            if (index == -1)
+            if (index <0)
                 throw new ItemNotExistException("The customer does not exsit");
             Customer tmp = DataSource.Customers[index];
             if (name != null)
@@ -232,8 +241,12 @@ namespace DalObject
                 DataSource.Customers[index] = tmp;
             }
         }
-
-        public void UpdateDroneName(int ID, string model)
+        /// <summary>
+        /// The function updates the drone model
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        /// <param name="model">new drone model</param>
+        public void UpdateDroneModel(int ID, string model)
         {
             int index = DataSource.Drones.FindIndex(item => item.DroneID == ID);
             if (index == -1)
@@ -245,6 +258,7 @@ namespace DalObject
         #endregion 
 
         #region Display one item
+
         /// <summary>
         /// Return the wanted drone
         /// </summary>
@@ -343,31 +357,6 @@ namespace DalObject
             }
             return droneCharging.FindAll(i => predicate == null ? true : predicate(i)); ;
         }
-        /// <summary>
-        /// Returns all the Unassigned parcels.
-        /// </summary>
-        public IEnumerable<Parcel> ListOfUnassignedParcels()
-        {
-            List<Parcel> UnassignedParcels = new();
-            foreach (Parcel currentParcel in DataSource.Parcels)
-            {
-                if (currentParcel.MyDroneID == 0) UnassignedParcels.Add(currentParcel);
-            }
-            return UnassignedParcels;
-        }
-
-        /// <summary>
-        /// Returns all the base stations with available charging stations
-        /// </summary>
-        public IEnumerable<Station> ListOfAvailableChargingStations()
-        {
-            List<Station> AvailableChargingStations = new();
-            foreach (Station currentStation in DataSource.Stations)
-            {
-                if (currentStation.NumOfAvailableChargingSlots != 0) AvailableChargingStations.Add(currentStation);
-            }
-            return AvailableChargingStations;
-        }
         #endregion
 
         /// <summary>
@@ -381,7 +370,6 @@ namespace DalObject
             return arr;
 
         }
-
     }
 }
 
