@@ -12,7 +12,7 @@ namespace BL
     public partial class BL : IBL.IBL
     {
         /// <summary>
-        /// Add a  single drone 
+        /// Adds a drone to the list of drones in the IDAL
         /// </summary>
         /// <param name="drone">The new drone that we asked to add</param>
         /// <param name="stationID">A station ID for a initial charge</param>

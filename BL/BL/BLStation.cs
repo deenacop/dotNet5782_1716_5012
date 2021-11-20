@@ -15,7 +15,7 @@ namespace BL
         /// <summary>
         /// Adds a station to the list of stations in the IDAL
         /// </summary>
-        /// <param name="station">The station that is being </param>
+        /// <param name="station">The wanted station</param>
         public void AddBaseStation(BaseStation station)
         {
             if (ChackingNumOfDigits(station.StationID) != 4)

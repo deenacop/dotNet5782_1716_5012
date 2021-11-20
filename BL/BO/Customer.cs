@@ -15,8 +15,8 @@ namespace IBL.BO
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public Location CustomerLocation { get; set; }
-        public List<Parcel> FromCustomer { get; set; }
-        public List<Parcel> TOCustomer { get; set; }
+        public List<ParcelByCustomer> FromCustomer { get; set; }
+        public List<ParcelByCustomer> TOCustomer { get; set; }
         public override string ToString()
         {
             string str = "Customer ID:" + CustomerID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
