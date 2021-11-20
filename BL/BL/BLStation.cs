@@ -32,17 +32,17 @@ namespace BL
                 station.CopyPropertiesTo(tmpStation);
                 dal.Add(tmpStation);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new AlreadyExistedItemException(ex.Message);
             }
         }
 
-
         /// <summary>
-        /// Return the wanted station
+        /// Display the base station
         /// </summary>
-        /// <param name="StationID">The requested station</param>
+        /// <param name="StationID">The ID of the wanted station</param>
+        /// <returns>Returns the wanted base station</returns>
         public BaseStation BaseStationDisplay(int StationID)
         {
             IDAL.DO.Station station = dal.StationDisplay(StationID);
@@ -59,7 +59,7 @@ namespace BL
             {
                 foreach (DroneToList currentDrone in DroneListBL)//running on all the drones
                 {
-                    if(currentDronCharge.DroneID== currentDrone.DroneID)
+                    if (currentDronCharge.DroneID == currentDrone.DroneID)
                     {
                         currentDronCharge.Battery = currentDrone.Battery;
                         break;
@@ -69,14 +69,19 @@ namespace BL
             baseStation.DronesInCharging = DroneChargingBL;
             return baseStation;
         }
-
-        public void UpdateStation(int ID, string name=null,int? numOfSlots=null)
+        /// <summary>
+        /// Updates the station 
+        /// </summary>
+        /// <param name="ID">The ID of the wanted station</param>
+        /// <param name="name">The name of the wanted station</param>
+        /// <param name="numOfSlots">The numOfSlots of the wanted station</param>
+        public void UpdateStation(int ID, string name = null, int? numOfSlots = null)
         {
             try
             {
-                dal.UpdateStation(ID, name, numOfSlots);
+                dal.UpdateStation(ID, name, numOfSlots);//calls the function from the dalObject
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
