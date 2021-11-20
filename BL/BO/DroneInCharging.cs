@@ -13,6 +13,7 @@ namespace IBL.BO
     {
         public int DroneID { get; set; }
         public int Battery { get; set; }
+        public DateTime FinishedRecharging { get; set; }
         public override string ToString()
         {
             string str = "Drone ID:" + DroneID + "\nDrone Battery:" + Battery +"\n";

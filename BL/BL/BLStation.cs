@@ -59,7 +59,7 @@ namespace BL
             {
                 foreach (DroneToList currentDrone in DroneListBL)//running on all the drones
                 {
-                    if (currentDronCharge.DroneID == currentDrone.DroneID)
+                    if (currentDronCharge.DroneID == currentDrone.DroneID && currentDronCharge.FinishedRecharging == DateTime.MinValue)
                     {
                         currentDronCharge.Battery = currentDrone.Battery;
                         break;

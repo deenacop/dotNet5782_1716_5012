@@ -137,6 +137,7 @@ namespace DalObject
             DroneCharge ChargingDroneBattery = new();
             ChargingDroneBattery.DroneID = DroneID;
             ChargingDroneBattery.BaseStationID = StationID;
+            ChargingDroneBattery.FinishedRecharging = DateTime.MinValue;
             //adds
             DataSource.DroneCharges.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
@@ -157,36 +158,42 @@ namespace DalObject
                 throw new ItemNotExistException("The drone does not exists");
             if (!DataSource.Stations.Exists(item => item.StationID == BaseStationID))
                 throw new ItemNotExistException("The station does not exists");
-            IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
-            //Finds the station that the drone was released from and updates the number of available charging slots.
-            for (int i = 0; iter.MoveNext(); i++)
-            {
-                if (iter.Current.StationID == BaseStationID)
-                {
-                    Station tmp = iter.Current;
-                    tmp.NumOfAvailableChargingSlots++;
-                    DataSource.Stations[i] = tmp;
-                    break;
-                }
-            }
-            foreach (DroneCharge delDroneCharge in DataSource.DroneCharges)//delete the dronecharge from the list of DroneCharge)
-            {
-                if (delDroneCharge.DroneID == DroneID && delDroneCharge.BaseStationID == BaseStationID)
-                {
-                    DataSource.DroneCharges.Remove(delDroneCharge);
-                    break;
-                }
-            }
+            //IEnumerator<Station> iter = DataSource.Stations.GetEnumerator();
+            ////Finds the station that the drone was released from and updates the number of available charging slots.
+            //for (int i = 0; iter.MoveNext(); i++)
+            //{
+            //    if (iter.Current.StationID == BaseStationID)
+            //    {
+            //        Station tmp = iter.Current;
+            //        tmp.NumOfAvailableChargingSlots++;
+            //        DataSource.Stations[i] = tmp;
+            //        break;
+            //    }
+            //}
+            //DataSource.DroneCharges.Fi(i => i.DroneID == DroneID && i.BaseStationID == BaseStationID);
+
+            //foreach (DroneCharge delDroneCharge in DataSource.DroneCharges)//delete the dronecharge from the list of DroneCharge)
+            //{
+            //    if (delDroneCharge.DroneID == DroneID && delDroneCharge.BaseStationID == BaseStationID)
+            //    {
+            //        DroneCharge tmp = delDroneCharge;
+            //        tmp.FinishedRecharging = DateTime.Now;
+            //        delDroneCharge = tmp;
+            //        break;
+            //    }
+            //}
 
 
-            //int index = DataSource.DroneCharges.FindIndex(item => item.RecDrone == DroneID  && item.RecBaseStation == BaseStationID);//finds the drone charge 
-            //if (index< 0)//not found
-            //    throw new ItemNotExistException("the drone does not exist in the wanted base station");
-            //DataSource.DroneCharges.RemoveAt(index);//delete the drone from the list of the drone charge
-            //index = DataSource.Stations.FindIndex(item => item.ID == BaseStationID);//finds the station
-            //Station tmp = DataSource.Stations[index];
-            //tmp.NumOfAvailableChargeSlots++;
-            //DataSource.Stations[index] = tmp;
+            int index = DataSource.DroneCharges.FindIndex(item => item.DroneID == DroneID && item.BaseStationID == BaseStationID);//finds the drone charge 
+            if (index < 0)//not found
+                throw new ItemNotExistException("the drone does not exist in the wanted base station");
+            DroneCharge tmp1 = DataSource.DroneCharges[index];
+            tmp1.FinishedRecharging = DateTime.Now; ;//delete the drone from the list of the drone charge
+            DataSource.DroneCharges[index] = tmp1;
+            index = DataSource.Stations.FindIndex(item => item.StationID == BaseStationID);//finds the station
+            Station tmp2 = DataSource.Stations[index];
+            tmp2.NumOfAvailableChargingSlots++;
+            DataSource.Stations[index] = tmp2;
         }
 
         public void UpdateStation(int ID, string name = null, int? numOfSlots = null)
