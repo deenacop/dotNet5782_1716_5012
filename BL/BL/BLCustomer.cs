@@ -12,6 +12,10 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
+        /// <summary>
+        /// Adds a customer to the list of customers in the IDAL
+        /// </summary>
+        /// <param name="customer">the wanted customer</param>
         public void AddCustomer(Customer customer)
         {
             if (ChackingNumOfDigits(customer.CustomerID) != 9)
@@ -31,7 +35,13 @@ namespace BL
             }
         }
 
-        public void UpdateCustomer(int ID, string name = null,string phone =null)
+        /// <summary>
+        /// The function updates the customer name or phone number, by the users request
+        /// </summary>
+        /// <param name="ID">customer ID</param>
+        /// <param name="name">customer name</param>
+        /// <param name="phone">customer phone</param>
+        public void UpdateCustomer(int ID, string name = null, string phone = null)
         {
             try
             {
@@ -41,6 +51,63 @@ namespace BL
             {
                 throw new ItemNotExistException(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Display one customer
+        /// </summary>
+        /// <param name="ID">customer ID</param>
+        /// <returns>The wanted customer</returns>
+        public Customer CustomerDisplay(int ID)
+        {
+            IDAL.DO.Customer customerDO = new();
+            try
+            {
+                customerDO = dal.CustomerDisplay(ID);
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+            Customer customerBO = new();
+            customerDO.CopyPropertiesTo(customerBO);
+            customerBO.CustomerLocation.Longitude = customerDO.Longitude;
+            customerBO.CustomerLocation.Latitude = customerDO.Latitude;
+
+            List<IDAL.DO.Parcel> SenderParcels = dal.ListParcelDisplay(i => i.Sender == ID).ToList();//the list of the parcels that the customer send
+            List<IDAL.DO.Parcel> ReceiverParcels = dal.ListParcelDisplay(i => i.Targetid == ID).ToList();//the list of the parcels that the customer received
+
+            foreach (IDAL.DO.Parcel currentParcel in SenderParcels)
+            {
+                ParcelByCustomer parcel = new();
+                currentParcel.CopyPropertiesTo(parcel);
+
+                parcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Targetid;
+                parcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Targetid).Name;
+                if (currentParcel.Scheduled == DateTime.MinValue)//not schedule yet
+                    parcel.ParcelStatus = @enum.ParcelStatus.Defined;
+                else if (currentParcel.PickUp == DateTime.MinValue)//scheduled but has not been picked up
+                    parcel.ParcelStatus = @enum.ParcelStatus.Associated;
+                else if (currentParcel.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
+                    parcel.ParcelStatus = @enum.ParcelStatus.PickedUp;
+                else parcel.ParcelStatus = @enum.ParcelStatus.Delivered;
+                //add the parcel to the list
+                customerBO.FromCustomer.Add(parcel);
+            }
+
+            foreach (IDAL.DO.Parcel currentParcel in ReceiverParcels)
+            {
+                ParcelByCustomer parcel = new();
+                currentParcel.CopyPropertiesTo(parcel);
+
+                parcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Sender;
+                parcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Sender).Name;
+                parcel.ParcelStatus = @enum.ParcelStatus.Delivered;//the status id delivered cause its by the targetid..
+                //add the parcel to the list
+                customerBO.TOCustomer.Add(parcel);
+            }
+
+            return customerBO;
         }
     }
 }
