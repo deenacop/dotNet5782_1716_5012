@@ -109,5 +109,41 @@ namespace BL
 
             return customerBO;
         }
+        /// <summary>
+        /// Displays the list of the customerToList
+        /// </summary>
+        /// <returns>The list of the customer</returns>
+        public IEnumerable<CustomerToList> ListCustomerDsplay()
+        {
+            List<IDAL.DO.Customer> customerDO = new();
+            try
+            {
+                customerDO = dal.ListCustomerDisplay().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+            CustomerToList tmpCustomerToList = new();
+            List<CustomerToList> customerToLists = new();
+            foreach (IDAL.DO.Customer currentCustomer in customerDO)
+            {
+                currentCustomer.CopyPropertiesTo(tmpCustomerToList);
+                //brings all the parcels that were send by the current customer and were delivered
+                List<IDAL.DO.Parcel> parcelsSendAndDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered != DateTime.MinValue).ToList();
+                tmpCustomerToList.NumberParcelSentAndDelivered = parcelsSendAndDelivered.Count;
+                //brings all the parcels that were send by the current customer and werent delivered
+                List<IDAL.DO.Parcel> parcelsSendAndNOTDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered == DateTime.MinValue).ToList();
+                tmpCustomerToList.NumberParcelSentAndDelivered = parcelsSendAndNOTDelivered.Count;
+                //brings all the parcels that were received by the current customer and were delivered
+                List<IDAL.DO.Parcel> parcelsReceived = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.Delivered != DateTime.MinValue).ToList();
+                tmpCustomerToList.NumberOfParcelReceived = parcelsReceived.Count;
+                //brings all the parcels that were received by the current customer and werent delivered
+                List<IDAL.DO.Parcel> parcelsOnTheWay = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.PickUp != DateTime.MinValue).ToList();
+                tmpCustomerToList.NumberOfParcelOnTheWayToCustomer = parcelsOnTheWay.Count;
+                customerToLists.Add(tmpCustomerToList);
+            }
+            return customerToLists;
+        }
     }
 }

@@ -74,7 +74,7 @@ namespace ConsoleUI_BL
                                         break;
 
                                     case (int)AddOptions.Station:
-                                        T newStation = new T();
+                                        BaseStation newStation = new BaseStation();
                                         Console.WriteLine("Enter the station ID (3 digits)");
                                         newStation.StationID = Console.Read();
                                         Console.WriteLine("Enter the station name");

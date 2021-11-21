@@ -187,5 +187,14 @@ namespace BL
             }
             return droneBO;
         }
+
+        /// <summary>
+        /// Displays the list of drones
+        /// </summary>
+        /// <returns>The list of drones</returns>
+        public IEnumerable<DroneToList> ListDroneDisplay()
+        {
+            return DroneListBL;
+        }
     }
 }
