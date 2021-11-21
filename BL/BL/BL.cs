@@ -25,7 +25,7 @@ namespace BL
         public BL()
         {
             #region Electricity use
-            double vacant = dal.ChargingDrone().ElementAt(0),
+            vacant = dal.ChargingDrone().ElementAt(0),
             carriesLightWeight = dal.ChargingDrone().ElementAt(1),
             carriesMediumWeight = dal.ChargingDrone().ElementAt(2),
             carriesHeavyWeight = dal.ChargingDrone().ElementAt(3),

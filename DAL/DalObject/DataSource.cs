@@ -18,6 +18,7 @@ namespace DalObject
         static internal List<Customer> Customers = new(100);
         static internal List<DroneCharge> DroneCharges = new(10);
         #endregion
+
         /// <summary>
         ///Defines a variable for a parcel
         /// </summary>
@@ -31,12 +32,12 @@ namespace DalObject
             static internal double DroneLoadingRate = 0.05;//per min
         }
 
-        #region Initialize
         /// <summary>
         /// Initializes all the lists we have built in the config function at default values
         /// </summary>
         public static void Initialize()
         {
+            #region station
             string[] addresArr = { "Balfour street, Jerusalem", "4 David Remez Street, Jerusalem" };
             // Initializing variables into 2 stations. 
             for (int i = 0; i < 2; i++)
@@ -58,6 +59,9 @@ namespace DalObject
                     }
                 }
             }
+            #endregion
+
+            #region drone
 
             string[] modelArr = { "Yuneec H520", "DJI Mavic 2 Zoom", "DJI Phantom 4", "3D Robotics Solo", "Flyability Elios Drone" };
             //Initializing variables into 5 drones.
@@ -79,7 +83,9 @@ namespace DalObject
                     }
                 }
             }
+            #endregion
 
+            #region customer
             string[] nameArr = { "Shira Segal" , "Deena Copperman" , "Benjamin Netanyahu" , "Yishai Ribu" ,
                                      "Yossi Cohen","Moshe Leon","Mordechai Glazer","Yehuda Shor","Yigal Eyal","Lior Ackerman"};
 
@@ -106,7 +112,9 @@ namespace DalObject
                     }
                 }
             }
+            #endregion
 
+            #region parcel
             //Initializing variables into 10 parcels.
             for (int i = 0; i < 10; i++)
             {
@@ -116,7 +124,8 @@ namespace DalObject
                     Sender = rand.Next(100000000, 999999999),
                     Targetid = rand.Next(100000000, 999999999),
                     MyDroneID = 0,
-                    //In the initialization, the entire ID of the drone is 0 because we did not want to reach contradictions in the introduction of the identity of the drone
+                    //In the initialization, the entire ID of the drone is 0
+                    //because we did not want to reach contradictions in the introduction of the identity of the drone
                     //and also that no deliveries were made yet.
                     Weight = (@enum.WeightCategories)rand.Next(0, 2),
                     Priority = (@enum.Priorities)rand.Next(0, 2),
@@ -126,8 +135,9 @@ namespace DalObject
                     Delivered = DateTime.MinValue
                 });
             }
+            #endregion
+
         }
-        #endregion
     }
 
 }
