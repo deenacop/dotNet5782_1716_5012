@@ -16,17 +16,20 @@ namespace BL
         static internal readonly Random rand = new(DateTime.Now.Millisecond);
 
         List<DroneToList> DroneListBL = new();
-
+        double vacant,
+            carriesLightWeight,
+            carriesMediumWeight,
+            carriesHeavyWeight,
+            droneLoadingRate;
         #region ctor
         public BL()
         {
             #region Electricity use
-            double[] ElectricityUse = dal.ChargingDrone();//*צריך לבדוק מה הוא מעתיק
-            double vacant = ElectricityUse[0],
-            carriesLightWeight = ElectricityUse[1],
-            carriesMediumWeight = ElectricityUse[2],
-            carriesHeavyWeight = ElectricityUse[3],
-            droneLoadingRate = ElectricityUse[4];
+            double vacant = dal.ChargingDrone().ElementAt(0),
+            carriesLightWeight = dal.ChargingDrone().ElementAt(1),
+            carriesMediumWeight = dal.ChargingDrone().ElementAt(2),
+            carriesHeavyWeight = dal.ChargingDrone().ElementAt(3),
+            droneLoadingRate = dal.ChargingDrone().ElementAt(4);
             #endregion
 
             #region Brings lists from IDAL

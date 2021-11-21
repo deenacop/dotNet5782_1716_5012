@@ -63,8 +63,6 @@ namespace BL
                 throw new ItemNotExistException("There is no stations with available slots");
             //finds the closest station from the drone
             double distance = MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item2;
-            double[] ElectricityUse = dal.ChargingDrone();//brings the the amount of battery that is use when the drone is available
-            double vacant = ElectricityUse[0];
             if (distance * vacant > DroneListBL[index].Battery)
                 throw new NotEnoughBatteryException("The drone cant go to a baseStation");
             try
@@ -92,12 +90,10 @@ namespace BL
         /// <param name="minuteInCharge">the amount of time(by minute) that the drone was in charge</param>
         public void ReleasingDroneFromBaseStation(int ID, int minuteInCharge)
         {
-            double[] ElectricityUse = dal.ChargingDrone();//*צריך לבדוק מה הוא מעתיק
-            double droneChargingRate = ElectricityUse[4];//Rate of charge per minute
             int index = DroneListBL.FindIndex(item => item.DroneID == ID);
             if (index <0)//NOT FOUND
                 throw new ItemNotExistException("The drone does not exist");
-            if (DroneListBL[index].Battery+ (int)(minuteInCharge * droneChargingRate) <= 50)//the drone is half charged and can be used
+            if (DroneListBL[index].Battery+ (int)(minuteInCharge * droneLoadingRate) <= 50)//the drone is half charged and can be used
                 throw new NotEnoughBatteryException("The drone needs to be charged");
 
             List<BaseStation> BaseStationListBL = null;
@@ -114,7 +110,7 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
             DroneToList tmp = DroneListBL[index];
-            tmp.Battery += (int)(minuteInCharge * droneChargingRate);
+            tmp.Battery += (int)(minuteInCharge * droneLoadingRate);
             if (tmp.Battery > 100)
                 tmp.Battery = 100;
             tmp.DroneStatus = @enum.DroneStatus.Available;
