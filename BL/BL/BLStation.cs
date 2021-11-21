@@ -38,6 +38,7 @@ namespace BL
             }
         }
 
+
         /// <summary>
         /// Display the base station
         /// </summary>
@@ -78,6 +79,7 @@ namespace BL
             return baseStation;
         }
 
+
         /// <summary>
         /// Updates the station 
         /// </summary>
@@ -96,7 +98,44 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Displays the list of BL base station
+        /// </summary>
+        /// <returns>The list of BL base ststion</returns>
+        public IEnumerable<BaseStationToList> ListBaseStationlDisplay()
+        {
+            List<IDAL.DO.Station> stations = dal.ListStationDisplay().ToList();
+            List<BaseStationToList> stationToLists = new();
+            foreach(IDAL.DO.Station currentStation in stations)
+            {
+                BaseStationToList tmpToLst = new();
+                BaseStation tmp = BaseStationDisplay(currentStation.StationID);
+                tmp.CopyPropertiesTo(tmpToLst);
+                tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i=>i.FinishedRecharging==DateTime.MinValue).Count;
+                stationToLists.Add(tmpToLst);
+            }
+            return stationToLists;
+        }
 
+
+        /// <summary>
+        /// Displays the list of BL base station with available slots
+        /// </summary>
+        /// <returns>The list of BL base ststion with available slots</returns>
+        public IEnumerable<BaseStationToList> ListOfAvailableSlotsBaseStationlDisplay()
+        {
+            List<IDAL.DO.Station> stations = dal.ListStationDisplay(i=>i.NumOfAvailableChargingSlots>0).ToList();
+            List<BaseStationToList> stationToLists = new();
+            foreach (IDAL.DO.Station currentStation in stations)
+            {
+                BaseStationToList tmpToLst = new();
+                BaseStation tmp = BaseStationDisplay(currentStation.StationID);
+                tmp.CopyPropertiesTo(tmpToLst);
+                tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == DateTime.MinValue).Count;
+                stationToLists.Add(tmpToLst);
+            }
+            return stationToLists;
+        }
 
 
 

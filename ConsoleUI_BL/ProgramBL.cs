@@ -49,8 +49,7 @@ namespace ConsoleUI_BL
                  "\nTo update, type 2." +
                  "\nTo view a single item, type 3." +
                  "\nTo view a list, type 4." +
-                 "\nTo find a distance between a point and a station or between a point and the customer, type 5." +
-                 "\nTo exit, type 6.");
+                 "\nTo exit, type 5.");
                     int.TryParse(Console.ReadLine(), out userAnswer);
                     switch (userAnswer)
                     {
@@ -62,7 +61,7 @@ namespace ConsoleUI_BL
                                 switch (userAnswer)
                                 {
                                     case (int)AddOptions.Drone:
-                                        Drone newDrone = new Drone();
+                                        Drone newDrone = new();
                                         Console.WriteLine("Enter the drone ID (3 digits)");
                                         newDrone.DroneID = Console.Read();
                                         Console.WriteLine("Enter the drone model");
@@ -71,10 +70,11 @@ namespace ConsoleUI_BL
                                         newDrone.Weight = (@enum.WeightCategories)Console.Read();
                                         Console.WriteLine("Enter the ID station which in you whant to charge the new drone (4 digits)");
                                         int chosenStation = Console.Read();
+                                        bl.Add
                                         break;
 
                                     case (int)AddOptions.Station:
-                                        BaseStation newStation = new BaseStation();
+                                        BaseStation newStation = new();
                                         Console.WriteLine("Enter the station ID (3 digits)");
                                         newStation.StationID = Console.Read();
                                         Console.WriteLine("Enter the station name");
@@ -84,28 +84,34 @@ namespace ConsoleUI_BL
                                         newStation.StationLocation.Latitude = Console.Read();
                                         Console.WriteLine("Enter the number of available slots");
                                         newStation.NumOfAvailableChargingSlots = Console.Read();
+                                        bl.Add
                                         break;
 
                                     case (int)AddOptions.Parcel:
-                                        Drone newDrone = new Drone();
-                                        Console.WriteLine("Enter the drone ID (3 digits)");
-                                        newDrone.DroneID = Console.Read();
-                                        Console.WriteLine("Enter the drone model");
-                                        newDrone.Model = Console.ReadLine();
-                                        Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
-                                        newDrone.Weight = (@enum.WeightCategories)Console.Read();
-                                        Console.WriteLine("Enter the ID station which in you whant to charge the new drone (4 digits)");
+                                        Parcel newParcel = new();
+                                        Console.WriteLine("Enter the parcel sender ID (3 digits)");
+                                        newParcel.Sender.CustomerID = Console.Read();
+                                        Console.WriteLine("Enter the parcel targetid ID (3 digits)");
+                                        newParcel.Targetid.CustomerID = Console.Read();
+                                        Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
+                                        newParcel.Weight = (@enum.WeightCategories)Console.Read();
+                                        Console.WriteLine("Enter the parcel priority");
+                                        newParcel.Priority = (@enum.Priorities)Console.Read();
+                                        bl.Add
                                         break;
 
                                     case (int)AddOptions.Customer:
-                                        Drone newDrone = new Drone();
-                                        Console.WriteLine("Enter the drone ID (3 digits)");
-                                        newDrone.DroneID = Console.Read();
-                                        Console.WriteLine("Enter the drone model");
-                                        newDrone.Model = Console.ReadLine();
-                                        Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
-                                        newDrone.Weight = (@enum.WeightCategories)Console.Read();
-                                        Console.WriteLine("Enter the ID station which in you whant to charge the new drone (4 digits)");
+                                        Customer newCustomer = new();
+                                        Console.WriteLine("Enter the customer ID (3 digits)");
+                                        newCustomer.CustomerID = Console.Read();
+                                        Console.WriteLine("Enter the customer name");
+                                        newCustomer.Name = Console.ReadLine();
+                                        Console.WriteLine("Enter the customer phone number");
+                                        newCustomer.PhoneNumber = Console.ReadLine();
+                                        Console.WriteLine("Enter the location- longitude and latitude");
+                                        newCustomer.CustomerLocation.Longitude = Console.Read();
+                                        newCustomer.CustomerLocation.Latitude = Console.Read();
+                                        bl.Add
                                         break;
                                 }
                                 break;
@@ -113,123 +119,91 @@ namespace ConsoleUI_BL
 
                         case (int)options.Update:
                             {
-                                Console.WriteLine("To assign pacel to drone, type 1.\nTo collect parcel by a drone, type 2.\n" +
-                                              "To deliver parcel to a customer, type 3.\nTo send drone to a charging base station, type 4.\n" +
-                                              "To release drone from charging station, type 5.");
-                                input = Console.ReadLine();
-                                int.TryParse(input, out userAnswer);
+                                Console.WriteLine("To update the drone model, type 1.\nTo update the base station details, type 2.\n" +
+                                    "To update the customer details, type 3.\nTo send a drone to charge, type 4.\n" +
+                                    "To release a drone frome the charging, type 5.\nTo assign parcel to drone, type6.\n" +
+                                    "To collect a parcel by a drone, type 7.\nTo deliver parcel by a drone, type 8.");
+                                int.TryParse(Console.ReadLine(), out userAnswer);
                                 switch (userAnswer)
                                 {
-
                                     case (int)UpdateOptions.AssignParcelToDrone:
                                         {
-                                            Console.WriteLine("Enter parcel ID (6 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser1);
-                                            Console.WriteLine("Enter drone ID (3 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser2);
-                                            bl.AssignParcelToDrone(IDFromUser1, IDFromUser2);
+                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            bl.??? (Console.ReadLine());
                                             break;
                                         }
 
                                     case (int)UpdateOptions.CollectParcelByDrone:
                                         {
-                                            Console.WriteLine("Enter parcel ID (6 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser1);
-                                            Console.WriteLine("Enter drone ID (3 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser2);
-                                            bl.CollectionOfParcelByDrone(IDFromUser1, IDFromUser2);
+                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            bl.??? (Console.ReadLine());
                                             break;
                                         }
 
-                                    case (int)UpdateOptions.DelivereParcelToCustomer:
+                                    case (int)UpdateOptions.DelivereParcelByDrone:
                                         {
-                                            Console.WriteLine("Enter parcel ID (6 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser1);
-                                            bl.DeliveryParcelToCustomer(IDFromUser1);
+                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            bl.??? (Console.ReadLine());
                                             break;
                                         }
                                     case (int)UpdateOptions.SendDroneToChargingBaseStation:
                                         {
-                                            Console.WriteLine("Enter drone ID (3 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser1);
-                                            Console.WriteLine("Choose from the following available stations. Enter the chosen ID (4 digits).");
-                                            List<Station> ListOfStation = bl.ListOfAvailableChargingStations();
-                                            foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser2);
-                                            bl.SendingDroneToChargingBaseStation(IDFromUser1, IDFromUser2);
+                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            bl.??? (Console.ReadLine());
                                             break;
                                         }
 
                                     case (int)UpdateOptions.ReleaseDroneFromChargingBaseStation:
                                         {
-                                            Console.WriteLine("Enter drone ID (3 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser1);
-                                            Console.WriteLine("Enter station ID (4 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser2);
-                                            bl.ReleasingDroneFromChargingBaseStation(IDFromUser1, IDFromUser2);
+                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            int id = Console.Read();
+                                            Console.WriteLine("Enter the amount of time(by minute) that the drone was in the chaging base station");
+                                            int numMinute = Console.Read();
+                                            bl.???
                                             break;
                                         }
 
                                 }
-                                userAnswer = 0;//if UserAnswer will stay 6 the progrom will finish without wanting it to.
+                                userAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
                                 break;
                             }
 
                         case (int)options.DisplayIndividual:
                             {
-                                Console.WriteLine("To to print a drone, type 1.\nTo print a station, type 2.\n" +
+                                Console.WriteLine("To to print a drone, type 1.\nTo print a base station, type 2.\n" +
                                                  "To print a parcel, type 3.\nTo print a customer, type 4.");
-                                input = Console.ReadLine();
-                                int.TryParse(input, out userAnswer);
+                                int.TryParse(Console.ReadLine(), out userAnswer);
                                 switch (userAnswer)
                                 {
-
                                     case (int)DisplayIndividualOptions.DisplyDrone:
                                         {
                                             Console.WriteLine("Enter drone ID (3 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser1);
-                                            Drone droneWanted = bl.DroneDisplay(IDFromUser1);
-                                            Console.WriteLine(droneWanted);
+                                            int.TryParse(Console.ReadLine(), out IDFromUser1);
+                                            bl.??
                                             break;
                                         }
 
                                     case (int)DisplayIndividualOptions.DisplyStation:
                                         {
-                                            Console.WriteLine("Enter station ID (4 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser1);
-                                            Station stationWanted = bl.StationDisplay(IDFromUser1);
-                                            Console.WriteLine(stationWanted);
+                                            Console.WriteLine("Enter base station ID (3 digits).");
+                                            int.TryParse(Console.ReadLine(), out IDFromUser1);
+                                            bl.??
                                             break;
                                         }
 
                                     case (int)DisplayIndividualOptions.DisplayParcel:
                                         {
-                                            Console.WriteLine("Enter parcel ID (6 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser1);
-                                            Parcel parcelWanted = bl.ParcelDisplay(IDFromUser1);
-                                            Console.WriteLine(parcelWanted);
+                                            Console.WriteLine("Enter parcel ID (3 digits).");
+                                            int.TryParse(Console.ReadLine(), out IDFromUser1);
+                                            bl.??
                                             break;
                                         }
 
                                     case (int)DisplayIndividualOptions.DisplayCustomer:
                                         {
-                                            Console.WriteLine("Enter customer ID (9 digits).");
-                                            input = Console.ReadLine();
-                                            int.TryParse(input, out IDFromUser1);
-                                            Customer custumerWanted = bl.CustomerDisplay(IDFromUser1);
-                                            Console.WriteLine(custumerWanted);
+                                            Console.WriteLine("Enter customer ID (3 digits).");
+                                            int.TryParse(Console.ReadLine(), out IDFromUser1);
+                                            bl.??
                                             break;
                                         }
                                 }
@@ -287,41 +261,9 @@ namespace ConsoleUI_BL
                                         }
 
                                 }
-                                userAnswer = 0;//if UserAnswer will stay 6 the progrom will finish without wanting it to.
+                                userAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
                                 break;
                             }
-                        case (int)options.FindTheDistance:
-                            {
-                                double lat1, lon1;
-                                int ID, answer;
-                                Console.WriteLine("Enter the latitude of the point from which you want to calculate distance");
-                                input = Console.ReadLine();
-                                double.TryParse(input, out lat1);
-                                Console.WriteLine("Enter the longitude of the point from which you want to calculate distance");
-                                input = Console.ReadLine();
-                                double.TryParse(input, out lon1);
-                                Console.WriteLine("To find the distance from the point you entered to a station, type 1\n" +
-                                    "To find the distance from the point you entered to a customer type 0");
-                                input = Console.ReadLine();
-                                int.TryParse(input, out answer);
-                                if (answer == 1)//station
-                                {
-                                    Console.WriteLine("Enter the ID number of the station from which you would like to measure distance ( 4-digit). ");
-                                    input = Console.ReadLine();
-                                    int.TryParse(input, out ID);
-                                    Console.WriteLine(DistanceCalculation.Calculation(lon1, lat1, DistanceCalculation.FindTheStationCoordinates(ID)));
-                                }
-                                if (answer == 0)//customer
-                                {
-                                    Console.WriteLine("Enter the ID number of the customer from which you would like to measure distance (9-digit). ");
-                                    input = Console.ReadLine();
-                                    int.TryParse(input, out ID);
-                                    Console.WriteLine(DistanceCalculation.Calculation(lon1, lat1, DistanceCalculation.FindTheCustomerCoordinates(ID)));
-
-                                }
-                                break;
-                            }
-
                         case (int)options.Exit:
                             Console.WriteLine("\nThank you for using our drones system, looking forward to see you again!");
                             break;
@@ -331,9 +273,6 @@ namespace ConsoleUI_BL
                             break;
                     }
                 }
-
-
-
                 catch (ItemNotExistException ex)
                 {
                     Console.WriteLine(ex);
@@ -344,8 +283,6 @@ namespace ConsoleUI_BL
                     Console.WriteLine(ex);
                 }
             }
-
-
         }
     }
 }

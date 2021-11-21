@@ -45,6 +45,7 @@ namespace BL
             }
         }
 
+
         /// <summary>
         /// The function send a specific drone to the closest available station
         /// </summary>
@@ -83,6 +84,7 @@ namespace BL
             DroneListBL[index] = tmp;
         }
 
+
         /// <summary>
         /// This function is relaesing a drone
         /// </summary>
@@ -119,6 +121,7 @@ namespace BL
             DroneListBL[index] = tmp;
         }
 
+
         //public void AssignParcelToDrone(int ID)
         //{
         //    if (DroneListBL.Exists(item => item.DroneID == ID))//NOT FOUND
@@ -138,6 +141,7 @@ namespace BL
         //    if (droneIndex == -1 || DroneListBL[droneIndex].DroneStatus != @enum.DroneStatus.Delivery)//NOT FOUND or NOT AVAILABLE
         //        throw new ItemNotExistException("The drone does not exist or not available");
         //}
+
 
         /// <summary>
         /// Display one BL drone
@@ -187,6 +191,7 @@ namespace BL
             }
             return droneBO;
         }
+
 
         /// <summary>
         /// Displays the list of drones

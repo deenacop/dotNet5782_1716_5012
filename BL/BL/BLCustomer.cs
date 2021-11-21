@@ -35,6 +35,7 @@ namespace BL
             }
         }
 
+
         /// <summary>
         /// The function updates the customer name or phone number, by the users request
         /// </summary>
@@ -52,6 +53,7 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
         }
+
 
         /// <summary>
         /// Display one customer
@@ -109,6 +111,8 @@ namespace BL
 
             return customerBO;
         }
+
+
         /// <summary>
         /// Displays the list of the customerToList
         /// </summary>
