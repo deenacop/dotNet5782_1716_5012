@@ -89,8 +89,7 @@ namespace BL
                     double distanceToTargeted = DistanceCalculation(locationOfReceiver, currentDrone.MyCurrentLocation);//from the current location to the targetid
 
                     int minBatteryDrone = 0;
-                    int weight = (int)currentDrone.Weight;
-                    switch (weight)
+                    switch ((int)currentDrone.Weight)
                     {
                         case (int)@enum.WeightCategories.Light:
                             minBatteryDrone = (int)distanceToTargeted * (int)carriesLightWeight;
