@@ -70,7 +70,7 @@ namespace ConsoleUI_BL
                                         newDrone.Weight = (@enum.WeightCategories)Console.Read();
                                         Console.WriteLine("Enter the ID station which in you whant to charge the new drone (4 digits)");
                                         int chosenStation = Console.Read();
-                                        bl.Add
+                                        bl.(newDrone);
                                         break;
 
                                     case (int)AddOptions.Station:
