@@ -120,6 +120,7 @@ namespace DalObject
             tmp.Delivered = DateTime.Now;
             DataSource.Parcels[index] = tmp;
         }
+
         /// <summary>
         /// Sending drone to charging base station
         /// </summary>
