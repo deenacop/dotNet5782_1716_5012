@@ -25,10 +25,10 @@ namespace BL
         public BL()
         {
             #region Electricity use
-            vacant = dal.ChargingDrone().ElementAt(0),
-            carriesLightWeight = dal.ChargingDrone().ElementAt(1),
-            carriesMediumWeight = dal.ChargingDrone().ElementAt(2),
-            carriesHeavyWeight = dal.ChargingDrone().ElementAt(3),
+            vacant = dal.ChargingDrone().ElementAt(0);
+            carriesLightWeight = dal.ChargingDrone().ElementAt(1);
+            carriesMediumWeight = dal.ChargingDrone().ElementAt(2);
+            carriesHeavyWeight = dal.ChargingDrone().ElementAt(3);
             droneLoadingRate = dal.ChargingDrone().ElementAt(4);
             #endregion
 
