@@ -43,7 +43,6 @@ namespace BL
             }
             return (BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationLocation, locations.Min(), BaseStationListBL[locations.FindIndex(i => i == locations.Min())].StationID);
         }
-
         #endregion
 
         /// <summary>
@@ -54,6 +53,51 @@ namespace BL
         internal int ChackingNumOfDigits(int num)
         {
             return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1);
-        }        
+        }
+        /// <summary>
+        /// Function that checks if a drone can carry a parcel according to there weight
+        /// </summary>
+        /// <param name="parcel">The parcel that needs to be picked up</param>
+        /// <param name="drone">The drone that needs to do the delivary</param>
+        /// <returns>true or false</returns>
+        bool legalParcel(IDAL.DO.Parcel parcel, Drone drone)
+        {
+            if ((int)drone.Weight < (int)parcel.Weight)//not legal parcel for this drone
+                return false;
+
+            return true;
+        }
+        /// <summary>
+        /// Function that checks if the drone has enough battery to do his delivary
+        /// </summary>
+        /// <param name="parcel">The parcel that needs to be picked up</param>
+        /// <param name="drone">The drone that needs to do the delivary</param>
+        /// <returns>true or false</returns>
+        bool batteryCheckingForDroneAndParcel(IDAL.DO.Parcel parcel, Drone drone)
+        {
+            int minBattery;
+            double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.Sender).CustomerLocation);
+            minBattery = (int)distance * (int)vacant;
+            distance = DistanceCalculation(CustomerDisplay(parcel.Sender).CustomerLocation, CustomerDisplay(parcel.Targetid).CustomerLocation);
+            switch ((int)parcel.Weight)//calculate from the sender to the targetid
+            {
+                case (int)@enum.WeightCategories.Light:
+                    minBattery += (int)distance * (int)carriesLightWeight;
+                    break;
+                case (int)@enum.WeightCategories.Midium:
+                    minBattery += (int)distance * (int)carriesMediumWeight;
+                    break;
+                case (int)@enum.WeightCategories.Heavy:
+                    minBattery += (int)distance * (int)carriesHeavyWeight;
+                    break;
+            }
+            List<BaseStation> BaseStationListBL = null;
+            List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
+            StationListDL.CopyPropertiesTo(BaseStationListBL);//convret from IDAT to IBL
+            minBattery += (int)MinDistanceLocation(BaseStationListBL, CustomerDisplay(parcel.Targetid).CustomerLocation).Item2 * (int)vacant;
+            if (minBattery <= drone.Battery)
+                return true;
+            return false;
+        }
     }
 }
