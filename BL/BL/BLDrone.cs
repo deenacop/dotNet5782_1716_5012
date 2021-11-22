@@ -177,6 +177,7 @@ namespace BL
             dal.AssignParcelToDrone(bestParcel.ParcelID, drone.DroneID);
         }
 
+
         /// <summary>
         /// Update a drone to collect a parcel
         /// </summary>
@@ -190,10 +191,41 @@ namespace BL
             if (parcel.PickUp != DateTime.MinValue)
                 throw new WorngStatusException("The parcel has allready been picked up ");
             double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.Sender.CustomerID).CustomerLocation);
-            drone.Battery = (int)distance * (int)vacant;
+            drone.Battery -= (int)distance * (int)vacant;
             drone.MyCurrentLocation = CustomerDisplay(parcel.Sender.CustomerID).CustomerLocation;
-            dal.CollectionOfParcelByDrone(parcel.ParcelID,drone.DroneID);
+            dal.CollectionOfParcelByDrone(parcel.ParcelID, drone.DroneID);
         }
+
+
+        /// <summary>
+        /// Delivers a parcel to the receiver
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        public void DeliveryParcelByDrone(int ID)
+        {
+            Drone drone = DisplayDrone(ID);
+            Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);
+            if (drone.DroneStatus == @enum.DroneStatus.Delivery && parcel.PickUp != DateTime.MinValue && parcel.Delivered == DateTime.MinValue)
+            {
+                double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.Targetid.CustomerID).CustomerLocation);
+                switch ((int)drone.Weight)
+                {
+                    case (int)@enum.WeightCategories.Light:
+                        drone.Battery -= (int)distance * (int)carriesLightWeight;
+                        break;
+                    case (int)@enum.WeightCategories.Midium:
+                        drone.Battery -= (int)distance * (int)carriesMediumWeight;
+                        break;
+                    case (int)@enum.WeightCategories.Heavy:
+                        drone.Battery -= (int)distance * (int)carriesHeavyWeight;
+                        break;
+                }
+                drone.MyCurrentLocation = CustomerDisplay(parcel.Targetid.CustomerID).CustomerLocation;
+                dal.DeliveryParcelToCustomer(drone.DroneID);
+            }
+            else throw new WorngStatusException("The parcel couldnt be delivered");
+        }
+
 
 
         /// <summary>
