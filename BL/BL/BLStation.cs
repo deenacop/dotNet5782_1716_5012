@@ -146,6 +146,5 @@ namespace BL
             }
             return stationToLists;
         }
-
     }
 }
