@@ -1,9 +1,7 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IBL.BO;
 
 namespace BL
 {
@@ -91,19 +89,21 @@ namespace BL
             {
                 throw new ItemNotExistException(ex.Message);
             }
+            Parcel tmp = new();
             ParcelToList tmpParcelBO = new();
             List<ParcelToList> listParcelToList = new();
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
             {
-                currentParcel.CopyPropertiesTo(tmpParcelBO);
-                tmpParcelBO.NameOfSender = CustomerListDL.Find(item => item.CustomerID == currentParcel.Sender).Name;
-                tmpParcelBO.NameOfTargetaed = CustomerListDL.Find(item => item.CustomerID == currentParcel.Targetid).Name;
-                if (currentParcel.Scheduled == DateTime.MinValue)//not schedule yet
+                tmp = ParcelDisplay(currentParcel.ParcelID);
+                tmp.CopyPropertiesTo(tmpParcelBO);
+                tmpParcelBO.NameOfSender = tmp.Sender.Name; 
+                tmpParcelBO.NameOfTargetaed = tmp.Targetid.Name;
+                if (tmp.Scheduled == DateTime.MinValue)//not schedule yet
                     tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Defined;
-                else if (currentParcel.PickUp == DateTime.MinValue)//scheduled but has not been picked up
+                else if (tmp.PickUp == DateTime.MinValue)//scheduled but has not been picked up
                     tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Associated;
-                else if (currentParcel.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
+                else if (tmp.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
                     tmpParcelBO.ParcelStatus = @enum.ParcelStatus.PickedUp;
                 else tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Delivered;
                 listParcelToList.Add(tmpParcelBO);
@@ -127,26 +127,27 @@ namespace BL
             {
                 throw new ItemNotExistException(ex.Message);
             }
-
+            Parcel tmp = new();
             ParcelToList tmpParcelBO = new();
             List<ParcelToList> listParcelToList = new();
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
-           
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
             {
-                currentParcel.CopyPropertiesTo(tmpParcelBO);
-                tmpParcelBO.NameOfSender = CustomerListDL.Find(item => item.CustomerID == currentParcel.Sender).Name;
-                tmpParcelBO.NameOfTargetaed = CustomerListDL.Find(item => item.CustomerID == currentParcel.Targetid).Name;
-                if (currentParcel.Scheduled == DateTime.MinValue)//not schedule yet
+                tmp = ParcelDisplay(currentParcel.ParcelID);
+                tmp.CopyPropertiesTo(tmpParcelBO);
+                tmpParcelBO.NameOfSender = tmp.Sender.Name;
+                tmpParcelBO.NameOfTargetaed = tmp.Targetid.Name;
+                if (tmp.Scheduled == DateTime.MinValue)//not schedule yet
                     tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Defined;
-                else if (currentParcel.PickUp == DateTime.MinValue)//scheduled but has not been picked up
+                else if (tmp.PickUp == DateTime.MinValue)//scheduled but has not been picked up
                     tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Associated;
-                else if (currentParcel.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
+                else if (tmp.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
                     tmpParcelBO.ParcelStatus = @enum.ParcelStatus.PickedUp;
                 else tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Delivered;
                 listParcelToList.Add(tmpParcelBO);
             }
             return listParcelToList;
+
         }
     }
 }

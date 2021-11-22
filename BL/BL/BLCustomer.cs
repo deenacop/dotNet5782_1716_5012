@@ -117,7 +117,7 @@ namespace BL
         /// Displays the list of the customerToList
         /// </summary>
         /// <returns>The list of the customer</returns>
-        public IEnumerable<CustomerToList> ListCustomerDsplay()
+        public IEnumerable<CustomerToList> ListCustomerDisplay()
         {
             List<IDAL.DO.Customer> customerDO = new();
             try

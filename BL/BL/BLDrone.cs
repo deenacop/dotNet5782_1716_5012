@@ -45,6 +45,18 @@ namespace BL
             }
         }
 
+        public void UpdateDroneModel(int ID, string model)
+        {
+            try
+            {
+                dal.UpdateDroneModel(ID, model);//calls the function from DALOBJECT
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+        }
+       
 
         /// <summary>
         /// The function send a specific drone to the closest available station
