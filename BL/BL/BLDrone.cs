@@ -45,6 +45,12 @@ namespace BL
             }
         }
 
+
+        /// <summary>
+        /// Update the drone model
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        /// <param name="model">new midel</param>
         public void UpdateDroneModel(int ID, string model)
         {
             try
@@ -56,7 +62,7 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
         }
-       
+
 
         /// <summary>
         /// The function send a specific drone to the closest available station
@@ -138,25 +144,25 @@ namespace BL
         {
             Drone drone = DisplayDrone(ID);
             if (drone.DroneStatus != @enum.DroneStatus.Available)
-                throw new NotAvailableException("The drone is not available");
+                throw new WorngStatusException("The drone is not available");
             List<IDAL.DO.Parcel> parcels = dal.ListParcelDisplay().ToList();
             IDAL.DO.Parcel bestParcel = parcels.First();// we assume that the best parcel for the drone is the first parcel in the list
             foreach (IDAL.DO.Parcel currentParcel in parcels)
             {
                 //checks if the parcel could be assigned
-                if (!legalParcel(bestParcel, drone) || !batteryCheckingForDroneAndParcel(bestParcel, drone)||(bestParcel.Scheduled==DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
+                if (!legalParcel(bestParcel, drone) || !batteryCheckingForDroneAndParcel(bestParcel, drone) || (bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
                 {
                     bestParcel = currentParcel;
                     break;
                 }
                 //checks if the parcel could be assigned
-                if (legalParcel(currentParcel, drone) && batteryCheckingForDroneAndParcel(currentParcel, drone)&& (bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
+                if (legalParcel(currentParcel, drone) && batteryCheckingForDroneAndParcel(currentParcel, drone) && (bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
                 {
                     if (
                     (currentParcel.Priority > bestParcel.Priority) ||/*1: checking if the priority is bigger*/
-                    ((currentParcel.Priority == bestParcel.Priority) && (currentParcel.Weight > bestParcel.Weight))||/*2: priority is the same and the weight is heavier*/ 
+                    ((currentParcel.Priority == bestParcel.Priority) && (currentParcel.Weight > bestParcel.Weight)) ||/*2: priority is the same and the weight is heavier*/
                     ((currentParcel.Priority == bestParcel.Priority) &&/*3: checking if the weight and the priority is the same and the distance is smaller*/
-                    (currentParcel.Weight == bestParcel.Weight) && 
+                    (currentParcel.Weight == bestParcel.Weight) &&
                     (DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(bestParcel.Sender).CustomerLocation) > DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(currentParcel.Sender).CustomerLocation)))/*checks if the distance is smaller and and the priority and weight are the same*/
                     )
                     {
@@ -165,18 +171,29 @@ namespace BL
                 }
             }
             //if there isnt a legal parcel to assign
-            if (!legalParcel(bestParcel, drone) || !batteryCheckingForDroneAndParcel(bestParcel, drone)|| !(bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
+            if (!legalParcel(bestParcel, drone) || !batteryCheckingForDroneAndParcel(bestParcel, drone) || !(bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
                 throw new ItemNotExistException("There is no parcel to assign with the drone");
             drone.DroneStatus = @enum.DroneStatus.Delivery;
             dal.AssignParcelToDrone(bestParcel.ParcelID, drone.DroneID);
         }
 
-        //public void CollectionOfParcelByDrone(int ID)
-        //{
-        //    int droneIndex = DroneListBL.FindIndex(item => item.DroneID == ID);
-        //    if (droneIndex == -1 || DroneListBL[droneIndex].DroneStatus != @enum.DroneStatus.Delivery)//NOT FOUND or NOT AVAILABLE
-        //        throw new ItemNotExistException("The drone does not exist or not available");
-        //}
+        /// <summary>
+        /// Update a drone to collect a parcel
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        public void CollectionOfParcelByDrone(int ID)
+        {
+            Drone drone = DisplayDrone(ID);
+            if (drone.DroneStatus != @enum.DroneStatus.Delivery)
+                throw new WorngStatusException("The drone is not in delivery mode");
+            Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);
+            if (parcel.PickUp != DateTime.MinValue)
+                throw new WorngStatusException("The parcel has allready been picked up ");
+            double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.Sender.CustomerID).CustomerLocation);
+            drone.Battery = (int)distance * (int)vacant;
+            drone.MyCurrentLocation = CustomerDisplay(parcel.Sender.CustomerID).CustomerLocation;
+            dal.CollectionOfParcelByDrone(parcel.ParcelID,drone.DroneID);
+        }
 
 
         /// <summary>

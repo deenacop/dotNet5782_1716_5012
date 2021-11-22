@@ -66,11 +66,11 @@ namespace IBL.BO
     }
 
     [Serializable]
-    public class NotAvailableException : Exception
+    public class WorngStatusException : Exception
     {
-        public NotAvailableException() : base() { }
-        public NotAvailableException(string message) : base(message) { }
-        public NotAvailableException(string message, Exception inner) : base(message, inner) { }
+        public WorngStatusException() : base() { }
+        public WorngStatusException(string message) : base(message) { }
+        public WorngStatusException(string message, Exception inner) : base(message, inner) { }
         public override string ToString()
         {
             return Message;
