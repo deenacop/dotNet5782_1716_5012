@@ -237,7 +237,7 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                            bl.DisplayDrone(IDFromUser1);
+                                            Console.WriteLine(bl.DisplayDrone(IDFromUser1) ); 
                                             break;
                                         }
 
@@ -245,7 +245,7 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter base station ID (4 digits).");
                                             int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                            bl.BaseStationDisplay(IDFromUser1);
+                                            Console.WriteLine(bl.BaseStationDisplay(IDFromUser1)); 
                                             break;
                                         }
 
@@ -253,7 +253,7 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter parcel ID (6 digits).");
                                             int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                            bl.ParcelDisplay(IDFromUser1);
+                                            Console.WriteLine(bl.ParcelDisplay(IDFromUser1));
                                             break;
                                         }
 
@@ -261,7 +261,7 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter customer ID (9 digits).");
                                             int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                            bl.CustomerDisplay(IDFromUser1);
+                                            Console.WriteLine(bl.CustomerDisplay(IDFromUser1));
                                             break;
                                         }
                                 }
@@ -285,7 +285,7 @@ namespace ConsoleUI_BL
 
                                     case (int)DisplayListOptions.DisplyStationList:
                                         {
-                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
+                                            List<BaseStationToList> ListOfStation =  bl.ListBaseStationlDisplay().ToList();
                                             foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
                                         }
                                         break;

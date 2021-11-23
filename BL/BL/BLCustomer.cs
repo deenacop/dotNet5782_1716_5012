@@ -26,7 +26,9 @@ namespace BL
             try
             {
                 IDAL.DO.Customer customerDO = new IDAL.DO.Customer();
-                customer.CopyPropertiesTo(customerDO);
+                object obj = customerDO;
+                customer.CopyPropertiesTo(obj);
+                customerDO = (IDAL.DO.Customer)obj;
                 dal.Add(customerDO);//calls the function from DALOBJECT
             }
             catch (Exception ex)

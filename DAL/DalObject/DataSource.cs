@@ -65,12 +65,12 @@ namespace DalObject
 
             string[] modelArr = { "Yuneec H520", "DJI Mavic 2 Zoom", "DJI Phantom 4", "3D Robotics Solo", "Flyability Elios Drone" };
             //Initializing variables into 5 drones.
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Drones.Insert(i, new()
                 {
                     DroneID = rand.Next(100, 1000),
-                    Model = modelArr[i],
+                    Model = modelArr[rand.Next(5)],
                     Weight = (@enum.WeightCategories)rand.Next(0, 2)
 
                 });
@@ -115,21 +115,26 @@ namespace DalObject
             #endregion
 
             #region parcel
+            DateTime time =DateTime.MinValue;
             //Initializing variables into 10 parcels.
             for (int i = 0; i < 10; i++)
             {
+                int flag = rand.Next(0, 2);
+                if(flag==0)
+                { time = DateTime.Now; }
                 Parcels.Insert(i, new()
                 {
                     ParcelID = Config.RunnerIDNumParcels++,
-                    Sender = rand.Next(100000000, 999999999),
-                    Targetid = rand.Next(100000000, 999999999),
-                    MyDroneID = 0,
+                    Sender = Customers[rand.Next(10)].CustomerID,
+                    Targetid = Customers[rand.Next(10)].CustomerID,
+                    MyDroneID = Drones[i].DroneID,
                     //In the initialization, the entire ID of the drone is 0
                     //because we did not want to reach contradictions in the introduction of the identity of the drone
                     //and also that no deliveries were made yet.
                     Weight = (@enum.WeightCategories)rand.Next(0, 2),
                     Priority = (@enum.Priorities)rand.Next(0, 2),
-                    Requested = DateTime.Now,
+
+                    Requested = time.AddMinutes(rand.Next(0, 1000)),
                     Scheduled = DateTime.MinValue,
                     PickUp = DateTime.MinValue,
                     Delivered = DateTime.MinValue

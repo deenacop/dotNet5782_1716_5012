@@ -4,6 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using IBL.BO;
+using IDAL;
+using BL;
 
 
 
@@ -11,7 +14,7 @@ namespace BL
 {
     public static class Tools
     {
-
+        
         public static void CopyPropertiesTo<T, S>(this S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())
@@ -26,11 +29,11 @@ namespace BL
                 {
                     propTo.SetValue(to, value);
                 }
-                else if (!(value is IEnumerable<ValueType>))
-                {
-                    object target = propTo.GetValue(to, null);
-                    value.CopyPropertiesTo(target);
-                }
+                //else if (!(value is IEnumerable<ValueType>))
+                //{
+                //    object target = propTo.GetValue(to, null);
+                //    value.CopyPropertiesTo(target);
+                //}
             }
         }
         public static void CopyPropertiesToIEnumerable<T, S>(this IEnumerable<S> from, List<T> to)
@@ -43,13 +46,6 @@ namespace BL
                 to.Add(t);
             }
         }
-        public static object CopyPropertiesToNew<S>(this S from, Type type)
-        {
-            object to = Activator.CreateInstance(type); // new object of Type
-            from.CopyPropertiesTo(to);
-            return to;
-        }
-
 
         public static string toStringProperty<T>(this T t)
         {

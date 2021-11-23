@@ -7,6 +7,8 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
+       
+
         /// <summary>
         /// Adds a parcel to the list of parcels in the IDAL
         /// </summary>
@@ -25,7 +27,9 @@ namespace BL
             try
             {
                 IDAL.DO.Parcel tmpParcel = new();
-                parcel.CopyPropertiesTo(tmpParcel);
+                object obj = tmpParcel;
+                parcel.CopyPropertiesTo(obj);
+                tmpParcel = (IDAL.DO.Parcel)obj;
                 dal.Add(tmpParcel);
             }
             catch (IDAL.DO.AlreadyExistedItemException ex)
@@ -43,18 +47,11 @@ namespace BL
         public Parcel ParcelDisplay(int ID)
         {
             IDAL.DO.Parcel parcelDO = new();
+            Parcel parcelBO = new();
             try
             {
                 parcelDO = dal.ParcelDisplay(ID);
-            }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
-            }
-            Parcel parcelBO = new();
-            parcelDO.CopyPropertiesTo(parcelBO);
-            try
-            {
+                parcelDO.CopyPropertiesTo(parcelBO);
                 parcelBO.Sender.CustomerID = dal.CustomerDisplay(parcelDO.Sender).CustomerID;
                 parcelBO.Sender.Name = dal.CustomerDisplay(parcelDO.Sender).Name;
                 parcelBO.Targetid.CustomerID = dal.CustomerDisplay(parcelDO.Targetid).CustomerID;
