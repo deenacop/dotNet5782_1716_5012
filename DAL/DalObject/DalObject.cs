@@ -29,7 +29,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Adds a new station 
+        /// Adds a new station
         /// </summary>
         /// <param name="NewStation">The new station that will be added to the list of stations</param>
         public void Add(Station NewStation)
@@ -69,7 +69,7 @@ namespace DalObject
         /// </summary>
         /// <param name="ParcelID">The parcel's ID that needs to be assigns</param>
         /// <param name="DroneID">The drone's ID that needs to be assigns</param>
-       
+
         public void AssignParcelToDrone(int ParcelID, int DroneID)
         {
             //checks if the drone exists and if not throws an exception
@@ -112,7 +112,7 @@ namespace DalObject
         /// <param name="ParcelID">The parcel's ID that needs to be collected</param>
         public void DeliveryParcelToCustomer(int ParcelID)
         {
-            int index = DataSource.Parcels.FindIndex(item => item.ParcelID == ParcelID);//finds the parcel 
+            int index = DataSource.Parcels.FindIndex(item => item.ParcelID == ParcelID);//finds the parcel
             if (index < 0)//not found
                 throw new ItemNotExistException("The parcel does not exists");
             Parcel tmp = DataSource.Parcels[index];
@@ -160,7 +160,7 @@ namespace DalObject
                 throw new ItemNotExistException("The drone does not exists");
             if (!DataSource.Stations.Exists(item => item.StationID == BaseStationID))
                 throw new ItemNotExistException("The station does not exists");
-            int index = DataSource.DroneCharges.FindIndex(item => item.DroneID == DroneID && item.BaseStationID == BaseStationID);//finds the drone charge 
+            int index = DataSource.DroneCharges.FindIndex(item => item.DroneID == DroneID && item.BaseStationID == BaseStationID);//finds the drone charge
             if (index < 0)//not found
                 throw new ItemNotExistException("the drone does not exist in the wanted base station");
             DroneCharge tmp1 = DataSource.DroneCharges[index];
@@ -204,7 +204,7 @@ namespace DalObject
         public void UpdateStation(int ID, string name = null, int? numOfSlots = null)
         {
             int index = DataSource.Stations.FindIndex(item => item.StationID == ID);
-            if (index <0)
+            if (index < 0)
                 throw new ItemNotExistException("The station does not exist");
             Station tmp = DataSource.Stations[index];
             if (name != null)
@@ -228,7 +228,7 @@ namespace DalObject
         public void UpdateCustomer(int ID, string name = null, string phone = null)
         {
             int index = DataSource.Customers.FindIndex(item => item.CustomerID == ID);
-            if (index <0)
+            if (index < 0)
                 throw new ItemNotExistException("The customer does not exsit");
             Customer tmp = DataSource.Customers[index];
             if (name != null)
@@ -256,7 +256,7 @@ namespace DalObject
             tmp.Model = model;
             DataSource.Drones[index] = tmp;
         }
-        #endregion 
+        #endregion
 
         #region Display one item
 
@@ -327,7 +327,7 @@ namespace DalObject
         }
 
         /// <summary>
-        /// Returns all the station in the list 
+        /// Returns all the station in the list
         /// </summary>
         public IEnumerable<Station> ListStationDisplay(Predicate<Station> predicate = null)
         {
@@ -346,7 +346,7 @@ namespace DalObject
             return ListOfParcel.FindAll(i => predicate == null ? true : predicate(i));
         }
         /// <summary>
-        /// Returns all the drones in charging 
+        /// Returns all the drones in charging
         /// </summary>
         /// <returns>list of the drone in charging</returns>
         public IEnumerable<DroneCharge> ListOfDroneCharge(Predicate<DroneCharge> predicate = null)
@@ -361,7 +361,7 @@ namespace DalObject
         #endregion
 
         /// <summary>
-        /// requests power consumption by a drone 
+        /// requests power consumption by a drone
         /// </summary>
         /// <returns>returns an array of numbers of double type</returns>
         public double[] ChargingDrone()
@@ -373,6 +373,5 @@ namespace DalObject
         }
     }
 }
-
 
 

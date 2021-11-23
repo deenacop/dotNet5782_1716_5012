@@ -11,11 +11,11 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
-        IDal dal = new DalObject.DalObject();
+        public static IDal dal = new DalObject.DalObject();
 
         static internal readonly Random rand = new(DateTime.Now.Millisecond);
 
-        List<DroneToList> DroneListBL = new();
+        List<DroneToList> DroneListBL;
         double vacant,
             carriesLightWeight,
             carriesMediumWeight,
@@ -34,20 +34,27 @@ namespace BL
 
             #region Brings lists from IDAL
 
-            List<DroneToList> DroneListBL = null;
+            DroneListBL = new List<DroneToList>();
             List<IDAL.DO.Drone> DroneListDL = dal.ListDroneDisplay().ToList();//Receive the drone list from the data layer.
-            DroneListDL.CopyPropertiesTo(DroneListBL);//convret from IDAT to IBL
+            DroneListDL.CopyPropertiesToIEnumerable(DroneListBL);//convret from IDAT to IBL
 
-            List<ParcelToList> ParcelListBL = null;
+            List<ParcelToList> ParcelListBL = new List<ParcelToList>();
             //Receive the parcel list of parcels that are assign to drone (from the data layer).
             List<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay(i => i.MyDroneID != 0).ToList();
-            ParcelListDL.CopyPropertiesTo(ParcelListBL);//convret from IDAT to IBL
+            ParcelListDL.CopyPropertiesToIEnumerable(ParcelListBL);//convret from IDAT to IBL
 
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
 
-            List<BaseStation> BaseStationListBL = null;
+
+            List<BaseStation> BaseStationListBL = new List<BaseStation>();
             List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
-            StationListDL.CopyPropertiesTo(BaseStationListBL);//convret from IDAT to IBL
+
+            StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from IDAT to IBL
+
+            for (int i = 0; i < StationListDL.Count; i++)
+            {
+                BaseStationListBL[i].StationLocation = new Location { Latitude = StationListDL[i].Latitude, Longitude = StationListDL[i].Longitude };
+            }
             #endregion
 
             foreach (DroneToList currentDrone in DroneListBL)
@@ -154,6 +161,8 @@ namespace BL
                                 minBatteryDrone = (int)minDistance * (int)carriesHeavyWeight;
                                 break;
                         }
+                        if (minBatteryDrone == 0)
+                            currentDrone.Battery = 30;
                         currentDrone.Battery = rand.Next(minBatteryDrone, 101);
                     }
                 }
@@ -163,7 +172,3 @@ namespace BL
         #endregion
     }
 }
-
-
-
-

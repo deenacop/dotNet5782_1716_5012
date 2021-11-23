@@ -24,27 +24,25 @@ namespace BL
             try
             {
                 wantedStation = dal.StationDisplay(stationID);
+                drone.MyCurrentLocation.Longitude = wantedStation.Longitude;
+                drone.MyCurrentLocation.Latitude = wantedStation.Latitude;
+                drone.Battery = rand.Next(20, 41);
+                drone.DroneStatus = @enum.DroneStatus.Maintenance;
+                IDAL.DO.Drone droneDO = new();
+                object obj = droneDO;
+                drone.CopyPropertiesTo(obj);
+                droneDO = (IDAL.DO.Drone)obj;
+                dal.Add(droneDO);//calls the function from DALOBJECT
             }
-            catch (Exception ex)
+            catch (ItemNotExistException ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
-            drone.MyCurrentLocation.Longitude = wantedStation.Longitude;
-            drone.MyCurrentLocation.Latitude = wantedStation.Latitude;
-            drone.Battery = rand.Next(20, 41);
-            drone.DroneStatus = @enum.DroneStatus.Maintenance;
-            try
-            {
-                IDAL.DO.Drone droneDO = new();
-                drone.CopyPropertiesTo(droneDO);
-                dal.Add(droneDO);//calls the function from DALOBJECT
-            }
-            catch (Exception ex)
+            catch (AlreadyExistedItemException ex)
             {
                 throw new AlreadyExistedItemException(ex.Message);
             }
         }
-
 
         /// <summary>
         /// Update the drone model
@@ -74,7 +72,7 @@ namespace BL
             if (index < 0 || DroneListBL[index].DroneStatus != @enum.DroneStatus.Available)//if the drone does not exist or the drone is not available
                 throw new ItemNotExistException("Drone does not exist or is not available");
 
-            List<BaseStation> BaseStationListBL = null;
+            List<BaseStation> BaseStationListBL = new();
             List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();//Receive the drone list from the data layer.
             StationListDL.CopyPropertiesTo(BaseStationListBL);//convret from IDAT to IBL
             if (BaseStationListBL == null)
@@ -177,7 +175,6 @@ namespace BL
             dal.AssignParcelToDrone(bestParcel.ParcelID, drone.DroneID);
         }
 
-
         /// <summary>
         /// Update a drone to collect a parcel
         /// </summary>
@@ -190,9 +187,9 @@ namespace BL
             Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);
             if (parcel.PickUp != DateTime.MinValue)
                 throw new WorngStatusException("The parcel has allready been picked up ");
-            double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.Sender.CustomerID).CustomerLocation);
+            double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.SenderCustomer.CustomerID).CustomerLocation);
             drone.Battery -= (int)distance * (int)vacant;
-            drone.MyCurrentLocation = CustomerDisplay(parcel.Sender.CustomerID).CustomerLocation;
+            drone.MyCurrentLocation = CustomerDisplay(parcel.SenderCustomer.CustomerID).CustomerLocation;
             dal.CollectionOfParcelByDrone(parcel.ParcelID, drone.DroneID);
         }
 
@@ -207,7 +204,7 @@ namespace BL
             Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);
             if (drone.DroneStatus == @enum.DroneStatus.Delivery && parcel.PickUp != DateTime.MinValue && parcel.Delivered == DateTime.MinValue)
             {
-                double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.Targetid.CustomerID).CustomerLocation);
+                double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.TargetidCustomer.CustomerID).CustomerLocation);
                 switch ((int)drone.Weight)
                 {
                     case (int)@enum.WeightCategories.Light:
@@ -220,13 +217,11 @@ namespace BL
                         drone.Battery -= (int)distance * (int)carriesHeavyWeight;
                         break;
                 }
-                drone.MyCurrentLocation = CustomerDisplay(parcel.Targetid.CustomerID).CustomerLocation;
+                drone.MyCurrentLocation = CustomerDisplay(parcel.TargetidCustomer.CustomerID).CustomerLocation;
                 dal.DeliveryParcelToCustomer(drone.DroneID);
             }
             else throw new WorngStatusException("The parcel couldnt be delivered");
         }
-
-
 
         /// <summary>
         /// Display one BL drone
@@ -245,10 +240,11 @@ namespace BL
             {
                 throw new ItemNotExistException(ex.Message);
             }
-            if (DroneListBL.Exists(item => item.DroneID == droneID))
+            if (!DroneListBL.Exists(item => item.DroneID == droneID))
                 throw new ItemNotExistException("Drone not found");
 
             DroneToList tmp = DroneListBL.Find(item => item.DroneID == droneID);
+            droneBO.MyParcel = new();
             droneBO.DroneStatus = tmp.DroneStatus;
             droneBO.Battery = tmp.Battery;
             droneBO.MyCurrentLocation = tmp.MyCurrentLocation;
@@ -257,21 +253,21 @@ namespace BL
             {
                 List<IDAL.DO.Parcel> parcels = dal.ListParcelDisplay().ToList();
                 IDAL.DO.Parcel parcel = parcels.Find(i => i.MyDroneID == droneID);
+                droneBO.MyParcel.SenderCustomer = new();
+                droneBO.MyParcel.ReceiverCustomer = new();
                 parcel.CopyPropertiesTo(droneBO.MyParcel);
 
-                if (parcel.PickUp == DateTime.MinValue)//is not already picked 
+                if (parcel.PickUp == DateTime.MinValue)//is not already picked
                     droneBO.MyParcel.Status = false;//waiting
                 else droneBO.MyParcel.Status = true;//on the way
 
                 IDAL.DO.Customer senderCustomer = dal.CustomerDisplay(parcel.Sender);
                 IDAL.DO.Customer receiverCustomer = dal.CustomerDisplay(parcel.Targetid);
-                senderCustomer.CopyPropertiesTo(droneBO.MyParcel.Sender);
-                receiverCustomer.CopyPropertiesTo(droneBO.MyParcel.Receiver);
+                senderCustomer.CopyPropertiesTo(droneBO.MyParcel.SenderCustomer);
+                receiverCustomer.CopyPropertiesTo(droneBO.MyParcel.ReceiverCustomer);
 
-                droneBO.MyParcel.Collection.Longitude = senderCustomer.Longitude;
-                droneBO.MyParcel.Collection.Latitude = senderCustomer.Latitude;
-                droneBO.MyParcel.Delivery.Longitude = receiverCustomer.Longitude;
-                droneBO.MyParcel.Delivery.Latitude = receiverCustomer.Latitude;
+                droneBO.MyParcel.Collection = new() { Longitude = senderCustomer.Longitude, Latitude = senderCustomer.Latitude };
+                droneBO.MyParcel.Delivery = new() { Longitude = receiverCustomer.Longitude, Latitude = receiverCustomer.Latitude };
                 droneBO.MyParcel.TransportDistance = DistanceCalculation(droneBO.MyParcel.Collection, droneBO.MyParcel.Delivery);
             }
             return droneBO;

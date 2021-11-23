@@ -29,7 +29,9 @@ namespace BL
             try
             {
                 IDAL.DO.Station tmpStation = new();
-                station.CopyPropertiesTo(tmpStation);
+                object obj = tmpStation;
+                station.CopyPropertiesTo(obj);
+                tmpStation = (IDAL.DO.Station)obj;
                 dal.Add(tmpStation);
             }
             catch (Exception ex)
@@ -57,12 +59,16 @@ namespace BL
             }
             BaseStation baseStation = new();
             station.CopyPropertiesTo(baseStation);//we got the station details from DAL
-            baseStation.StationLocation.Longitude = station.Longitude;
-            baseStation.StationLocation.Latitude = station.Latitude;//set the location
 
-            List<DroneInCharging> DroneChargingBL = null;
+            baseStation.StationLocation = new()
+            {
+                Longitude = station.Longitude,
+                Latitude = station.Latitude
+            };
+
+            List<DroneInCharging> DroneChargingBL = new();
             List<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.ListOfDroneCharge().ToList();//Receive the drone list from the data layer.
-            DroneChargeingListDL.CopyPropertiesTo(DroneChargingBL);//convret from IDAT to IBL
+            DroneChargeingListDL.CopyPropertiesToIEnumerable(DroneChargingBL);//convret from IDAT to IBL
 
             foreach (DroneInCharging currentDronCharge in DroneChargingBL)//running on all the drone charge of BL
             {
@@ -81,7 +87,7 @@ namespace BL
 
 
         /// <summary>
-        /// Updates the station 
+        /// Updates the station
         /// </summary>
         /// <param name="ID">The ID of the wanted station</param>
         /// <param name="name">The name of the wanted station</param>
@@ -106,21 +112,21 @@ namespace BL
         {
             List<IDAL.DO.Station> stations = dal.ListStationDisplay().ToList();
             List<BaseStationToList> stationToLists = new();
-            foreach (IDAL.DO.Station currentStation in stations)
+            try
             {
-                BaseStationToList tmpToLst = new();
-                BaseStation tmp = new();
-                try
+                foreach (IDAL.DO.Station currentStation in stations)
                 {
+                    BaseStationToList tmpToLst = new();
+                    BaseStation tmp = new();
                     tmp = BaseStationDisplay(currentStation.StationID);
+                    tmp.CopyPropertiesTo(tmpToLst);
+                    tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == DateTime.MinValue).Count;
+                    stationToLists.Add(tmpToLst);
                 }
-                catch (Exception ex)
-                {
-                    throw new ItemNotExistException(ex.Message);
-                }
-                tmp.CopyPropertiesTo(tmpToLst);
-                tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == DateTime.MinValue).Count;
-                stationToLists.Add(tmpToLst);
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
             }
             return stationToLists;
         }
@@ -134,11 +140,10 @@ namespace BL
         {
             List<IDAL.DO.Station> stations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();
             List<BaseStationToList> stationToLists = new();
-            BaseStationToList tmpToLst = new();
-            BaseStation tmp = new();
             foreach (IDAL.DO.Station currentStation in stations)
             {
-
+                BaseStation tmp = new();
+                BaseStationToList tmpToLst = new();
                 tmp = BaseStationDisplay(currentStation.StationID);
                 tmp.CopyPropertiesTo(tmpToLst);
                 tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == DateTime.MinValue).Count;

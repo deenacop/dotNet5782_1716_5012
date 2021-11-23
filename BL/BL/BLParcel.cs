@@ -7,15 +7,17 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
+
+
         /// <summary>
         /// Adds a parcel to the list of parcels in the IDAL
         /// </summary>
         /// <param name="parcel">The wanted parcel</param>
         public void AddParcel(Parcel parcel)
         {
-            if (ChackingNumOfDigits(parcel.Sender.CustomerID) != 9)
+            if (ChackingNumOfDigits(parcel.SenderCustomer.CustomerID) != 9)
                 throw new WrongIDException("Wrong ID");
-            if (ChackingNumOfDigits(parcel.Targetid.CustomerID) != 9)
+            if (ChackingNumOfDigits(parcel.TargetidCustomer.CustomerID) != 9)
                 throw new WrongIDException("Wrong ID");
             parcel.Requested = DateTime.Now;
             parcel.Scheduled = DateTime.MinValue;
@@ -25,7 +27,9 @@ namespace BL
             try
             {
                 IDAL.DO.Parcel tmpParcel = new();
-                parcel.CopyPropertiesTo(tmpParcel);
+                object obj = tmpParcel;
+                parcel.CopyPropertiesTo(obj);
+                tmpParcel = (IDAL.DO.Parcel)obj;
                 dal.Add(tmpParcel);
             }
             catch (IDAL.DO.AlreadyExistedItemException ex)
@@ -43,22 +47,17 @@ namespace BL
         public Parcel ParcelDisplay(int ID)
         {
             IDAL.DO.Parcel parcelDO = new();
+            Parcel parcelBO = new();
+            parcelBO.SenderCustomer = new();
+            parcelBO.TargetidCustomer = new();
             try
             {
                 parcelDO = dal.ParcelDisplay(ID);
-            }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
-            }
-            Parcel parcelBO = new();
-            parcelDO.CopyPropertiesTo(parcelBO);
-            try
-            {
-                parcelBO.Sender.CustomerID = dal.CustomerDisplay(parcelDO.Sender).CustomerID;
-                parcelBO.Sender.Name = dal.CustomerDisplay(parcelDO.Sender).Name;
-                parcelBO.Targetid.CustomerID = dal.CustomerDisplay(parcelDO.Targetid).CustomerID;
-                parcelBO.Targetid.Name = dal.CustomerDisplay(parcelDO.Targetid).Name;
+                parcelDO.CopyPropertiesTo(parcelBO);
+                parcelBO.SenderCustomer.CustomerID = dal.CustomerDisplay(parcelDO.Sender).CustomerID;
+                parcelBO.SenderCustomer.Name = dal.CustomerDisplay(parcelDO.Sender).Name;
+                parcelBO.TargetidCustomer.CustomerID = dal.CustomerDisplay(parcelDO.Targetid).CustomerID;
+                parcelBO.TargetidCustomer.Name = dal.CustomerDisplay(parcelDO.Targetid).Name;
             }
             catch (Exception ex)
             {
@@ -68,6 +67,7 @@ namespace BL
             if (parcelDO.Scheduled != DateTime.MinValue)//if the parel is assigned
             {
                 DroneToList drone = DroneListBL.Find(i => i.DroneID == parcelDO.MyDroneID);
+                parcelBO.MyDrone = new();
                 drone.CopyPropertiesTo(parcelBO.MyDrone);
             }
             return parcelBO;
@@ -90,15 +90,16 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
             Parcel tmp = new();
-            ParcelToList tmpParcelBO = new();
+
             List<ParcelToList> listParcelToList = new();
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
             {
+                ParcelToList tmpParcelBO = new();
                 tmp = ParcelDisplay(currentParcel.ParcelID);
                 tmp.CopyPropertiesTo(tmpParcelBO);
-                tmpParcelBO.NameOfSender = tmp.Sender.Name; 
-                tmpParcelBO.NameOfTargetaed = tmp.Targetid.Name;
+                tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name;
+                tmpParcelBO.NameOfTargetaed = tmp.TargetidCustomer.Name;
                 if (tmp.Scheduled == DateTime.MinValue)//not schedule yet
                     tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Defined;
                 else if (tmp.PickUp == DateTime.MinValue)//scheduled but has not been picked up
@@ -121,22 +122,23 @@ namespace BL
             List<IDAL.DO.Parcel> parcelsDO = new();
             try
             {
-                parcelsDO = dal.ListParcelDisplay(i=>i.MyDroneID!=0).ToList();
+                parcelsDO = dal.ListParcelDisplay(i => i.MyDroneID == 0).ToList();
             }
             catch (Exception ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
             Parcel tmp = new();
-            ParcelToList tmpParcelBO = new();
+
             List<ParcelToList> listParcelToList = new();
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
             {
+                ParcelToList tmpParcelBO = new();
                 tmp = ParcelDisplay(currentParcel.ParcelID);
                 tmp.CopyPropertiesTo(tmpParcelBO);
-                tmpParcelBO.NameOfSender = tmp.Sender.Name;
-                tmpParcelBO.NameOfTargetaed = tmp.Targetid.Name;
+                tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name;
+                tmpParcelBO.NameOfTargetaed = tmp.TargetidCustomer.Name;
                 if (tmp.Scheduled == DateTime.MinValue)//not schedule yet
                     tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Defined;
                 else if (tmp.PickUp == DateTime.MinValue)//scheduled but has not been picked up
@@ -147,7 +149,6 @@ namespace BL
                 listParcelToList.Add(tmpParcelBO);
             }
             return listParcelToList;
-
         }
     }
 }

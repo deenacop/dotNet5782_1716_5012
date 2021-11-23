@@ -20,7 +20,8 @@ namespace IBL.BO
         public override string ToString()
         {
             string str = "Customer ID:" + CustomerID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
-                PhoneNumber + "\nCustomer location:\n" + CustomerLocation + "\n";
+                PhoneNumber + "\nCustomer location:\n" + CustomerLocation + "\nAll the parcels the were send from the customer" + String.Join(" ", FromCustomer) + "\nAll the parcels that the customer got "
+                 + String.Join(" ", TOCustomer) + "\n";
             return str;
         }
     }

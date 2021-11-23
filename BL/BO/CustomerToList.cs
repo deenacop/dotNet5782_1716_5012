@@ -12,8 +12,8 @@ namespace IBL.BO
     public class CustomerToList
     {
         public int CustomerID { get; set; }
-        public string  Name { get; set; }
-        public int PhoneNumber { get; set; }
+        public string Name { get; set; }
+        public string PhoneNumber { get; set; }
         public int NumberParcelSentAndDelivered { get; set; }
         public int NumberParcelSentAndNOTDelivered { get; set; }
         public int NumberOfParcelReceived { get; set; }
@@ -26,7 +26,7 @@ namespace IBL.BO
                 "\nNumber Of Parcel Received" + NumberOfParcelReceived +
                 "\nNumber Of Parcel OnThe Way To Customer" + NumberOfParcelOnTheWayToCustomer + "\n";
             return str;
-            
+
         }
     }
 }
