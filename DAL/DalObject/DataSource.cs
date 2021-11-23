@@ -134,10 +134,10 @@ namespace DalObject
                     Weight = (@enum.WeightCategories)rand.Next(0, 2),
                     Priority = (@enum.Priorities)rand.Next(0, 2),
 
-                    Requested = time.AddMinutes(rand.Next(0, 1000)),
-                    Scheduled = DateTime.MinValue,
-                    PickUp = DateTime.MinValue,
-                    Delivered = DateTime.MinValue
+                    Requested = DateTime.Now,
+                    Scheduled = DateTime.Now,
+                    PickUp = DateTime.Now,
+                    Delivered = DateTime.Now
                 });
             }
             #endregion

@@ -66,9 +66,9 @@ namespace BL
                 Latitude = station.Latitude
             };
 
-            List<DroneInCharging> DroneChargingBL = null;
+            List<DroneInCharging> DroneChargingBL = new();
             List<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.ListOfDroneCharge().ToList();//Receive the drone list from the data layer.
-            DroneChargeingListDL.CopyPropertiesTo(DroneChargingBL);//convret from IDAT to IBL
+            DroneChargeingListDL.CopyPropertiesToIEnumerable(DroneChargingBL);//convret from IDAT to IBL
 
             foreach (DroneInCharging currentDronCharge in DroneChargingBL)//running on all the drone charge of BL
             {
@@ -140,10 +140,10 @@ namespace BL
         {
             List<IDAL.DO.Station> stations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();
             List<BaseStationToList> stationToLists = new();
-            BaseStationToList tmpToLst = new();
-            BaseStation tmp = new();
             foreach (IDAL.DO.Station currentStation in stations)
             {
+                BaseStation tmp = new();
+                BaseStationToList tmpToLst = new();
                 tmp = BaseStationDisplay(currentStation.StationID);
                 tmp.CopyPropertiesTo(tmpToLst);
                 tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == DateTime.MinValue).Count;

@@ -247,14 +247,14 @@ namespace ConsoleUI
                                         break;
                                     case (int)DisplayListOptions.ListOfUnassignedParcels:
                                         {
-                                            IEnumerable<Parcel> ListOfParcel = DalObj.ListParcelDisplay();
+                                            IEnumerable<Parcel> ListOfParcel = DalObj.ListParcelDisplay(i=>i.MyDroneID==0);
                                             foreach (Parcel tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                             break;
                                         }
 
                                     case (int)DisplayListOptions.ListOfAvailableChargingStations:
                                         {
-                                            IEnumerable<Station> ListOfStation = DalObj.ListStationDisplay();
+                                            IEnumerable<Station> ListOfStation = DalObj.ListStationDisplay(i=>i.NumOfAvailableChargingSlots>0);
                                             foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
                                             break;
                                         }

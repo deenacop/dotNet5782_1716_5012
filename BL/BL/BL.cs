@@ -161,6 +161,8 @@ namespace BL
                                 minBatteryDrone = (int)minDistance * (int)carriesHeavyWeight;
                                 break;
                         }
+                        if (minBatteryDrone == 0)
+                            currentDrone.Battery=30;
                         currentDrone.Battery = rand.Next(minBatteryDrone, 101);
                     }
                 }

@@ -101,10 +101,10 @@ namespace ConsoleUI_BL
                                         Parcel newParcel = new();
                                         Console.WriteLine("Enter the parcel sender ID (9 digits)");
                                         int.TryParse(Console.ReadLine(), out ID);
-                                        newParcel.Sender.CustomerID =ID;
+                                        newParcel.SenderCustomer.CustomerID =ID;
                                         Console.WriteLine("Enter the parcel targetid ID (9 digits)");
                                         int.TryParse(Console.ReadLine(), out ID);
-                                        newParcel.Targetid.CustomerID = ID;
+                                        newParcel.TargetidCustomer.CustomerID = ID;
                                         Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
                                         newParcel.Weight = (@enum.WeightCategories)Console.Read();
                                         Console.WriteLine("Enter the parcel priority");
@@ -285,7 +285,7 @@ namespace ConsoleUI_BL
 
                                     case (int)DisplayListOptions.DisplyStationList:
                                         {
-                                            List<BaseStationToList> ListOfStation =  bl.ListBaseStationlDisplay().ToList();
+                                            IEnumerable<BaseStationToList> ListOfStation =  bl.ListBaseStationlDisplay();
                                             foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
                                         }
                                         break;

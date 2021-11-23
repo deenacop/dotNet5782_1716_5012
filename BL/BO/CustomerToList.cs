@@ -13,7 +13,7 @@ namespace IBL.BO
     {
         public int CustomerID { get; set; }
         public string  Name { get; set; }
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public int NumberParcelSentAndDelivered { get; set; }
         public int NumberParcelSentAndNOTDelivered { get; set; }
         public int NumberOfParcelReceived { get; set; }

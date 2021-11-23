@@ -187,9 +187,9 @@ namespace BL
             Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);
             if (parcel.PickUp != DateTime.MinValue)
                 throw new WorngStatusException("The parcel has allready been picked up ");
-            double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.Sender.CustomerID).CustomerLocation);
+            double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.SenderCustomer.CustomerID).CustomerLocation);
             drone.Battery -= (int)distance * (int)vacant;
-            drone.MyCurrentLocation = CustomerDisplay(parcel.Sender.CustomerID).CustomerLocation;
+            drone.MyCurrentLocation = CustomerDisplay(parcel.SenderCustomer.CustomerID).CustomerLocation;
             dal.CollectionOfParcelByDrone(parcel.ParcelID, drone.DroneID);
         }
 
@@ -204,7 +204,7 @@ namespace BL
             Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);
             if (drone.DroneStatus == @enum.DroneStatus.Delivery && parcel.PickUp != DateTime.MinValue && parcel.Delivered == DateTime.MinValue)
             {
-                double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.Targetid.CustomerID).CustomerLocation);
+                double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.TargetidCustomer.CustomerID).CustomerLocation);
                 switch ((int)drone.Weight)
                 {
                     case (int)@enum.WeightCategories.Light:
@@ -217,7 +217,7 @@ namespace BL
                         drone.Battery -= (int)distance * (int)carriesHeavyWeight;
                         break;
                 }
-                drone.MyCurrentLocation = CustomerDisplay(parcel.Targetid.CustomerID).CustomerLocation;
+                drone.MyCurrentLocation = CustomerDisplay(parcel.TargetidCustomer.CustomerID).CustomerLocation;
                 dal.DeliveryParcelToCustomer(drone.DroneID);
             }
             else throw new WorngStatusException("The parcel couldnt be delivered");

@@ -16,7 +16,7 @@ namespace IBL.BO
         public DateTime FinishedRecharging { get; set; }
         public override string ToString()
         {
-            string str = "Drone ID:" + DroneID + "\nDrone Battery:" + Battery +"\nTime when the ddone finished carging"+ FinishedRecharging;
+            string str = "Drone ID:" + DroneID + "\nDrone Battery:" + Battery +"\nTime when the ddone finished carging"+ FinishedRecharging+"\n";
             return str;
         }
     }
