@@ -39,7 +39,7 @@ namespace DalObject
         {
             #region station
             string[] addresArr = { "Balfour street, Jerusalem", "4 David Remez Street, Jerusalem" };
-            // Initializing variables into 2 stations. 
+            // Initializing variables into 2 stations.
             for (int i = 0; i < 2; i++)
             {
                 Stations.Insert(i, new()

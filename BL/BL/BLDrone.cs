@@ -257,7 +257,7 @@ namespace BL
                 droneBO.MyParcel.ReceiverCustomer = new();
                 parcel.CopyPropertiesTo(droneBO.MyParcel);
 
-                if (parcel.PickUp == DateTime.MinValue)//is not already picked 
+                if (parcel.PickUp == DateTime.MinValue)//is not already picked
                     droneBO.MyParcel.Status = false;//waiting
                 else droneBO.MyParcel.Status = true;//on the way
 

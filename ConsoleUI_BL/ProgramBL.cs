@@ -12,7 +12,7 @@ namespace ConsoleUI_BL
     {
         static IBL.IBL bl = new BL.BL();
         /// <summary>
-        /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit 
+        /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit
         /// </summary>
         public enum options { Add = 1, Update, DisplayIndividual, DisplayList, FindTheDistance, Exit };
         /// <summary>
@@ -20,7 +20,7 @@ namespace ConsoleUI_BL
         /// </summary>
         public enum AddOptions { Drone = 1, Station, Parcel, Customer };
         /// <summary>
-        ///  What kind of update is needed 
+        ///  What kind of update is needed
         /// </summary>
         public enum UpdateOptions
         {
@@ -70,7 +70,7 @@ namespace ConsoleUI_BL
                                         int.TryParse(Console.ReadLine(), out int ID);
                                         newDrone.DroneID = ID;
                                         Console.WriteLine("Enter the drone model");
-                                        newDrone.Model=Console.ReadLine();
+                                        newDrone.Model = Console.ReadLine();
                                         Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
                                         newDrone.Weight = (@enum.WeightCategories)Console.Read();
                                         Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits)");
@@ -82,13 +82,13 @@ namespace ConsoleUI_BL
                                     case (int)AddOptions.Station:
                                         BaseStation newStation = new();
                                         Console.WriteLine("Enter the station ID (3 digits)");
-                                        int.TryParse(Console.ReadLine(), out  ID);
+                                        int.TryParse(Console.ReadLine(), out ID);
                                         newStation.StationID = ID;
                                         Console.WriteLine("Enter the station name");
                                         newStation.Name = Console.ReadLine();
                                         Console.WriteLine("Enter the location- longitude and latitude");
                                         double.TryParse(Console.ReadLine(), out double lon);
-                                        newStation.StationLocation.Longitude =lon;
+                                        newStation.StationLocation.Longitude = lon;
                                         double.TryParse(Console.ReadLine(), out double lat);
                                         newStation.StationLocation.Latitude = lat;
                                         Console.WriteLine("Enter the number of available slots");
@@ -164,7 +164,7 @@ namespace ConsoleUI_BL
                                             Console.WriteLine("if you want to change the number of slots in the station, enter the new number of slots");
                                             if (!int.TryParse(Console.ReadLine(), out int ansNum))
                                                 ansNum = 0;
-                                            bl.UpdateStation(ID, ansName, ansNum==0?ansNum:null);
+                                            bl.UpdateStation(ID, ansName, ansNum == 0 ? ansNum : null);
                                             break;
                                         }
 
@@ -343,7 +343,6 @@ namespace ConsoleUI_BL
         }
     }
 }
-
 
 
 

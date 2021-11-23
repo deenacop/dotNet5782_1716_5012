@@ -26,7 +26,7 @@ namespace IBL.BO
                 "\nNumber Of Parcel Received" + NumberOfParcelReceived +
                 "\nNumber Of Parcel OnThe Way To Customer" + NumberOfParcelOnTheWayToCustomer + "\n";
             return str;
-            
+
         }
     }
 }

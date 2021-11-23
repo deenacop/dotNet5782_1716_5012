@@ -172,7 +172,3 @@ namespace BL
         #endregion
     }
 }
-
-
-
-

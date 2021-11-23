@@ -87,7 +87,7 @@ namespace BL
 
 
         /// <summary>
-        /// Updates the station 
+        /// Updates the station
         /// </summary>
         /// <param name="ID">The ID of the wanted station</param>
         /// <param name="name">The name of the wanted station</param>
