@@ -78,6 +78,7 @@ namespace BL
                     else
                     {
                         currentDrone.MyCurrentLocation = locationOfSender;
+                        currentDrone.ParcelNumberTransfered = ParcelListDL[index].ParcelID;
                     }
 
                     //מצב סוללה:
@@ -133,6 +134,7 @@ namespace BL
                     if (currentDrone.DroneStatus == DroneStatus.Available)//if the drone is not in maintenance mode
                     {//פנוי
                         index = rand.Next(0, deliveredParcel.Capacity);//one of the staitions
+
                         IDAL.DO.Customer targetid = CustomerListDL.Find(item => item.CustomerID == deliveredParcel[index].Targetid);
                         Location location2 = new ()
                         {
