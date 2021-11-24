@@ -154,7 +154,7 @@ namespace DalObject
                                                                        //Putting a random date and time
                 newParcel.Requested = new DateTime(2021, rand.Next(1, 13), rand.Next(1, 29),
                     rand.Next(24), rand.Next(60), rand.Next(60));
-                int status = rand.Next(0,100);
+                int status = rand.Next(0,50);
                 int flag = -1;
                 if (status >= 10)
                 {
