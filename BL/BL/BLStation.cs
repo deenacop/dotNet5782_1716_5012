@@ -20,8 +20,8 @@ namespace BL
         {
             if (ChackingNumOfDigits(station.StationID) != 4)
                 throw new WrongIDException("Wrong ID");
-            if (station.StationLocation.Latitude < 31 || station.StationLocation.Latitude > 32
-                || station.StationLocation.Longitude < 35 || station.StationLocation.Longitude > 36)
+            if (station.StationLocation.Latitude <= 31 || station.StationLocation.Latitude >= 32
+                || station.StationLocation.Longitude <= 35 || station.StationLocation.Longitude >= 36)
                 throw new UnlogicalLocationException("the location is not logical");
             if (station.NumOfAvailableChargingSlots < 0)
                 throw new ArgumentOutOfRangeException("cant be negative");

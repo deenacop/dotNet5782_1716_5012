@@ -18,17 +18,20 @@ namespace BL
         /// <param name="customer">the wanted customer</param>
         public void AddCustomer(Customer customer)
         {
-            if (ChackingNumOfDigits(customer.CustomerID) != 9)
+            if (ChackingNumOfDigits(customer.CustomerID) != 9)//בדיקה
                 throw new WrongIDException("Worng ID");
             if (customer.CustomerLocation.Latitude < 31 || customer.CustomerLocation.Latitude > 32
-             || customer.CustomerLocation.Longitude < 35 || customer.CustomerLocation.Longitude > 36)
+             || customer.CustomerLocation.Longitude < 35 || customer.CustomerLocation.Longitude > 36)//בדיקה
                 throw new UnlogicalLocationException("The location is not logical");
             try
             {
-                IDAL.DO.Customer customerDO = new IDAL.DO.Customer();
+                IDAL.DO.Customer customerDO = new();
                 object obj = customerDO;
                 customer.CopyPropertiesTo(obj);
                 customerDO = (IDAL.DO.Customer)obj;
+                //needs to update by hand the location
+                customerDO.Longitude = customer.CustomerLocation.Longitude;
+                customerDO.Latitude = customer.CustomerLocation.Latitude;
                 dal.Add(customerDO);//calls the function from DALOBJECT
             }
             catch (Exception ex)
@@ -65,56 +68,53 @@ namespace BL
         public Customer CustomerDisplay(int ID)
         {
             IDAL.DO.Customer customerDO = new();
+            Customer customerBO = new();
             try
             {
                 customerDO = dal.CustomerDisplay(ID);
+                customerDO.CopyPropertiesTo(customerBO);
+                customerBO.CustomerLocation = new()
+                {
+                    Longitude = customerDO.Longitude,
+                    Latitude = customerDO.Latitude
+                };
             }
             catch (Exception ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
-            Customer customerBO = new();
-            customerDO.CopyPropertiesTo(customerBO);
-            customerBO.CustomerLocation = new()
-            {
-                Longitude = customerDO.Longitude,
-                Latitude = customerDO.Latitude
-            };
-            
 
             List<IDAL.DO.Parcel> SenderParcels = dal.ListParcelDisplay(i => i.Sender == ID).ToList();//the list of the parcels that the customer send
             List<IDAL.DO.Parcel> ReceiverParcels = dal.ListParcelDisplay(i => i.Targetid == ID).ToList();//the list of the parcels that the customer received
+            ParcelByCustomer sendParcel = new();
 
             foreach (IDAL.DO.Parcel currentParcel in SenderParcels)
             {
-                ParcelByCustomer parcel = new();
-                currentParcel.CopyPropertiesTo(parcel);
-                parcel.SecondSideOfParcelCustomer = new();
-                parcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Targetid;
-                parcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Targetid).Name;
+                currentParcel.CopyPropertiesTo(sendParcel);
+                sendParcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Targetid;//second side is targetid
+                sendParcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Targetid).Name;
                 if (currentParcel.Scheduled == DateTime.MinValue)//not schedule yet
-                    parcel.ParcelStatus = @enum.ParcelStatus.Defined;
+                    sendParcel.ParcelStatus = @enum.ParcelStatus.Defined;
                 else if (currentParcel.PickUp == DateTime.MinValue)//scheduled but has not been picked up
-                    parcel.ParcelStatus = @enum.ParcelStatus.Associated;
+                    sendParcel.ParcelStatus = @enum.ParcelStatus.Associated;
                 else if (currentParcel.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
-                    parcel.ParcelStatus = @enum.ParcelStatus.PickedUp;
-                else parcel.ParcelStatus = @enum.ParcelStatus.Delivered;
+                    sendParcel.ParcelStatus = @enum.ParcelStatus.PickedUp;
+                else sendParcel.ParcelStatus = @enum.ParcelStatus.Delivered;
                 //add the parcel to the list
                 customerBO.FromCustomer = new();
-                customerBO.FromCustomer.Add(parcel);
+                customerBO.FromCustomer.Add(sendParcel);
             }
+            ParcelByCustomer receiveParcel = new();
 
             foreach (IDAL.DO.Parcel currentParcel in ReceiverParcels)
             {
-                ParcelByCustomer parcel = new();
-                currentParcel.CopyPropertiesTo(parcel);
-                parcel.SecondSideOfParcelCustomer = new();
-                parcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Sender;
-                parcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Sender).Name;
-                parcel.ParcelStatus = @enum.ParcelStatus.Delivered;//the status id delivered cause its by the targetid..
+                currentParcel.CopyPropertiesTo(receiveParcel);
+                receiveParcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Sender;//second side is targetid
+                receiveParcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Sender).Name;
+                receiveParcel.ParcelStatus = @enum.ParcelStatus.Delivered;//the status id delivered cause its by the targetid..
                 //add the parcel to the list
                 customerBO.TOCustomer = new();
-                customerBO.TOCustomer.Add(parcel);
+                customerBO.TOCustomer.Add(receiveParcel);
             }
 
             return customerBO;

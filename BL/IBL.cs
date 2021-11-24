@@ -7,7 +7,7 @@ namespace IBL
     {
         void AddBaseStation(BaseStation station);
         void AddCustomer(Customer customer);
-        void AddDrone(Drone drone, int stationID);
+        void AddDrone(DroneToList drone, int stationID);
         void AddParcel(Parcel parcel);
         void AssignParcelToDrone(int ID);
         BaseStation BaseStationDisplay(int StationID);

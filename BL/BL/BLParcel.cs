@@ -15,21 +15,24 @@ namespace BL
         /// <param name="parcel">The wanted parcel</param>
         public void AddParcel(Parcel parcel)
         {
-            if (ChackingNumOfDigits(parcel.SenderCustomer.CustomerID) != 9)
+            if (ChackingNumOfDigits(parcel.SenderCustomer.CustomerID) != 9 || dal.ListCustomerDisplay(i=>i.CustomerID==parcel.SenderCustomer.CustomerID)==null )
                 throw new WrongIDException("Wrong ID");
-            if (ChackingNumOfDigits(parcel.TargetidCustomer.CustomerID) != 9)
+            if (ChackingNumOfDigits(parcel.TargetidCustomer.CustomerID) != 9||dal.ListCustomerDisplay(i => i.CustomerID == parcel.TargetidCustomer.CustomerID) == null)
                 throw new WrongIDException("Wrong ID");
             parcel.Requested = DateTime.Now;
             parcel.Scheduled = DateTime.MinValue;
             parcel.PickUp = DateTime.MinValue;
             parcel.Delivered = DateTime.MinValue;
-            parcel.MyDrone = null;
+            parcel.MyDrone = new();
             try
             {
                 IDAL.DO.Parcel tmpParcel = new();
                 object obj = tmpParcel;
                 parcel.CopyPropertiesTo(obj);
                 tmpParcel = (IDAL.DO.Parcel)obj;
+                tmpParcel.Sender = parcel.SenderCustomer.CustomerID;
+                tmpParcel.Targetid = parcel.TargetidCustomer.CustomerID;
+
                 dal.Add(tmpParcel);
             }
             catch (IDAL.DO.AlreadyExistedItemException ex)
@@ -55,6 +58,7 @@ namespace BL
                 parcelDO = dal.ParcelDisplay(ID);
                 parcelDO.CopyPropertiesTo(parcelBO);
                 parcelBO.SenderCustomer.CustomerID = dal.CustomerDisplay(parcelDO.Sender).CustomerID;
+                parcelBO.MyDrone = new();
                 parcelBO.SenderCustomer.Name = dal.CustomerDisplay(parcelDO.Sender).Name;
                 parcelBO.TargetidCustomer.CustomerID = dal.CustomerDisplay(parcelDO.Targetid).CustomerID;
                 parcelBO.TargetidCustomer.Name = dal.CustomerDisplay(parcelDO.Targetid).Name;
