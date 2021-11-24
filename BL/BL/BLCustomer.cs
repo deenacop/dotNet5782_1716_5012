@@ -91,6 +91,7 @@ namespace BL
             foreach (IDAL.DO.Parcel currentParcel in SenderParcels)
             {
                 currentParcel.CopyPropertiesTo(sendParcel);
+                sendParcel.SecondSideOfParcelCustomer = new();
                 sendParcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Targetid;//second side is targetid
                 sendParcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Targetid).Name;
                 if (currentParcel.Scheduled == DateTime.MinValue)//not schedule yet
@@ -109,6 +110,7 @@ namespace BL
             foreach (IDAL.DO.Parcel currentParcel in ReceiverParcels)
             {
                 currentParcel.CopyPropertiesTo(receiveParcel);
+                receiveParcel.SecondSideOfParcelCustomer = new();
                 receiveParcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Sender;//second side is targetid
                 receiveParcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Sender).Name;
                 receiveParcel.ParcelStatus =ParcelStatus.Delivered;//the status id delivered cause its by the targetid..
