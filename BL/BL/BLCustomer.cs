@@ -47,7 +47,7 @@ namespace BL
         /// <param name="ID">customer ID</param>
         /// <param name="name">customer name</param>
         /// <param name="phone">customer phone</param>
-        public void UpdateCustomer(int ID, string name = null, string phone = null)
+        public void UpdateCustomer(int ID, string name , string phone )
         {
             try
             {

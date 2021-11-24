@@ -21,10 +21,10 @@ namespace IBL.BO
         public override string ToString()
         {
             string str = "Customer ID:" + CustomerID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
-                PhoneNumber + "\nNumber Of Parcels Sent And Delivered" + NumberParcelSentAndDelivered +
-                "\nNumber Of Parcels Sent And NOT Delivered" + NumberParcelSentAndNOTDelivered +
-                "\nNumber Of Parcel Received" + NumberOfParcelReceived +
-                "\nNumber Of Parcel OnThe Way To Customer" + NumberOfParcelOnTheWayToCustomer + "\n";
+                PhoneNumber + "\nNumber Of Parcels Sent And Delivered " + NumberParcelSentAndDelivered +
+                "\nNumber Of Parcels Sent And NOT Delivered " + NumberParcelSentAndNOTDelivered +
+                "\nNumber Of Parcel Received " + NumberOfParcelReceived +
+                "\nNumber Of Parcel OnThe Way To Customer " + NumberOfParcelOnTheWayToCustomer + "\n";
             return str;
 
         }

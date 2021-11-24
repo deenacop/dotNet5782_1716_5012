@@ -75,9 +75,9 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
                                         int.TryParse(Console.ReadLine(), out int status);
                                         newDrone.Weight = (WeightCategories)status;
-                                        Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits) -from the list");
+                                        Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits) -from the list:");
                                         IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
-                                        foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
+                                        foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine("\t"+tmp.StationID+"\t"+tmp.Name); }
                                         int chosenStation;
                                         int.TryParse(Console.ReadLine(), out chosenStation);
                                         bl.AddDrone(newDrone, chosenStation);
@@ -87,7 +87,7 @@ namespace ConsoleUI_BL
                                         BaseStation newStation = new();
                                         newStation.DronesInCharging = new();
                                         newStation.StationLocation = new();
-                                        Console.WriteLine("Enter the station ID (3 digits)");
+                                        Console.WriteLine("Enter the station ID (4 digits)");
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newStation.StationID = ID;
                                         Console.WriteLine("Enter the station name");
@@ -110,12 +110,12 @@ namespace ConsoleUI_BL
                                         newParcel.TargetidCustomer = new();
                                         Console.WriteLine("Enter the parcel sender ID (9 digits) from the customer list");
                                         IEnumerable<CustomerToList> ListOfCustomer = bl.ListCustomerDisplay();
-                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine(tmp.Name + "\t" + tmp.CustomerID) ; }
+                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t"+tmp.Name + "\t" + tmp.CustomerID) ; }
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newParcel.SenderCustomer.CustomerID =ID;
                                         Console.WriteLine("Enter the parcel targetid ID (9 digits)from the customer list");
                                         
-                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine(tmp.Name + "\t" + tmp.CustomerID); }
+                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.CustomerID); }
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newParcel.TargetidCustomer.CustomerID = ID;
                                         Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
@@ -132,7 +132,7 @@ namespace ConsoleUI_BL
                                         newCustomer.CustomerLocation = new();
                                         newCustomer.FromCustomer = new();
                                         newCustomer.TOCustomer = new();
-                                        Console.WriteLine("Enter the customer ID (3 digits)");
+                                        Console.WriteLine("Enter the customer ID (9 digits)");
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newCustomer.CustomerID = ID;
                                         Console.WriteLine("Enter the customer name");
@@ -174,30 +174,30 @@ namespace ConsoleUI_BL
 
                                     case (int)UpdateOptions.UpdateBaseStationDetails:
                                         {
-                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            Console.WriteLine("Enter The station ID (4 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            Console.WriteLine("if you want to change the name, enter the new name");
+                                            Console.WriteLine("if you want to change the name, enter the new name else continue");
                                             string ansName = Console.ReadLine();
-                                            if (ansName == "\n")
+                                            if (ansName == "")
                                                 ansName = null;
-                                            Console.WriteLine("if you want to change the number of slots in the station, enter the new number of slots");
+                                            Console.WriteLine("if you want to change the number of slots in the station, enter the new number of slots else continue");
                                             if (!int.TryParse(Console.ReadLine(), out int ansNum))
                                                 ansNum = 0;
-                                            bl.UpdateStation(ID, ansName, ansNum == 0 ? ansNum : null);
+                                            bl.UpdateStation(ID, ansName, ansNum );
                                             break;
                                         }
 
                                     case (int)UpdateOptions.UpdateCustomerDetails:
                                         {
-                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            Console.WriteLine("Enter The customer ID (9 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            Console.WriteLine("if you want to change the name, enter the new name");
+                                            Console.WriteLine("if you want to change the name, enter the new name else continue");
                                             string ansName = Console.ReadLine();
-                                            if (ansName == "\n")
+                                            if (ansName == "")
                                                 ansName = null;
-                                            Console.WriteLine("if you want to change the phone number of the customer, enter the new phone number");
+                                            Console.WriteLine("if you want to change the phone number of the customer, enter the new phone number else continue");
                                             string ansPhone = Console.ReadLine();
-                                            if (ansPhone == "\n")
+                                            if (ansPhone == "")
                                                 ansName = null;
                                             bl.UpdateCustomer(ID, ansName, ansPhone);
                                             break;
