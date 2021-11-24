@@ -156,7 +156,7 @@ namespace ConsoleUI_BL
                             {
                                 Console.WriteLine("To update the drone model, type 1.\nTo update the base station details, type 2.\n" +
                                     "To update the customer details, type 3.\nTo send a drone to charge, type 4.\n" +
-                                    "To release a drone frome the charging, type 5.\nTo assign parcel to drone, type6.\n" +
+                                    "To release a drone frome the charging, type 5.\nTo assign parcel to drone, type 6.\n" +
                                     "To collect a parcel by a drone, type 7.\nTo deliver parcel by a drone, type 8.");
                                 int.TryParse(Console.ReadLine(), out userAnswer);
                                 switch (userAnswer)
