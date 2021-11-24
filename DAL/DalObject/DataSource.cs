@@ -121,7 +121,6 @@ namespace DalObject
             #endregion
 
             #region parcel
-            DateTime time = DateTime.MinValue;
             for (int index = 0; index < 10; index++)//Updating 10 parcels
             {
                 Parcel newParcel = new();

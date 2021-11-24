@@ -12,7 +12,7 @@ namespace BL
 
         static internal readonly Random rand = new(DateTime.Now.Millisecond);
 
-        List<DroneToList> DroneListBL;
+        readonly List<DroneToList>  DroneListBL;
         readonly double vacant,
              carriesLightWeight,
             carriesMediumWeight,

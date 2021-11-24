@@ -35,7 +35,7 @@ namespace BL
         /// <param name="BaseStationListBL">list of stationBL</param>
         /// <param name="location">current location</param>
         /// <returns>location/distance/StationID</returns>
-        private (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
+        private static (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
         {
             List<double> locations = new ();
             foreach (BaseStation currentStation in BaseStationListBL)

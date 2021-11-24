@@ -75,15 +75,12 @@ namespace BL
             catch (Exception ex)
             {
                 throw new ItemNotExistException(ex.Message);
-            }
-            Parcel tmp = new();
-
+            }           
             List<ParcelToList> listParcelToList = new();
-            List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
             {
                 ParcelToList tmpParcelBO = new();
-                tmp = ParcelDisplay(currentParcel.ParcelID);
+                Parcel tmp = ParcelDisplay(currentParcel.ParcelID);
                 tmp.CopyPropertiesTo(tmpParcelBO);
                 tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name;
                 tmpParcelBO.NameOfTargetaed = tmp.TargetidCustomer.Name;
