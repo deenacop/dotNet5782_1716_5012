@@ -14,11 +14,12 @@ namespace BL
         public void AddDrone(DroneToList drone, int stationID)
         {
             if (ChackingNumOfDigits(drone.DroneID) != 3)
-                throw new WrongIDException("worng ID");
-            IDAL.DO.Station wantedStation = new();
+                throw new WrongIDException("wrorng ID");
+            if (drone.Weight < WeightCategories.Light || drone.Weight > WeightCategories.Heavy)
+                throw new WrongeInputException("Wronge input");
             try
             {
-                wantedStation = dal.StationDisplay(stationID);
+                IDAL.DO.Station wantedStation = dal.StationDisplay(stationID);
                 drone.MyCurrentLocation = new() { Longitude = wantedStation.Longitude, Latitude = wantedStation.Latitude };
                 drone.Battery = rand.Next(20, 41);
                 drone.DroneStatus = DroneStatus.Maintenance;

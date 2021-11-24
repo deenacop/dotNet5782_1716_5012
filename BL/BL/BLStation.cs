@@ -41,41 +41,39 @@ namespace BL
 
         public BaseStation BaseStationDisplay(int StationID)
         {
-            IDAL.DO.Station station = new();
             try
             {
-                station = dal.StationDisplay(StationID);
+                IDAL.DO.Station station = dal.StationDisplay(StationID);
+                BaseStation baseStation = new();
+                station.CopyPropertiesTo(baseStation);//we got the station details from DAL
+
+                baseStation.StationLocation = new()
+                {
+                    Longitude = station.Longitude,
+                    Latitude = station.Latitude
+                };
+                List<DroneInCharging> DroneChargingBL = new();
+                List<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.ListOfDroneCharge().ToList();//Receive the drone list from the data layer.
+                DroneChargeingListDL.CopyPropertiesToIEnumerable(DroneChargingBL);//convret from IDAT to IBL
+
+                foreach (DroneInCharging currentDronCharge in DroneChargingBL)//running on all the drone charge of BL
+                {
+                    foreach (DroneToList currentDrone in DroneListBL)//running on all the drones
+                    {
+                        if (currentDronCharge.DroneID == currentDrone.DroneID && currentDronCharge.FinishedRecharging == DateTime.MinValue)
+                        {
+                            currentDronCharge.Battery = currentDrone.Battery;
+                            break;
+                        }
+                    }
+                }
+                baseStation.DronesInCharging = DroneChargingBL;
+                return baseStation;
             }
             catch (Exception ex)
             {
                 throw new ItemNotExistException(ex.Message);
-            }
-            BaseStation baseStation = new();
-            station.CopyPropertiesTo(baseStation);//we got the station details from DAL
-
-            baseStation.StationLocation = new()
-            {
-                Longitude = station.Longitude,
-                Latitude = station.Latitude
-            };
-
-            List<DroneInCharging> DroneChargingBL = new();
-            List<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.ListOfDroneCharge().ToList();//Receive the drone list from the data layer.
-            DroneChargeingListDL.CopyPropertiesToIEnumerable(DroneChargingBL);//convret from IDAT to IBL
-
-            foreach (DroneInCharging currentDronCharge in DroneChargingBL)//running on all the drone charge of BL
-            {
-                foreach (DroneToList currentDrone in DroneListBL)//running on all the drones
-                {
-                    if (currentDronCharge.DroneID == currentDrone.DroneID && currentDronCharge.FinishedRecharging == DateTime.MinValue)
-                    {
-                        currentDronCharge.Battery = currentDrone.Battery;
-                        break;
-                    }
-                }
-            }
-            baseStation.DronesInCharging = DroneChargingBL;
-            return baseStation;
+            }         
         }
 
 

@@ -35,7 +35,7 @@ namespace IDAL
         {
             foreach (S s in from)
             {
-                T t = new T();
+                T t = new();
                 s.CopyPropertiesTo(t);
                 to.Add(t);
             }
