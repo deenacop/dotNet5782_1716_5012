@@ -7,17 +7,11 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
-       
-
-        /// <summary>
-        /// Adds a parcel to the list of parcels in the IDAL
-        /// </summary>
-        /// <param name="parcel">The wanted parcel</param>
         public void AddParcel(Parcel parcel)
         {
-            if (ChackingNumOfDigits(parcel.SenderCustomer.CustomerID) != 9 || dal.ListCustomerDisplay(i=>i.CustomerID==parcel.SenderCustomer.CustomerID)==null )
+            if (ChackingNumOfDigits(parcel.SenderCustomer.CustomerID) != 9 || dal.ListCustomerDisplay(i => i.CustomerID == parcel.SenderCustomer.CustomerID) == null)
                 throw new WrongIDException("Wrong ID");
-            if (ChackingNumOfDigits(parcel.TargetidCustomer.CustomerID) != 9||dal.ListCustomerDisplay(i => i.CustomerID == parcel.TargetidCustomer.CustomerID) == null)
+            if (ChackingNumOfDigits(parcel.TargetidCustomer.CustomerID) != 9 || dal.ListCustomerDisplay(i => i.CustomerID == parcel.TargetidCustomer.CustomerID) == null)
                 throw new WrongIDException("Wrong ID");
             parcel.Requested = DateTime.Now;
             parcel.Scheduled = DateTime.MinValue;
@@ -35,18 +29,12 @@ namespace BL
 
                 dal.Add(tmpParcel);
             }
-            catch (IDAL.DO.AlreadyExistedItemException ex)
+            catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new AlreadyExistedItemException(ex.Message);
             }
         }
 
-
-        /// <summary>
-        /// Display parcel
-        /// </summary>
-        /// <param name="ID">The ID of the wanted parcel</param>
-        /// <returns>The wanted parcel</returns>
         public Parcel ParcelDisplay(int ID)
         {
             IDAL.DO.Parcel parcelDO = new();
@@ -77,11 +65,6 @@ namespace BL
             return parcelBO;
         }
 
-
-        /// <summary>
-        /// Displays the list of parcels
-        /// </summary>
-        /// <returns>The list of parceld</returns>
         public IEnumerable<ParcelToList> ListParcelDisplay()
         {
             List<IDAL.DO.Parcel> parcelsDO = new();
@@ -94,7 +77,7 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
             Parcel tmp = new();
-            
+
             List<ParcelToList> listParcelToList = new();
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
@@ -102,7 +85,7 @@ namespace BL
                 ParcelToList tmpParcelBO = new();
                 tmp = ParcelDisplay(currentParcel.ParcelID);
                 tmp.CopyPropertiesTo(tmpParcelBO);
-                tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name; 
+                tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name;
                 tmpParcelBO.NameOfTargetaed = tmp.TargetidCustomer.Name;
                 if (tmp.Scheduled == DateTime.MinValue)//not schedule yet
                     tmpParcelBO.ParcelStatus = ParcelStatus.Defined;
@@ -116,11 +99,6 @@ namespace BL
             return listParcelToList;
         }
 
-
-        /// <summary>
-        /// Displays the list of unassigned parcels
-        /// </summary>
-        /// <returns>The list of unassigned parceld</returns>
         public IEnumerable<ParcelToList> ListOfUnassignedParcelDisplay()
         {
             List<IDAL.DO.Parcel> parcelsDO = new();
@@ -133,7 +111,7 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
             Parcel tmp = new();
-            
+
             List<ParcelToList> listParcelToList = new();
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)

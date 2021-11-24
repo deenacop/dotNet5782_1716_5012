@@ -50,7 +50,7 @@ namespace BL
         /// checks if the ID of the item has the right amount of digits
         /// </summary>
         /// <param name="num">ID item</param>
-        /// <returns>amount of digits in the ID</returns>
+        /// <returns>amount of digits in the ID</returns>       
         internal static int ChackingNumOfDigits(int num)
         {
             return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1);

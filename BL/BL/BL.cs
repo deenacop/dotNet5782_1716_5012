@@ -97,16 +97,16 @@ namespace BL
                     switch ((int)currentDrone.Weight)
                     {
                         case (int)WeightCategories.Light:
-                            minBatteryDrone = (int)distanceToTargeted * (int)carriesLightWeight;
+                            minBatteryDrone = (int)(distanceToTargeted * carriesLightWeight);
                             break;
                         case (int)WeightCategories.Midium:
-                            minBatteryDrone = (int)distanceToTargeted * (int)carriesMediumWeight;
+                            minBatteryDrone = (int)(distanceToTargeted * carriesMediumWeight);
                             break;
                         case (int)WeightCategories.Heavy:
-                            minBatteryDrone = (int)distanceToTargeted * (int)carriesHeavyWeight;
+                            minBatteryDrone = (int)(distanceToTargeted * carriesHeavyWeight);
                             break;
                     }
-                    minBatteryDrone += (int)minDistance * (int)vacant;//minimum battery the drone needs
+                    minBatteryDrone += (int)(minDistance * vacant);//minimum battery the drone needs
                     currentDrone.Battery = rand.Next(minBatteryDrone, 101);
                 }
                 //אם הרחפן לא מבצע משלוח:
@@ -150,13 +150,13 @@ namespace BL
                         switch (weight)
                         {
                             case (int)WeightCategories.Light:
-                                minBatteryDrone = (int)minDistance * (int)carriesLightWeight;
+                                minBatteryDrone = (int)(minDistance * carriesLightWeight);
                                 break;
                             case (int)WeightCategories.Midium:
-                                minBatteryDrone = (int)minDistance * (int)carriesMediumWeight;
+                                minBatteryDrone = (int)(minDistance * carriesMediumWeight);
                                 break;
                             case (int)WeightCategories.Heavy:
-                                minBatteryDrone = (int)minDistance * (int)carriesHeavyWeight;
+                                minBatteryDrone = (int)(minDistance * carriesHeavyWeight);
                                 break;
                         }
                         if (minBatteryDrone == 0)

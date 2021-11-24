@@ -76,4 +76,15 @@ namespace IBL.BO
             return Message;
         }
     }
+    [Serializable]
+    public class NegetiveException : Exception
+    {
+        public NegetiveException() : base() { }
+        public NegetiveException(string message) : base(message) { }
+        public NegetiveException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
+        {
+            return Message;
+        }
+    }
 }

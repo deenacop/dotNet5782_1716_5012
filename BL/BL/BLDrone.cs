@@ -11,11 +11,6 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
-        /// <summary>
-        /// Adds a drone to the list of drones in the IDAL
-        /// </summary>
-        /// <param name="drone">The new drone that we asked to add</param>
-        /// <param name="stationID">A station ID for a initial charge</param>
         public void AddDrone(DroneToList drone, int stationID)
         {
             if (ChackingNumOfDigits(drone.DroneID) != 3)
@@ -44,11 +39,6 @@ namespace BL
             }
         }
 
-        /// <summary>
-        /// Update the drone model
-        /// </summary>
-        /// <param name="ID">drone ID</param>
-        /// <param name="model">new midel</param>
         public void UpdateDroneModel(int ID, string model)
         {
             try
@@ -61,11 +51,6 @@ namespace BL
             }
         }
 
-
-        /// <summary>
-        /// The function send a specific drone to the closest available station
-        /// </summary>
-        /// <param name="ID">drone ID</param>
         public void SendDroneToCharge(int ID)
         {
             int index = DroneListBL.FindIndex(item => item.DroneID == ID);//finds the drone with the wanted ID
@@ -104,12 +89,6 @@ namespace BL
             DroneListBL[index] = tmp;
         }
 
-
-        /// <summary>
-        /// This function is relaesing a drone
-        /// </summary>
-        /// <param name="ID">drone ID</param>
-        /// <param name="minuteInCharge">the amount of time(by minute) that the drone was in charge</param>
         public void ReleasingDroneFromBaseStation(int ID, int minuteInCharge)
         {
             int index = DroneListBL.FindIndex(item => item.DroneID == ID);
@@ -146,11 +125,6 @@ namespace BL
             DroneListBL[index] = tmp;
         }
 
-
-        /// <summary>
-        /// Assings a drone to a parcel
-        /// </summary>
-        /// <param name="ID">The drone to assign</param>
         public void AssignParcelToDrone(int ID)
         {
             int index = DroneListBL.FindIndex(i=>i.DroneID==ID);
@@ -175,10 +149,6 @@ namespace BL
 
         }
 
-        /// <summary>
-        /// Update a drone to collect a parcel
-        /// </summary>
-        /// <param name="ID">drone ID</param>
         public void CollectionOfParcelByDrone(int ID)
         {
             int index = DroneListBL.FindIndex(i => i.DroneID == ID);
@@ -194,11 +164,6 @@ namespace BL
             dal.CollectionOfParcelByDrone(parcel.ParcelID, drone.DroneID);
         }
 
-
-        /// <summary>
-        /// Delivers a parcel to the receiver
-        /// </summary>
-        /// <param name="ID">drone ID</param>
         public void DeliveryParcelByDrone(int ID)
         {
             int index = DroneListBL.FindIndex(i => i.DroneID == ID);
@@ -225,11 +190,6 @@ namespace BL
             else throw new WorngStatusException("The parcel couldnt be delivered");
         }
 
-        /// <summary>
-        /// Display one BL drone
-        /// </summary>
-        /// <param name="droneID">drone ID</param>
-        /// <returns>The wanted drone</returns>
         public Drone DisplayDrone(int droneID)
         {
             Drone droneBO = new();
@@ -275,11 +235,6 @@ namespace BL
             return droneBO;
         }
 
-
-        /// <summary>
-        /// Displays the list of drones
-        /// </summary>
-        /// <returns>The list of drones</returns>
         public IEnumerable<DroneToList> ListDroneDisplay()
         {
             return DroneListBL;
