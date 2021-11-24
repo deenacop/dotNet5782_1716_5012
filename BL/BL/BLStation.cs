@@ -12,10 +12,6 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
-        /// <summary>
-        /// Adds a station to the list of stations in the IDAL
-        /// </summary>
-        /// <param name="station">The wanted station</param>
         public void AddBaseStation(BaseStation station)
         {
             if (ChackingNumOfDigits(station.StationID) != 4)
@@ -24,7 +20,7 @@ namespace BL
                 || station.StationLocation.Longitude <= 35 || station.StationLocation.Longitude >= 36)
                 throw new UnlogicalLocationException("the location is not logical");
             if (station.NumOfAvailableChargingSlots < 0)
-                throw new ArgumentOutOfRangeException("Cant be negative");
+                throw new NegetiveException("Cant be negative");
             station.DronesInCharging.Clear();
             try
             {
@@ -43,11 +39,6 @@ namespace BL
         }
 
 
-        /// <summary>
-        /// Display the base station
-        /// </summary>
-        /// <param name="StationID">The ID of the wanted station</param>
-        /// <returns>Returns the wanted base station</returns>
         public BaseStation BaseStationDisplay(int StationID)
         {
             IDAL.DO.Station station = new();
@@ -88,12 +79,6 @@ namespace BL
         }
 
 
-        /// <summary>
-        /// Updates the station
-        /// </summary>
-        /// <param name="ID">The ID of the wanted station</param>
-        /// <param name="name">The name of the wanted station</param>
-        /// <param name="numOfSlots">The numOfSlots of the wanted station</param>
         public void UpdateStation(int ID, string name , int numOfSlots )
         {
             try
@@ -106,10 +91,6 @@ namespace BL
             }
         }
 
-        /// <summary>
-        /// Displays the list of BL base station
-        /// </summary>
-        /// <returns>The list of BL base ststion</returns>
         public IEnumerable<BaseStationToList> ListBaseStationlDisplay()
         {
             List<IDAL.DO.Station> stations = dal.ListStationDisplay().ToList();
@@ -134,10 +115,6 @@ namespace BL
         }
 
 
-        /// <summary>
-        /// Displays the list of BL base station with available slots
-        /// </summary>
-        /// <returns>The list of BL base ststion with available slots</returns>
         public IEnumerable<BaseStationToList> ListOfAvailableSlotsBaseStationlDisplay()
         {
             List<IDAL.DO.Station> stations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();

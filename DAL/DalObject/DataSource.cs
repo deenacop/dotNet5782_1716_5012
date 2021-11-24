@@ -121,7 +121,6 @@ namespace DalObject
             #endregion
 
             #region parcel
-            DateTime time = DateTime.MinValue;
             //Initializing variables into 10 parcels.
             //for (int i = 0; i < 10; i++)
             //{

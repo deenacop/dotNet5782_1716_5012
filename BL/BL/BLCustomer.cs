@@ -12,10 +12,6 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
-        /// <summary>
-        /// Adds a customer to the list of customers in the IDAL
-        /// </summary>
-        /// <param name="customer">the wanted customer</param>
         public void AddCustomer(Customer customer)
         {
             if (ChackingNumOfDigits(customer.CustomerID) != 9)//בדיקה
@@ -40,13 +36,6 @@ namespace BL
             }
         }
 
-
-        /// <summary>
-        /// The function updates the customer name or phone number, by the users request
-        /// </summary>
-        /// <param name="ID">customer ID</param>
-        /// <param name="name">customer name</param>
-        /// <param name="phone">customer phone</param>
         public void UpdateCustomer(int ID, string name , string phone )
         {
             try
@@ -59,12 +48,6 @@ namespace BL
             }
         }
 
-
-        /// <summary>
-        /// Display one customer
-        /// </summary>
-        /// <param name="ID">customer ID</param>
-        /// <returns>The wanted customer</returns>
         public Customer CustomerDisplay(int ID)
         {
             IDAL.DO.Customer customerDO = new();
@@ -122,11 +105,6 @@ namespace BL
             return customerBO;
         }
 
-
-        /// <summary>
-        /// Displays the list of the customerToList
-        /// </summary>
-        /// <returns>The list of the customer</returns>
         public IEnumerable<CustomerToList> ListCustomerDisplay()
         {
             List<IDAL.DO.Customer> customerDO = new();

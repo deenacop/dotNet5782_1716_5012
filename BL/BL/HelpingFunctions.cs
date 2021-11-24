@@ -50,7 +50,7 @@ namespace BL
         /// checks if the ID of the item has the right amount of digits
         /// </summary>
         /// <param name="num">ID item</param>
-        /// <returns>amount of digits in the ID</returns>
+        /// <returns>amount of digits in the ID</returns>       
         internal static int ChackingNumOfDigits(int num)
         {
             return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1);
@@ -60,7 +60,7 @@ namespace BL
         /// </summary>
         /// <param name="parcel">The parcel that needs to be picked up</param>
         /// <param name="drone">The drone that needs to do the delivary</param>
-        /// <returns>true or false</returns>
+        /// <returns>true or false</returns>        
         static bool legalParcel(IDAL.DO.Parcel parcel, Drone drone)
         {
             if ((int)drone.Weight < (int)parcel.Weight)//not legal parcel for this drone
@@ -83,13 +83,13 @@ namespace BL
             switch ((int)parcel.Weight)//calculate from the sender to the targetid
             {
                 case (int)WeightCategories.Light:
-                    minBattery += (int)distance * (int)carriesLightWeight;
+                    minBattery += (int)(distance * carriesLightWeight);
                     break;
                 case (int)WeightCategories.Midium:
-                    minBattery += (int)distance * (int)carriesMediumWeight;
+                    minBattery += (int)(distance * carriesMediumWeight);
                     break;
                 case (int)WeightCategories.Heavy:
-                    minBattery += (int)distance * (int)carriesHeavyWeight;
+                    minBattery += (int)(distance * carriesHeavyWeight);
                     break;
             }
             List<BaseStation> BaseStationListBL = null;
