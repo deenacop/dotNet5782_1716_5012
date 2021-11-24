@@ -65,15 +65,19 @@ namespace ConsoleUI_BL
                                 switch (userAnswer)
                                 {
                                     case (int)AddOptions.Drone:
-                                        Drone newDrone = new();
+                                        DroneToList newDrone = new();
+                                        newDrone.MyCurrentLocation = new();
                                         Console.WriteLine("Enter the drone ID (3 digits)");
                                         int.TryParse(Console.ReadLine(), out int ID);
                                         newDrone.DroneID = ID;
                                         Console.WriteLine("Enter the drone model");
                                         newDrone.Model = Console.ReadLine();
                                         Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
-                                        newDrone.Weight = (WeightCategories)Console.Read();
-                                        Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits)");
+                                        int.TryParse(Console.ReadLine(), out int status);
+                                        newDrone.Weight = (@enum.WeightCategories)status;
+                                        Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits) -from the list");
+                                        IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
+                                        foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
                                         int chosenStation;
                                         int.TryParse(Console.ReadLine(), out chosenStation);
                                         bl.AddDrone(newDrone, chosenStation);
@@ -81,14 +85,17 @@ namespace ConsoleUI_BL
 
                                     case (int)AddOptions.Station:
                                         BaseStation newStation = new();
+                                        newStation.DronesInCharging = new();
+                                        newStation.StationLocation = new();
                                         Console.WriteLine("Enter the station ID (3 digits)");
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newStation.StationID = ID;
                                         Console.WriteLine("Enter the station name");
                                         newStation.Name = Console.ReadLine();
-                                        Console.WriteLine("Enter the location- longitude and latitude");
+                                        Console.WriteLine("Enter the location- longitude (range is (35,36)");
                                         double.TryParse(Console.ReadLine(), out double lon);
                                         newStation.StationLocation.Longitude = lon;
+                                        Console.WriteLine("Enter the location- latitude(range is (31,32))");
                                         double.TryParse(Console.ReadLine(), out double lat);
                                         newStation.StationLocation.Latitude = lat;
                                         Console.WriteLine("Enter the number of available slots");
@@ -99,21 +106,32 @@ namespace ConsoleUI_BL
 
                                     case (int)AddOptions.Parcel:
                                         Parcel newParcel = new();
-                                        Console.WriteLine("Enter the parcel sender ID (9 digits)");
+                                        newParcel.SenderCustomer = new();
+                                        newParcel.TargetidCustomer = new();
+                                        Console.WriteLine("Enter the parcel sender ID (9 digits) from the customer list");
+                                        IEnumerable<CustomerToList> ListOfCustomer = bl.ListCustomerDisplay();
+                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine(tmp.Name + "\t" + tmp.CustomerID) ; }
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newParcel.SenderCustomer.CustomerID =ID;
-                                        Console.WriteLine("Enter the parcel targetid ID (9 digits)");
+                                        Console.WriteLine("Enter the parcel targetid ID (9 digits)from the customer list");
+                                        
+                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine(tmp.Name + "\t" + tmp.CustomerID); }
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newParcel.TargetidCustomer.CustomerID = ID;
                                         Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
-                                        newParcel.Weight = (WeightCategories)Console.Read();
+                                        int.TryParse(Console.ReadLine(), out  status);
+                                        newParcel.Weight = (@enum.WeightCategories)status;
                                         Console.WriteLine("Enter the parcel priority");
-                                        newParcel.Priority = (Priorities)Console.Read();
+                                        int.TryParse(Console.ReadLine(), out status);
+                                        newParcel.Priority = (@enum.Priorities)status;
                                         bl.AddParcel(newParcel);
                                         break;
 
                                     case (int)AddOptions.Customer:
                                         Customer newCustomer = new();
+                                        newCustomer.CustomerLocation = new();
+                                        newCustomer.FromCustomer = new();
+                                        newCustomer.TOCustomer = new();
                                         Console.WriteLine("Enter the customer ID (3 digits)");
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newCustomer.CustomerID = ID;
@@ -121,12 +139,13 @@ namespace ConsoleUI_BL
                                         newCustomer.Name = Console.ReadLine();
                                         Console.WriteLine("Enter the customer phone number");
                                         newCustomer.PhoneNumber = Console.ReadLine();
-                                        Console.WriteLine("Enter the location- longitude and latitude");
-                                        double.TryParse(Console.ReadLine(), out lon);
+                                        Console.WriteLine("Enter the location- longitude (range is (35,36)");
+                                        double.TryParse(Console.ReadLine(), out  lon);
                                         newCustomer.CustomerLocation.Longitude = lon;
-                                        double.TryParse(Console.ReadLine(), out lat);
+                                        Console.WriteLine("Enter the location- latitude range is (31,32)");
+                                        double.TryParse(Console.ReadLine(), out  lat);
                                         newCustomer.CustomerLocation.Latitude = lat;
-                                        newCustomer.CustomerLocation.Latitude = Console.Read();
+                                        
                                         bl.AddCustomer(newCustomer);
                                         break;
                                 }

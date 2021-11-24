@@ -16,7 +16,7 @@ namespace BL
         /// </summary>
         /// <param name="drone">The new drone that we asked to add</param>
         /// <param name="stationID">A station ID for a initial charge</param>
-        public void AddDrone(Drone drone, int stationID)
+        public void AddDrone(DroneToList drone, int stationID)
         {
             if (ChackingNumOfDigits(drone.DroneID) != 3)
                 throw new WrongIDException("worng ID");
@@ -24,8 +24,7 @@ namespace BL
             try
             {
                 wantedStation = dal.StationDisplay(stationID);
-                drone.MyCurrentLocation.Longitude = wantedStation.Longitude;
-                drone.MyCurrentLocation.Latitude = wantedStation.Latitude;
+                drone.MyCurrentLocation=new() { Longitude = wantedStation.Longitude, Latitude = wantedStation.Latitude };
                 drone.Battery = rand.Next(20, 41);
                 drone.DroneStatus = DroneStatus.Maintenance;
                 IDAL.DO.Drone droneDO = new();
@@ -33,6 +32,7 @@ namespace BL
                 drone.CopyPropertiesTo(obj);
                 droneDO = (IDAL.DO.Drone)obj;
                 dal.Add(droneDO);//calls the function from DALOBJECT
+                DroneListBL.Add(drone);
             }
             catch (ItemNotExistException ex)
             {
