@@ -32,6 +32,8 @@ namespace BL
                 object obj = tmpStation;
                 station.CopyPropertiesTo(obj);
                 tmpStation = (IDAL.DO.Station)obj;
+                tmpStation.Longitude = station.StationLocation.Longitude;
+                tmpStation.Latitude = station.StationLocation.Latitude;
                 dal.Add(tmpStation);
             }
             catch (Exception ex)
@@ -92,7 +94,7 @@ namespace BL
         /// <param name="ID">The ID of the wanted station</param>
         /// <param name="name">The name of the wanted station</param>
         /// <param name="numOfSlots">The numOfSlots of the wanted station</param>
-        public void UpdateStation(int ID, string name = null, int? numOfSlots = null)
+        public void UpdateStation(int ID, string name , int numOfSlots )
         {
             try
             {

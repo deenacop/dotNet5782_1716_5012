@@ -201,7 +201,7 @@ namespace DalObject
         /// <param name="ID">station ID</param>
         /// <param name="name">new station name</param>
         /// <param name="numOfSlots">new number of slots</param>
-        public void UpdateStation(int ID, string name = null, int? numOfSlots = null)
+        public void UpdateStation(int ID, string name, int numOfSlots)
         {
             int index = DataSource.Stations.FindIndex(item => item.StationID == ID);
             if (index < 0)
@@ -212,7 +212,7 @@ namespace DalObject
                 tmp.Name = name;
                 DataSource.Stations[index] = tmp;
             }
-            if (numOfSlots != null)
+            if (numOfSlots != 0)
             {
                 int numOfFullSlots = DataSource.DroneCharges.FindAll(item => item.BaseStationID == ID).Count;//does it work??
                 tmp.NumOfAvailableChargingSlots = (int)(numOfSlots - numOfFullSlots);
@@ -225,7 +225,7 @@ namespace DalObject
         /// <param name="ID">customer ID</param>
         /// <param name="name">new customer name</param>
         /// <param name="phone">new customer phone number</param>
-        public void UpdateCustomer(int ID, string name = null, string phone = null)
+        public void UpdateCustomer(int ID, string name, string phone )
         {
             int index = DataSource.Customers.FindIndex(item => item.CustomerID == ID);
             if (index < 0)
@@ -300,7 +300,7 @@ namespace DalObject
         public Parcel ParcelDisplay(int ParcelID)
         {
             if (!DataSource.Parcels.Exists(item => item.ParcelID == ParcelID))
-                throw new ItemNotExistException("The drone does not exists");
+                throw new ItemNotExistException("The parcel does not exists");
             return DataSource.Parcels.Find(item => item.ParcelID == ParcelID);
         }
         #endregion

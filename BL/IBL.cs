@@ -25,7 +25,7 @@ namespace IBL
         void SendDroneToCharge(int ID);
         void UpdateCustomer(int ID, string name = null, string phone = null);
         void UpdateDroneModel(int ID, string model);
-        void UpdateStation(int ID, string name = null, int? numOfSlots = null);
+        void UpdateStation(int ID, string name, int numOfSlots );
         void DeliveryParcelByDrone(int ID);
     }
 }
