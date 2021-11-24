@@ -302,6 +302,7 @@ namespace ConsoleUI_BL
                                         }
                                         break;
 
+
                                     case (int)DisplayListOptions.DisplyStationList:
                                         {
                                             IEnumerable<BaseStationToList> ListOfStation =  bl.ListBaseStationlDisplay();
