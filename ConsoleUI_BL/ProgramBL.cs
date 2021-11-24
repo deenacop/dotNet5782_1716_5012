@@ -55,300 +55,300 @@ namespace ConsoleUI_BL
                  "\nTo view a list, type 4." +
                  "\nTo exit, type 5.");
                     int.TryParse(Console.ReadLine(), out userAnswer);
-                        switch (userAnswer)
-                        {
-                            case (int)Options.Add:
+                    switch (userAnswer)
+                    {
+                        case (int)Options.Add:
+                            {
+                                Console.WriteLine("To add a drone, type 1.\nTo add a Base station, type 2.\n" +
+                                                  "To add a parcel, type 3.\nTo add a customer, type 4.");
+                                int.TryParse(Console.ReadLine(), out userAnswer);
+                                switch (userAnswer)
                                 {
-                                    Console.WriteLine("To add a drone, type 1.\nTo add a Base station, type 2.\n" +
-                                                      "To add a parcel, type 3.\nTo add a customer, type 4.");
-                                   int.TryParse(Console.ReadLine(), out userAnswer) ;
-                                    switch (userAnswer)
-                                    {
-                                        case (int)AddOptions.Drone:
-                                            DroneToList newDrone = new();
-                                            newDrone.MyCurrentLocation = new();
-                                            Console.WriteLine("Enter the drone ID (3 digits)");
+                                    case (int)AddOptions.Drone:
+                                        DroneToList newDrone = new();
+                                        newDrone.MyCurrentLocation = new();
+                                        Console.WriteLine("Enter the drone ID (3 digits)");
                                         int.TryParse(Console.ReadLine(), out int ID);
-                                                newDrone.DroneID = ID;
-                                            Console.WriteLine("Enter the drone model");
-                                            newDrone.Model = Console.ReadLine();
-                                            Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
+                                        newDrone.DroneID = ID;
+                                        Console.WriteLine("Enter the drone model");
+                                        newDrone.Model = Console.ReadLine();
+                                        Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
                                         int.TryParse(Console.ReadLine(), out int status);
-                                                newDrone.Weight = (WeightCategories)status;
-                                            Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits) -from the list:");
-                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
-                                            foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine("\t" + tmp.StationID + "\t" + tmp.Name); }
-                                            int chosenStation;
+                                        newDrone.Weight = (WeightCategories)status;
+                                        Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits) -from the list:");
+                                        IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
+                                        foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine("\t" + tmp.StationID + "\t" + tmp.Name); }
+                                        int chosenStation;
                                         int.TryParse(Console.ReadLine(), out chosenStation);
-                                                bl.AddDrone(newDrone, chosenStation);
-                                            break;
+                                        bl.AddDrone(newDrone, chosenStation);
+                                        break;
 
-                                        case (int)AddOptions.Station:
-                                            BaseStation newStation = new();
-                                            newStation.DronesInCharging = new();
-                                            newStation.StationLocation = new();
-                                            Console.WriteLine("Enter the station ID (4 digits)");
-                                        int.TryParse(Console.ReadLine(), out  ID);
-                                                newStation.StationID = ID;
-                                            Console.WriteLine("Enter the station name");
-                                            newStation.Name = Console.ReadLine();
-                                            Console.WriteLine("Enter the location- longitude (range is (35,36)");
+                                    case (int)AddOptions.Station:
+                                        BaseStation newStation = new();
+                                        newStation.DronesInCharging = new();
+                                        newStation.StationLocation = new();
+                                        Console.WriteLine("Enter the station ID (4 digits)");
+                                        int.TryParse(Console.ReadLine(), out ID);
+                                        newStation.StationID = ID;
+                                        Console.WriteLine("Enter the station name");
+                                        newStation.Name = Console.ReadLine();
+                                        Console.WriteLine("Enter the location- longitude (range is (35,36)");
                                         double.TryParse(Console.ReadLine(), out double lon);
-                                                newStation.StationLocation.Longitude = lon;
-                                            Console.WriteLine("Enter the location- latitude(range is (31,32))");
+                                        newStation.StationLocation.Longitude = lon;
+                                        Console.WriteLine("Enter the location- latitude(range is (31,32))");
                                         double.TryParse(Console.ReadLine(), out double lat);
-                                                newStation.StationLocation.Latitude = lat;
-                                            Console.WriteLine("Enter the number of available slots");
+                                        newStation.StationLocation.Latitude = lat;
+                                        Console.WriteLine("Enter the number of available slots");
                                         int.TryParse(Console.ReadLine(), out int num);
-                                                newStation.NumOfAvailableChargingSlots = num;
-                                            bl.AddBaseStation(newStation);
-                                            break;
+                                        newStation.NumOfAvailableChargingSlots = num;
+                                        bl.AddBaseStation(newStation);
+                                        break;
 
-                                        case (int)AddOptions.Parcel:
-                                            Parcel newParcel = new();
-                                            newParcel.SenderCustomer = new();
-                                            newParcel.TargetidCustomer = new();
-                                            Console.WriteLine("Enter the parcel sender ID (9 digits) from the customer list");
-                                            IEnumerable<CustomerToList> ListOfCustomer = bl.ListCustomerDisplay();
-                                            foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.CustomerID); }
-                                        int.TryParse(Console.ReadLine(), out  ID);
-                                                newParcel.SenderCustomer.CustomerID = ID;
-                                            Console.WriteLine("Enter the parcel targetid ID (9 digits)from the customer list");
+                                    case (int)AddOptions.Parcel:
+                                        Parcel newParcel = new();
+                                        newParcel.SenderCustomer = new();
+                                        newParcel.TargetidCustomer = new();
+                                        Console.WriteLine("Enter the parcel sender ID (9 digits) from the customer list");
+                                        IEnumerable<CustomerToList> ListOfCustomer = bl.ListCustomerDisplay();
+                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.CustomerID); }
+                                        int.TryParse(Console.ReadLine(), out ID);
+                                        newParcel.SenderCustomer.CustomerID = ID;
+                                        Console.WriteLine("Enter the parcel targetid ID (9 digits)from the customer list");
 
-                                            foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.CustomerID); }
-                                        int.TryParse(Console.ReadLine(), out  ID);
-                                                newParcel.TargetidCustomer.CustomerID = ID;
-                                            Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
-                                        int.TryParse(Console.ReadLine(), out  status);
-                                                newParcel.Weight = (WeightCategories)status;
-                                            Console.WriteLine("Enter the parcel priority");
-                                        int.TryParse(Console.ReadLine(), out  status);
-                                                newParcel.Priority = (Priorities)status;
-                                            bl.AddParcel(newParcel);
-                                            break;
+                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.CustomerID); }
+                                        int.TryParse(Console.ReadLine(), out ID);
+                                        newParcel.TargetidCustomer.CustomerID = ID;
+                                        Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
+                                        int.TryParse(Console.ReadLine(), out status);
+                                        newParcel.Weight = (WeightCategories)status;
+                                        Console.WriteLine("Enter the parcel priority");
+                                        int.TryParse(Console.ReadLine(), out status);
+                                        newParcel.Priority = (Priorities)status;
+                                        bl.AddParcel(newParcel);
+                                        break;
 
-                                        case (int)AddOptions.Customer:
-                                            Customer newCustomer = new();
-                                            newCustomer.CustomerLocation = new();
-                                            newCustomer.FromCustomer = new();
-                                            newCustomer.TOCustomer = new();
-                                            Console.WriteLine("Enter the customer ID (9 digits)");
-                                        int.TryParse(Console.ReadLine(), out  ID);
-                                                newCustomer.CustomerID = ID;
-                                            Console.WriteLine("Enter the customer name");
-                                            newCustomer.Name = Console.ReadLine();
-                                            Console.WriteLine("Enter the customer phone number");
-                                            newCustomer.PhoneNumber = Console.ReadLine();
-                                            Console.WriteLine("Enter the location- longitude (range is (35,36)");
-                                        double.TryParse(Console.ReadLine(), out  lon);
-                                                newCustomer.CustomerLocation.Longitude = lon;
-                                            Console.WriteLine("Enter the location- latitude range is (31,32)");
+                                    case (int)AddOptions.Customer:
+                                        Customer newCustomer = new();
+                                        newCustomer.CustomerLocation = new();
+                                        newCustomer.FromCustomer = new();
+                                        newCustomer.TOCustomer = new();
+                                        Console.WriteLine("Enter the customer ID (9 digits)");
+                                        int.TryParse(Console.ReadLine(), out ID);
+                                        newCustomer.CustomerID = ID;
+                                        Console.WriteLine("Enter the customer name");
+                                        newCustomer.Name = Console.ReadLine();
+                                        Console.WriteLine("Enter the customer phone number");
+                                        newCustomer.PhoneNumber = Console.ReadLine();
+                                        Console.WriteLine("Enter the location- longitude (range is (35,36)");
+                                        double.TryParse(Console.ReadLine(), out lon);
+                                        newCustomer.CustomerLocation.Longitude = lon;
+                                        Console.WriteLine("Enter the location- latitude range is (31,32)");
                                         double.TryParse(Console.ReadLine(), out lat);
-                                                newCustomer.CustomerLocation.Latitude = lat;
+                                        newCustomer.CustomerLocation.Latitude = lat;
 
-                                            bl.AddCustomer(newCustomer);
-                                            break;
-                                    }
-                                    break;
+                                        bl.AddCustomer(newCustomer);
+                                        break;
                                 }
-
-                            case (int)Options.Update:
-                                {
-                                    Console.WriteLine("To update the drone model, type 1.\nTo update the base station details, type 2.\n" +
-                                        "To update the customer details, type 3.\nTo send a drone to charge, type 4.\n" +
-                                        "To release a drone frome the charging, type 5.\nTo assign parcel to drone, type 6.\n" +
-                                        "To collect a parcel by a drone, type 7.\nTo deliver parcel by a drone, type 8.");
-                                    int.TryParse(Console.ReadLine(), out userAnswer);
-                                    switch (userAnswer)
-                                    {
-                                        case (int)UpdateOptions.UpdateDroneModel:
-                                            {
-                                                Console.WriteLine("Enter The drone ID (3 digits) ");
-                                                int.TryParse(Console.ReadLine(), out int ID);
-                                                int droneID = ID;
-                                                Console.WriteLine("Enter the wanted model");
-                                                string model = Console.ReadLine();
-                                                bl.UpdateDroneModel(droneID, model);
-                                                break;
-                                            }
-
-                                        case (int)UpdateOptions.UpdateBaseStationDetails:
-                                            {
-                                                Console.WriteLine("Enter The station ID (4 digits).");
-                                                int.TryParse(Console.ReadLine(), out int ID);
-                                                Console.WriteLine("if you want to change the name, enter the new name else continue");
-                                                string ansName = Console.ReadLine();
-                                                if (ansName == "")
-                                                    ansName = null;
-                                                Console.WriteLine("if you want to change the number of slots in the station, enter the new number of slots else continue");
-                                                if (!int.TryParse(Console.ReadLine(), out int ansNum))
-                                                    ansNum = 0;
-                                                bl.UpdateStation(ID, ansName, ansNum);
-                                                break;
-                                            }
-
-                                        case (int)UpdateOptions.UpdateCustomerDetails:
-                                            {
-                                                Console.WriteLine("Enter The customer ID (9 digits).");
-                                                int.TryParse(Console.ReadLine(), out int ID);
-                                                Console.WriteLine("if you want to change the name, enter the new name else continue");
-                                                string ansName = Console.ReadLine();
-                                                if (ansName == "")
-                                                    ansName = null;
-                                                Console.WriteLine("if you want to change the phone number of the customer, enter the new phone number else continue");
-                                                string ansPhone = Console.ReadLine();
-                                                if (ansPhone == "")
-                                                    ansName = null;
-                                                bl.UpdateCustomer(ID, ansName, ansPhone);
-                                                break;
-                                            }
-                                        case (int)UpdateOptions.SendDroneToCharge:
-                                            {
-                                                Console.WriteLine("Enter The drone ID (3 digits).");
-                                                int.TryParse(Console.ReadLine(), out int ID);
-                                                bl.SendDroneToCharge(ID);
-                                                break;
-                                            }
-
-                                        case (int)UpdateOptions.ReleaseDroneFromeCharging:
-                                            {
-                                                Console.WriteLine("Enter The drone ID (3 digits)");
-                                                int.TryParse(Console.ReadLine(), out int ID);
-                                                Console.WriteLine("and the the amount of time(by minute) that the drone was in the chaging base station");
-                                                int.TryParse(Console.ReadLine(), out int num);
-                                                bl.ReleasingDroneFromBaseStation(ID, num);
-                                                break;
-                                            }
-                                        case (int)UpdateOptions.AssignParcelToDrone:
-                                            {
-                                                Console.WriteLine("Enter The drone ID (3 digits).");
-                                                int.TryParse(Console.ReadLine(), out int ID);
-                                                bl.AssignParcelToDrone(ID);
-                                                break;
-                                            }
-                                        case (int)UpdateOptions.CollectParcelByDrone:
-                                            {
-                                                Console.WriteLine("Enter The drone ID (3 digits).");
-                                                int.TryParse(Console.ReadLine(), out int ID);
-                                                bl.CollectionOfParcelByDrone(ID);
-                                                break;
-                                            }
-                                        case (int)UpdateOptions.DeliverParcelByDrone:
-                                            {
-                                                Console.WriteLine("Enter The drone ID (3 digits).");
-                                                int.TryParse(Console.ReadLine(), out int ID);
-                                                bl.DeliveryParcelByDrone(ID);
-                                                break;
-                                            }
-                                    }
-                                    userAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
-                                    break;
-                                }
-
-                            case (int)Options.DisplayIndividual:
-                                {
-                                    Console.WriteLine("To to print a drone, type 1.\nTo print a base station, type 2.\n" +
-                                                     "To print a parcel, type 3.\nTo print a customer, type 4.");
-                                    int.TryParse(Console.ReadLine(), out userAnswer);
-                                    switch (userAnswer)
-                                    {
-                                        case (int)DisplayIndividualOptions.DisplyDrone:
-                                            {
-                                                Console.WriteLine("Enter drone ID (3 digits).");
-                                                int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                                Console.WriteLine(bl.DisplayDrone(IDFromUser1));
-                                                break;
-                                            }
-
-                                        case (int)DisplayIndividualOptions.DisplyStation:
-                                            {
-                                                Console.WriteLine("Enter base station ID (4 digits).");
-                                                int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                                Console.WriteLine(bl.BaseStationDisplay(IDFromUser1));
-                                                break;
-                                            }
-
-                                        case (int)DisplayIndividualOptions.DisplayParcel:
-                                            {
-                                                Console.WriteLine("Enter parcel ID (6 digits).");
-                                                int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                                Console.WriteLine(bl.ParcelDisplay(IDFromUser1));
-                                                break;
-                                            }
-
-                                        case (int)DisplayIndividualOptions.DisplayCustomer:
-                                            {
-                                                Console.WriteLine("Enter customer ID (9 digits).");
-                                                int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                                Console.WriteLine(bl.CustomerDisplay(IDFromUser1));
-                                                break;
-                                            }
-                                    }
-                                    break;
-                                }
-
-                            case (int)Options.DisplayList:
-                                {
-                                    Console.WriteLine("To to print all drones, type 1.\nTo print all stations, type 2.\n" +
-                                                    "To print all parcels, type 3.\nTo print all customers, type 4.\n" +
-                                                    "To print all unassign parcels, type 5.\nTo print all available charge station, type 6.");
-                                    int.TryParse(Console.ReadLine(), out userAnswer);
-                                    switch (userAnswer)
-                                    {
-                                        case (int)DisplayListOptions.DisplyDroneList:
-                                            {
-                                                IEnumerable<DroneToList> ListOfDrones = bl.ListDroneDisplay();
-                                                foreach (DroneToList tmp in ListOfDrones) { Console.WriteLine(tmp); }
-                                            }
-                                            break;
-
-
-                                        case (int)DisplayListOptions.DisplyStationList:
-                                            {
-                                                IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
-                                                foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
-                                            }
-                                            break;
-
-                                        case (int)DisplayListOptions.DisplayParcelList:
-                                            {
-                                                IEnumerable<ParcelToList> ListOfParcel = bl.ListParcelDisplay();
-                                                foreach (ParcelToList tmp in ListOfParcel) { Console.WriteLine(tmp); }
-                                            }
-                                            break;
-
-                                        case (int)DisplayListOptions.DisplayCustomerList:
-                                            {
-                                                IEnumerable<CustomerToList> ListOfCustomer = bl.ListCustomerDisplay();
-                                                foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine(tmp); }
-                                            }
-                                            break;
-                                        case (int)DisplayListOptions.ListOfUnassignedParcels:
-                                            {
-                                                IEnumerable<ParcelToList> ListOfParcel = bl.ListOfUnassignedParcelDisplay();
-                                                foreach (ParcelToList tmp in ListOfParcel) { Console.WriteLine(tmp); }
-                                                break;
-                                            }
-
-                                        case (int)DisplayListOptions.ListOfAvailableChargingStations:
-                                            {
-                                                IEnumerable<BaseStationToList> ListOfStation = bl.ListOfAvailableSlotsBaseStationlDisplay();
-                                                foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
-                                                break;
-                                            }
-
-                                    }
-                                    userAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
-                                    break;
-                                }
-                            case (int)Options.Exit:
-                                Console.WriteLine("\nThank you for using our drones system, looking forward to see you again!");
                                 break;
+                            }
 
-                            default:
-                                Console.WriteLine("Wrong input");
+                        case (int)Options.Update:
+                            {
+                                Console.WriteLine("To update the drone model, type 1.\nTo update the base station details, type 2.\n" +
+                                    "To update the customer details, type 3.\nTo send a drone to charge, type 4.\n" +
+                                    "To release a drone frome the charging, type 5.\nTo assign parcel to drone, type 6.\n" +
+                                    "To collect a parcel by a drone, type 7.\nTo deliver parcel by a drone, type 8.");
+                                int.TryParse(Console.ReadLine(), out userAnswer);
+                                switch (userAnswer)
+                                {
+                                    case (int)UpdateOptions.UpdateDroneModel:
+                                        {
+                                            Console.WriteLine("Enter The drone ID (3 digits) ");
+                                            int.TryParse(Console.ReadLine(), out int ID);
+                                            int droneID = ID;
+                                            Console.WriteLine("Enter the wanted model");
+                                            string model = Console.ReadLine();
+                                            bl.UpdateDroneModel(droneID, model);
+                                            break;
+                                        }
+
+                                    case (int)UpdateOptions.UpdateBaseStationDetails:
+                                        {
+                                            Console.WriteLine("Enter The station ID (4 digits).");
+                                            int.TryParse(Console.ReadLine(), out int ID);
+                                            Console.WriteLine("if you want to change the name, enter the new name else continue");
+                                            string ansName = Console.ReadLine();
+                                            if (ansName == "")
+                                                ansName = null;
+                                            Console.WriteLine("if you want to change the number of slots in the station, enter the new number of slots else continue");
+                                            if (!int.TryParse(Console.ReadLine(), out int ansNum))
+                                                ansNum = 0;
+                                            bl.UpdateStation(ID, ansName, ansNum);
+                                            break;
+                                        }
+
+                                    case (int)UpdateOptions.UpdateCustomerDetails:
+                                        {
+                                            Console.WriteLine("Enter The customer ID (9 digits).");
+                                            int.TryParse(Console.ReadLine(), out int ID);
+                                            Console.WriteLine("if you want to change the name, enter the new name else continue");
+                                            string ansName = Console.ReadLine();
+                                            if (ansName == "")
+                                                ansName = null;
+                                            Console.WriteLine("if you want to change the phone number of the customer, enter the new phone number else continue");
+                                            string ansPhone = Console.ReadLine();
+                                            if (ansPhone == "")
+                                                ansName = null;
+                                            bl.UpdateCustomer(ID, ansName, ansPhone);
+                                            break;
+                                        }
+                                    case (int)UpdateOptions.SendDroneToCharge:
+                                        {
+                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            int.TryParse(Console.ReadLine(), out int ID);
+                                            bl.SendDroneToCharge(ID);
+                                            break;
+                                        }
+
+                                    case (int)UpdateOptions.ReleaseDroneFromeCharging:
+                                        {
+                                            Console.WriteLine("Enter The drone ID (3 digits)");
+                                            int.TryParse(Console.ReadLine(), out int ID);
+                                            Console.WriteLine("and the the amount of time(by minute) that the drone was in the chaging base station");
+                                            int.TryParse(Console.ReadLine(), out int num);
+                                            bl.ReleasingDroneFromBaseStation(ID, num);
+                                            break;
+                                        }
+                                    case (int)UpdateOptions.AssignParcelToDrone:
+                                        {
+                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            int.TryParse(Console.ReadLine(), out int ID);
+                                            bl.AssignParcelToDrone(ID);
+                                            break;
+                                        }
+                                    case (int)UpdateOptions.CollectParcelByDrone:
+                                        {
+                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            int.TryParse(Console.ReadLine(), out int ID);
+                                            bl.CollectionOfParcelByDrone(ID);
+                                            break;
+                                        }
+                                    case (int)UpdateOptions.DeliverParcelByDrone:
+                                        {
+                                            Console.WriteLine("Enter The drone ID (3 digits).");
+                                            int.TryParse(Console.ReadLine(), out int ID);
+                                            bl.DeliveryParcelByDrone(ID);
+                                            break;
+                                        }
+                                }
+                                userAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
                                 break;
-                        }
+                            }
+
+                        case (int)Options.DisplayIndividual:
+                            {
+                                Console.WriteLine("To to print a drone, type 1.\nTo print a base station, type 2.\n" +
+                                                 "To print a parcel, type 3.\nTo print a customer, type 4.");
+                                int.TryParse(Console.ReadLine(), out userAnswer);
+                                switch (userAnswer)
+                                {
+                                    case (int)DisplayIndividualOptions.DisplyDrone:
+                                        {
+                                            Console.WriteLine("Enter drone ID (3 digits).");
+                                            int.TryParse(Console.ReadLine(), out IDFromUser1);
+                                            Console.WriteLine(bl.DisplayDrone(IDFromUser1));
+                                            break;
+                                        }
+
+                                    case (int)DisplayIndividualOptions.DisplyStation:
+                                        {
+                                            Console.WriteLine("Enter base station ID (4 digits).");
+                                            int.TryParse(Console.ReadLine(), out IDFromUser1);
+                                            Console.WriteLine(bl.BaseStationDisplay(IDFromUser1));
+                                            break;
+                                        }
+
+                                    case (int)DisplayIndividualOptions.DisplayParcel:
+                                        {
+                                            Console.WriteLine("Enter parcel ID (6 digits).");
+                                            int.TryParse(Console.ReadLine(), out IDFromUser1);
+                                            Console.WriteLine(bl.ParcelDisplay(IDFromUser1));
+                                            break;
+                                        }
+
+                                    case (int)DisplayIndividualOptions.DisplayCustomer:
+                                        {
+                                            Console.WriteLine("Enter customer ID (9 digits).");
+                                            int.TryParse(Console.ReadLine(), out IDFromUser1);
+                                            Console.WriteLine(bl.CustomerDisplay(IDFromUser1));
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+
+                        case (int)Options.DisplayList:
+                            {
+                                Console.WriteLine("To to print all drones, type 1.\nTo print all stations, type 2.\n" +
+                                                "To print all parcels, type 3.\nTo print all customers, type 4.\n" +
+                                                "To print all unassign parcels, type 5.\nTo print all available charge station, type 6.");
+                                int.TryParse(Console.ReadLine(), out userAnswer);
+                                switch (userAnswer)
+                                {
+                                    case (int)DisplayListOptions.DisplyDroneList:
+                                        {
+                                            IEnumerable<DroneToList> ListOfDrones = bl.ListDroneDisplay();
+                                            foreach (DroneToList tmp in ListOfDrones) { Console.WriteLine(tmp); }
+                                        }
+                                        break;
+
+
+                                    case (int)DisplayListOptions.DisplyStationList:
+                                        {
+                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
+                                            foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
+                                        }
+                                        break;
+
+                                    case (int)DisplayListOptions.DisplayParcelList:
+                                        {
+                                            IEnumerable<ParcelToList> ListOfParcel = bl.ListParcelDisplay();
+                                            foreach (ParcelToList tmp in ListOfParcel) { Console.WriteLine(tmp); }
+                                        }
+                                        break;
+
+                                    case (int)DisplayListOptions.DisplayCustomerList:
+                                        {
+                                            IEnumerable<CustomerToList> ListOfCustomer = bl.ListCustomerDisplay();
+                                            foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine(tmp); }
+                                        }
+                                        break;
+                                    case (int)DisplayListOptions.ListOfUnassignedParcels:
+                                        {
+                                            IEnumerable<ParcelToList> ListOfParcel = bl.ListOfUnassignedParcelDisplay();
+                                            foreach (ParcelToList tmp in ListOfParcel) { Console.WriteLine(tmp); }
+                                            break;
+                                        }
+
+                                    case (int)DisplayListOptions.ListOfAvailableChargingStations:
+                                        {
+                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListOfAvailableSlotsBaseStationlDisplay();
+                                            foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
+                                            break;
+                                        }
+
+                                }
+                                userAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
+                                break;
+                            }
+                        case (int)Options.Exit:
+                            Console.WriteLine("\nThank you for using our drones system, looking forward to see you again!");
+                            break;
+
+                        default:
+                            Console.WriteLine("Wrong input");
+                            break;
+                    }
                 }
                 catch (Exception ex)
                 {

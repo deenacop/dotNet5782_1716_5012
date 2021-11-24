@@ -9,10 +9,18 @@ namespace BL
     {
         public void AddParcel(Parcel parcel)
         {
-            if (ChackingNumOfDigits(parcel.SenderCustomer.CustomerID) != 9 || dal.ListCustomerDisplay(i => i.CustomerID == parcel.SenderCustomer.CustomerID) == null)
+            if (ChackingNumOfDigits(parcel.SenderCustomer.CustomerID) != 9) 
+                    throw new WrongIDException("Wrong ID");
+            // if (dal.ListCustomerDisplay(i => i.CustomerID == parcel.SenderCustomer.CustomerID) == null)
+            //throw new WrongIDException("Wrong ID");
+            if (ChackingNumOfDigits(parcel.TargetidCustomer.CustomerID) != 9) 
                 throw new WrongIDException("Wrong ID");
-            if (ChackingNumOfDigits(parcel.TargetidCustomer.CustomerID) != 9 || dal.ListCustomerDisplay(i => i.CustomerID == parcel.TargetidCustomer.CustomerID) == null)
-                throw new WrongIDException("Wrong ID");
+            // if(dal.ListCustomerDisplay(i => i.CustomerID == parcel.TargetidCustomer.CustomerID) == null)
+            //throw new WrongIDException("Wrong ID");
+            if (parcel.Weight < WeightCategories.Light || parcel.Weight > WeightCategories.Heavy)
+                throw new WrongInputException("Wrong input");
+            if (parcel.Priority < Priorities.Normal || parcel.Priority > Priorities.Urgent)
+                throw new WrongInputException("Wrong input");
             parcel.Requested = DateTime.Now;
             parcel.Scheduled = DateTime.MinValue;
             parcel.PickUp = DateTime.MinValue;
@@ -75,7 +83,7 @@ namespace BL
             catch (Exception ex)
             {
                 throw new ItemNotExistException(ex.Message);
-            }           
+            }
             List<ParcelToList> listParcelToList = new();
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
             {
