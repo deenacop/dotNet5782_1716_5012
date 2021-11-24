@@ -54,32 +54,32 @@ namespace ConsoleUI_BL
                  "\nTo view a single item, type 3." +
                  "\nTo view a list, type 4." +
                  "\nTo exit, type 5.");
-                    while (!int.TryParse(Console.ReadLine(), out userAnswer))
+                    int.TryParse(Console.ReadLine(), out userAnswer);
                         switch (userAnswer)
                         {
                             case (int)Options.Add:
                                 {
                                     Console.WriteLine("To add a drone, type 1.\nTo add a Base station, type 2.\n" +
                                                       "To add a parcel, type 3.\nTo add a customer, type 4.");
-                                    while (!int.TryParse(Console.ReadLine(), out userAnswer)) ;
+                                   int.TryParse(Console.ReadLine(), out userAnswer) ;
                                     switch (userAnswer)
                                     {
                                         case (int)AddOptions.Drone:
                                             DroneToList newDrone = new();
                                             newDrone.MyCurrentLocation = new();
                                             Console.WriteLine("Enter the drone ID (3 digits)");
-                                            while (!int.TryParse(Console.ReadLine(), out int ID))
+                                        int.TryParse(Console.ReadLine(), out int ID);
                                                 newDrone.DroneID = ID;
                                             Console.WriteLine("Enter the drone model");
                                             newDrone.Model = Console.ReadLine();
                                             Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
-                                            while (!int.TryParse(Console.ReadLine(), out int status))
+                                        int.TryParse(Console.ReadLine(), out int status);
                                                 newDrone.Weight = (WeightCategories)status;
                                             Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits) -from the list:");
                                             IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
                                             foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine("\t" + tmp.StationID + "\t" + tmp.Name); }
                                             int chosenStation;
-                                            while (!int.TryParse(Console.ReadLine(), out chosenStation))
+                                        int.TryParse(Console.ReadLine(), out chosenStation);
                                                 bl.AddDrone(newDrone, chosenStation);
                                             break;
 
@@ -88,18 +88,18 @@ namespace ConsoleUI_BL
                                             newStation.DronesInCharging = new();
                                             newStation.StationLocation = new();
                                             Console.WriteLine("Enter the station ID (4 digits)");
-                                            while (!int.TryParse(Console.ReadLine(), out int ID))
+                                        int.TryParse(Console.ReadLine(), out  ID);
                                                 newStation.StationID = ID;
                                             Console.WriteLine("Enter the station name");
                                             newStation.Name = Console.ReadLine();
                                             Console.WriteLine("Enter the location- longitude (range is (35,36)");
-                                            while (!double.TryParse(Console.ReadLine(), out double lon))
+                                        double.TryParse(Console.ReadLine(), out double lon);
                                                 newStation.StationLocation.Longitude = lon;
                                             Console.WriteLine("Enter the location- latitude(range is (31,32))");
-                                            while (!double.TryParse(Console.ReadLine(), out double lat))
+                                        double.TryParse(Console.ReadLine(), out double lat);
                                                 newStation.StationLocation.Latitude = lat;
                                             Console.WriteLine("Enter the number of available slots");
-                                            while (!int.TryParse(Console.ReadLine(), out int num))
+                                        int.TryParse(Console.ReadLine(), out int num);
                                                 newStation.NumOfAvailableChargingSlots = num;
                                             bl.AddBaseStation(newStation);
                                             break;
@@ -111,18 +111,18 @@ namespace ConsoleUI_BL
                                             Console.WriteLine("Enter the parcel sender ID (9 digits) from the customer list");
                                             IEnumerable<CustomerToList> ListOfCustomer = bl.ListCustomerDisplay();
                                             foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.CustomerID); }
-                                            while (!int.TryParse(Console.ReadLine(), out int ID))
+                                        int.TryParse(Console.ReadLine(), out  ID);
                                                 newParcel.SenderCustomer.CustomerID = ID;
                                             Console.WriteLine("Enter the parcel targetid ID (9 digits)from the customer list");
 
                                             foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.CustomerID); }
-                                            while (!int.TryParse(Console.ReadLine(), out int ID))
+                                        int.TryParse(Console.ReadLine(), out  ID);
                                                 newParcel.TargetidCustomer.CustomerID = ID;
                                             Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
-                                            while (!int.TryParse(Console.ReadLine(), out int status))
+                                        int.TryParse(Console.ReadLine(), out  status);
                                                 newParcel.Weight = (WeightCategories)status;
                                             Console.WriteLine("Enter the parcel priority");
-                                            while (!int.TryParse(Console.ReadLine(), out int status))
+                                        int.TryParse(Console.ReadLine(), out  status);
                                                 newParcel.Priority = (Priorities)status;
                                             bl.AddParcel(newParcel);
                                             break;
@@ -133,17 +133,17 @@ namespace ConsoleUI_BL
                                             newCustomer.FromCustomer = new();
                                             newCustomer.TOCustomer = new();
                                             Console.WriteLine("Enter the customer ID (9 digits)");
-                                            while (!int.TryParse(Console.ReadLine(), out int ID))
+                                        int.TryParse(Console.ReadLine(), out  ID);
                                                 newCustomer.CustomerID = ID;
                                             Console.WriteLine("Enter the customer name");
                                             newCustomer.Name = Console.ReadLine();
                                             Console.WriteLine("Enter the customer phone number");
                                             newCustomer.PhoneNumber = Console.ReadLine();
                                             Console.WriteLine("Enter the location- longitude (range is (35,36)");
-                                            while (!double.TryParse(Console.ReadLine(), out double lon))
+                                        double.TryParse(Console.ReadLine(), out  lon);
                                                 newCustomer.CustomerLocation.Longitude = lon;
                                             Console.WriteLine("Enter the location- latitude range is (31,32)");
-                                            while (!double.TryParse(Console.ReadLine(), out double lat))
+                                        double.TryParse(Console.ReadLine(), out lat);
                                                 newCustomer.CustomerLocation.Latitude = lat;
 
                                             bl.AddCustomer(newCustomer);

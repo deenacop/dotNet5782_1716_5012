@@ -16,7 +16,7 @@ namespace BL
             if (ChackingNumOfDigits(drone.DroneID) != 3)
                 throw new WrongIDException("wrorng ID");
             if (drone.Weight < WeightCategories.Light || drone.Weight > WeightCategories.Heavy)
-                throw new WrongeInputException("Wronge input");
+                throw new WrongInputException("Wronge input");
             try
             {
                 IDAL.DO.Station wantedStation = dal.StationDisplay(stationID);
