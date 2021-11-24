@@ -349,15 +349,15 @@ namespace ConsoleUI_BL
                             break;
                     }
                 }
-                catch (ItemNotExistException ex)
+                catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
 
                 }
-                catch (AlreadyExistedItemException ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                //catch (AlreadyExistedItemException ex)
+                //{
+                //    Console.WriteLine(ex);
+                //}
             }
         }
     }

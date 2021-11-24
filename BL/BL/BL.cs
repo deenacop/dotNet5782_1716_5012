@@ -129,7 +129,6 @@ namespace BL
                         else
                             availableStations[index] = tmp;
                         currentDrone.Battery = rand.Next(0, 21);
-                        break;
                     }
                     if (currentDrone.DroneStatus == DroneStatus.Available)//if the drone is not in maintenance mode
                     {//פנוי
