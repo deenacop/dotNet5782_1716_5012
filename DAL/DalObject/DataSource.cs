@@ -167,7 +167,7 @@ namespace DalObject
                         //Time drone came to deliver parcel
                         newParcel.PickUp = newParcel.Scheduled +
                             new TimeSpan(0, rand.Next(1, 60), rand.Next(60));
-                        if (status >= 20)
+                        if (status >= 40)
                         {
                             //Time customer recieved parcel
                             newParcel.Delivered = newParcel.PickUp +
