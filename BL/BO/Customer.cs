@@ -24,7 +24,7 @@ namespace IBL.BO
             if (FromCustomer.Capacity > 0)
                 str+="All the parcels that were send from the customer:\n" + String.Join(" ", FromCustomer)+"\n";
             if(TOCustomer.Capacity>0)
-                //str+= "All the parcels that the customer got:\n" + String.Join(" ", TOCustomer) + "\n";
+                str+= "All the parcels that the customer got:\n" + String.Join(" ", TOCustomer) + "\n";
             return str;
         }
     }

@@ -94,12 +94,12 @@ namespace BL
                 sendParcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Targetid;//second side is targetid
                 sendParcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Targetid).Name;
                 if (currentParcel.Scheduled == DateTime.MinValue)//not schedule yet
-                    parcel.ParcelStatus = ParcelStatus.Defined;
+                    sendParcel.ParcelStatus = ParcelStatus.Defined;
                 else if (currentParcel.PickUp == DateTime.MinValue)//scheduled but has not been picked up
-                    parcel.ParcelStatus = ParcelStatus.Associated;
+                    sendParcel.ParcelStatus = ParcelStatus.Associated;
                 else if (currentParcel.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
-                    parcel.ParcelStatus = ParcelStatus.PickedUp;
-                else parcel.ParcelStatus = ParcelStatus.Delivered;
+                    sendParcel.ParcelStatus = ParcelStatus.PickedUp;
+                else sendParcel.ParcelStatus = ParcelStatus.Delivered;
                 //add the parcel to the list
                 customerBO.FromCustomer = new();
                 customerBO.FromCustomer.Add(sendParcel);
@@ -111,7 +111,7 @@ namespace BL
                 currentParcel.CopyPropertiesTo(receiveParcel);
                 receiveParcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Sender;//second side is targetid
                 receiveParcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Sender).Name;
-                receiveParcel.ParcelStatus = @enum.ParcelStatus.Delivered;//the status id delivered cause its by the targetid..
+                receiveParcel.ParcelStatus =ParcelStatus.Delivered;//the status id delivered cause its by the targetid..
                 //add the parcel to the list
                 customerBO.TOCustomer = new();
                 customerBO.TOCustomer.Add(receiveParcel);

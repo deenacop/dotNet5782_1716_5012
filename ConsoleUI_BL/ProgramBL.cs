@@ -74,7 +74,7 @@ namespace ConsoleUI_BL
                                         newDrone.Model = Console.ReadLine();
                                         Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
                                         int.TryParse(Console.ReadLine(), out int status);
-                                        newDrone.Weight = (@enum.WeightCategories)status;
+                                        newDrone.Weight = (WeightCategories)status;
                                         Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits) -from the list");
                                         IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
                                         foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
@@ -120,10 +120,10 @@ namespace ConsoleUI_BL
                                         newParcel.TargetidCustomer.CustomerID = ID;
                                         Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
                                         int.TryParse(Console.ReadLine(), out  status);
-                                        newParcel.Weight = (@enum.WeightCategories)status;
+                                        newParcel.Weight = (WeightCategories)status;
                                         Console.WriteLine("Enter the parcel priority");
                                         int.TryParse(Console.ReadLine(), out status);
-                                        newParcel.Priority = (@enum.Priorities)status;
+                                        newParcel.Priority = (Priorities)status;
                                         bl.AddParcel(newParcel);
                                         break;
 
