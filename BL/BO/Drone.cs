@@ -13,9 +13,9 @@ namespace IBL.BO
         /// </summary>
         public int DroneID { get; set; }
         public string Model { get; set; }
-        public @enum.WeightCategories Weight { get; set; }
+        public WeightCategories Weight { get; set; }
         public int Battery { get; set; }
-        public @enum.DroneStatus DroneStatus { get; set; }
+        public DroneStatus DroneStatus { get; set; }
         public ParcelInTransfer MyParcel { get; set; }
         public Location MyCurrentLocation { get; set; }
         public override string ToString()

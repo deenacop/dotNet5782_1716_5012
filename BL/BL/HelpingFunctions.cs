@@ -19,7 +19,7 @@ namespace BL
         /// <param name="from">The location from were we want to calculate the distance</param>
         /// <param name="to">The location to were we want to calculate</param>
         /// <returns>returns the distance</returns>
-        internal double DistanceCalculation(Location from, Location to)
+        internal static double DistanceCalculation(Location from, Location to)
         {
             double radiusOfLon = (from.Longitude - to.Longitude) * PI / 180;
             double radiusOfLat = (from.Latitude - to.Latitude) * PI / 180;
@@ -37,7 +37,7 @@ namespace BL
         /// <returns>location/distance/StationID</returns>
         private (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
         {
-            List<double> locations = new List<double>();
+            List<double> locations = new ();
             foreach (BaseStation currentStation in BaseStationListBL)
             {
                 locations.Add(DistanceCalculation(location, currentStation.StationLocation));
@@ -51,7 +51,7 @@ namespace BL
         /// </summary>
         /// <param name="num">ID item</param>
         /// <returns>amount of digits in the ID</returns>
-        internal int ChackingNumOfDigits(int num)
+        internal static int ChackingNumOfDigits(int num)
         {
             return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1);
         }
@@ -61,7 +61,7 @@ namespace BL
         /// <param name="parcel">The parcel that needs to be picked up</param>
         /// <param name="drone">The drone that needs to do the delivary</param>
         /// <returns>true or false</returns>
-        bool legalParcel(IDAL.DO.Parcel parcel, Drone drone)
+        static bool legalParcel(IDAL.DO.Parcel parcel, Drone drone)
         {
             if ((int)drone.Weight < (int)parcel.Weight)//not legal parcel for this drone
                 return false;
@@ -74,7 +74,7 @@ namespace BL
         /// <param name="parcel">The parcel that needs to be picked up</param>
         /// <param name="drone">The drone that needs to do the delivary</param>
         /// <returns>true or false</returns>
-        bool batteryCheckingForDroneAndParcel(IDAL.DO.Parcel parcel, Drone drone)
+        bool BatteryCheckingForDroneAndParcel(IDAL.DO.Parcel parcel, Drone drone)
         {
             int minBattery;
             double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.Sender).CustomerLocation);
@@ -82,13 +82,13 @@ namespace BL
             distance = DistanceCalculation(CustomerDisplay(parcel.Sender).CustomerLocation, CustomerDisplay(parcel.Targetid).CustomerLocation);
             switch ((int)parcel.Weight)//calculate from the sender to the targetid
             {
-                case (int)@enum.WeightCategories.Light:
+                case (int)WeightCategories.Light:
                     minBattery += (int)distance * (int)carriesLightWeight;
                     break;
-                case (int)@enum.WeightCategories.Midium:
+                case (int)WeightCategories.Midium:
                     minBattery += (int)distance * (int)carriesMediumWeight;
                     break;
-                case (int)@enum.WeightCategories.Heavy:
+                case (int)WeightCategories.Heavy:
                     minBattery += (int)distance * (int)carriesHeavyWeight;
                     break;
             }

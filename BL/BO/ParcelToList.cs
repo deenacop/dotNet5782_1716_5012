@@ -14,9 +14,9 @@ namespace IBL.BO
         public int ParcelID { get; set; }
         public string  NameOfSender { get; set; }
         public string NameOfTargetaed { get; set; }
-        public @enum.WeightCategories Weight { get; set; }
-        public @enum.Priorities Priority { get; set; }
-        public @enum.ParcelStatus ParcelStatus { get; set; }
+        public WeightCategories Weight { get; set; }
+        public Priorities Priority { get; set; }
+        public ParcelStatus ParcelStatus { get; set; }
         public override string ToString()
         {
             string str = "Parcel ID:" + ParcelID + "\nSender's Customer name:" + NameOfSender + "\nReceiver's Customer name:" +

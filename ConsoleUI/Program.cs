@@ -11,7 +11,7 @@ namespace ConsoleUI
         /// <summary>
         /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit 
         /// </summary>
-        public enum options { Add = 1, Update, DisplayIndividual, DisplayList/*, FindTheDistance*/, Exit };
+        public enum Options { Add = 1, Update, DisplayIndividual, DisplayList/*, FindTheDistance*/, Exit };
         /// <summary>
         /// Which item to add
         /// </summary>
@@ -36,7 +36,7 @@ namespace ConsoleUI
             DisplyDroneList = 1, DisplyStationList, DisplayParcelList,
             DisplayCustomerList, ListOfUnassignedParcels, ListOfAvailableChargingStations
         };
-        public static IDal DalObj = new DalObject.DalObject();
+        public static readonly IDal DalObj = new DalObject.DalObject();
         static public void Main(string[] args)
         {
 
@@ -57,7 +57,7 @@ namespace ConsoleUI
                     int.TryParse(input, out userAnswer);
                     switch (userAnswer)
                     {
-                        case (int)options.Add:
+                        case (int)Options.Add:
                             {
                                 Console.WriteLine("To add a drone, type 1.\nTo add a station, type 2.\n" +
                                                   "To add a parcel, type 3.\nTo add a customer, type 4.");
@@ -84,7 +84,7 @@ namespace ConsoleUI
                                 break;
                             }
 
-                        case (int)options.Update:
+                        case (int)Options.Update:
                             {
                                 Console.WriteLine("To assign pacel to drone, type 1.\nTo collect parcel by a drone, type 2.\n" +
                                               "To deliver parcel to a customer, type 3.\nTo send drone to a charging base station, type 4.\n" +
@@ -157,7 +157,7 @@ namespace ConsoleUI
                                 break;
                             }
 
-                        case (int)options.DisplayIndividual:
+                        case (int)Options.DisplayIndividual:
                             {
                                 Console.WriteLine("To to print a drone, type 1.\nTo print a station, type 2.\n" +
                                                  "To print a parcel, type 3.\nTo print a customer, type 4.");
@@ -209,7 +209,7 @@ namespace ConsoleUI
                                 break;
                             }
 
-                        case (int)options.DisplayList:
+                        case (int)Options.DisplayList:
                             {
                                 Console.WriteLine("To to print all drones, type 1.\nTo print all stations, type 2.\n" +
                                                 "To print all parcels, type 3.\nTo print all customers, type 4.\n" +
@@ -295,7 +295,7 @@ namespace ConsoleUI
                         //        break;
                         //    }
 
-                        case (int)options.Exit:
+                        case (int)Options.Exit:
                             Console.WriteLine("\nThank you for using our drones system, looking forward to see you again!");
                             break;
 

@@ -41,13 +41,13 @@ namespace BL
         {
             foreach (S s in from)
             {
-                T t = new T();
+                T t = new ();
                 s.CopyPropertiesTo(t);
                 to.Add(t);
             }
         }
 
-        public static string toStringProperty<T>(this T t)
+        public static string ToStringProperty<T>(this T t)
         {
             string str = "";
             foreach (PropertyInfo item in t.GetType().GetProperties())

@@ -14,7 +14,7 @@ namespace ConsoleUI_BL
         /// <summary>
         /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit
         /// </summary>
-        public enum options { Add = 1, Update, DisplayIndividual, DisplayList, FindTheDistance, Exit };
+        public enum Options { Add = 1, Update, DisplayIndividual, DisplayList, FindTheDistance, Exit };
         /// <summary>
         /// Which item to add
         /// </summary>
@@ -57,7 +57,7 @@ namespace ConsoleUI_BL
                     int.TryParse(Console.ReadLine(), out userAnswer);
                     switch (userAnswer)
                     {
-                        case (int)options.Add:
+                        case (int)Options.Add:
                             {
                                 Console.WriteLine("To add a drone, type 1.\nTo add a Base station, type 2.\n" +
                                                   "To add a parcel, type 3.\nTo add a customer, type 4.");
@@ -72,7 +72,7 @@ namespace ConsoleUI_BL
                                         Console.WriteLine("Enter the drone model");
                                         newDrone.Model = Console.ReadLine();
                                         Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
-                                        newDrone.Weight = (@enum.WeightCategories)Console.Read();
+                                        newDrone.Weight = (WeightCategories)Console.Read();
                                         Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits)");
                                         int chosenStation;
                                         int.TryParse(Console.ReadLine(), out chosenStation);
@@ -106,9 +106,9 @@ namespace ConsoleUI_BL
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newParcel.TargetidCustomer.CustomerID = ID;
                                         Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
-                                        newParcel.Weight = (@enum.WeightCategories)Console.Read();
+                                        newParcel.Weight = (WeightCategories)Console.Read();
                                         Console.WriteLine("Enter the parcel priority");
-                                        newParcel.Priority = (@enum.Priorities)Console.Read();
+                                        newParcel.Priority = (Priorities)Console.Read();
                                         bl.AddParcel(newParcel);
                                         break;
 
@@ -133,7 +133,7 @@ namespace ConsoleUI_BL
                                 break;
                             }
 
-                        case (int)options.Update:
+                        case (int)Options.Update:
                             {
                                 Console.WriteLine("To update the drone model, type 1.\nTo update the base station details, type 2.\n" +
                                     "To update the customer details, type 3.\nTo send a drone to charge, type 4.\n" +
@@ -226,7 +226,7 @@ namespace ConsoleUI_BL
                                 break;
                             }
 
-                        case (int)options.DisplayIndividual:
+                        case (int)Options.DisplayIndividual:
                             {
                                 Console.WriteLine("To to print a drone, type 1.\nTo print a base station, type 2.\n" +
                                                  "To print a parcel, type 3.\nTo print a customer, type 4.");
@@ -268,7 +268,7 @@ namespace ConsoleUI_BL
                                 break;
                             }
 
-                        case (int)options.DisplayList:
+                        case (int)Options.DisplayList:
                             {
                                 Console.WriteLine("To to print all drones, type 1.\nTo print all stations, type 2.\n" +
                                                 "To print all parcels, type 3.\nTo print all customers, type 4.\n" +
@@ -321,7 +321,7 @@ namespace ConsoleUI_BL
                                 userAnswer = 0;//if UserAnswer will stay 5 the progrom will finish without wanting it to.
                                 break;
                             }
-                        case (int)options.Exit:
+                        case (int)Options.Exit:
                             Console.WriteLine("\nThank you for using our drones system, looking forward to see you again!");
                             break;
 

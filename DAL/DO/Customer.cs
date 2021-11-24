@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Utilities;
 
 namespace IDAL
 {
@@ -21,7 +17,7 @@ namespace IDAL
             public override string ToString()
             {
                 string str = "Customer ID:" + CustomerID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
-                    PhoneNumber + "\nCustomer location:\n" + (SexagesimalDegree.convert(Longitude, Latitude))+"\n" ;
+                    PhoneNumber + "\nCustomer location:\n" + (Util.SexagesimalCoordinate(Longitude, Latitude))+"\n" ;
                 return str;
             }
         }

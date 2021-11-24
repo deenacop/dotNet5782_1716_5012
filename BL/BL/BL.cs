@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DalObject;
 using IBL.BO;
 using IDAL;
 
@@ -11,13 +8,13 @@ namespace BL
 {
     public partial class BL : IBL.IBL
     {
-        public static IDal dal = new DalObject.DalObject();
+        internal static IDal dal = new DalObject.DalObject();
 
         static internal readonly Random rand = new(DateTime.Now.Millisecond);
 
         List<DroneToList> DroneListBL;
-        double vacant,
-            carriesLightWeight,
+        readonly double vacant,
+             carriesLightWeight,
             carriesMediumWeight,
             carriesHeavyWeight,
             droneLoadingRate;
@@ -38,7 +35,7 @@ namespace BL
             List<IDAL.DO.Drone> DroneListDL = dal.ListDroneDisplay().ToList();//Receive the drone list from the data layer.
             DroneListDL.CopyPropertiesToIEnumerable(DroneListBL);//convret from IDAT to IBL
 
-            List<ParcelToList> ParcelListBL = new List<ParcelToList>();
+            List<ParcelToList> ParcelListBL = new ();
             //Receive the parcel list of parcels that are assign to drone (from the data layer).
             List<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay(i => i.MyDroneID != 0).ToList();
             ParcelListDL.CopyPropertiesToIEnumerable(ParcelListBL);//convret from IDAT to IBL
@@ -46,7 +43,7 @@ namespace BL
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
 
 
-            List<BaseStation> BaseStationListBL = new List<BaseStation>();
+            List<BaseStation> BaseStationListBL = new ();
             List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
 
             StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from IDAT to IBL
@@ -63,11 +60,11 @@ namespace BL
                 && item.Delivered == DateTime.MinValue);//finds the parcel which is assigned to the current drone and the drone has been assigned .
                 if (index != -1)
                 {
-                    currentDrone.DroneStatus = @enum.DroneStatus.Delivery;//מבצע משלוח
+                    currentDrone.DroneStatus = DroneStatus.Delivery;//מבצע משלוח
 
                     IDAL.DO.Customer senderCustomer = CustomerListDL.Find(i => i.CustomerID == ParcelListDL[index].Sender);//sender customer
 
-                    Location locationOfSender = new Location
+                    Location locationOfSender = new ()
                     {
                         Latitude = senderCustomer.Latitude,
                         Longitude = senderCustomer.Longitude
@@ -85,7 +82,7 @@ namespace BL
 
                     //מצב סוללה:
                     IDAL.DO.Customer receiverCustomer = CustomerListDL.Find(item => item.CustomerID == ParcelListDL[index].Targetid);//found the customer that is the targetid one
-                    Location locationOfReceiver = new Location
+                    Location locationOfReceiver = new() 
                     {
                         Latitude = receiverCustomer.Latitude,
                         Longitude = receiverCustomer.Longitude
@@ -98,13 +95,13 @@ namespace BL
                     int minBatteryDrone = 0;
                     switch ((int)currentDrone.Weight)
                     {
-                        case (int)@enum.WeightCategories.Light:
+                        case (int)WeightCategories.Light:
                             minBatteryDrone = (int)distanceToTargeted * (int)carriesLightWeight;
                             break;
-                        case (int)@enum.WeightCategories.Midium:
+                        case (int)WeightCategories.Midium:
                             minBatteryDrone = (int)distanceToTargeted * (int)carriesMediumWeight;
                             break;
-                        case (int)@enum.WeightCategories.Heavy:
+                        case (int)WeightCategories.Heavy:
                             minBatteryDrone = (int)distanceToTargeted * (int)carriesHeavyWeight;
                             break;
                     }
@@ -116,11 +113,11 @@ namespace BL
                 {
                     List<IDAL.DO.Parcel> deliveredParcel = dal.ListParcelDisplay(i => i.Delivered != DateTime.MinValue).ToList();//lists of all the delivered parcels
                     List<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();//lists of all the available stations
-                    currentDrone.DroneStatus = (@enum.DroneStatus)rand.Next(0, 2);//פנוי לתחזוקה
-                    if (currentDrone.DroneStatus == @enum.DroneStatus.Maintenance)//if the drone is not in maintenance mode
+                    currentDrone.DroneStatus = (DroneStatus)rand.Next(0, 2);//פנוי לתחזוקה
+                    if (currentDrone.DroneStatus == DroneStatus.Maintenance)//if the drone is not in maintenance mode
                     {//בתחזוקה
                         index = rand.Next(0, availableStations.Capacity);//one of the staitions
-                        Location location1 = new Location()
+                        Location location1 = new ()
                         {
                             Latitude = availableStations[index].Latitude,
                             Longitude = availableStations[index].Longitude
@@ -134,11 +131,11 @@ namespace BL
                         currentDrone.Battery = rand.Next(0, 21);
                         break;
                     }
-                    if (currentDrone.DroneStatus == @enum.DroneStatus.Available)//if the drone is not in maintenance mode
+                    if (currentDrone.DroneStatus == DroneStatus.Available)//if the drone is not in maintenance mode
                     {//פנוי
                         index = rand.Next(0, deliveredParcel.Capacity);//one of the staitions
                         IDAL.DO.Customer targetid = CustomerListDL.Find(item => item.CustomerID == deliveredParcel[index].Targetid);
-                        Location location2 = new Location()
+                        Location location2 = new ()
                         {
                             Latitude = targetid.Latitude,
                             Longitude = targetid.Longitude
@@ -151,13 +148,13 @@ namespace BL
                         int weight = (int)currentDrone.Weight;
                         switch (weight)
                         {
-                            case (int)@enum.WeightCategories.Light:
+                            case (int)WeightCategories.Light:
                                 minBatteryDrone = (int)minDistance * (int)carriesLightWeight;
                                 break;
-                            case (int)@enum.WeightCategories.Midium:
+                            case (int)WeightCategories.Midium:
                                 minBatteryDrone = (int)minDistance * (int)carriesMediumWeight;
                                 break;
-                            case (int)@enum.WeightCategories.Heavy:
+                            case (int)WeightCategories.Heavy:
                                 minBatteryDrone = (int)minDistance * (int)carriesHeavyWeight;
                                 break;
                         }

@@ -24,7 +24,7 @@ namespace BL
                 || station.StationLocation.Longitude < 35 || station.StationLocation.Longitude > 36)
                 throw new UnlogicalLocationException("the location is not logical");
             if (station.NumOfAvailableChargingSlots < 0)
-                throw new ArgumentOutOfRangeException("cant be negative");
+                throw new ArgumentOutOfRangeException("Cant be negative");
             station.DronesInCharging.Clear();
             try
             {

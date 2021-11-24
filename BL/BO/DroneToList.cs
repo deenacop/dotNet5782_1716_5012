@@ -13,9 +13,9 @@ namespace IBL.BO
     {
         public int DroneID { get; set; }
         public string Model { get; set; }
-        public @enum.WeightCategories Weight { get; set; }
+        public WeightCategories Weight { get; set; }
         public int Battery { get; set; }
-        public @enum.DroneStatus DroneStatus { get; set; }
+        public DroneStatus DroneStatus { get; set; }
         public Location MyCurrentLocation { get; set; }
         /// <summary>
         /// The number of the parcel that is transfered

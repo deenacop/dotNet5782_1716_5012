@@ -27,7 +27,7 @@ namespace BL
                 drone.MyCurrentLocation.Longitude = wantedStation.Longitude;
                 drone.MyCurrentLocation.Latitude = wantedStation.Latitude;
                 drone.Battery = rand.Next(20, 41);
-                drone.DroneStatus = @enum.DroneStatus.Maintenance;
+                drone.DroneStatus = DroneStatus.Maintenance;
                 IDAL.DO.Drone droneDO = new();
                 object obj = droneDO;
                 drone.CopyPropertiesTo(obj);
@@ -69,7 +69,7 @@ namespace BL
         public void SendDroneToCharge(int ID)
         {
             int index = DroneListBL.FindIndex(item => item.DroneID == ID);//finds the drone with the wanted ID
-            if (index < 0 || DroneListBL[index].DroneStatus != @enum.DroneStatus.Available)//if the drone does not exist or the drone is not available
+            if (index < 0 || DroneListBL[index].DroneStatus != DroneStatus.Available)//if the drone does not exist or the drone is not available
                 throw new ItemNotExistException("Drone does not exist or is not available");
 
             List<BaseStation> BaseStationListBL = new();
@@ -93,7 +93,7 @@ namespace BL
             //if the drone *can* go to a charging station:
             DroneToList tmp = DroneListBL[index];
             tmp.Battery -= (int)(distance * vacant);
-            tmp.DroneStatus = @enum.DroneStatus.Maintenance;
+            tmp.DroneStatus = DroneStatus.Maintenance;
             tmp.MyCurrentLocation = MinDistanceLocation(BaseStationListBL, DroneListBL[index].MyCurrentLocation).Item1;
             DroneListBL[index] = tmp;
         }
@@ -129,7 +129,7 @@ namespace BL
             tmp.Battery += (int)(minuteInCharge * droneLoadingRate);
             if (tmp.Battery > 100)
                 tmp.Battery = 100;
-            tmp.DroneStatus = @enum.DroneStatus.Available;
+            tmp.DroneStatus = DroneStatus.Available;
             DroneListBL[index] = tmp;
         }
 
@@ -141,20 +141,20 @@ namespace BL
         public void AssignParcelToDrone(int ID)
         {
             Drone drone = DisplayDrone(ID);
-            if (drone.DroneStatus != @enum.DroneStatus.Available)
+            if (drone.DroneStatus != DroneStatus.Available)
                 throw new WorngStatusException("The drone is not available");
             List<IDAL.DO.Parcel> parcels = dal.ListParcelDisplay().ToList();
             IDAL.DO.Parcel bestParcel = parcels.First();// we assume that the best parcel for the drone is the first parcel in the list
             foreach (IDAL.DO.Parcel currentParcel in parcels)
             {
                 //checks if the parcel could be assigned
-                if (!legalParcel(bestParcel, drone) || !batteryCheckingForDroneAndParcel(bestParcel, drone) || (bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
+                if (!legalParcel(bestParcel, drone) || !BatteryCheckingForDroneAndParcel(bestParcel, drone) || (bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
                 {
                     bestParcel = currentParcel;
                     break;
                 }
                 //checks if the parcel could be assigned
-                if (legalParcel(currentParcel, drone) && batteryCheckingForDroneAndParcel(currentParcel, drone) && (bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
+                if (legalParcel(currentParcel, drone) && BatteryCheckingForDroneAndParcel(currentParcel, drone) && (bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
                 {
                     if (
                     (currentParcel.Priority > bestParcel.Priority) ||/*1: checking if the priority is bigger*/
@@ -169,9 +169,9 @@ namespace BL
                 }
             }
             //if there isnt a legal parcel to assign
-            if (!legalParcel(bestParcel, drone) || !batteryCheckingForDroneAndParcel(bestParcel, drone) || !(bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
+            if (!legalParcel(bestParcel, drone) || !BatteryCheckingForDroneAndParcel(bestParcel, drone) || !(bestParcel.Scheduled == DateTime.MinValue && bestParcel.Requested != DateTime.MinValue))
                 throw new ItemNotExistException("There is no parcel to assign with the drone");
-            drone.DroneStatus = @enum.DroneStatus.Delivery;
+            drone.DroneStatus = DroneStatus.Delivery;
             dal.AssignParcelToDrone(bestParcel.ParcelID, drone.DroneID);
         }
 
@@ -182,7 +182,7 @@ namespace BL
         public void CollectionOfParcelByDrone(int ID)
         {
             Drone drone = DisplayDrone(ID);
-            if (drone.DroneStatus != @enum.DroneStatus.Delivery)
+            if (drone.DroneStatus != DroneStatus.Delivery)
                 throw new WorngStatusException("The drone is not in delivery mode");
             Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);
             if (parcel.PickUp != DateTime.MinValue)
@@ -202,18 +202,18 @@ namespace BL
         {
             Drone drone = DisplayDrone(ID);
             Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);
-            if (drone.DroneStatus == @enum.DroneStatus.Delivery && parcel.PickUp != DateTime.MinValue && parcel.Delivered == DateTime.MinValue)
+            if (drone.DroneStatus == DroneStatus.Delivery && parcel.PickUp != DateTime.MinValue && parcel.Delivered == DateTime.MinValue)
             {
                 double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.TargetidCustomer.CustomerID).CustomerLocation);
                 switch ((int)drone.Weight)
                 {
-                    case (int)@enum.WeightCategories.Light:
+                    case (int)WeightCategories.Light:
                         drone.Battery -= (int)distance * (int)carriesLightWeight;
                         break;
-                    case (int)@enum.WeightCategories.Midium:
+                    case (int)WeightCategories.Midium:
                         drone.Battery -= (int)distance * (int)carriesMediumWeight;
                         break;
-                    case (int)@enum.WeightCategories.Heavy:
+                    case (int)WeightCategories.Heavy:
                         drone.Battery -= (int)distance * (int)carriesHeavyWeight;
                         break;
                 }
@@ -230,7 +230,7 @@ namespace BL
         /// <returns>The wanted drone</returns>
         public Drone DisplayDrone(int droneID)
         {
-            Drone droneBO = new Drone();
+            Drone droneBO = new ();
             try
             {
                 IDAL.DO.Drone droneDO = dal.DroneDisplay(droneID);
@@ -249,7 +249,7 @@ namespace BL
             droneBO.Battery = tmp.Battery;
             droneBO.MyCurrentLocation = tmp.MyCurrentLocation;
 
-            if (droneBO.DroneStatus == @enum.DroneStatus.Delivery)//if not in a delivery mode= doesnt have any parcel
+            if (droneBO.DroneStatus == DroneStatus.Delivery)//if not in a delivery mode= doesnt have any parcel
             {
                 List<IDAL.DO.Parcel> parcels = dal.ListParcelDisplay().ToList();
                 IDAL.DO.Parcel parcel = parcels.Find(i => i.MyDroneID == droneID);

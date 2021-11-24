@@ -67,21 +67,27 @@ namespace DalObject
             //Initializing variables into 5 drones.
             for (int i = 0; i < 10; i++)
             {
-                Drones.Insert(i, new()
+                int flag = rand.Next(0, 50);
+                Drone drone = new();
+                drone.DroneID = rand.Next(100, 1000);
+                drone.Model = modelArr[rand.Next(5)];
+                drone.Weight = WeightCategories.Heavy;
+                if (flag >= 20)
                 {
-                    DroneID = rand.Next(100, 1000),
-                    Model = modelArr[rand.Next(5)],
-                    Weight = (@enum.WeightCategories)rand.Next(0, 2)
+                    drone.Weight = WeightCategories.Medium;
+                    if (flag >= 30)
+                        drone.Weight = WeightCategories.Light;
+                }
 
-                });
                 for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each drone.
                 {
-                    if (Drones[j].DroneID == Drones[i].DroneID)
+                    if (Drones[j].DroneID == drone.DroneID)
                     {
                         i--;
                         break;
                     }
                 }
+                Drones.Add(drone);
             }
             #endregion
 
@@ -115,34 +121,87 @@ namespace DalObject
             #endregion
 
             #region parcel
-            DateTime time =DateTime.MinValue;
+            DateTime time = DateTime.MinValue;
             //Initializing variables into 10 parcels.
-            for (int i = 0; i < 10; i++)
+            //for (int i = 0; i < 10; i++)
+            //{
+
+            //Parcels.Insert(i, 
+            //{
+            //ParcelID = Config.RunnerIDNumParcels++,
+            //Sender = Customers[rand.Next(10)].CustomerID,
+            //Targetid = Customers[rand.Next(10)].CustomerID,
+            //MyDroneID = Drones[i].DroneID,
+            ////In the initialization, the entire ID of the drone is 0
+            ////because we did not want to reach contradictions in the introduction of the identity of the drone
+            ////and also that no deliveries were made yet.
+            //Weight = (WeightCategories)rand.Next(0, 2),
+            //Priority = (Priorities)rand.Next(0, 2),
+            for (int index = 0; index < 10; index++)//Updating 10 parcels
             {
-                int flag = rand.Next(0, 2);
-                if(flag==0)
-                { time = DateTime.Now; }
-                Parcels.Insert(i, new()
+                Parcel newParcel = new();
+                newParcel.ParcelID = Config.RunnerIDNumParcels++;//Updating the ID number of the package
+                newParcel.Sender = Customers[rand.Next(0,10)].CustomerID;//Updating the ID number of the sender
+                newParcel.MyDroneID = 0;//Updating the ID number of the drone
+                do
                 {
-                    ParcelID = Config.RunnerIDNumParcels++,
-                    Sender = Customers[rand.Next(10)].CustomerID,
-                    Targetid = Customers[rand.Next(10)].CustomerID,
-                    MyDroneID = Drones[i].DroneID,
-                    //In the initialization, the entire ID of the drone is 0
-                    //because we did not want to reach contradictions in the introduction of the identity of the drone
-                    //and also that no deliveries were made yet.
-                    Weight = (@enum.WeightCategories)rand.Next(0, 2),
-                    Priority = (@enum.Priorities)rand.Next(0, 2),
+                    newParcel.Targetid = Customers[rand.Next(0, 10)].CustomerID;
+                }
+                while (newParcel.Sender == newParcel.Targetid);
 
-                    Requested = DateTime.Now,
-                    Scheduled = DateTime.Now,
-                    PickUp = DateTime.Now,
-                    Delivered = DateTime.Now
-                });
+                newParcel.Weight = (WeightCategories)rand.Next(0, (int)WeightCategories.Max + 1);//Updating the weight
+                newParcel.Priority = (Priorities)rand.Next(0, (int)Priorities.Max + 1);//Updating the urgency of the shipment
+                                                                       //Putting a random date and time
+                newParcel.Requested = new DateTime(2021, rand.Next(1, 13), rand.Next(1, 29),
+                    rand.Next(24), rand.Next(60), rand.Next(60));
+                int status = rand.Next(0,100);
+                int flag = -1;
+                if (status >= 10)
+                {
+                    //Scheduling a time to deliver parcel
+                    newParcel.Scheduled = newParcel.Requested +
+                        new TimeSpan(rand.Next(5), rand.Next(60), rand.Next(60));
+
+                    if (status >= 15)
+                    {
+                        //Time drone came to deliver parcel
+                        newParcel.PickUp = newParcel.Scheduled +
+                            new TimeSpan(0, rand.Next(1, 60), rand.Next(60));
+                        if (status >= 20)
+                        {
+                            //Time customer recieved parcel
+                            newParcel.Delivered = newParcel.PickUp +
+                                new TimeSpan(0, rand.Next(1, 60), rand.Next(60));
+                            do
+                            {
+                                flag = rand.Next(0,10);
+                                newParcel.MyDroneID = Drones[flag].DroneID;
+                            }
+                            while (Drones[flag].Weight < newParcel.Weight);
+                        }
+                    }
+                    if (flag == -1)
+                    {
+                        do
+                        {
+                            flag = rand.Next(0,10);
+                            newParcel.MyDroneID = Drones[flag].DroneID;
+                        }
+                        while (Drones[flag].Weight > newParcel.Weight);
+                    }
+                }
+                Parcels.Add(newParcel);
             }
-            #endregion
-
+            //}
+            //Requested = DateTime.Now,
+            //Scheduled = DateTime.Now,
+            //PickUp = DateTime.Now,
+            //Delivered = DateTime.Now
+            //};
         }
+        #endregion
     }
-
 }
+
+
+

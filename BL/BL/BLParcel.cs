@@ -101,12 +101,12 @@ namespace BL
                 tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name; 
                 tmpParcelBO.NameOfTargetaed = tmp.TargetidCustomer.Name;
                 if (tmp.Scheduled == DateTime.MinValue)//not schedule yet
-                    tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Defined;
+                    tmpParcelBO.ParcelStatus = ParcelStatus.Defined;
                 else if (tmp.PickUp == DateTime.MinValue)//scheduled but has not been picked up
-                    tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Associated;
+                    tmpParcelBO.ParcelStatus = ParcelStatus.Associated;
                 else if (tmp.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
-                    tmpParcelBO.ParcelStatus = @enum.ParcelStatus.PickedUp;
-                else tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Delivered;
+                    tmpParcelBO.ParcelStatus = ParcelStatus.PickedUp;
+                else tmpParcelBO.ParcelStatus = ParcelStatus.Delivered;
                 listParcelToList.Add(tmpParcelBO);
             }
             return listParcelToList;
@@ -140,12 +140,12 @@ namespace BL
                 tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name;
                 tmpParcelBO.NameOfTargetaed = tmp.TargetidCustomer.Name;
                 if (tmp.Scheduled == DateTime.MinValue)//not schedule yet
-                    tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Defined;
+                    tmpParcelBO.ParcelStatus = ParcelStatus.Defined;
                 else if (tmp.PickUp == DateTime.MinValue)//scheduled but has not been picked up
-                    tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Associated;
+                    tmpParcelBO.ParcelStatus = ParcelStatus.Associated;
                 else if (tmp.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
-                    tmpParcelBO.ParcelStatus = @enum.ParcelStatus.PickedUp;
-                else tmpParcelBO.ParcelStatus = @enum.ParcelStatus.Delivered;
+                    tmpParcelBO.ParcelStatus = ParcelStatus.PickedUp;
+                else tmpParcelBO.ParcelStatus = ParcelStatus.Delivered;
                 listParcelToList.Add(tmpParcelBO);
             }
             return listParcelToList;

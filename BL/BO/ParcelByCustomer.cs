@@ -12,9 +12,9 @@ namespace IBL.BO
     public class ParcelByCustomer
     {
         public int ParcelID { get; set; }
-        public @enum.WeightCategories Weight { get; set; }
-        public @enum.Priorities Priority { get; set; }
-        public @enum.ParcelStatus ParcelStatus { get; set; }
+        public WeightCategories Weight { get; set; }
+        public Priorities Priority { get; set; }
+        public ParcelStatus ParcelStatus { get; set; }
         public CustomerInParcel SecondSideOfParcelCustomer { get; set; }
         public override string ToString()
         {

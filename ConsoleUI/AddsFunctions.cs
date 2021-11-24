@@ -22,7 +22,7 @@ namespace ConsoleUI
         #region Add
         public static void AddStation()
         {
-            IDAL.DO.Station NewStation = new IDAL.DO.Station();
+            IDAL.DO.Station NewStation = new ();
             Console.WriteLine("Enter the new station details: *station ID (4 digits)");        
             if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewStation.StationID = tmpInt;
@@ -45,8 +45,8 @@ namespace ConsoleUI
         /// </summary>
         public static void AddParcel()
         {
-            DateTime DateAndTime = new DateTime(1, 1, 1);
-            IDAL.DO.Parcel NewParcel = new IDAL.DO.Parcel();
+            DateTime DateAndTime = new ();
+            IDAL.DO.Parcel NewParcel = new ();
             Console.WriteLine("*parcel sender ID (6 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewParcel.Sender = tmpInt;
@@ -55,10 +55,10 @@ namespace ConsoleUI
                 NewParcel.Targetid = tmpInt;
             Console.WriteLine("*weight- for light type 0, for midium type 1, for heavy type 2");
             int.TryParse(Console.ReadLine(), out tmpInt);
-            NewParcel.Weight = (@enum.WeightCategories)tmpInt;
+            NewParcel.Weight = (WeightCategories)tmpInt;
             Console.WriteLine("*parcel Priority- for normal type 0, for fast type 1, for urgent type 2");
             int.TryParse(Console.ReadLine(), out tmpInt);
-            NewParcel.Priority = (@enum.Priorities)tmpInt;
+            NewParcel.Priority = (Priorities)tmpInt;
             NewParcel.MyDroneID = 0;
             NewParcel.Requested = DateTime.Now;
             NewParcel.Scheduled = DateAndTime;
@@ -72,7 +72,7 @@ namespace ConsoleUI
         /// </summary>
         public static void AddCustomer()
         {
-            IDAL.DO.Customer NewCustomer = new IDAL.DO.Customer();
+            IDAL.DO.Customer NewCustomer = new ();
             Console.WriteLine("Enter the new customer details: *customer ID (9 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewCustomer.CustomerID = tmpInt;
@@ -94,7 +94,7 @@ namespace ConsoleUI
         /// </summary>
         public static void AddDrone()
         {
-            IDAL.DO.Drone NewDrone = new IDAL.DO.Drone();
+            IDAL.DO.Drone NewDrone = new ();
             Console.WriteLine("Enter the new drone details: *drone ID (3 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewDrone.DroneID = tmpInt;
@@ -102,7 +102,7 @@ namespace ConsoleUI
             NewDrone.Model = Console.ReadLine();
             Console.WriteLine("*drones weight (for light type 0, midium type 1, heavy type 2)");
             int.TryParse(Console.ReadLine(), out tmpInt);
-            NewDrone.Weight = (@enum.WeightCategories)tmpInt;
+            NewDrone.Weight = (WeightCategories)tmpInt;
             Program.DalObj.Add(NewDrone);
         }
         #endregion
