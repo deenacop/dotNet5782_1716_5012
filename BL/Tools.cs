@@ -13,8 +13,7 @@ using BL;
 namespace BL
 {
     public static class Tools
-    {
-        
+    {       
         public static void CopyPropertiesTo<T, S>(this S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())
@@ -29,11 +28,6 @@ namespace BL
                 {
                     propTo.SetValue(to, value);
                 }
-                //else if (!(value is IEnumerable<ValueType>))
-                //{
-                //    object target = propTo.GetValue(to, null);
-                //    value.CopyPropertiesTo(target);
-                //}
             }
         }
         public static void CopyPropertiesToIEnumerable<T, S>(this IEnumerable<S> from, List<T> to)
@@ -45,16 +39,6 @@ namespace BL
                 s.CopyPropertiesTo(t);
                 to.Add(t);
             }
-        }
-
-        public static string ToStringProperty<T>(this T t)
-        {
-            string str = "";
-            foreach (PropertyInfo item in t.GetType().GetProperties())
-            {
-                str += "\n" + item.Name + ": " + item.GetValue(t, null);
-            }
-            return str;
         }
     }
 }

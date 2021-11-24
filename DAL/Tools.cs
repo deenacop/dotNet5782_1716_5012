@@ -40,22 +40,6 @@ namespace IDAL
                 to.Add(t);
             }
         }
-        public static object CopyPropertiesToNew<S>(this S from, Type type)
-        {
-            object to = Activator.CreateInstance(type); // new object of Type
-            from.CopyPropertiesTo(to);
-            return to;
-        }
-
-        public static string toStringProperty<T>(this T t)
-        {
-            string str = "";
-            foreach (PropertyInfo item in t.GetType().GetProperties())
-            {
-                str += "\n" + item.Name + ": " + item.GetValue(t, null);
-            }
-            return str;
-        }
     }
 }
 
