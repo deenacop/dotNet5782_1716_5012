@@ -56,6 +56,7 @@ namespace BL
 
             foreach (DroneToList currentDrone in DroneListBL)
             {
+
                 int index = ParcelListDL.FindIndex(item => item.MyDroneID == currentDrone.DroneID
                 && item.Delivered == DateTime.MinValue);//finds the parcel which is assigned to the current drone and the drone has been assigned .
                 if (index != -1)
@@ -78,6 +79,7 @@ namespace BL
                     else
                     {
                         currentDrone.MyCurrentLocation = locationOfSender;
+                        currentDrone.ParcelNumberTransfered = ParcelListDL[index].ParcelID;
                     }
 
                     //מצב סוללה:
@@ -113,7 +115,7 @@ namespace BL
                 {
                     List<IDAL.DO.Parcel> deliveredParcel = dal.ListParcelDisplay(i => i.Delivered != DateTime.MinValue).ToList();//lists of all the delivered parcels
                     List<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();//lists of all the available stations
-                    currentDrone.DroneStatus = (DroneStatus)rand.Next(0, 2);//פנוי לתחזוקה
+                    currentDrone.DroneStatus = (DroneStatus)rand.Next(0,2);//פנוי לתחזוקה
                     if (currentDrone.DroneStatus == DroneStatus.Maintenance)//if the drone is not in maintenance mode
                     {//בתחזוקה
                         index = rand.Next(0, availableStations.Capacity);//one of the staitions
@@ -129,7 +131,7 @@ namespace BL
                         else
                             availableStations[index] = tmp;
                         currentDrone.Battery = rand.Next(0, 21);
-                        break;
+                        
                     }
                     if (currentDrone.DroneStatus == DroneStatus.Available)//if the drone is not in maintenance mode
                     {//פנוי
