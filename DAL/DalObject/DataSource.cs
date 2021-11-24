@@ -25,11 +25,11 @@ namespace DalObject
         internal class Config
         {
             static internal int RunnerIDNumParcels = 100000;
-            static internal double vacant = 5;//per km
-            static internal double CarriesLightWeight = 8;//per km
-            static internal double CarriesMediumWeight = 10;//per km
-            static internal double CarriesHeavyWeight = 13;//per km
-            static internal double DroneLoadingRate = 0.05;//per min
+            static internal double vacant = 2;//per km
+            static internal double CarriesLightWeight = 5;//per km
+            static internal double CarriesMediumWeight = 8;//per km
+            static internal double CarriesHeavyWeight = 10;//per km
+            static internal double DroneLoadingRate = 1.5;//per min
         }
 
         /// <summary>
@@ -122,21 +122,6 @@ namespace DalObject
 
             #region parcel
             DateTime time = DateTime.MinValue;
-            //Initializing variables into 10 parcels.
-            //for (int i = 0; i < 10; i++)
-            //{
-
-            //Parcels.Insert(i, 
-            //{
-            //ParcelID = Config.RunnerIDNumParcels++,
-            //Sender = Customers[rand.Next(10)].CustomerID,
-            //Targetid = Customers[rand.Next(10)].CustomerID,
-            //MyDroneID = Drones[i].DroneID,
-            ////In the initialization, the entire ID of the drone is 0
-            ////because we did not want to reach contradictions in the introduction of the identity of the drone
-            ////and also that no deliveries were made yet.
-            //Weight = (WeightCategories)rand.Next(0, 2),
-            //Priority = (Priorities)rand.Next(0, 2),
             for (int index = 0; index < 10; index++)//Updating 10 parcels
             {
                 Parcel newParcel = new();
@@ -162,7 +147,7 @@ namespace DalObject
                     newParcel.Scheduled = newParcel.Requested +
                         new TimeSpan(rand.Next(5), rand.Next(60), rand.Next(60));
 
-                    if (status >= 15)
+                    if (status >= 30)
                     {
                         //Time drone came to deliver parcel
                         newParcel.PickUp = newParcel.Scheduled +
@@ -192,12 +177,6 @@ namespace DalObject
                 }
                 Parcels.Add(newParcel);
             }
-            //}
-            //Requested = DateTime.Now,
-            //Scheduled = DateTime.Now,
-            //PickUp = DateTime.Now,
-            //Delivered = DateTime.Now
-            //};
         }
         #endregion
     }

@@ -55,19 +55,7 @@ namespace BL
         {
             return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1);
         }
-        /// <summary>
-        /// Function that checks if a drone can carry a parcel according to there weight
-        /// </summary>
-        /// <param name="parcel">The parcel that needs to be picked up</param>
-        /// <param name="drone">The drone that needs to do the delivary</param>
-        /// <returns>true or false</returns>
-        static bool legalParcel(IDAL.DO.Parcel parcel, Drone drone)
-        {
-            if ((int)drone.Weight < (int)parcel.Weight)//not legal parcel for this drone
-                return false;
 
-            return true;
-        }
         /// <summary>
         /// Function that checks if the drone has enough battery to do his delivary
         /// </summary>
@@ -83,18 +71,23 @@ namespace BL
             switch ((int)parcel.Weight)//calculate from the sender to the targetid
             {
                 case (int)WeightCategories.Light:
-                    minBattery += (int)distance * (int)carriesLightWeight;
+                    minBattery += (int)(distance * carriesLightWeight);
                     break;
                 case (int)WeightCategories.Midium:
-                    minBattery += (int)distance * (int)carriesMediumWeight;
+                    minBattery += (int)(distance * carriesMediumWeight);
                     break;
                 case (int)WeightCategories.Heavy:
-                    minBattery += (int)distance * (int)carriesHeavyWeight;
+                    minBattery += (int)(distance * carriesHeavyWeight);
                     break;
             }
-            List<BaseStation> BaseStationListBL = null;
+            List<BaseStation> BaseStationListBL = new();
             List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
-            StationListDL.CopyPropertiesTo(BaseStationListBL);//convret from IDAT to IBL
+            StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from IDAT to IBL
+            int i = 0;
+            foreach(BaseStation currentStation in BaseStationListBL)
+            {
+                currentStation.StationLocation = new() { Latitude = StationListDL[i].Latitude, Longitude = StationListDL[i].Longitude };
+            }
             minBattery += (int)MinDistanceLocation(BaseStationListBL, CustomerDisplay(parcel.Targetid).CustomerLocation).Item2 * (int)vacant;
             if (minBattery <= drone.Battery)
                 return true;
