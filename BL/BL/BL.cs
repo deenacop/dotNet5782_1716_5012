@@ -12,7 +12,7 @@ namespace BL
 
         static internal readonly Random rand = new(DateTime.Now.Millisecond);
 
-        readonly List<DroneToList>  DroneListBL;
+        readonly List<DroneToList> DroneListBL;
         readonly double vacant,
              carriesLightWeight,
             carriesMediumWeight,
@@ -35,7 +35,7 @@ namespace BL
             List<IDAL.DO.Drone> DroneListDL = dal.ListDroneDisplay().ToList();//Receive the drone list from the data layer.
             DroneListDL.CopyPropertiesToIEnumerable(DroneListBL);//convret from IDAT to IBL
 
-            List<ParcelToList> ParcelListBL = new ();
+            List<ParcelToList> ParcelListBL = new();
             //Receive the parcel list of parcels that are assign to drone (from the data layer).
             List<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay(i => i.MyDroneID != 0).ToList();
             ParcelListDL.CopyPropertiesToIEnumerable(ParcelListBL);//convret from IDAT to IBL
@@ -43,7 +43,7 @@ namespace BL
             List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
 
 
-            List<BaseStation> BaseStationListBL = new ();
+            List<BaseStation> BaseStationListBL = new();
             List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
 
             StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from IDAT to IBL
@@ -64,7 +64,7 @@ namespace BL
 
                     IDAL.DO.Customer senderCustomer = CustomerListDL.Find(i => i.CustomerID == ParcelListDL[index].Sender);//sender customer
 
-                    Location locationOfSender = new ()
+                    Location locationOfSender = new()
                     {
                         Latitude = senderCustomer.Latitude,
                         Longitude = senderCustomer.Longitude
@@ -83,7 +83,7 @@ namespace BL
 
                     //מצב סוללה:
                     IDAL.DO.Customer receiverCustomer = CustomerListDL.Find(item => item.CustomerID == ParcelListDL[index].Targetid);//found the customer that is the targetid one
-                    Location locationOfReceiver = new() 
+                    Location locationOfReceiver = new()
                     {
                         Latitude = receiverCustomer.Latitude,
                         Longitude = receiverCustomer.Longitude
@@ -118,25 +118,30 @@ namespace BL
                     if (currentDrone.DroneStatus == DroneStatus.Maintenance)//if the drone is not in maintenance mode
                     {//בתחזוקה
                         index = rand.Next(0, availableStations.Capacity);//one of the staitions
-                        Location location1 = new ()
+                        Location location1 = new()
                         {
                             Latitude = availableStations[index].Latitude,
                             Longitude = availableStations[index].Longitude
                         };
                         currentDrone.MyCurrentLocation = location1;
                         IDAL.DO.Station tmp = availableStations[index];
-                        if (--tmp.NumOfAvailableChargingSlots == 0)
+                        if (tmp.NumOfAvailableChargingSlots - 1 == 0)
                             availableStations.RemoveAt(index);
                         else
+                        {
+                            tmp.NumOfAvailableChargingSlots -= 1;
                             availableStations[index] = tmp;
+                        }
                         currentDrone.Battery = rand.Next(0, 21);
+                         dal.SendingDroneToChargingBaseStation(currentDrone.DroneID, availableStations[index].StationID);
+
                     }
                     if (currentDrone.DroneStatus == DroneStatus.Available)//if the drone is not in maintenance mode
                     {//פנוי
                         index = rand.Next(0, deliveredParcel.Capacity);//one of the staitions
 
                         IDAL.DO.Customer targetid = CustomerListDL.Find(item => item.CustomerID == deliveredParcel[index].Targetid);
-                        Location location2 = new ()
+                        Location location2 = new()
                         {
                             Latitude = targetid.Latitude,
                             Longitude = targetid.Longitude
@@ -160,7 +165,7 @@ namespace BL
                                 break;
                         }
                         if (minBatteryDrone == 0)
-                            currentDrone.Battery=30;
+                            currentDrone.Battery = 30;
                         currentDrone.Battery = rand.Next(minBatteryDrone, 101);
                     }
                 }
