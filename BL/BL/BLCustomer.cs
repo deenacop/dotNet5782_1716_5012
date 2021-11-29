@@ -67,8 +67,8 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
 
-            List<IDAL.DO.Parcel> SenderParcels = dal.ListParcelDisplay(i => i.Sender == ID).ToList();//the list of the parcels that the customer send
-            List<IDAL.DO.Parcel> ReceiverParcels = dal.ListParcelDisplay(i => i.Targetid == ID).ToList();//the list of the parcels that the customer received
+            IEnumerable<IDAL.DO.Parcel> SenderParcels = dal.ListParcelDisplay(i => i.Sender == ID).ToList();//the list of the parcels that the customer send
+            IEnumerable<IDAL.DO.Parcel> ReceiverParcels = dal.ListParcelDisplay(i => i.Targetid == ID).ToList();//the list of the parcels that the customer received
             ParcelByCustomer sendParcel = new();
 
             foreach (IDAL.DO.Parcel currentParcel in SenderParcels)
@@ -108,14 +108,7 @@ namespace BL
         public IEnumerable<CustomerToList> ListCustomerDisplay()
         {
             List<IDAL.DO.Customer> customerDO = new();
-            try
-            {
-                customerDO = dal.ListCustomerDisplay().ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
-            }
+            customerDO = dal.ListCustomerDisplay().ToList();
             List<CustomerToList> customerToLists = new();
             foreach (IDAL.DO.Customer currentCustomer in customerDO)
             {

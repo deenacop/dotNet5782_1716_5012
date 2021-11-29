@@ -30,7 +30,6 @@ namespace IBL
         /// <param name="drone">The new drone that we asked to add</param>
         /// <param name="stationID">A station ID for a initial charge</param>
         /// <exception cref="IBL.BO.WrongIDException"></exception>
-        /// 
         void AddDrone(DroneToList drone, int stationID);
 
         /// <summary>
@@ -40,23 +39,22 @@ namespace IBL
         /// <exception cref="IBL.BO.WrongIDException"></exception>
         /// <exception cref="IBL.BO.WrongIDException"></exception>
         /// <exception cref="IBL.BO.AlreadyExistedItemException"></exception>
-        /// 
         void AddParcel(Parcel parcel);
+
         /// <summary>
         /// Assings a drone to a parcel
         /// </summary>
         /// <param name="ID">The drone to assign</param>
         /// <exception cref="IBL.BO.WorngStatusException"></exception>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-
         void AssignParcelToDrone(int ID);
+
         /// <summary>
         /// Display the base station
         /// </summary>
         /// <param name="StationID">The ID of the wanted station</param>
         /// <returns>Returns the wanted base station</returns>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-
         BaseStation BaseStationDisplay(int StationID);
 
         /// <summary>
@@ -87,42 +85,36 @@ namespace IBL
         /// Displays the list of BL base station
         /// </summary>
         /// <returns>The list of BL base ststion</returns>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
         IEnumerable<BaseStationToList> ListBaseStationlDisplay();
 
         /// <summary>
         /// Displays the list of the customerToList
         /// </summary>
         /// <returns>The list of the customer</returns>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
         IEnumerable<CustomerToList> ListCustomerDisplay();
 
         /// <summary>
         /// Displays the list of drones
         /// </summary>
-        /// <returns>The list of drones</returns>
-        ///      
+        /// <returns>The list of drones</returns>     
         IEnumerable<DroneToList> ListDroneDisplay();
 
         /// <summary>
         /// Displays the list of BL base station with available slots
         /// </summary>
-        /// <returns>The list of BL base ststion with available slots</returns>
-        
+        /// <returns>The list of BL base ststion with available slots</returns>  
         IEnumerable<BaseStationToList> ListOfAvailableSlotsBaseStationlDisplay();
+
         /// <summary>
         /// Displays the list of unassigned parcels
         /// </summary>
         /// <returns>The list of unassigned parceld</returns>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-
         IEnumerable<ParcelToList> ListOfUnassignedParcelDisplay();
+
         /// <summary>
         /// Displays the list of parcels
         /// </summary>
         /// <returns>The list of parceld</returns>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-
         IEnumerable<ParcelToList> ListParcelDisplay();
 
         /// <summary>

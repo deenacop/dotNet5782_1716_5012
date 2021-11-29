@@ -9,14 +9,15 @@ namespace BL
     {
         public void AddParcel(Parcel parcel)
         {
-            if (ChackingNumOfDigits(parcel.SenderCustomer.CustomerID) != 9) 
-                    throw new WrongIDException("Wrong ID");
-            // if (dal.ListCustomerDisplay(i => i.CustomerID == parcel.SenderCustomer.CustomerID) == null)
-            //throw new WrongIDException("Wrong ID");
-            if (ChackingNumOfDigits(parcel.TargetidCustomer.CustomerID) != 9) 
+            try
+            {
+                dal.CustomerDisplay(parcel.SenderCustomer.CustomerID);
+                dal.CustomerDisplay(parcel.TargetidCustomer.CustomerID);
+            }
+            catch(Exception)
+            {
                 throw new WrongIDException("Wrong ID");
-            // if(dal.ListCustomerDisplay(i => i.CustomerID == parcel.TargetidCustomer.CustomerID) == null)
-            //throw new WrongIDException("Wrong ID");
+            }
             if (parcel.Weight < WeightCategories.Light || parcel.Weight > WeightCategories.Heavy)
                 throw new WrongInputException("Wrong input");
             if (parcel.Priority < Priorities.Normal || parcel.Priority > Priorities.Urgent)
@@ -75,15 +76,7 @@ namespace BL
 
         public IEnumerable<ParcelToList> ListParcelDisplay()
         {
-            List<IDAL.DO.Parcel> parcelsDO = new();
-            try
-            {
-                parcelsDO = dal.ListParcelDisplay().ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
-            }
+            IEnumerable<IDAL.DO.Parcel> parcelsDO = dal.ListParcelDisplay();
             List<ParcelToList> listParcelToList = new();
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
             {
@@ -106,19 +99,9 @@ namespace BL
 
         public IEnumerable<ParcelToList> ListOfUnassignedParcelDisplay()
         {
-            List<IDAL.DO.Parcel> parcelsDO = new();
-            try
-            {
-                parcelsDO = dal.ListParcelDisplay(i => i.MyDroneID == 0).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
-            }
+            IEnumerable<IDAL.DO.Parcel> parcelsDO = dal.ListParcelDisplay(i => i.MyDroneID == 0);
             Parcel tmp = new();
-
             List<ParcelToList> listParcelToList = new();
-            List<IDAL.DO.Customer> CustomerListDL = dal.ListCustomerDisplay().ToList();//Receive the customer list from the data layer.
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
             {
                 ParcelToList tmpParcelBO = new();

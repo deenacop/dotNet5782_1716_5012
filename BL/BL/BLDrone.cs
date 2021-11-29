@@ -59,12 +59,12 @@ namespace BL
                 throw new ItemNotExistException("Drone does not exist or is not available");
 
             List<BaseStation> BaseStationListBL = new();
-            List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();//Receive the drone list from the data layer.
+            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();//Receive the drone list from the data layer.
             StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from IDAT to IBL
             int i = 0;
             foreach (BaseStation currentStation in BaseStationListBL)
             {
-                currentStation.StationLocation = new() { Longitude = StationListDL[i].Longitude, Latitude = StationListDL[i].Latitude };
+                currentStation.StationLocation = new() { Longitude = StationListDL.ElementAt(i).Longitude, Latitude = StationListDL.ElementAt(i).Latitude };
                 i++;
             }
             if (BaseStationListBL.Capacity <= 0)
@@ -97,30 +97,21 @@ namespace BL
                 throw new ItemNotExistException("The drone does not exist");
             if (DroneListBL[index].Battery + (int)(minuteInCharge * droneLoadingRate) <= 50)//the drone is half charged and can be used
                 throw new NotEnoughBatteryException("The drone needs to be charged");
-
-            List<BaseStation> BaseStationListBL = new();
-            List<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
-            StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from IDAT to IBL
-            int i = 0;
-            foreach (BaseStation currentStation in BaseStationListBL)
-            {
-                currentStation.StationLocation = new() { Longitude = StationListDL[i].Longitude, Latitude = StationListDL[i].Latitude };
-                i++;
-            }
-            //if drone *can* be released
             try
-            {
-                dal.ReleasingDroneFromChargingBaseStation(
-                    ID, BaseStationListBL.Find(item => item.StationLocation.Latitude == DroneListBL[index].MyCurrentLocation.Latitude
-                    && item.StationLocation.Longitude == DroneListBL[index].MyCurrentLocation.Longitude).StationID);//calls the function from DALOBJECT
+            {//we brought the station that has the right location
+                IDAL.DO.Station station = dal.ListStationDisplay(item => item.Latitude == DroneListBL[index].MyCurrentLocation.Latitude
+                     && item.Longitude == DroneListBL[index].MyCurrentLocation.Longitude).First();
+               //update
+                dal.ReleasingDroneFromChargingBaseStation(ID, station.StationID);
             }
             catch (Exception ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
+            //update the drone
             DroneToList tmp = DroneListBL[index];
             tmp.Battery += (int)(minuteInCharge * droneLoadingRate);
-            if (tmp.Battery > 100)
+            if (tmp.Battery > 100)//cant be more than 100
                 tmp.Battery = 100;
             tmp.DroneStatus = DroneStatus.Available;
             DroneListBL[index] = tmp;
@@ -128,16 +119,16 @@ namespace BL
 
         public void AssignParcelToDrone(int ID)
         {
-            int index = DroneListBL.FindIndex(i=>i.DroneID==ID);
-            Drone drone = DisplayDrone(ID);
+            int index = DroneListBL.FindIndex(i => i.DroneID == ID);//find index of the wanted drone
+            Drone drone = DisplayDrone(ID);//drone from IDAL.DO
             if (drone.DroneStatus != DroneStatus.Available)
                 throw new WorngStatusException("The drone is not available");
-            List<IDAL.DO.Parcel> parcels = dal.ListParcelDisplay(i => i.MyDroneID == 0 && (int)i.Weight <= (int)drone.Weight).
+            //Brings the list of parcels sorted by order of urgency
+            IEnumerable<IDAL.DO.Parcel> parcels = dal.ListParcelDisplay(i => i.MyDroneID == 0 && (int)i.Weight <= (int)drone.Weight).
                 OrderByDescending(currentParcel => currentParcel.Priority).ThenByDescending(currentParcel =>
                  currentParcel.Weight).ThenByDescending(currentParcel =>
                      DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(currentParcel.Sender).CustomerLocation)).ToList();
-            //IDAL.DO.Parcel bestParcel = parcels.First();// we assume that the best parcel for the drone is the first parcel in the list
-            foreach (IDAL.DO.Parcel currentParcel in parcels)
+            foreach (IDAL.DO.Parcel currentParcel in parcels)//Tests whether the drone can perform the shipping route (battery test)
             {
                 if (BatteryCheckingForDroneAndParcel(currentParcel, drone))
                 {
@@ -147,22 +138,21 @@ namespace BL
                 }
             }
             throw new ItemNotExistException("There is no parcel to assign with the drone");
-
         }
 
         public void CollectionOfParcelByDrone(int ID)
         {
-            int index = DroneListBL.FindIndex(i => i.DroneID == ID);
-            Drone drone = DisplayDrone(ID);
+            int index = DroneListBL.FindIndex(i => i.DroneID == ID);//find the index of the dron
+            Drone drone = DisplayDrone(ID);//drone from IDAL.DO
             if (drone.DroneStatus != DroneStatus.Delivery)
                 throw new WorngStatusException("The drone is not in delivery mode");
-            Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);
+            Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);//the wanted parcel
             if (parcel.PickUp != DateTime.MinValue)
                 throw new WorngStatusException("The parcel has allready been picked up ");
             double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.SenderCustomer.CustomerID).CustomerLocation);
-            DroneListBL[index].Battery -= (int)(distance * vacant);
+            DroneListBL[index].Battery -= (int)(distance * vacant);//update the battery
             DroneListBL[index].MyCurrentLocation = CustomerDisplay(parcel.SenderCustomer.CustomerID).CustomerLocation;
-            dal.CollectionOfParcelByDrone(parcel.ParcelID, drone.DroneID);
+            dal.CollectionOfParcelByDrone(parcel.ParcelID, drone.DroneID);//send to the function
         }
 
         public void DeliveryParcelByDrone(int ID)
@@ -203,9 +193,8 @@ namespace BL
             {
                 throw new ItemNotExistException(ex.Message);
             }
-            if (!DroneListBL.Exists(item => item.DroneID == droneID))
-                throw new ItemNotExistException("Drone not found");
-
+            //if (!DroneListBL.Exists(item => item.DroneID == droneID))
+            //    throw new ItemNotExistException("Drone not found");
             DroneToList tmp = DroneListBL.Find(item => item.DroneID == droneID);
             droneBO.MyParcel = new();
             droneBO.DroneStatus = tmp.DroneStatus;
@@ -214,8 +203,7 @@ namespace BL
 
             if (droneBO.DroneStatus == DroneStatus.Delivery)//if not in a delivery mode= doesnt have any parcel
             {
-                List<IDAL.DO.Parcel> parcels = dal.ListParcelDisplay().ToList();
-                IDAL.DO.Parcel parcel = parcels.Find(i => i.MyDroneID == droneID);
+                IDAL.DO.Parcel parcel = dal.ParcelDisplay(droneID);
                 droneBO.MyParcel.SenderCustomer = new();
                 droneBO.MyParcel.ReceiverCustomer = new();
                 parcel.CopyPropertiesTo(droneBO.MyParcel);
