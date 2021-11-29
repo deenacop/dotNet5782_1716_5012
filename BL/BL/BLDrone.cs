@@ -176,6 +176,7 @@ namespace BL
                         break;
                 }
                 DroneListBL[index].MyCurrentLocation = CustomerDisplay(parcel.TargetidCustomer.CustomerID).CustomerLocation;
+                DroneListBL[index].DroneStatus = DroneStatus.Available;
                 dal.DeliveryParcelToCustomer(parcel.ParcelID);
             }
             else throw new WorngStatusException("The parcel couldnt be delivered");
@@ -203,7 +204,7 @@ namespace BL
 
             if (droneBO.DroneStatus == DroneStatus.Delivery)//if not in a delivery mode= doesnt have any parcel
             {
-                IDAL.DO.Parcel parcel = dal.ParcelDisplay(droneID);
+                IDAL.DO.Parcel parcel = dal.ListParcelDisplay(i=>i.MyDroneID==droneID).First();
                 droneBO.MyParcel.SenderCustomer = new();
                 droneBO.MyParcel.ReceiverCustomer = new();
                 parcel.CopyPropertiesTo(droneBO.MyParcel);

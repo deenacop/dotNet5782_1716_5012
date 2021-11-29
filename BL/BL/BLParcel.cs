@@ -65,7 +65,7 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
             ///האם קיים הdrone?
-            if (parcelDO.Scheduled != DateTime.MinValue)//if the parel is assigned
+            if (parcelDO.Scheduled != DateTime.MinValue&& parcelDO.Delivered==DateTime.MinValue)//if the parel is assigned
             {
                 DroneToList drone = DroneListBL.Find(i => i.DroneID == parcelDO.MyDroneID);
                 parcelBO.MyDrone = new();
