@@ -77,11 +77,11 @@ namespace BL
                 sendParcel.SecondSideOfParcelCustomer = new();
                 sendParcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Targetid;//second side is targetid
                 sendParcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Targetid).Name;
-                if (currentParcel.Scheduled == DateTime.MinValue)//not schedule yet
+                if (currentParcel.Scheduled == null)//not schedule yet
                     sendParcel.ParcelStatus = ParcelStatus.Defined;
-                else if (currentParcel.PickUp == DateTime.MinValue)//scheduled but has not been picked up
+                else if (currentParcel.PickUp == null)//scheduled but has not been picked up
                     sendParcel.ParcelStatus = ParcelStatus.Associated;
-                else if (currentParcel.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
+                else if (currentParcel.Delivered == null) //scheduled and picked up  but has not been delivered
                     sendParcel.ParcelStatus = ParcelStatus.PickedUp;
                 else sendParcel.ParcelStatus = ParcelStatus.Delivered;
                 //add the parcel to the list
@@ -114,16 +114,16 @@ namespace BL
                 CustomerToList tmpCustomerToList = new();
                 currentCustomer.CopyPropertiesTo(tmpCustomerToList);
                 //brings all the parcels that were send by the current customer and were delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsSendAndDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered != DateTime.MinValue);
+                IEnumerable<IDAL.DO.Parcel> parcelsSendAndDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered != null);
                 tmpCustomerToList.NumberParcelSentAndDelivered = parcelsSendAndDelivered.Count();
                 //brings all the parcels that were send by the current customer and werent delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsSendAndNOTDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered == DateTime.MinValue && i.PickUp!=DateTime.MinValue);
+                IEnumerable<IDAL.DO.Parcel> parcelsSendAndNOTDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered == null && i.PickUp!= null);
                 tmpCustomerToList.NumberParcelSentAndNOTDelivered = parcelsSendAndNOTDelivered.Count();
                 //brings all the parcels that were received by the current customer and were delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsReceived = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.Delivered != DateTime.MinValue);
+                IEnumerable<IDAL.DO.Parcel> parcelsReceived = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.Delivered != null);
                 tmpCustomerToList.NumberOfParcelReceived = parcelsReceived.Count();
                 //brings all the parcels that were received by the current customer and werent delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsOnTheWay = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.PickUp != DateTime.MinValue && i.Delivered == DateTime.MinValue);
+                IEnumerable<IDAL.DO.Parcel> parcelsOnTheWay = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.PickUp != null && i.Delivered == null);
                 tmpCustomerToList.NumberOfParcelOnTheWayToCustomer = parcelsOnTheWay.Count();
                 customerToLists.Add(tmpCustomerToList);
             }

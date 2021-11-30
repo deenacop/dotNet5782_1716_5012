@@ -23,9 +23,9 @@ namespace BL
             if (parcel.Priority < Priorities.Normal || parcel.Priority > Priorities.Urgent)
                 throw new WrongInputException("Wrong input");
             parcel.Requested = DateTime.Now;
-            parcel.Scheduled = DateTime.MinValue;
-            parcel.PickUp = DateTime.MinValue;
-            parcel.Delivered = DateTime.MinValue;
+            parcel.Scheduled = null;
+            parcel.PickUp = null;
+            parcel.Delivered = null;
             parcel.MyDrone = new();
             try
             {
@@ -65,7 +65,7 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
             ///האם קיים הdrone?
-            if (parcelDO.Scheduled != DateTime.MinValue && parcelDO.Delivered == DateTime.MinValue)//if the parel is assigned
+            if (parcelDO.Scheduled != null && parcelDO.Delivered==null)//if the parel is assigned
             {
                 DroneToList drone = DroneListBL.Find(i => i.DroneID == parcelDO.MyDroneID);
                 parcelBO.MyDrone = new();
@@ -85,11 +85,11 @@ namespace BL
                 tmp.CopyPropertiesTo(tmpParcelBO);
                 tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name;
                 tmpParcelBO.NameOfTargetaed = tmp.TargetidCustomer.Name;
-                if (tmp.Scheduled == DateTime.MinValue)//not schedule yet
+                if (tmp.Scheduled == null)//not schedule yet
                     tmpParcelBO.ParcelStatus = ParcelStatus.Defined;
-                else if (tmp.PickUp == DateTime.MinValue)//scheduled but has not been picked up
+                else if (tmp.PickUp == null)//scheduled but has not been picked up
                     tmpParcelBO.ParcelStatus = ParcelStatus.Associated;
-                else if (tmp.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
+                else if (tmp.Delivered == null) //scheduled and picked up  but has not been delivered
                     tmpParcelBO.ParcelStatus = ParcelStatus.PickedUp;
                 else tmpParcelBO.ParcelStatus = ParcelStatus.Delivered;
                 listParcelToList.Add(tmpParcelBO);
