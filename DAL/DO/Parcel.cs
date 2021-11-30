@@ -19,7 +19,7 @@ namespace IDAL
             public WeightCategories Weight { get; set; }
             public Priorities Priority { get; set; }
             public int MyDroneID { get; set; }
-            public DateTime Requested { get; set; }
+            public DateTime? Requested { get; set; }
             public DateTime Scheduled { get; set; }
             public DateTime PickUp { get; set; }
             public DateTime Delivered { get; set; }
@@ -28,9 +28,13 @@ namespace IDAL
             {
                 string str = "Parcel ID:" + ParcelID + "\nParcel sender:" + Sender + "\nParcel targetid:" + Targetid +
                 "\nParcel weight:" + Weight + "\nParcel priority:" + Priority +
-                "\nParcel drone ID:" + MyDroneID + "\nParcel time of request:" + Requested +
-                "\nParcel time of schedule:" + Scheduled + "\nParcel time of pick up:" + PickUp +
-                 "\nParcel time of delivery:" + Delivered + "\n";
+                "\nParcel drone ID:" + MyDroneID + "\nParcel time of request:" + Requested;
+               // if (Scheduled != null)
+                    str += "\nParcel time of schedule:" + Scheduled;
+                //if (PickUp != null)
+                    str += "\nParcel time of pick up:" + PickUp;
+               // if (Delivered != null)
+                    str += "\nParcel time of delivery:" + Delivered + "\n";
                 return str;
             }
         }
