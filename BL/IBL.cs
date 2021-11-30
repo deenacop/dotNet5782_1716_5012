@@ -98,7 +98,7 @@ namespace IBL
         /// Displays the list of BL base station with available slots
         /// </summary>
         /// <returns>The list of BL base ststion with available slots</returns>  
-        IEnumerable<BaseStationToList> ListBaseStationlDisplay(Predicate<BaseStationToList> predicate = null);
+        IEnumerable<BaseStationToList> ListBaseStationDisplay(Predicate<BaseStationToList> predicate = null);
 
         /// <summary>
         /// Displays the list of unassigned parcels

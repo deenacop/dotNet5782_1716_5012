@@ -147,7 +147,7 @@ namespace BL
             if (drone.DroneStatus != DroneStatus.Delivery)
                 throw new WorngStatusException("The drone is not in delivery mode");
             Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);//the wanted parcel
-            if (parcel.PickUp != DateTime.MinValue)
+            if (parcel.PickUp != null)
                 throw new WorngStatusException("The parcel has allready been picked up ");
             double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.SenderCustomer.CustomerID).CustomerLocation);
             DroneListBL[index].Battery -= (int)(distance * vacant);//update the battery
@@ -160,7 +160,7 @@ namespace BL
             int index = DroneListBL.FindIndex(i => i.DroneID == ID);
             Drone drone = DisplayDrone(ID);
             Parcel parcel = ParcelDisplay(drone.MyParcel.ParcelID);
-            if (drone.DroneStatus == DroneStatus.Delivery && parcel.PickUp != DateTime.MinValue && parcel.Delivered == DateTime.MinValue)
+            if (drone.DroneStatus == DroneStatus.Delivery && parcel.PickUp != null && parcel.Delivered == null)
             {
                 double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.TargetidCustomer.CustomerID).CustomerLocation);
                 switch ((int)drone.Weight)
@@ -207,7 +207,7 @@ namespace BL
                 droneBO.MyParcel.ReceiverCustomer = new();
                 parcel.CopyPropertiesTo(droneBO.MyParcel);
 
-                if (parcel.PickUp == DateTime.MinValue)//is not already picked
+                if (parcel.PickUp == null)//is not already picked
                     droneBO.MyParcel.Status = false;//waiting
                 else droneBO.MyParcel.Status = true;//on the way
 

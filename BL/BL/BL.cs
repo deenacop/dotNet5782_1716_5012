@@ -67,7 +67,7 @@ namespace BL
                         Longitude = senderCustomer.Longitude
                     };
 
-                    if (parcelDO.PickUp == DateTime.MinValue)//שויכה ולא נאספה
+                    if (parcelDO.PickUp == null)//שויכה ולא נאספה
                     {
                         //finds the closest station from the sender
                         currentDrone.MyCurrentLocation = MinDistanceLocation(BaseStationListBL, locationOfSender).Item1;
@@ -109,8 +109,8 @@ namespace BL
                 //אם הרחפן לא מבצע משלוח:
                 catch(InvalidOperationException)
                 {
-                    IEnumerable<IDAL.DO.Parcel> deliveredParcel = dal.ListParcelDisplay(i => i.Delivered != DateTime.MinValue).ToList();//lists of all the delivered parcels
-                    IEnumerable<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();//lists of all the available stations
+                    IEnumerable<IDAL.DO.Parcel> deliveredParcel = dal.ListParcelDisplay(i => i.Delivered != null);//lists of all the delivered parcels
+                    IEnumerable<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0);//lists of all the available stations
                     currentDrone.DroneStatus = (DroneStatus)rand.Next(0, 2);//פנוי לתחזוקה
                     if (currentDrone.DroneStatus == DroneStatus.Maintenance)//if the drone is not in maintenance mode
                     {//בתחזוקה

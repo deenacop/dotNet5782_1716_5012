@@ -76,7 +76,7 @@ namespace ConsoleUI_BL
                                         int.TryParse(Console.ReadLine(), out int status);
                                         newDrone.Weight = (WeightCategories)status;
                                         Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits) -from the list:");
-                                        IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
+                                        IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationDisplay();
                                         foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine("\t" + tmp.StationID + "\t" + tmp.Name); }
                                         int chosenStation;
                                         int.TryParse(Console.ReadLine(), out chosenStation);
@@ -305,7 +305,7 @@ namespace ConsoleUI_BL
 
                                     case (int)DisplayListOptions.DisplyStationList:
                                         {
-                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay();
+                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationDisplay();
                                             foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
                                         }
                                         break;
@@ -332,7 +332,7 @@ namespace ConsoleUI_BL
 
                                     case (int)DisplayListOptions.ListOfAvailableChargingStations:
                                         {
-                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay(i => i.NumOfAvailableChargingSlots > 0);
+                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationDisplay(i => i.NumOfAvailableChargingSlots > 0);
                                             foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
                                             break;
                                         }

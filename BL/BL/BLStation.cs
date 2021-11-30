@@ -59,7 +59,7 @@ namespace BL
                 {
                     foreach (DroneToList currentDrone in DroneListBL)//running on all the drones
                     {
-                        if (currentDronCharge.DroneID == currentDrone.DroneID && currentDronCharge.FinishedRecharging == DateTime.MinValue)
+                        if (currentDronCharge.DroneID == currentDrone.DroneID && currentDronCharge.FinishedRecharging == null)
                         {
                             currentDronCharge.Battery = currentDrone.Battery;
                             break;
@@ -88,7 +88,7 @@ namespace BL
             }
         }
 
-        public IEnumerable<BaseStationToList> ListBaseStationlDisplay(Predicate<BaseStationToList> predicate = null)
+        public IEnumerable<BaseStationToList> ListBaseStationDisplay(Predicate<BaseStationToList> predicate = null)
         {
             IEnumerable<IDAL.DO.Station> stations = dal.ListStationDisplay();
             List<BaseStationToList> stationToLists = new();
@@ -98,7 +98,7 @@ namespace BL
                 BaseStationToList tmpToLst = new();
                 tmp = BaseStationDisplay(currentStation.StationID);
                 tmp.CopyPropertiesTo(tmpToLst);
-                tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == DateTime.MinValue).Count;
+                tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == null).Count;
                 stationToLists.Add(tmpToLst);
             }
             return stationToLists.FindAll(i => predicate == null ? true : predicate(i));
