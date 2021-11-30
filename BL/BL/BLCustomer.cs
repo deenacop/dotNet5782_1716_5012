@@ -105,7 +105,7 @@ namespace BL
             return customerBO;
         }
 
-        public IEnumerable<CustomerToList> ListCustomerDisplay()
+        public IEnumerable<CustomerToList> ListCustomerDisplay(Predicate<CustomerToList> predicate = null)
         {
             IEnumerable<IDAL.DO.Customer> customerDO = dal.ListCustomerDisplay();
             List<CustomerToList> customerToLists = new();
@@ -127,7 +127,7 @@ namespace BL
                 tmpCustomerToList.NumberOfParcelOnTheWayToCustomer = parcelsOnTheWay.Count();
                 customerToLists.Add(tmpCustomerToList);
             }
-            return customerToLists;
+            return customerToLists.FindAll(i => predicate == null ? true : predicate(i));
         }
     }
 }

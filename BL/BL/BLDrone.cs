@@ -223,9 +223,9 @@ namespace BL
             return droneBO;
         }
 
-        public IEnumerable<DroneToList> ListDroneDisplay()
+        public IEnumerable<DroneToList> ListDroneDisplay(Predicate<DroneToList> predicate = null)
         {
-            return DroneListBL;
+            return DroneListBL.FindAll(i => predicate == null ? true : predicate(i));
         }
     }
 }
