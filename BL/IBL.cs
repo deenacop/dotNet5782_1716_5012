@@ -86,13 +86,13 @@ namespace IBL
         /// Displays the list of the customerToList
         /// </summary>
         /// <returns>The list of the customer</returns>
-        IEnumerable<CustomerToList> ListCustomerDisplay();
+        IEnumerable<CustomerToList> ListCustomerDisplay(Predicate<CustomerToList> predicate = null);
 
         /// <summary>
         /// Displays the list of drones
         /// </summary>
         /// <returns>The list of drones</returns>     
-        IEnumerable<DroneToList> ListDroneDisplay();
+        IEnumerable<DroneToList> ListDroneDisplay(Predicate<DroneToList> predicate = null);
 
         /// <summary>
         /// Displays the list of BL base station with available slots
