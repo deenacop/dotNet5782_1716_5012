@@ -101,16 +101,10 @@ namespace IBL
         IEnumerable<BaseStationToList> ListBaseStationlDisplay(Predicate<BaseStationToList> predicate = null);
 
         /// <summary>
-        /// Displays the list of unassigned parcels
-        /// </summary>
-        /// <returns>The list of unassigned parceld</returns>
-        IEnumerable<ParcelToList> ListOfUnassignedParcelDisplay();
-
-        /// <summary>
         /// Displays the list of parcels
         /// </summary>
         /// <returns>The list of parceld</returns>
-        IEnumerable<ParcelToList> ListParcelDisplay();
+        IEnumerable<ParcelToList> ListParcelDisplay(Predicate<ParcelToList> predicate = null);
 
         /// <summary>
         /// Display parcel

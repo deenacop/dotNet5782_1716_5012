@@ -17,7 +17,7 @@ namespace IBL.BO
         public override string ToString()
         {
             string str = "";
-            if (FinishedRecharging == DateTime.MinValue)
+            if (FinishedRecharging == null)
             {
                 str += "\nDrone ID:" + DroneID + "\tDrone Battery:" + Battery;
             }

@@ -325,7 +325,7 @@ namespace ConsoleUI_BL
                                         break;
                                     case (int)DisplayListOptions.ListOfUnassignedParcels:
                                         {
-                                            IEnumerable<ParcelToList> ListOfParcel = bl.ListOfUnassignedParcelDisplay();
+                                            IEnumerable<ParcelToList> ListOfParcel = bl.ListParcelDisplay(i => i.ParcelStatus ==ParcelStatus.Defined);
                                             foreach (ParcelToList tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                             break;
                                         }

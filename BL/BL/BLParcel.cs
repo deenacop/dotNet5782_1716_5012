@@ -14,7 +14,7 @@ namespace BL
                 dal.CustomerDisplay(parcel.SenderCustomer.CustomerID);
                 dal.CustomerDisplay(parcel.TargetidCustomer.CustomerID);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new WrongIDException("Wrong ID");
             }
@@ -65,7 +65,7 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
             ///האם קיים הdrone?
-            if (parcelDO.Scheduled != DateTime.MinValue&& parcelDO.Delivered==DateTime.MinValue)//if the parel is assigned
+            if (parcelDO.Scheduled != DateTime.MinValue && parcelDO.Delivered == DateTime.MinValue)//if the parel is assigned
             {
                 DroneToList drone = DroneListBL.Find(i => i.DroneID == parcelDO.MyDroneID);
                 parcelBO.MyDrone = new();
@@ -74,7 +74,7 @@ namespace BL
             return parcelBO;
         }
 
-        public IEnumerable<ParcelToList> ListParcelDisplay()
+        public IEnumerable<ParcelToList> ListParcelDisplay(Predicate<ParcelToList> predicate = null)
         {
             IEnumerable<IDAL.DO.Parcel> parcelsDO = dal.ListParcelDisplay();
             List<ParcelToList> listParcelToList = new();
@@ -94,31 +94,9 @@ namespace BL
                 else tmpParcelBO.ParcelStatus = ParcelStatus.Delivered;
                 listParcelToList.Add(tmpParcelBO);
             }
-            return listParcelToList;
-        }
-
-        public IEnumerable<ParcelToList> ListOfUnassignedParcelDisplay()
-        {
-            IEnumerable<IDAL.DO.Parcel> parcelsDO = dal.ListParcelDisplay(i => i.MyDroneID == 0);
-            Parcel tmp = new();
-            List<ParcelToList> listParcelToList = new();
-            foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
-            {
-                ParcelToList tmpParcelBO = new();
-                tmp = ParcelDisplay(currentParcel.ParcelID);
-                tmp.CopyPropertiesTo(tmpParcelBO);
-                tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name;
-                tmpParcelBO.NameOfTargetaed = tmp.TargetidCustomer.Name;
-                if (tmp.Scheduled == DateTime.MinValue)//not schedule yet
-                    tmpParcelBO.ParcelStatus = ParcelStatus.Defined;
-                else if (tmp.PickUp == DateTime.MinValue)//scheduled but has not been picked up
-                    tmpParcelBO.ParcelStatus = ParcelStatus.Associated;
-                else if (tmp.Delivered == DateTime.MinValue) //scheduled and picked up  but has not been delivered
-                    tmpParcelBO.ParcelStatus = ParcelStatus.PickedUp;
-                else tmpParcelBO.ParcelStatus = ParcelStatus.Delivered;
-                listParcelToList.Add(tmpParcelBO);
-            }
-            return listParcelToList;
+            return listParcelToList.FindAll(i => predicate == null ? true : predicate(i));
         }
     }
 }
+
+  

@@ -29,11 +29,11 @@ namespace IDAL
                 string str = "Parcel ID:" + ParcelID + "\nParcel sender:" + Sender + "\nParcel targetid:" + Targetid +
                 "\nParcel weight:" + Weight + "\nParcel priority:" + Priority +
                 "\nParcel drone ID:" + MyDroneID + "\nParcel time of request:" + Requested;
-               // if (Scheduled != null)
+                if (Scheduled != DateTime.MinValue)
                     str += "\nParcel time of schedule:" + Scheduled;
-                //if (PickUp != null)
+                if (PickUp != DateTime.MinValue)
                     str += "\nParcel time of pick up:" + PickUp;
-               // if (Delivered != null)
+                if (Delivered != DateTime.MinValue)
                     str += "\nParcel time of delivery:" + Delivered + "\n";
                 return str;
             }
