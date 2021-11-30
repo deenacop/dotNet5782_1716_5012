@@ -18,9 +18,10 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Name="StatusSelector" SelectionChanged="StatusSelector_SelectionChanged"  HorizontalAlignment= "Stretch" HorizontalContentAlignment="Center"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" ToolTip="choose a status"/>
+            <ComboBox Name="ComboStatusSelector" SelectionChanged="StatusSelector_SelectionChanged"  HorizontalAlignment= "Stretch" HorizontalContentAlignment="Center"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" ToolTip="choose a status"/>
             <Label Content="menu" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
-            <ComboBox  Name="WeightSelector" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Column="2"/>
+            <ComboBox  Name="ComboWeightSelector" SelectionChanged="WieghtSelector_SelectionChanged"  HorizontalAlignment="Stretch"  HorizontalContentAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="2" ToolTip="choose the weight"/>
+            
         </Grid>
         <ListView x:Name="DroneListView" Grid.Row="1"/>
     </Grid>

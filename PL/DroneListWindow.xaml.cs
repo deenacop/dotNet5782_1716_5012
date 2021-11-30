@@ -25,16 +25,34 @@ namespace PL
         {
             bL = blDrone;
             InitializeComponent();
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
+            ComboStatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
+            ComboWeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             DroneListView.ItemsSource = bL.ListDroneDisplay();
-            StatusSelector.SelectedIndex = 0;
+            ComboStatusSelector.SelectedIndex = 0;
+            ComboWeightSelector.SelectedIndex = 0;
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DroneStatus status = (DroneStatus)StatusSelector.SelectedItem;
-            DroneListView.ItemsSource = null;
-            DroneListView.ItemsSource= bL.ListDroneDisplay().Where(i=>i.DroneStatus== status);
+            DroneStatus status = NewMethod();
+            DroneListView.ItemsSource = bL.ListDroneDisplay().Where(i => i.DroneStatus == status);
         }
+
+        private void NewMethod()
+        {
+            DroneStatus status = (DroneStatus)ComboStatusSelector.SelectedItem;
+            WeightCategories weight = (WeightCategories)ComboWeightSelector.SelectedItem;
+            DroneListView.ItemsSource = null;
+            DroneListView.ItemsSource = bL.ListDroneDisplay().Where(i => i.DroneStatus == status && );
+
+        }
+
+        private void WieghtSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            WeightCategories weight = (WeightCategories)ComboWeightSelector.SelectedItem;
+            DroneListView.ItemsSource = null;
+            DroneListView.ItemsSource = bL.ListDroneDisplay().Where(i => i.Weight==weight);
+        }
+
     }
 }
