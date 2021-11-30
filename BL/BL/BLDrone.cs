@@ -194,8 +194,6 @@ namespace BL
             {
                 throw new ItemNotExistException(ex.Message);
             }
-            //if (!DroneListBL.Exists(item => item.DroneID == droneID))
-            //    throw new ItemNotExistException("Drone not found");
             DroneToList tmp = DroneListBL.Find(item => item.DroneID == droneID);
             droneBO.MyParcel = new();
             droneBO.DroneStatus = tmp.DroneStatus;
