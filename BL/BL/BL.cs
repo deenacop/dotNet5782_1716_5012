@@ -55,7 +55,7 @@ namespace BL
                 try
                 {
                      IDAL.DO.Parcel parcelDO = ParcelListDL.First(item => item.MyDroneID == currentDrone.DroneID
-                      && item.Delivered == DateTime.MinValue);//finds the parcel which is assigned to the current drone and the drone has been assigned .
+                      && item.Delivered == null);//finds the parcel which is assigned to the current drone and the drone has been assigned .
                     //if !=-1
                     currentDrone.DroneStatus = DroneStatus.Delivery;//מבצע משלוח
 
