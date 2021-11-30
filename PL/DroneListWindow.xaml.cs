@@ -26,13 +26,15 @@ namespace PL
             bL = blDrone;
             InitializeComponent();
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
-            
+            DroneListView.ItemsSource = bL.ListDroneDisplay();
+            StatusSelector.SelectedIndex = 0;
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DroneStatus status = (DroneStatus)StatusSelector.SelectedItem;
-            this.DroneListView.ItemsSource= bL.ListDroneDisplay().Where(i=>i.DroneStatus== status);
+            DroneListView.ItemsSource = null;
+            DroneListView.ItemsSource= bL.ListDroneDisplay().Where(i=>i.DroneStatus== status);
         }
     }
 }

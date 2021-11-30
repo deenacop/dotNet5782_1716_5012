@@ -332,7 +332,7 @@ namespace ConsoleUI_BL
 
                                     case (int)DisplayListOptions.ListOfAvailableChargingStations:
                                         {
-                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListOfAvailableSlotsBaseStationlDisplay();
+                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationlDisplay(i => i.NumOfAvailableChargingSlots > 0);
                                             foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
                                             break;
                                         }

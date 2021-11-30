@@ -15,7 +15,7 @@ namespace IDAL
         {
             public int BaseStationID { get; set; }
             public int DroneID { get; set; }
-            public DateTime FinishedRecharging { get; set; }
+            public DateTime? FinishedRecharging { get; set; }
             public override string ToString()
             {
                 string str = "ID of the base station in drone charge:" + BaseStationID + "\nID of the drone in drone charge:" + DroneID + "\n";

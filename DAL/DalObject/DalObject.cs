@@ -104,7 +104,6 @@ namespace DalObject
             DroneCharge ChargingDroneBattery = new();
             ChargingDroneBattery.DroneID = DroneID;
             ChargingDroneBattery.BaseStationID = StationID;
-            ChargingDroneBattery.FinishedRecharging = DateTime.MinValue;
             //adds
             DataSource.DroneCharges.Add(ChargingDroneBattery);
             //up dates the number of available charging slots

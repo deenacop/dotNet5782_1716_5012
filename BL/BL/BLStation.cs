@@ -88,29 +88,12 @@ namespace BL
             }
         }
 
-        public IEnumerable<BaseStationToList> ListBaseStationlDisplay()
+        public IEnumerable<BaseStationToList> ListBaseStationlDisplay(Predicate<BaseStationToList> predicate = null)
         {
             IEnumerable<IDAL.DO.Station> stations = dal.ListStationDisplay();
             List<BaseStationToList> stationToLists = new();
             foreach (IDAL.DO.Station currentStation in stations)
             {
-                BaseStationToList tmpToLst = new();
-                BaseStation tmp = new();
-                tmp = BaseStationDisplay(currentStation.StationID);
-                tmp.CopyPropertiesTo(tmpToLst);
-                tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == DateTime.MinValue).Count;
-                stationToLists.Add(tmpToLst);
-            }
-            return stationToLists;
-        }
-
-
-        public IEnumerable<BaseStationToList> ListOfAvailableSlotsBaseStationlDisplay()
-        {
-            IEnumerable<IDAL.DO.Station> stations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0);
-            List<BaseStationToList> stationToLists = new();
-            foreach (IDAL.DO.Station currentStation in stations)
-            {
                 BaseStation tmp = new();
                 BaseStationToList tmpToLst = new();
                 tmp = BaseStationDisplay(currentStation.StationID);
@@ -118,7 +101,7 @@ namespace BL
                 tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == DateTime.MinValue).Count;
                 stationToLists.Add(tmpToLst);
             }
-            return stationToLists;
+            return stationToLists.FindAll(i => predicate == null ? true : predicate(i));
         }
     }
 }
