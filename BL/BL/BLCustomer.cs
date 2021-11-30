@@ -107,25 +107,24 @@ namespace BL
 
         public IEnumerable<CustomerToList> ListCustomerDisplay()
         {
-            List<IDAL.DO.Customer> customerDO = new();
-            customerDO = dal.ListCustomerDisplay().ToList();
+            IEnumerable<IDAL.DO.Customer> customerDO = dal.ListCustomerDisplay();
             List<CustomerToList> customerToLists = new();
             foreach (IDAL.DO.Customer currentCustomer in customerDO)
             {
                 CustomerToList tmpCustomerToList = new();
                 currentCustomer.CopyPropertiesTo(tmpCustomerToList);
                 //brings all the parcels that were send by the current customer and were delivered
-                List<IDAL.DO.Parcel> parcelsSendAndDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered != DateTime.MinValue).ToList();
-                tmpCustomerToList.NumberParcelSentAndDelivered = parcelsSendAndDelivered.Count;
+                IEnumerable<IDAL.DO.Parcel> parcelsSendAndDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered != DateTime.MinValue);
+                tmpCustomerToList.NumberParcelSentAndDelivered = parcelsSendAndDelivered.Count();
                 //brings all the parcels that were send by the current customer and werent delivered
-                List<IDAL.DO.Parcel> parcelsSendAndNOTDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered == DateTime.MinValue).ToList();
-                tmpCustomerToList.NumberParcelSentAndDelivered = parcelsSendAndNOTDelivered.Count;
+                IEnumerable<IDAL.DO.Parcel> parcelsSendAndNOTDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered == DateTime.MinValue && i.PickUp!=DateTime.MinValue);
+                tmpCustomerToList.NumberParcelSentAndNOTDelivered = parcelsSendAndNOTDelivered.Count();
                 //brings all the parcels that were received by the current customer and were delivered
-                List<IDAL.DO.Parcel> parcelsReceived = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.Delivered != DateTime.MinValue).ToList();
-                tmpCustomerToList.NumberOfParcelReceived = parcelsReceived.Count;
+                IEnumerable<IDAL.DO.Parcel> parcelsReceived = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.Delivered != DateTime.MinValue);
+                tmpCustomerToList.NumberOfParcelReceived = parcelsReceived.Count();
                 //brings all the parcels that were received by the current customer and werent delivered
-                List<IDAL.DO.Parcel> parcelsOnTheWay = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.PickUp != DateTime.MinValue).ToList();
-                tmpCustomerToList.NumberOfParcelOnTheWayToCustomer = parcelsOnTheWay.Count;
+                IEnumerable<IDAL.DO.Parcel> parcelsOnTheWay = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.PickUp != DateTime.MinValue && i.Delivered == DateTime.MinValue);
+                tmpCustomerToList.NumberOfParcelOnTheWayToCustomer = parcelsOnTheWay.Count();
                 customerToLists.Add(tmpCustomerToList);
             }
             return customerToLists;
