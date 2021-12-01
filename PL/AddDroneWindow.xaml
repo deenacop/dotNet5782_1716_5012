@@ -9,9 +9,9 @@
     <Grid>
         <ListBox FontWeight="Bold" HorizontalAlignment="Center" Margin="0,100,0,100">
             ID:
-            <TextBox x:Name="TXTID" Text="drone id" FontWeight="Light" FontSize="6" FontStyle="Italic" VerticalContentAlignment="Bottom" TextWrapping="Wrap" Width="120"  Height="20" Margin="0,10" TextChanged="TXTID_TextChanged" />
+            <TextBox x:Name="TXTID" FontWeight="Light" FontSize="15" FontStyle="Italic" VerticalContentAlignment="Bottom" TextWrapping="Wrap" Width="120"  Height="20" Margin="0,10" TextChanged="TXTID_TextChanged" />
             Model:
-            <TextBox Name="TXTModel" Text="model" FontSize="6" FontWeight="Light" FontStyle="Italic" VerticalContentAlignment="Bottom"  Width="120"  Height="20" Margin="0,10" TextChanged="TextBox_TextChanged" />
+            <TextBox Name="TXTModel" FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalContentAlignment="Bottom"  Width="120"  Height="20" Margin="0,10" TextChanged="TextBox_TextChanged" />
             Weight:
             <ComboBox Name="comboWeightSelector" Width="120"  Height="20" Margin="0,10" SelectionChanged="ComboBox_SelectionChanged" ></ComboBox>
             StationID:

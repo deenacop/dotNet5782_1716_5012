@@ -50,18 +50,24 @@ namespace PL
 
         private void TXTID_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int.TryParse(TXTID.SelectedText, out int ID);
+            int.TryParse(TXTID.Text, out int ID);
             newDrone.DroneID = ID;
         }
 
-        private void TXTModel_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            newDrone.Model = TXTModel.SelectedText;
-        }
+        //private void TXTModel_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+            
+        //}
 
         private void BTNAdd_Click(object sender, RoutedEventArgs e)
         {
             bl.AddDrone(newDrone, StationID);
+            //bl.ListDroneDisplay();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            newDrone.Model = TXTModel.Text;
         }
     }
 }
