@@ -6,9 +6,20 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+    <Style x:Key="BackGroundDesign" TargetType="ListView">
+        <Setter Property="Background" >
+            <Setter.Value>
+                <LinearGradientBrush >
+                    <GradientStop Offset="0" Color="#7085B6"/>
+                    <GradientStop Offset="0.1" Color="#87A7D9"/>
+                    <GradientStop Offset="1" Color="#DEF3F8"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    </Window.Resources>
     <Grid>
-        <Button x:Name="btnShowListDrone"  Content="Show Drone List" Margin="100,100,488,129" Click="btnShowListDrone_Click"/>
-
-
+        <Button x:Name="btnShowListDrone" Content="Show Drone List" Margin="100,100,488,129" Click="btnShowListDrone_Click" />
     </Grid>
 </Window>
