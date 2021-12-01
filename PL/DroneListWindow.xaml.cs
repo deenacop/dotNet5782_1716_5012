@@ -38,7 +38,6 @@ namespace PL
             ComboWeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             DroneListView.ItemsSource = bL.ListDroneDisplay();
             ComboStatusSelector.SelectedIndex = 3;
-            //ComboWeightSelector.SelectedIndex = 0;
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -48,7 +47,6 @@ namespace PL
 
         private void SelectionStatusAndWeight()
         {
-
             DroneStatus status = (DroneStatus)ComboStatusSelector.SelectedItem;
             if (ComboWeightSelector.SelectedIndex == -1)
             {
@@ -72,6 +70,9 @@ namespace PL
             SelectionStatusAndWeight();
         }
 
-
+        private void BTNAddDrone_Click(object sender, RoutedEventArgs e)
+        {
+            new AddDroneWindow(bL).Show();
+        }
     }
 }

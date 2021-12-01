@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="btnShowListDrone"  Content="Show Drone List" Margin="100" Click="btnShowListDrone_Click"/>
+        <Button x:Name="btnShowListDrone"  Content="Show Drone List" Margin="100,100,488,129" Click="btnShowListDrone_Click"/>
 
 
     </Grid>

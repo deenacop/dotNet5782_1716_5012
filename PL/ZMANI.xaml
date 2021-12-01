@@ -21,7 +21,7 @@
 
     </Window.Resources>
     <Grid>
-        <Button Content="Button" Style="{StaticResource k}" HorizontalAlignment="Left" Margin="34,162,0,0" VerticalAlignment="Top" Height="221" Width="215"/>
+        <Button Content="Button" Style="{StaticResource k}" HorizontalAlignment="Left" Margin="34,162,0,0" VerticalAlignment="Top" Height="221" Width="215" Click="Button_Click"/>
         <Button Content="Button" Style="{StaticResource k}" HorizontalAlignment="Left" Margin="306,272,0,0" VerticalAlignment="Top" Height="111" Width="111"/>
 
     </Grid>
