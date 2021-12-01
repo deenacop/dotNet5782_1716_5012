@@ -16,6 +16,15 @@ using IBL.BO;
 namespace PL
 {
     /// <summary>
+    /// The Drone status(פנוי,תחוזקה,משלוח)
+    /// </summary>
+    public enum DroneStatus {Available, Maintenance, Delivery, All }
+    /// <summary>
+    /// The drone weights
+    /// </summary>
+    public enum WeightCategories { Light, Midium, Heavy, All };
+
+    /// <summary>
     /// Interaction logic for DroneListWindow.xaml
     /// </summary>
     public partial class DroneListWindow : Window
@@ -28,31 +37,41 @@ namespace PL
             ComboStatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             ComboWeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             DroneListView.ItemsSource = bL.ListDroneDisplay();
-            ComboStatusSelector.SelectedIndex = 0;
-            ComboWeightSelector.SelectedIndex = 0;
+            ComboStatusSelector.SelectedIndex = 3;
+            //ComboWeightSelector.SelectedIndex = 0;
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DroneStatus status = NewMethod();
-            DroneListView.ItemsSource = bL.ListDroneDisplay().Where(i => i.DroneStatus == status);
+            SelectionStatusAndWeight();
         }
 
-        private void NewMethod()
+        private void SelectionStatusAndWeight()
         {
+
             DroneStatus status = (DroneStatus)ComboStatusSelector.SelectedItem;
+            if (ComboWeightSelector.SelectedIndex == -1)
+            {
+                ComboWeightSelector.SelectedIndex = 3;
+            }
             WeightCategories weight = (WeightCategories)ComboWeightSelector.SelectedItem;
             DroneListView.ItemsSource = null;
-            DroneListView.ItemsSource = bL.ListDroneDisplay().Where(i => i.DroneStatus == status && );
+            if (weight == WeightCategories.All && status == DroneStatus.All)
+                DroneListView.ItemsSource = bL.ListDroneDisplay();
+            if (weight == WeightCategories.All && status != DroneStatus.All)
+                DroneListView.ItemsSource = bL.ListDroneDisplay(i => i.DroneStatus == (IBL.BO.DroneStatus)status);
+            if (weight != WeightCategories.All && status == DroneStatus.All)
+                DroneListView.ItemsSource = bL.ListDroneDisplay(i => i.Weight == (IBL.BO.WeightCategories)weight);
+            if (weight != WeightCategories.All && status != DroneStatus.All)
+                DroneListView.ItemsSource = bL.ListDroneDisplay(i => i.DroneStatus == (IBL.BO.DroneStatus)status && i.Weight == (IBL.BO.WeightCategories)weight);
 
         }
 
         private void WieghtSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WeightCategories weight = (WeightCategories)ComboWeightSelector.SelectedItem;
-            DroneListView.ItemsSource = null;
-            DroneListView.ItemsSource = bL.ListDroneDisplay().Where(i => i.Weight==weight);
+            SelectionStatusAndWeight();
         }
+
 
     }
 }
