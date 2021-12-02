@@ -40,7 +40,7 @@ namespace BL
             }
             catch (Exception ex)
             {
-                throw new AlreadyExistedItemException(ex.Message);
+                throw new ItemAlreadyExistsException(ex.Message);
             }
         }
 
@@ -67,7 +67,7 @@ namespace BL
             ///האם קיים הdrone?
             if (parcelDO.Scheduled != null && parcelDO.Delivered==null)//if the parel is assigned
             {
-                DroneToList drone = DroneListBL.Find(i => i.DroneID == parcelDO.MyDroneID);
+                DroneToList drone = DroneListBL.Find(i => i.Id == parcelDO.MyDroneID);
                 parcelBO.MyDrone = new();
                 drone.CopyPropertiesTo(parcelBO.MyDrone);
             }

@@ -11,7 +11,7 @@ namespace IBL.BO
     /// </summary>
     public class DroneInCharging
     {
-        public int DroneID { get; set; }
+        public int Id { get; set; }
         public int Battery { get; set; }
         public DateTime? FinishedRecharging { get; set; }
         public override string ToString()
@@ -19,7 +19,7 @@ namespace IBL.BO
             string str = "";
             if (FinishedRecharging == null)
             {
-                str += "\nDrone ID:" + DroneID + "\tDrone Battery:" + Battery;
+                str += "\nDrone ID:" + Id + "\tDrone Battery:" + Battery;
             }
             return str;
         }

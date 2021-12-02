@@ -11,13 +11,13 @@ namespace IBL.BO
     /// </summary>
     public class DroneInParcel
     {
-        public int DroneID { get; set; }
+        public int Id { get; set; }
         public int Battery { get; set; }
-        public Location CurrentLocation { get; set; }
+        public Location Location { get; set; }
         public override string ToString()
         {
-            string str = "Drone ID:" + DroneID + "\nDrone battery:" + Battery +
-                "\nDrones's Current Location:\n" + CurrentLocation + "\n";
+            string str = "Drone ID:" + Id + "\nDrone battery:" + Battery +
+                "\nDrones's Current Location:\n" + Location + "\n";
             return str;
         }
     }

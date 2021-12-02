@@ -51,7 +51,7 @@ namespace BL
         /// </summary>
         /// <param name="num">ID item</param>
         /// <returns>amount of digits in the ID</returns>       
-        internal static int ChackingNumOfDigits(int num)
+        internal static int CheckNumOfDigits(int num)
         {
             return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1);
         }
@@ -65,7 +65,7 @@ namespace BL
         bool BatteryCheckingForDroneAndParcel(IDAL.DO.Parcel parcel, Drone drone)
         {
             int minBattery;
-            double distance = DistanceCalculation(drone.MyCurrentLocation, CustomerDisplay(parcel.Sender).CustomerLocation);
+            double distance = DistanceCalculation(drone.Location, CustomerDisplay(parcel.Sender).CustomerLocation);
             minBattery = (int)distance * (int)vacant;
             distance = DistanceCalculation(CustomerDisplay(parcel.Sender).CustomerLocation, CustomerDisplay(parcel.Targetid).CustomerLocation);
             switch ((int)parcel.Weight)//calculate from the sender to the targetid

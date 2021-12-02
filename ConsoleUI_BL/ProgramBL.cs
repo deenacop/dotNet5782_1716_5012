@@ -65,18 +65,18 @@ namespace ConsoleUI_BL
                                 switch (userAnswer)
                                 {
                                     case (int)AddOptions.Drone:
-                                        DroneToList newDrone = new();
-                                        newDrone.MyCurrentLocation = new();
+                                        Drone newDrone = new();
+                                        newDrone.Location = new();
                                         Console.WriteLine("Enter the drone ID (3 digits)");
                                         int.TryParse(Console.ReadLine(), out int ID);
-                                        newDrone.DroneID = ID;
+                                        newDrone.Id = ID;
                                         Console.WriteLine("Enter the drone model");
                                         newDrone.Model = Console.ReadLine();
                                         Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
                                         int.TryParse(Console.ReadLine(), out int status);
                                         newDrone.Weight = (WeightCategories)status;
                                         Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits) -from the list:");
-                                        IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationDisplay();
+                                        IEnumerable<BaseStationToList> ListOfStation = bl.GetBaseStationList();
                                         foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine("\t" + tmp.StationID + "\t" + tmp.Name); }
                                         int chosenStation;
                                         int.TryParse(Console.ReadLine(), out chosenStation);
@@ -256,7 +256,7 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                            Console.WriteLine(bl.DisplayDrone(IDFromUser1));
+                                            Console.WriteLine(bl.GetDrone(IDFromUser1));
                                             break;
                                         }
 
@@ -297,7 +297,7 @@ namespace ConsoleUI_BL
                                 {
                                     case (int)DisplayListOptions.DisplyDroneList:
                                         {
-                                            IEnumerable<DroneToList> ListOfDrones = bl.ListDroneDisplay();
+                                            IEnumerable<DroneToList> ListOfDrones = bl.GetDroneList();
                                             foreach (DroneToList tmp in ListOfDrones) { Console.WriteLine(tmp); }
                                         }
                                         break;
@@ -305,7 +305,7 @@ namespace ConsoleUI_BL
 
                                     case (int)DisplayListOptions.DisplyStationList:
                                         {
-                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationDisplay();
+                                            IEnumerable<BaseStationToList> ListOfStation = bl.GetBaseStationList();
                                             foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
                                         }
                                         break;
@@ -332,7 +332,7 @@ namespace ConsoleUI_BL
 
                                     case (int)DisplayListOptions.ListOfAvailableChargingStations:
                                         {
-                                            IEnumerable<BaseStationToList> ListOfStation = bl.ListBaseStationDisplay(i => i.NumOfAvailableChargingSlots > 0);
+                                            IEnumerable<BaseStationToList> ListOfStation = bl.GetBaseStationList(i => i.NumOfAvailableChargingSlots > 0);
                                             foreach (BaseStationToList tmp in ListOfStation) { Console.WriteLine(tmp); }
                                             break;
                                         }

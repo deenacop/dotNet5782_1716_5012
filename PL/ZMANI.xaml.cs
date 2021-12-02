@@ -19,12 +19,23 @@ namespace PL
     /// </summary>
     public partial class ZMANI : Window
     {
-        public ZMANI()
+        IBL.BO.Drone drone;
+        public ZMANI(IBL.IBL bL, int ID)
         {
+            drone = new();
+            drone = bL.GetDrone(ID);
+            string Id = "id " + drone.Id;
+            DataContext = Id;
+
+
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public ZMANI()
+        {
+        }
+
+        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
         {
 
         }

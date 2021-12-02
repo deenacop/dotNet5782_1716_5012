@@ -54,10 +54,10 @@ namespace BL
             {
                 try
                 {
-                     IDAL.DO.Parcel parcelDO = ParcelListDL.First(item => item.MyDroneID == currentDrone.DroneID
+                     IDAL.DO.Parcel parcelDO = ParcelListDL.First(item => item.MyDroneID == currentDrone.Id
                       && item.Delivered == null);//finds the parcel which is assigned to the current drone and the drone has been assigned .
                     //if !=-1
-                    currentDrone.DroneStatus = DroneStatus.Delivery;//מבצע משלוח
+                    currentDrone.Status = DroneStatus.Delivery;//מבצע משלוח
 
                     IDAL.DO.Customer senderCustomer = dal.CustomerDisplay(parcelDO.Sender); //CustomerListDL.Find(i => i.CustomerID == ParcelListDL[index].Sender);//sender customer
 
@@ -70,12 +70,12 @@ namespace BL
                     if (parcelDO.PickUp == null)//שויכה ולא נאספה
                     {
                         //finds the closest station from the sender
-                        currentDrone.MyCurrentLocation = MinDistanceLocation(BaseStationListBL, locationOfSender).Item1;
+                        currentDrone.Location = MinDistanceLocation(BaseStationListBL, locationOfSender).Item1;
                     }
                     else
                     {
-                        currentDrone.MyCurrentLocation = locationOfSender;
-                        currentDrone.ParcelNumberTransfered = parcelDO.ParcelID;
+                        currentDrone.Location = locationOfSender;
+                        currentDrone.ParcelId = parcelDO.ParcelID;
                     }
 
                     //מצב סוללה:
@@ -88,7 +88,7 @@ namespace BL
 
                     //finds the closest station from the targeted
                     double minDistance = MinDistanceLocation(BaseStationListBL, locationOfReceiver).Item2; //from the targetid to the closest station
-                    double distanceToTargeted = DistanceCalculation(locationOfReceiver, currentDrone.MyCurrentLocation);//from the current location to the targetid
+                    double distanceToTargeted = DistanceCalculation(locationOfReceiver, currentDrone.Location);//from the current location to the targetid
 
                     int minBatteryDrone = 0;
                     switch ((int)currentDrone.Weight)
@@ -111,8 +111,8 @@ namespace BL
                 {
                     IEnumerable<IDAL.DO.Parcel> deliveredParcel = dal.ListParcelDisplay(i => i.Delivered != null);//lists of all the delivered parcels
                     IEnumerable<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0);//lists of all the available stations
-                    currentDrone.DroneStatus = (DroneStatus)rand.Next(0, 2);//פנוי לתחזוקה
-                    if (currentDrone.DroneStatus == DroneStatus.Maintenance)//if the drone is not in maintenance mode
+                    currentDrone.Status = (DroneStatus)rand.Next(0, 2);//פנוי לתחזוקה
+                    if (currentDrone.Status == DroneStatus.Maintenance)//if the drone is not in maintenance mode
                     {//בתחזוקה
                         int index = rand.Next(0, availableStations.Count());//one of the staitions
                         Location location1 = new()
@@ -120,11 +120,11 @@ namespace BL
                             Latitude = availableStations.ElementAt(index).Latitude,
                             Longitude = availableStations.ElementAt(index).Longitude
                         };
-                        currentDrone.MyCurrentLocation = location1;
+                        currentDrone.Location = location1;
                         currentDrone.Battery = rand.Next(0, 21);
-                         dal.SendingDroneToChargingBaseStation(currentDrone.DroneID, availableStations.ElementAt(index).StationID);
+                         dal.SendingDroneToChargingBaseStation(currentDrone.Id, availableStations.ElementAt(index).StationID);
                     }
-                    if (currentDrone.DroneStatus == DroneStatus.Available)//if the drone is not in maintenance mode
+                    if (currentDrone.Status == DroneStatus.Available)//if the drone is not in maintenance mode
                     {//פנוי
                         int index = rand.Next(0, deliveredParcel.Count());//one of the staitions
 
@@ -134,9 +134,9 @@ namespace BL
                             Latitude = targetid.Latitude,
                             Longitude = targetid.Longitude
                         };
-                        currentDrone.MyCurrentLocation = location2;
+                        currentDrone.Location = location2;
                         //finds the closest station from the targeted
-                        double minDistance = MinDistanceLocation(BaseStationListBL, currentDrone.MyCurrentLocation).Item2;
+                        double minDistance = MinDistanceLocation(BaseStationListBL, currentDrone.Location).Item2;
                         //the minimum battery the drones needs
                         int minBatteryDrone = 0;
                         int weight = (int)currentDrone.Weight;

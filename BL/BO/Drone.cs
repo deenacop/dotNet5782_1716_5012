@@ -11,18 +11,18 @@ namespace IBL.BO
         /// <summary>
         /// Drone details
         /// </summary>
-        public int DroneID { get; set; }
+        public int Id { get; set; }
         public string Model { get; set; }
         public WeightCategories Weight { get; set; }
         public int Battery { get; set; }
-        public DroneStatus DroneStatus { get; set; }
-        public ParcelInTransfer MyParcel { get; set; }
-        public Location MyCurrentLocation { get; set; }
+        public DroneStatus Status { get; set; }
+        public ParcelInTransfer Parcel { get; set; }
+        public Location Location { get; set; }
         public override string ToString()
         {
-            return "Drone ID: " + DroneID + "\nDrone model: " + Model + "\nDrone whight: " + Weight +
-                "\nDrone Battery: " + Battery + "\nDrone status: " + DroneStatus + "\nThe parcel that is transfer:" +
-                MyParcel + "\nlocation:" + MyCurrentLocation + "\n";
+            return "Drone ID: " + Id + "\nDrone model: " + Model + "\nDrone whight: " + Weight +
+                "\nDrone Battery: " + Battery + "\nDrone status: " + Status + "\nThe parcel that is transfer:" +
+                Parcel + "\nlocation:" + Location + "\n";
         }
     }
 }

@@ -45,6 +45,7 @@ namespace IDAL
         /// <exception cref="DalObject.ItemNotExistException"></exception>
         /// <exception cref="DalObject.ItemNotExistException"></exception>
         public void AssignParcelToDrone(int ParcelID, int DroneID);
+        void UpdateDrone(Drone drone);
 
         /// <summary>
         /// Collection of a requested parcel (by a drone)
@@ -124,7 +125,7 @@ namespace IDAL
         /// </summary>
         /// <param name="StationID">The requested station</param>
         /// <exception cref="DalObject.ItemNotExistException"></exception>
-        public Station StationDisplay(int StationID);
+        public Station GetStation(int StationID);
 
         /// <summary>
         /// Return the wanted customer

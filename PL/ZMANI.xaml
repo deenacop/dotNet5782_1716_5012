@@ -6,26 +6,14 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ZMANI" Height="640" Width="800">
-    
-    <!--<Window.Resources>
-
-        <Style x:Key="k" TargetType="Button">
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush >
-                        <GradientStop Offset="0.5" Color="#e0c3fc"/>
-                        <GradientStop Offset="1" Color="#8ec5fc"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-    </Window.Resources>
     <Grid>
-        <Button Content="Button" Style="{StaticResource k}" HorizontalAlignment="Left" Margin="34,162,0,0" VerticalAlignment="Top" Height="221" Width="215"/>
-        <Button Content="Button" Style="{StaticResource k}" HorizontalAlignment="Left" Margin="306,272,0,0" VerticalAlignment="Top" Height="111" Width="111"/>
-      
+        <Viewbox x:Name="DroneDetails" VerticalAlignment="Top" HorizontalAlignment="Center"  Margin="0,30,0,0" Width="350" Height="78" />
+        <DataGrid Margin="200,200"/>
+        <ListViewItem Selected="ListViewItem_Selected">
 
-    </Grid>-->
-    
+            <Grid/>
+
+        </ListViewItem>
+    </Grid>
+
 </Window>

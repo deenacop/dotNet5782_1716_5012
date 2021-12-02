@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-    Title="ListOfDronesWindow" Height="640" Width="800" Background="#2b76b9">
+    Title="ListOfDronesWindow" Height="640" Width="800" Background="#7085B6">
 
     <Window.Resources>
-
+        <Style TargetType="ListViewItem">
+            <EventSetter Event="MouseDoubleClick" Handler="DroneListView_MouseDoubleClick" />
+        </Style>
         <Style x:Key="BackGroundDesign" TargetType="ListView">
             <Setter Property="Background" >
                 <Setter.Value>
@@ -38,9 +40,9 @@
             <ComboBox Name="ComboStatusSelector" SelectionChanged="StatusSelector_SelectionChanged"  HorizontalAlignment= "Stretch" HorizontalContentAlignment="Center"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" ToolTip="choose a status"/>
             <Label Content="Drones list display" FontWeight="Light" FontStyle="Italic" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="70" Width="200" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <ComboBox  Name="ComboWeightSelector" SelectionChanged="WieghtSelector_SelectionChanged"  HorizontalAlignment="Stretch"  HorizontalContentAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="2"  ToolTip="choose the weight"  />
-            <Button x:Name="BTNAddDrone" Content="Add drone" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#2b76b9" BorderBrush="#2b76b9" Height="70" Width="200" Click="BTNAddDrone_Click" ToolTip="to add a drone"/>
+            <Button x:Name="BTNAddDrone" Content="Add drone" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7085B6" BorderBrush="#2b76b9" Height="70" Width="200" Click="BTNAddDrone_Click" ToolTip="to add a drone"/>
         </Grid>
 
-        <ListView x:Name="DroneListView" Grid.Row="1" Style="{StaticResource BackGroundDesign}"/>
+        <ListView x:Name="DroneListView" Grid.Row="1" Style="{StaticResource BackGroundDesign}" SelectionChanged="DroneListView_SelectionChanged"/>
     </Grid>
 </Window>

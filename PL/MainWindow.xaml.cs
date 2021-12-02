@@ -31,5 +31,16 @@ namespace PL
         {
             new DroneListWindow(bl).Show();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            int.TryParse(id.Text, out int Id);
+            new ZMANI(bl, Id).Show();
+        }
+
+        private void id_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

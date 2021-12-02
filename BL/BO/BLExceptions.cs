@@ -19,11 +19,11 @@ namespace IBL.BO
     }
 
     [Serializable]
-    public class AlreadyExistedItemException : Exception
+    public class ItemAlreadyExistsException : Exception
     {
-        public AlreadyExistedItemException() : base() { }
-        public AlreadyExistedItemException(string message) : base(message) { }
-        public AlreadyExistedItemException(string message, Exception inner) : base(message, inner) { }
+        public ItemAlreadyExistsException() : base() { }
+        public ItemAlreadyExistsException(string message) : base(message) { }
+        public ItemAlreadyExistsException(string message, Exception inner) : base(message, inner) { }
         public override string ToString()
         {
             return Message;

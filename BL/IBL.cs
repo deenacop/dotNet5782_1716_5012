@@ -31,7 +31,7 @@ namespace IBL
         /// <param name="drone">The new drone that we asked to add</param>
         /// <param name="stationID">A station ID for a initial charge</param>
         /// <exception cref="IBL.BO.WrongIDException"></exception>
-        void AddDrone(DroneToList drone, int stationID);
+        void AddDrone(Drone drone, int stationID);
 
         /// <summary>
         /// Adds a parcel to the list of parcels in the IDAL
@@ -57,6 +57,7 @@ namespace IBL
         /// <returns>Returns the wanted base station</returns>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
         BaseStation BaseStationDisplay(int StationID);
+        void UpdateDrone(Drone drone);
 
         /// <summary>
         /// Update a drone to collect a parcel
@@ -80,7 +81,7 @@ namespace IBL
         /// <param name="droneID">drone ID</param>
         /// <returns>The wanted drone</returns>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        Drone DisplayDrone(int droneID);
+        Drone GetDrone(int droneID);
 
         /// <summary>
         /// Displays the list of the customerToList
@@ -92,13 +93,13 @@ namespace IBL
         /// Displays the list of drones
         /// </summary>
         /// <returns>The list of drones</returns>     
-        IEnumerable<DroneToList> ListDroneDisplay(Predicate<DroneToList> predicate = null);
+        IEnumerable<DroneToList> GetDroneList(Predicate<DroneToList> predicate = null);
 
         /// <summary>
         /// Displays the list of BL base station with available slots
         /// </summary>
         /// <returns>The list of BL base ststion with available slots</returns>  
-        IEnumerable<BaseStationToList> ListBaseStationDisplay(Predicate<BaseStationToList> predicate = null);
+        IEnumerable<BaseStationToList> GetBaseStationList(Predicate<BaseStationToList> predicate = null);
 
         /// <summary>
         /// Displays the list of parcels

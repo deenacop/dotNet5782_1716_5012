@@ -11,22 +11,22 @@ namespace IBL.BO
     /// </summary>
     public class DroneToList
     {
-        public int DroneID { get; set; }
+        public int Id { get; set; }
         public string Model { get; set; }
         public WeightCategories Weight { get; set; }
         public int Battery { get; set; }
-        public DroneStatus DroneStatus { get; set; }
-        public Location MyCurrentLocation { get; set; }
+        public DroneStatus Status { get; set; }
+        public Location Location { get; set; }
         /// <summary>
         /// The number of the parcel that is transfered
         /// </summary>
-        public int ParcelNumberTransfered { get; set; }
+        public int ParcelId { get; set; }
         public override string ToString()
         {
-            string str= "Drone ID: " + DroneID + "\nDrone model: " + Model + "\nDrone Weight: " + Weight + "\nDrone's battery: " +
-                Battery + "\nDrone Status: " + DroneStatus + "\nDrone's location: " + MyCurrentLocation+"\n"; 
-            if(ParcelNumberTransfered!=0)
-                str=str+"The parcel number which is transferred: " + ParcelNumberTransfered + "\n";
+            string str = "Drone ID: " + Id + "\nDrone model: " + Model + "\nDrone Weight: " + Weight + "\nDrone's battery: " +
+                Battery + "\nDrone Status: " + Status + "\nDrone's location: " + Location + "\n";
+            if (ParcelId != 0)
+                str = str + "The parcel number which is transferred: " + ParcelId + "\n";
             return str;
             ;
         }

@@ -97,7 +97,7 @@ namespace ConsoleUI
             IDAL.DO.Drone NewDrone = new ();
             Console.WriteLine("Enter the new drone details: *drone ID (3 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewDrone.DroneID = tmpInt;
+                NewDrone.Id = tmpInt;
             Console.WriteLine("*drone model");
             NewDrone.Model = Console.ReadLine();
             Console.WriteLine("*drones weight (for light type 0, midium type 1, heavy type 2)");

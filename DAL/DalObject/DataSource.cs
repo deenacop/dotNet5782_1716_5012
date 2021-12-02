@@ -69,7 +69,7 @@ namespace DalObject
             {
                 int flag = rand.Next(0, 50);
                 Drone drone = new();
-                drone.DroneID = rand.Next(100, 1000);
+                drone.Id = rand.Next(100, 1000);
                 drone.Model = modelArr[rand.Next(5)];
                 drone.Weight = WeightCategories.Heavy;
                 if (flag >= 20)
@@ -81,7 +81,7 @@ namespace DalObject
 
                 for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each drone.
                 {
-                    if (Drones[j].DroneID == drone.DroneID)
+                    if (Drones[j].Id == drone.Id)
                     {
                         i--;
                         break;
@@ -159,7 +159,7 @@ namespace DalObject
                             do
                             {
                                 flag = rand.Next(0,10);
-                                newParcel.MyDroneID = Drones[flag].DroneID;
+                                newParcel.MyDroneID = Drones[flag].Id;
                             }
                             while (Drones[flag].Weight < newParcel.Weight);
                         }
@@ -169,7 +169,7 @@ namespace DalObject
                         do
                         {
                             flag = rand.Next(0,10);
-                            newParcel.MyDroneID = Drones[flag].DroneID;
+                            newParcel.MyDroneID = Drones[flag].Id;
                         }
                         while (Drones[flag].Weight > newParcel.Weight);
                     }

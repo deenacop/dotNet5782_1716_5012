@@ -181,7 +181,7 @@ namespace ConsoleUI
                                             Console.WriteLine("Enter station ID (4 digits).");
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser1);
-                                            Station stationWanted = DalObj.StationDisplay(IDFromUser1);
+                                            Station stationWanted = DalObj.GetStation(IDFromUser1);
                                             Console.WriteLine(stationWanted);
                                             break;
                                         }

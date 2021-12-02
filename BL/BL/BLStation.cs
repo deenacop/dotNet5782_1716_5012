@@ -14,7 +14,7 @@ namespace BL
     {
         public void AddBaseStation(BaseStation station)
         {
-            if (ChackingNumOfDigits(station.StationID) != 4)
+            if (CheckNumOfDigits(station.StationID) != 4)
                 throw new WrongIDException("Wrong ID");
             if (station.StationLocation.Latitude <= 31 || station.StationLocation.Latitude >= 32
                 || station.StationLocation.Longitude <= 35 || station.StationLocation.Longitude >= 36)
@@ -34,7 +34,7 @@ namespace BL
             }
             catch (Exception ex)
             {
-                throw new AlreadyExistedItemException(ex.Message);
+                throw new ItemAlreadyExistsException(ex.Message);
             }
         }
 
@@ -43,7 +43,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Station station = dal.StationDisplay(StationID);
+                IDAL.DO.Station station = dal.GetStation(StationID);
                 BaseStation baseStation = new();
                 station.CopyPropertiesTo(baseStation);//we got the station details from DAL
                 baseStation.StationLocation = new()
@@ -59,7 +59,7 @@ namespace BL
                 {
                     foreach (DroneToList currentDrone in DroneListBL)//running on all the drones
                     {
-                        if (currentDronCharge.DroneID == currentDrone.DroneID && currentDronCharge.FinishedRecharging == null)
+                        if (currentDronCharge.Id == currentDrone.Id && currentDronCharge.FinishedRecharging == null)
                         {
                             currentDronCharge.Battery = currentDrone.Battery;
                             break;
@@ -88,7 +88,7 @@ namespace BL
             }
         }
 
-        public IEnumerable<BaseStationToList> ListBaseStationDisplay(Predicate<BaseStationToList> predicate = null)
+        public IEnumerable<BaseStationToList> GetBaseStationList(Predicate<BaseStationToList> predicate = null)
         {
             IEnumerable<IDAL.DO.Station> stations = dal.ListStationDisplay();
             List<BaseStationToList> stationToLists = new();
