@@ -194,7 +194,7 @@ namespace BL
                     case (int)WeightCategories.Light:
                         DroneListBL[index].Battery -= (int)(distance * carriesLightWeight);
                         break;
-                    case (int)WeightCategories.Midium:
+                    case (int)WeightCategories.Medium:
                         DroneListBL[index].Battery -= (int)(distance * carriesMediumWeight);
                         break;
                     case (int)WeightCategories.Heavy:

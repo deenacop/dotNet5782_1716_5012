@@ -9,7 +9,7 @@ namespace IBL.BO
     /// <summary>
     /// The drone weights
     /// </summary>
-    public enum WeightCategories { Light, Midium, Heavy };
+    public enum WeightCategories { Light, Medium, Heavy };
     /// <summary>
     /// Delivery priorities
     /// </summary>

@@ -73,7 +73,7 @@ namespace BL
                 case (int)WeightCategories.Light:
                     minBattery += (int)(distance * carriesLightWeight);
                     break;
-                case (int)WeightCategories.Midium:
+                case (int)WeightCategories.Medium:
                     minBattery += (int)(distance * carriesMediumWeight);
                     break;
                 case (int)WeightCategories.Heavy:

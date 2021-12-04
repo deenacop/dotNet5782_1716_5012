@@ -23,7 +23,7 @@ namespace PL
     /// <summary>
     /// The drone weights
     /// </summary>
-    public enum WeightCategories { Light, Midium, Heavy, All };
+    public enum WeightCategories { Light, Medium, Heavy, All };
 
     /// <summary>
     /// Interaction logic for DroneListWindow.xaml

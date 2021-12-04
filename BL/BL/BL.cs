@@ -96,7 +96,7 @@ namespace BL
                         case (int)WeightCategories.Light:
                             minBatteryDrone = (int)(distanceToTargeted * carriesLightWeight);
                             break;
-                        case (int)WeightCategories.Midium:
+                        case (int)WeightCategories.Medium:
                             minBatteryDrone = (int)(distanceToTargeted * carriesMediumWeight);
                             break;
                         case (int)WeightCategories.Heavy:
@@ -145,7 +145,7 @@ namespace BL
                             case (int)WeightCategories.Light:
                                 minBatteryDrone = (int)(minDistance * carriesLightWeight);
                                 break;
-                            case (int)WeightCategories.Midium:
+                            case (int)WeightCategories.Medium:
                                 minBatteryDrone = (int)(minDistance * carriesMediumWeight);
                                 break;
                             case (int)WeightCategories.Heavy:
