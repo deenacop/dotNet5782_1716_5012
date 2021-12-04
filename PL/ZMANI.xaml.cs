@@ -19,13 +19,10 @@ namespace PL
     /// </summary>
     public partial class ZMANI : Window
     {
-        IBL.BO.Drone drone;
+        
         public ZMANI(IBL.IBL bL, int ID)
         {
-            drone = new();
-            drone = bL.GetDrone(ID);
-            string Id = "id " + drone.Id;
-            DataContext = Id;
+            
 
 
             InitializeComponent();

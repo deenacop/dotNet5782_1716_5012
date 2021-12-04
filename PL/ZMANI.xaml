@@ -14,6 +14,23 @@
             <Grid/>
 
         </ListViewItem>
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="MyGroup"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="num1" Content="hello" Height="167" Width="366"/>
+            </Grid>
+            <Grid>
+                <Button  x:Name="num2" Content="deena" Grid.ColumnSpan="2" Margin="299,141,369,-190"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="MyGroup"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+            </Grid>
+        </StackPanel>
     </Grid>
 
 </Window>

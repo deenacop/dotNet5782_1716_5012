@@ -11,7 +11,7 @@
         <Style TargetType="ListViewItem">
             <EventSetter Event="MouseDoubleClick" Handler="DroneListView_MouseDoubleClick" />
         </Style>
-        <Style x:Key="BackGroundDesign" TargetType="ListView">
+        <Style x:Key="BackGroundDesign" TargetType="ListView" >
             <Setter Property="Background" >
                 <Setter.Value>
                     <LinearGradientBrush >

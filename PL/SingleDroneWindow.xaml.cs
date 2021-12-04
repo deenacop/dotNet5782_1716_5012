@@ -41,6 +41,8 @@ namespace PL
             pnlStationId.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
             btnUpdate.Visibility = Visibility.Collapsed;
+            btnSendDroneToCharge.Visibility = Visibility.Collapsed;
+            btnReleasingDroneFromBaseStation.Visibility = Visibility.Collapsed;
         }
 
         private void TxtId_TextChanged(object sender, TextChangedEventArgs e)
@@ -67,6 +69,7 @@ namespace PL
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -90,6 +93,36 @@ namespace PL
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+        }
+
+        private void btnSendDroneToCharge_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.SendDroneToCharge(Drone);
+                MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
+                _close = true;
+                try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to send the drone to charge: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+        }
+
+        private void btnReleasingDroneFromBaseStation_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.ReleasingDroneFromBaseStation(Drone, 50);
+                MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
+                _close = true;
+                try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to send the drone to charge: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
     }

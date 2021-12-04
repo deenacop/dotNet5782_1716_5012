@@ -73,7 +73,7 @@ namespace IBL
         /// <param name="ID">customer ID</param>
         /// <returns>The wanted customer</returns>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        Customer CustomerDisplay(int ID);
+        Customer GetCustomer(int ID);
 
         /// <summary>
         /// Display one BL drone
@@ -87,7 +87,7 @@ namespace IBL
         /// Displays the list of the customerToList
         /// </summary>
         /// <returns>The list of the customer</returns>
-        IEnumerable<CustomerToList> ListCustomerDisplay(Predicate<CustomerToList> predicate = null);
+        IEnumerable<CustomerToList> GetListCustomer(Predicate<CustomerToList> predicate = null);
 
         /// <summary>
         /// Displays the list of drones
@@ -105,7 +105,7 @@ namespace IBL
         /// Displays the list of parcels
         /// </summary>
         /// <returns>The list of parceld</returns>
-        IEnumerable<ParcelToList> ListParcelDisplay(Predicate<ParcelToList> predicate = null);
+        IEnumerable<ParcelToList> GetListParcel(Predicate<ParcelToList> predicate = null);
 
         /// <summary>
         /// Display parcel
@@ -113,7 +113,7 @@ namespace IBL
         /// <param name="ID">The ID of the wanted parcel</param>
         /// <returns>The wanted parcel</returns>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        Parcel ParcelDisplay(int ID);
+        Parcel GetParcel(int ID);
 
         /// <summary>
         /// This function is relaesing a drone
@@ -123,7 +123,7 @@ namespace IBL
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
         /// <exception cref="IBL.BO.NotEnoughBatteryException"></exception>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void ReleasingDroneFromBaseStation(int ID, int minuteInCharge);
+        void ReleasingDroneFromBaseStation(Drone drone, int minuteInCharge);
 
         /// <summary>
         /// The function send a specific drone to the closest available station
@@ -133,7 +133,7 @@ namespace IBL
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
         /// <exception cref="IBL.BO.NotEnoughBatteryException"></exception>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void SendDroneToCharge(int ID);
+        void SendDroneToCharge(Drone drone);
 
         /// <summary>
         /// The function updates the customer name or phone number, by the users request

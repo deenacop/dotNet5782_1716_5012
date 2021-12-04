@@ -109,7 +109,7 @@ namespace ConsoleUI_BL
                                         newParcel.SenderCustomer = new();
                                         newParcel.TargetidCustomer = new();
                                         Console.WriteLine("Enter the parcel sender ID (9 digits) from the customer list");
-                                        IEnumerable<CustomerToList> ListOfCustomer = bl.ListCustomerDisplay();
+                                        IEnumerable<CustomerToList> ListOfCustomer = bl.GetListCustomer();
                                         foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.CustomerID); }
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newParcel.SenderCustomer.CustomerID = ID;
@@ -206,7 +206,9 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            bl.SendDroneToCharge(ID);
+                                            Drone drone = new();
+                                            drone.Id = ID;
+                                            bl.SendDroneToCharge(drone);
                                             break;
                                         }
 
@@ -216,7 +218,9 @@ namespace ConsoleUI_BL
                                             int.TryParse(Console.ReadLine(), out int ID);
                                             Console.WriteLine("and the the amount of time(by minute) that the drone was in the chaging base station");
                                             int.TryParse(Console.ReadLine(), out int num);
-                                            bl.ReleasingDroneFromBaseStation(ID, num);
+                                            Drone drone = new();
+                                            drone.Id = ID;
+                                            bl.ReleasingDroneFromBaseStation(drone, num);
                                             break;
                                         }
                                     case (int)UpdateOptions.AssignParcelToDrone:
@@ -272,7 +276,7 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter parcel ID (6 digits).");
                                             int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                            Console.WriteLine(bl.ParcelDisplay(IDFromUser1));
+                                            Console.WriteLine(bl.GetParcel(IDFromUser1));
                                             break;
                                         }
 
@@ -280,7 +284,7 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter customer ID (9 digits).");
                                             int.TryParse(Console.ReadLine(), out IDFromUser1);
-                                            Console.WriteLine(bl.CustomerDisplay(IDFromUser1));
+                                            Console.WriteLine(bl.GetCustomer(IDFromUser1));
                                             break;
                                         }
                                 }
@@ -312,20 +316,20 @@ namespace ConsoleUI_BL
 
                                     case (int)DisplayListOptions.DisplayParcelList:
                                         {
-                                            IEnumerable<ParcelToList> ListOfParcel = bl.ListParcelDisplay();
+                                            IEnumerable<ParcelToList> ListOfParcel = bl.GetListParcel();
                                             foreach (ParcelToList tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                         }
                                         break;
 
                                     case (int)DisplayListOptions.DisplayCustomerList:
                                         {
-                                            IEnumerable<CustomerToList> ListOfCustomer = bl.ListCustomerDisplay();
+                                            IEnumerable<CustomerToList> ListOfCustomer = bl.GetListCustomer();
                                             foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine(tmp); }
                                         }
                                         break;
                                     case (int)DisplayListOptions.ListOfUnassignedParcels:
                                         {
-                                            IEnumerable<ParcelToList> ListOfParcel = bl.ListParcelDisplay(i => i.ParcelStatus ==ParcelStatus.Defined);
+                                            IEnumerable<ParcelToList> ListOfParcel = bl.GetListParcel(i => i.ParcelStatus ==ParcelStatus.Defined);
                                             foreach (ParcelToList tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                             break;
                                         }

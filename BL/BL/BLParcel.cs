@@ -44,7 +44,7 @@ namespace BL
             }
         }
 
-        public Parcel ParcelDisplay(int ID)
+        public Parcel GetParcel(int ID)
         {
             IDAL.DO.Parcel parcelDO = new();
             Parcel parcelBO = new();
@@ -74,14 +74,14 @@ namespace BL
             return parcelBO;
         }
 
-        public IEnumerable<ParcelToList> ListParcelDisplay(Predicate<ParcelToList> predicate = null)
+        public IEnumerable<ParcelToList> GetListParcel(Predicate<ParcelToList> predicate = null)
         {
             IEnumerable<IDAL.DO.Parcel> parcelsDO = dal.ListParcelDisplay();
             List<ParcelToList> listParcelToList = new();
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
             {
                 ParcelToList tmpParcelBO = new();
-                Parcel tmp = ParcelDisplay(currentParcel.ParcelID);
+                Parcel tmp = GetParcel(currentParcel.ParcelID);
                 tmp.CopyPropertiesTo(tmpParcelBO);
                 tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name;
                 tmpParcelBO.NameOfTargetaed = tmp.TargetidCustomer.Name;

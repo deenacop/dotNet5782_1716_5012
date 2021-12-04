@@ -48,7 +48,7 @@ namespace BL
             }
         }
 
-        public Customer CustomerDisplay(int ID)
+        public Customer GetCustomer(int ID)
         {
             IDAL.DO.Customer customerDO = new();
             Customer customerBO = new();
@@ -105,7 +105,7 @@ namespace BL
             return customerBO;
         }
 
-        public IEnumerable<CustomerToList> ListCustomerDisplay(Predicate<CustomerToList> predicate = null)
+        public IEnumerable<CustomerToList> GetListCustomer(Predicate<CustomerToList> predicate = null)
         {
             IEnumerable<IDAL.DO.Customer> customerDO = dal.ListCustomerDisplay();
             List<CustomerToList> customerToLists = new();

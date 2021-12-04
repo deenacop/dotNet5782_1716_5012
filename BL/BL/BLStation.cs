@@ -49,7 +49,7 @@ namespace BL
                 baseStation.StationLocation = new()
                 {
                     Longitude = station.Longitude,
-                    Latitude = station.Latitude
+                    Latitude = station.Latitude 
                 };
                 List<DroneInCharging> DroneChargingBL = new();
                 IEnumerable<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.ListOfDroneCharge();//Receive the drone list from the data layer.

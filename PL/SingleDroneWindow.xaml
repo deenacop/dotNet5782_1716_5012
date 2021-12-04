@@ -1,45 +1,83 @@
-﻿<Window x:Class="PL.SingleDroneWindow"
+﻿<Window x:Name="AddDroneWindow" x:Class="PL.SingleDroneWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="AddDroneWindow" Height="640" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="AddDroneWindow" Height="640" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Cooper Black">
+
+    <Window.Resources>
+
+        <Style x:Key="Design" TargetType="Button" >
+            <!--<Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>-->
+            <!--<Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>-->
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush >
+                        <GradientStop Offset="0" Color="#7085B6"/>
+                        <GradientStop Offset="0.1" Color="#87A7D9"/>
+                        <GradientStop Offset="1" Color="#DEF3F8"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel HorizontalAlignment="Left" Margin="187,100,0,100" Grid.Column="1">
-            <StackPanel DataContext="{Binding Path=Drone}">
-                <StackPanel Orientation="Horizontal">
-                    <Label FontWeight="Bold">ID:</Label>
+        <StackPanel HorizontalAlignment="Center" Grid.Column="1" Width="800">
+            <StackPanel DataContext="{Binding Drone}" Height="166" Width="366" Margin="180">
+                <StackPanel Orientation="Horizontal" Width="268">
+                    <Label Margin="0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="ID:"/>
                     <TextBox x:Name="txtId" FontWeight="Light" FontSize="15" FontStyle="Italic" VerticalContentAlignment="Bottom"
-                             TextWrapping="Wrap" Width="120"  Height="20" Margin="0,10"
-                             Text="{Binding Path=Id, Mode=TwoWay}" IsEnabled="False"/>
+                             TextWrapping="Wrap" Width="130"  Height="30" Margin="80,10"
+                             Text="{Binding Id, Mode=TwoWay}" IsEnabled="False"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label FontWeight="Bold">Model:</Label>
-                    <TextBox x:Name="TXTModel" FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalContentAlignment="Bottom"
-                             Width="120"  Height="20" Margin="0,10"
-                             Text="{Binding Path=Model, Mode=TwoWay}" />
+                <StackPanel Orientation="Horizontal" Width="271">
+                    <Label VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Model:"/>
+                    <TextBox x:Name="TXTModel" TextWrapping="Wrap" FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalContentAlignment="Bottom" 
+                             Width="130"  Height="30" Margin="45,10"
+                             Text="{Binding Model, Mode=TwoWay}" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label FontWeight="Bold">Weight:</Label>
-                    <ComboBox Name="comboWeightSelector" Width="120"  Height="20" Margin="0,10"
-                              SelectedItem="{Binding Path=Weight, Mode=TwoWay}" />
+                <StackPanel Orientation="Horizontal" Width="277">
+                    <Label Margin="0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Weight:"/>
+                    <ComboBox x:Name="comboWeightSelector" Width="130"  Height="30" Margin="35,10"
+                              SelectedItem="{Binding Weight, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
-            <StackPanel x:Name="pnlStationId" Orientation="Horizontal" Visibility="Collapsed">
-                <Label FontWeight="Bold">StationID:</Label>
-                <ComboBox Name="comboStationSelector" Width="120"  Height="20" Margin="0,10"
-                          SelectedItem="{Binding Path=StationID, Mode=TwoWay}" />
+            <StackPanel x:Name="pnlStationId" Orientation="Horizontal" Width="320" Height="54"  Margin="0,-280,35,50" Visibility="Collapsed">
+                <Label Margin="40,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="StationID:"/>
+                <ComboBox x:Name="comboStationSelector" Width="130"  Height="30" Margin="-30,5,0,10"
+                          SelectedItem="{Binding StationID, Mode=TwoWay}" />
             </StackPanel>
-            <Button x:Name="btnAdd" FontWeight="Bold" Content="Add" Width="120"  Height="20" Margin="0,40"
+            <Button x:Name="btnAdd" Style="{StaticResource Design}" FontWeight="Bold" FontSize="20" Content="Add" Width="220"  Height="40" Margin="10,-200,20,0"
                     Click="btnAdd_Click" Visibility="Collapsed" />
-            <Button x:Name="btnUpdate" FontWeight="Bold" Content="Update" Width="120"  Height="20" Margin="0,40"
-                    Click="btnUpdate_Click" />
+            <Button x:Name="btnSendDroneToCharge"  Style="{StaticResource Design}" Margin="40,-800,600,0" FontWeight="Bold"  FontSize="20" Content="Send drone to charge"  Width="130"  Height="130" 
+                    Click="btnSendDroneToCharge_Click"/>
+            <Button x:Name="btnUpdate" Style="{StaticResource Design}"  FontWeight="Bold"  FontSize="20" Content="Update" Width="220"  Height="40" Margin="20,-250,30,50"
+                    Click="btnUpdate_Click"/>
+            <Button x:Name="btnReleasingDroneFromBaseStation" Style="{StaticResource Design}"  FontWeight="Bold"  FontSize="20" Content="Release drone from baseStation" Width="130"  Height="130" Margin="40,-400,600,0"
+                  Click="btnReleasingDroneFromBaseStation_Click"  />
         </StackPanel>
     </Grid>
 </Window>
