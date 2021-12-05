@@ -32,21 +32,21 @@ namespace BL
             #region Brings lists from IDAL
 
             DroneListBL = new List<DroneToList>();
-            IEnumerable<IDAL.DO.Drone> DroneListDL = dal.ListDroneDisplay().ToList();//Receive the drone list from the data layer.
+            IEnumerable<IDAL.DO.Drone> DroneListDL = dal.GetListDrone().ToList();//Receive the drone list from the data layer.
             DroneListDL.CopyPropertiesToIEnumerable(DroneListBL);//convret from IDAT to IBL
 
             List<ParcelToList> ParcelListBL = new();
             //Receive the parcel list of parcels that are assign to drone (from the data layer).
-            IEnumerable<IDAL.DO.Parcel> ParcelListDL = dal.ListParcelDisplay(i => i.MyDroneID != 0).ToList();
+            IEnumerable<IDAL.DO.Parcel> ParcelListDL = dal.GetListParcel(i => i.MyDroneID != 0).ToList();
             ParcelListDL.CopyPropertiesToIEnumerable(ParcelListBL);//convret from IDAT to IBL
 
             List<BaseStation> BaseStationListBL = new();
-            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay().ToList();//Receive the drone list from the data layer.
+            IEnumerable<IDAL.DO.Station> StationListDL = dal.GetListStation().ToList();//Receive the drone list from the data layer.
             StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from IDAT to IBL
 
             for (int i = 0; i < StationListDL.Count(); i++)
             {
-                BaseStationListBL[i].StationLocation = new Location { Latitude = StationListDL.ElementAt(i).Latitude, Longitude = StationListDL.ElementAt(i).Longitude };
+                BaseStationListBL[i].Location = new Location { Latitude = StationListDL.ElementAt(i).Latitude, Longitude = StationListDL.ElementAt(i).Longitude };
             }
             #endregion
 
@@ -59,7 +59,7 @@ namespace BL
                     //if !=-1
                     currentDrone.Status = DroneStatus.Delivery;//מבצע משלוח
 
-                    IDAL.DO.Customer senderCustomer = dal.CustomerDisplay(parcelDO.Sender); //CustomerListDL.Find(i => i.CustomerID == ParcelListDL[index].Sender);//sender customer
+                    IDAL.DO.Customer senderCustomer = dal.GetCustomer(parcelDO.Sender); //CustomerListDL.Find(i => i.CustomerID == ParcelListDL[index].Sender);//sender customer
 
                     Location locationOfSender = new()
                     {
@@ -75,11 +75,11 @@ namespace BL
                     else
                     {
                         currentDrone.Location = locationOfSender;
-                        currentDrone.ParcelId = parcelDO.ParcelID;
+                        currentDrone.ParcelId = parcelDO.Id;
                     }
 
                     //מצב סוללה:
-                    IDAL.DO.Customer receiverCustomer = dal.CustomerDisplay(parcelDO.Targetid); //CustomerListDL.Find(item => item.CustomerID == ParcelListDL[index].Targetid);//found the customer that is the targetid one
+                    IDAL.DO.Customer receiverCustomer = dal.GetCustomer(parcelDO.Targetid); //CustomerListDL.Find(item => item.CustomerID == ParcelListDL[index].Targetid);//found the customer that is the targetid one
                     Location locationOfReceiver = new()
                     {
                         Latitude = receiverCustomer.Latitude,
@@ -109,8 +109,8 @@ namespace BL
                 //אם הרחפן לא מבצע משלוח:
                 catch(InvalidOperationException)
                 {
-                    IEnumerable<IDAL.DO.Parcel> deliveredParcel = dal.ListParcelDisplay(i => i.Delivered != null);//lists of all the delivered parcels
-                    IEnumerable<IDAL.DO.Station> availableStations = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0);//lists of all the available stations
+                    IEnumerable<IDAL.DO.Parcel> deliveredParcel = dal.GetListParcel(i => i.Delivered != null);//lists of all the delivered parcels
+                    IEnumerable<IDAL.DO.Station> availableStations = dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0);//lists of all the available stations
                     currentDrone.Status = (DroneStatus)rand.Next(0, 2);//פנוי לתחזוקה
                     if (currentDrone.Status == DroneStatus.Maintenance)//if the drone is not in maintenance mode
                     {//בתחזוקה
@@ -122,13 +122,13 @@ namespace BL
                         };
                         currentDrone.Location = location1;
                         currentDrone.Battery = rand.Next(0, 21);
-                         dal.SendingDroneToChargingBaseStation(currentDrone.Id, availableStations.ElementAt(index).StationID);
+                         dal.SendingDroneToChargingBaseStation(currentDrone.Id, availableStations.ElementAt(index).Id);
                     }
                     if (currentDrone.Status == DroneStatus.Available)//if the drone is not in maintenance mode
                     {//פנוי
                         int index = rand.Next(0, deliveredParcel.Count());//one of the staitions
 
-                        IDAL.DO.Customer targetid = dal.CustomerDisplay(deliveredParcel.ElementAt(index).Targetid); //CustomerListDL.Find(item => item.CustomerID == deliveredParcel[index].Targetid);
+                        IDAL.DO.Customer targetid = dal.GetCustomer(deliveredParcel.ElementAt(index).Targetid); //CustomerListDL.Find(item => item.CustomerID == deliveredParcel[index].Targetid);
                         Location location2 = new()
                         {
                             Latitude = targetid.Latitude,

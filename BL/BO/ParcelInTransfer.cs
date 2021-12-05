@@ -11,7 +11,7 @@ namespace IBL.BO
     /// </summary>
     public class ParcelInTransfer
     {
-        public int ParcelID { get; set; }
+        public int Id { get; set; }
         public bool Status { get; set; }//Waiting for collection / on the way to the destination
         public WeightCategories Weight { get; set; }
         public CustomerInParcel SenderCustomer { get; set; }
@@ -21,7 +21,7 @@ namespace IBL.BO
         public double TransportDistance { get; set; }
         public override string ToString()
         {
-            string str = "ID:" + ParcelID + "\nStatus:" + Status 
+            string str = "ID:" + Id + "\nStatus:" + Status 
                 + "\nWeight:" + Weight + "\nSender:" + SenderCustomer + "\nReceiver:" + ReceiverCustomer +
                  "\nCollection Location:" + Collection + "\nDelivery Location:" + Delivery +
                  "\nTransport Distance:" + TransportDistance+"\n";

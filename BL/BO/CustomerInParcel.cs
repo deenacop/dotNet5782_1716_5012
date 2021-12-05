@@ -11,11 +11,11 @@ namespace IBL.BO
     /// </summary>
     public class CustomerInParcel
     {
-        public int CustomerID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public override string ToString()
         {
-            return "ID: " + CustomerID + "\nName: " + Name + "\n";
+            return "ID: " + Id + "\nName: " + Name + "\n";
         }
     }
 }

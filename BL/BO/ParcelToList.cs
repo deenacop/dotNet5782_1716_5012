@@ -11,17 +11,17 @@ namespace IBL.BO
     /// </summary>
     public class ParcelToList
     {
-        public int ParcelID { get; set; }
+        public int Id { get; set; }
         public string  NameOfSender { get; set; }
         public string NameOfTargetaed { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
-        public ParcelStatus ParcelStatus { get; set; }
+        public ParcelStatus Status { get; set; }
         public override string ToString()
         {
-            string str = "ID:" + ParcelID + "\nSender's Customer name:" + NameOfSender + "\nReceiver's Customer name:" +
+            string str = "ID:" + Id + "\nSender's Customer name:" + NameOfSender + "\nReceiver's Customer name:" +
                  NameOfTargetaed + "\nWeight:" + Weight + "\nPriority:" + Priority +
-                 "\nStatus:" + ParcelStatus + "\n";
+                 "\nStatus:" + Status + "\n";
             return str;
         }
 

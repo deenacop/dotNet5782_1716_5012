@@ -25,7 +25,7 @@ namespace ConsoleUI
             IDAL.DO.Station NewStation = new ();
             Console.WriteLine("Enter the new station details: *station ID (4 digits)");        
             if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewStation.StationID = tmpInt;
+                NewStation.Id = tmpInt;
             Console.WriteLine("*station name");
             NewStation.Name = Console.ReadLine();
             Console.WriteLine("*station number of available charge slots");

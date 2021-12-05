@@ -14,17 +14,17 @@ namespace IBL.BO
         public int Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
-        public Location CustomerLocation { get; set; }
+        public Location Location { get; set; }
         public List<ParcelByCustomer> FromCustomer { get; set; } = new();
-        public List<ParcelByCustomer> TOCustomer { get; set; } = new();
+        public List<ParcelByCustomer> ToCustomer { get; set; } = new();
         public override string ToString()
         {
-            string str = "Customer ID:" + Id + "\nCustomer name:" + Name + "\nCustomer phone number:" +
-                PhoneNumber + "\nCustomer location:\n" + CustomerLocation+"\n" ;
+            string str = "ID:" + Id + "\nName:" + Name + "\nPhone number:" +
+                PhoneNumber + "\nLocation:\n" + Location+"\n" ;
             if (FromCustomer.Capacity > 0)
                 str+="All the parcels that were send from the customer:\n" + String.Join(" ", FromCustomer);
-            if(TOCustomer.Capacity>0)
-                str+= "All the parcels that the customer got:\n" + String.Join(" ", TOCustomer);
+            if(ToCustomer.Capacity>0)
+                str+= "All the parcels that the customer got:\n" + String.Join(" ", ToCustomer);
             return str;
         }
     }

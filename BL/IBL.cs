@@ -6,6 +6,7 @@ namespace IBL
 {
     public interface IBL
     {
+        #region add
         /// <summary>
         /// Adds a station to the list of stations in the IDAL
         /// </summary>
@@ -41,6 +42,9 @@ namespace IBL
         /// <exception cref="IBL.BO.WrongIDException"></exception>
         /// <exception cref="IBL.BO.AlreadyExistedItemException"></exception>
         void AddParcel(Parcel parcel);
+        #endregion
+
+        #region drone operations
 
         /// <summary>
         /// Assings a drone to a parcel
@@ -49,16 +53,6 @@ namespace IBL
         /// <exception cref="IBL.BO.WorngStatusException"></exception>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
         void AssignParcelToDrone(Drone drone);
-
-        /// <summary>
-        /// Display the base station
-        /// </summary>
-        /// <param name="StationID">The ID of the wanted station</param>
-        /// <returns>Returns the wanted base station</returns>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        BaseStation BaseStationDisplay(int StationID);
-        void UpdateDrone(Drone drone);
-
         /// <summary>
         /// Update a drone to collect a parcel
         /// </summary>
@@ -66,15 +60,9 @@ namespace IBL
         /// <exception cref="IBL.BO.WorngStatusException"></exception>
         /// <exception cref="IBL.BO.WorngStatusException"></exception>        
         void CollectionParcelByDrone(Drone drone);
+        #endregion
 
-        /// <summary>
-        /// Display one customer
-        /// </summary>
-        /// <param name="ID">customer ID</param>
-        /// <returns>The wanted customer</returns>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        Customer GetCustomer(int ID);
-
+        #region get a single item
         /// <summary>
         /// Display one BL drone
         /// </summary>
@@ -82,7 +70,85 @@ namespace IBL
         /// <returns>The wanted drone</returns>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
         Drone GetDrone(int droneID);
+        /// <summary>
+        /// Display parcel
+        /// </summary>
+        /// <param name="ID">The ID of the wanted parcel</param>
+        /// <returns>The wanted parcel</returns>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        Parcel GetParcel(int ID);
 
+        /// <summary>
+        /// Display the base station
+        /// </summary>
+        /// <param name="StationID">The ID of the wanted station</param>
+        /// <returns>Returns the wanted base station</returns>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        BaseStation GetBaseStation(int StationID);
+        /// <summary>
+        /// Display one customer
+        /// </summary>
+        /// <param name="ID">customer ID</param>
+        /// <returns>The wanted customer</returns>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        /// <summary>
+        /// This function is relaesing a drone
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        /// <param name="minuteInCharge">the amount of time(by minute) that the drone was in charge</param>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        /// <exception cref="IBL.BO.NotEnoughBatteryException"></exception>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        void ReleasingDroneFromBaseStation(Drone drone, int minuteInCharge);
+
+        /// <summary>
+        /// The function send a specific drone to the closest available station
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        /// <exception cref="IBL.BO.NotEnoughBatteryException"></exception>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        void SendDroneToCharge(Drone drone);
+
+        /// <summary>
+        /// Delivers a parcel to the receiver
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        /// <exception cref="IBL.BO.WorngStatusException"></exception>
+        void DeliveryParcelByDrone(Drone drone);
+        Customer GetCustomer(int ID);
+        #endregion
+
+        #region update
+        /// <summary>
+        /// update drone model and weight
+        /// </summary>
+        /// <param name="drone">wanted drone</param>
+        /// <exception cref="ItemNotExistException"></exception>
+        /// <exception cref="WrongInputException"></exception>
+        /// <exception cref="ItemNotExistException"></exception>
+        void UpdateDrone(Drone drone);
+        /// <summary>
+        /// The function updates the customer name or phone number, by the users request
+        /// </summary>
+        /// <param name="ID">customer ID</param>
+        /// <param name="name">customer name</param>
+        /// <param name="phone">customer phone</param>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        void UpdateCustomer(Customer customer);
+
+        /// <summary>
+        /// Updates the station
+        /// </summary>
+        /// <param name="ID">The ID of the wanted station</param>
+        /// <param name="name">The name of the wanted station</param>
+        /// <param name="numOfSlots">The numOfSlots of the wanted station</param>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        void UpdateStation(BaseStation baseStation);
+        #endregion
+
+        #region get list of items
         /// <summary>
         /// Displays the list of the customerToList
         /// </summary>
@@ -106,66 +172,7 @@ namespace IBL
         /// </summary>
         /// <returns>The list of parceld</returns>
         IEnumerable<ParcelToList> GetListParcel(Predicate<ParcelToList> predicate = null);
+        #endregion
 
-        /// <summary>
-        /// Display parcel
-        /// </summary>
-        /// <param name="ID">The ID of the wanted parcel</param>
-        /// <returns>The wanted parcel</returns>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        Parcel GetParcel(int ID);
-
-        /// <summary>
-        /// This function is relaesing a drone
-        /// </summary>
-        /// <param name="ID">drone ID</param>
-        /// <param name="minuteInCharge">the amount of time(by minute) that the drone was in charge</param>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        /// <exception cref="IBL.BO.NotEnoughBatteryException"></exception>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void ReleasingDroneFromBaseStation(Drone drone, int minuteInCharge);
-
-        /// <summary>
-        /// The function send a specific drone to the closest available station
-        /// </summary>
-        /// <param name="ID">drone ID</param>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        /// <exception cref="IBL.BO.NotEnoughBatteryException"></exception>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void SendDroneToCharge(Drone drone);
-
-        /// <summary>
-        /// The function updates the customer name or phone number, by the users request
-        /// </summary>
-        /// <param name="ID">customer ID</param>
-        /// <param name="name">customer name</param>
-        /// <param name="phone">customer phone</param>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void UpdateCustomer(Customer customer);
-
-        /// <summary>
-        /// Update the drone model
-        /// </summary>
-        /// <param name="ID">drone ID</param>
-        /// <param name="model">new midel</param>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void UpdateDroneModel(int ID, string model);
-
-        /// <summary>
-        /// Updates the station
-        /// </summary>
-        /// <param name="ID">The ID of the wanted station</param>
-        /// <param name="name">The name of the wanted station</param>
-        /// <param name="numOfSlots">The numOfSlots of the wanted station</param>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void UpdateStation(int ID, string name, int numOfSlots );
-
-        /// <summary>
-        /// Delivers a parcel to the receiver
-        /// </summary>
-        /// <param name="ID">drone ID</param>
-        /// <exception cref="IBL.BO.WorngStatusException"></exception>
-        void DeliveryParcelByDrone(Drone drone);
     }
 }
