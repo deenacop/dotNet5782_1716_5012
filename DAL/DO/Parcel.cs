@@ -13,7 +13,7 @@ namespace IDAL
         /// </summary>
         public struct Parcel
         {
-            public int ParcelID { get; set; }
+            public int Id { get; set; }
             public int Sender { get; set; }//according the ID
             public int Targetid { get; set; }//according the ID
             public WeightCategories Weight { get; set; }
@@ -26,7 +26,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                string str = "Parcel ID:" + ParcelID + "\nParcel sender:" + Sender + "\nParcel targetid:" + Targetid +
+                string str = "Parcel ID:" + Id + "\nParcel sender:" + Sender + "\nParcel targetid:" + Targetid +
                 "\nParcel weight:" + Weight + "\nParcel priority:" + Priority +
                 "\nParcel drone ID:" + MyDroneID + "\nParcel time of request:" + Requested;
                 if (Scheduled != DateTime.MinValue)

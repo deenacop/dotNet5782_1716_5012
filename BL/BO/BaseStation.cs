@@ -11,15 +11,15 @@ namespace IBL.BO
     /// </summary>
     public class BaseStation
     {
-        public int StationID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public Location StationLocation { get; set; }
+        public Location Location { get; set; }
         public int NumOfAvailableChargingSlots { get; set; }
         public List<DroneInCharging> DronesInCharging { get; set; }
         public override string ToString()
         {
-           string str = "Station ID:" + StationID + "\nStation name:" + Name + "\nThe Station's Location:" +
-                 StationLocation + "\nNumber Of Available Charging Slots:" + NumOfAvailableChargingSlots + 
+           string str = "Station ID:" + Id + "\nStation name:" + Name + "\nThe Station's Location:" +
+                 Location + "\nNumber Of Available Charging Slots:" + NumOfAvailableChargingSlots + 
                  "\nList of all the drones that are charging in the base station"+ String.Join(" ", DronesInCharging)+"\n"; 
             return str;
         }

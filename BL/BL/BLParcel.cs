@@ -11,8 +11,8 @@ namespace BL
         {
             try
             {
-                dal.CustomerDisplay(parcel.SenderCustomer.CustomerID);
-                dal.CustomerDisplay(parcel.TargetidCustomer.CustomerID);
+                dal.GetCustomer(parcel.SenderCustomer.Id);
+                dal.GetCustomer(parcel.TargetidCustomer.Id);
             }
             catch (Exception)
             {
@@ -33,8 +33,8 @@ namespace BL
                 object obj = tmpParcel;
                 parcel.CopyPropertiesTo(obj);
                 tmpParcel = (IDAL.DO.Parcel)obj;
-                tmpParcel.Sender = parcel.SenderCustomer.CustomerID;
-                tmpParcel.Targetid = parcel.TargetidCustomer.CustomerID;
+                tmpParcel.Sender = parcel.SenderCustomer.Id;
+                tmpParcel.Targetid = parcel.TargetidCustomer.Id;
 
                 dal.Add(tmpParcel);
             }
@@ -52,13 +52,13 @@ namespace BL
             parcelBO.TargetidCustomer = new();
             try
             {
-                parcelDO = dal.ParcelDisplay(ID);
+                parcelDO = dal.GetParcel(ID);
                 parcelDO.CopyPropertiesTo(parcelBO);
-                parcelBO.SenderCustomer.CustomerID = dal.CustomerDisplay(parcelDO.Sender).CustomerID;
+                parcelBO.SenderCustomer.Id = dal.GetCustomer(parcelDO.Sender).Id;
                 parcelBO.MyDrone = new();
-                parcelBO.SenderCustomer.Name = dal.CustomerDisplay(parcelDO.Sender).Name;
-                parcelBO.TargetidCustomer.CustomerID = dal.CustomerDisplay(parcelDO.Targetid).CustomerID;
-                parcelBO.TargetidCustomer.Name = dal.CustomerDisplay(parcelDO.Targetid).Name;
+                parcelBO.SenderCustomer.Name = dal.GetCustomer(parcelDO.Sender).Name;
+                parcelBO.TargetidCustomer.Id = dal.GetCustomer(parcelDO.Targetid).Id;
+                parcelBO.TargetidCustomer.Name = dal.GetCustomer(parcelDO.Targetid).Name;
             }
             catch (Exception ex)
             {
@@ -76,22 +76,22 @@ namespace BL
 
         public IEnumerable<ParcelToList> GetListParcel(Predicate<ParcelToList> predicate = null)
         {
-            IEnumerable<IDAL.DO.Parcel> parcelsDO = dal.ListParcelDisplay();
+            IEnumerable<IDAL.DO.Parcel> parcelsDO = dal.GetListParcel();
             List<ParcelToList> listParcelToList = new();
             foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
             {
                 ParcelToList tmpParcelBO = new();
-                Parcel tmp = GetParcel(currentParcel.ParcelID);
+                Parcel tmp = GetParcel(currentParcel.Id);
                 tmp.CopyPropertiesTo(tmpParcelBO);
                 tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name;
                 tmpParcelBO.NameOfTargetaed = tmp.TargetidCustomer.Name;
                 if (tmp.Scheduled == null)//not schedule yet
-                    tmpParcelBO.ParcelStatus = ParcelStatus.Defined;
+                    tmpParcelBO.Status = ParcelStatus.Defined;
                 else if (tmp.PickUp == null)//scheduled but has not been picked up
-                    tmpParcelBO.ParcelStatus = ParcelStatus.Associated;
+                    tmpParcelBO.Status = ParcelStatus.Associated;
                 else if (tmp.Delivered == null) //scheduled and picked up  but has not been delivered
-                    tmpParcelBO.ParcelStatus = ParcelStatus.PickedUp;
-                else tmpParcelBO.ParcelStatus = ParcelStatus.Delivered;
+                    tmpParcelBO.Status = ParcelStatus.PickedUp;
+                else tmpParcelBO.Status = ParcelStatus.Delivered;
                 listParcelToList.Add(tmpParcelBO);
             }
             return listParcelToList.FindAll(i => predicate == null ? true : predicate(i));

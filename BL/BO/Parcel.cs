@@ -11,7 +11,7 @@ namespace IBL.BO
     /// </summary>
     public class Parcel
     {
-        public int ParcelID { get; set; }
+        public int Id { get; set; }
         public CustomerInParcel SenderCustomer { get; set; }
         public CustomerInParcel TargetidCustomer { get; set; }
         public WeightCategories Weight { get; set; }
@@ -23,7 +23,7 @@ namespace IBL.BO
         public DateTime? Delivered { get; set; }
         public override string ToString()
         {
-            string str = "Parcel ID: " + ParcelID + "\nThe sender details: " + SenderCustomer + "\nThe tergeted details: " + TargetidCustomer +
+            string str = "Parcel ID: " + Id + "\nThe sender details: " + SenderCustomer + "\nThe tergeted details: " + TargetidCustomer +
                 "\nParcel weight: " + Weight + "\nParcel priority: " + Priority + "\nThe drone that associated with this parcel: " +
                 MyDrone + "\nTime of requested: " + Requested;
             if (Scheduled != null)

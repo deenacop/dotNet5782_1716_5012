@@ -11,15 +11,15 @@ namespace IBL.BO
     /// </summary>
     public class ParcelByCustomer
     {
-        public int ParcelID { get; set; }
+        public int Id { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
-        public ParcelStatus ParcelStatus { get; set; }
+        public ParcelStatus Status { get; set; }
         public CustomerInParcel SecondSideOfParcelCustomer { get; set; }
         public override string ToString()
         {
-            return "Parcel ID: " + ParcelID + "\nParcel weight: " + Weight + "\nParcel priority: " +
-                Priority + "\nParcel status: " + ParcelStatus + "\nThe second side of the parcel custumer: " +
+            return "Parcel ID: " + Id + "\nParcel weight: " + Weight + "\nParcel priority: " +
+                Priority + "\nParcel status: " + Status + "\nThe second side of the parcel custumer: " +
                 SecondSideOfParcelCustomer + "\n";
         }
     }

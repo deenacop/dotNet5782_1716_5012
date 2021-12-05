@@ -32,7 +32,7 @@ namespace PL
             Drone = drone;
             InitializeComponent();
             comboWeightSelector.ItemsSource = (IBL.BO.WeightCategories[])Enum.GetValues(typeof(IBL.BO.WeightCategories));
-            comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.StationID);
+            comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
         }
 
         public SingleDroneWindow(IBL.IBL bL) : this(bL, new())

@@ -11,7 +11,7 @@ namespace IBL.BO
     /// </summary>
     public class CustomerToList
     {
-        public int CustomerID { get; set; }
+        public int Id { get; set; }
         public string  Name { get; set; }
         public string PhoneNumber { get; set; }
         public int NumberParcelSentAndDelivered { get; set; }
@@ -20,7 +20,7 @@ namespace IBL.BO
         public int NumberOfParcelOnTheWayToCustomer { get; set; }
         public override string ToString()
         {
-            string str = "Customer ID:" + CustomerID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
+            string str = "Customer ID:" + Id + "\nCustomer name:" + Name + "\nCustomer phone number:" +
                 PhoneNumber + "\nNumber Of Parcels Sent And Delivered " + NumberParcelSentAndDelivered +
                 "\nNumber Of Parcels Sent And NOT Delivered " + NumberParcelSentAndNOTDelivered +
                 "\nNumber Of Parcel Received " + NumberOfParcelReceived +

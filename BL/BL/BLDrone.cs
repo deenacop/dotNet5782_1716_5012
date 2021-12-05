@@ -40,19 +40,6 @@ namespace BL
                 throw new ItemAlreadyExistsException("Trying to add an existing drone", ex);
             }
         }
-
-        public void UpdateDroneModel(int ID, string model)
-        {
-            try
-            {
-                dal.UpdateDroneModel(ID, model);//calls the function from DALOBJECT
-            }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
-            }
-        }
-
         public void UpdateDrone(Drone drone)
         {
             if (drone.Model == null || drone.Model == "")
@@ -62,7 +49,6 @@ namespace BL
             if (listDrone == null)
                 throw new ItemNotExistException("Drone does not exist");
             drone.CopyPropertiesTo(listDrone);
-
             object obj = new IDAL.DO.Drone();
             drone.CopyPropertiesTo(obj);
             try
@@ -85,12 +71,12 @@ namespace BL
                 throw new ItemNotExistException("Drone is not available");
             //drone.CopyPropertiesTo(listDrone);
             List<BaseStation> BaseStationListBL = new();
-            IEnumerable<IDAL.DO.Station> StationListDL = dal.ListStationDisplay(i => i.NumOfAvailableChargingSlots > 0).ToList();//Receive the drone list from the data layer.
+            IEnumerable<IDAL.DO.Station> StationListDL = dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0).ToList();//Receive the drone list from the data layer.
             StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from IDAT to IBL
             int i = 0;
             foreach (BaseStation currentStation in BaseStationListBL)
             {
-                currentStation.StationLocation = new() { Longitude = StationListDL.ElementAt(i).Longitude, Latitude = StationListDL.ElementAt(i).Latitude };
+                currentStation.Location = new() { Longitude = StationListDL.ElementAt(i).Longitude, Latitude = StationListDL.ElementAt(i).Latitude };
                 i++;
             }
             if (BaseStationListBL.Capacity <= 0)
@@ -125,10 +111,10 @@ namespace BL
                 throw new NotEnoughBatteryException("The drone needs to be charged");
             try
             {//we brought the station that has the right location
-                IDAL.DO.Station station = dal.ListStationDisplay(item => item.Latitude == listDrone.Location.Latitude
+                IDAL.DO.Station station = dal.GetListStation(item => item.Latitude == listDrone.Location.Latitude
                      && item.Longitude == listDrone.Location.Longitude).First();
                //update
-                dal.ReleasingDroneFromChargingBaseStation(listDrone.Id, station.StationID);
+                dal.ReleasingDroneFromChargingBaseStation(listDrone.Id, station.Id);
             }
             catch (Exception ex)
             {
@@ -151,16 +137,16 @@ namespace BL
             if (drone.Status != DroneStatus.Available)
                 throw new WorngStatusException("The drone is not available");
             //Brings the list of parcels sorted by order of urgency
-            IEnumerable<IDAL.DO.Parcel> parcels = dal.ListParcelDisplay(i => i.MyDroneID == 0 && (int)i.Weight <= (int)drone.Weight).
+            IEnumerable<IDAL.DO.Parcel> parcels = dal.GetListParcel(i => i.MyDroneID == 0 && (int)i.Weight <= (int)drone.Weight).
                 OrderByDescending(currentParcel => currentParcel.Priority).ThenByDescending(currentParcel =>
                  currentParcel.Weight).ThenByDescending(currentParcel =>
-                     DistanceCalculation(drone.Location, GetCustomer(currentParcel.Sender).CustomerLocation)).ToList();
+                     DistanceCalculation(drone.Location, GetCustomer(currentParcel.Sender).Location)).ToList();
             foreach (IDAL.DO.Parcel currentParcel in parcels)//Tests whether the drone can perform the shipping route (battery test)
             {
                 if (BatteryCheckingForDroneAndParcel(currentParcel, drone))
                 {
                     DroneListBL[index].Status = DroneStatus.Delivery;
-                    dal.AssignParcelToDrone(currentParcel.ParcelID, drone.Id);
+                    dal.AssignParcelToDrone(currentParcel.Id, drone.Id);
                     return;
                 }
             }
@@ -173,23 +159,23 @@ namespace BL
            // Drone drone = GetDrone(drone.Id);//drone from IDAL.DO
             if (drone.Status != DroneStatus.Delivery)
                 throw new WorngStatusException("The drone is not in delivery mode");
-            Parcel parcel = GetParcel(drone.Parcel.ParcelID);//the wanted parcel
+            Parcel parcel = GetParcel(drone.Parcel.Id);//the wanted parcel
             if (parcel.PickUp != null)
                 throw new WorngStatusException("The parcel has allready been picked up ");
-            double distance = DistanceCalculation(drone.Location, GetCustomer(parcel.SenderCustomer.CustomerID).CustomerLocation);
+            double distance = DistanceCalculation(drone.Location, GetCustomer(parcel.SenderCustomer.Id).Location);
             DroneListBL[index].Battery -= (int)(distance * vacant);//update the battery
-            DroneListBL[index].Location = GetCustomer(parcel.SenderCustomer.CustomerID).CustomerLocation;
-            dal.CollectionOfParcelByDrone(parcel.ParcelID, drone.Id);//send to the function
+            DroneListBL[index].Location = GetCustomer(parcel.SenderCustomer.Id).Location;
+            dal.CollectionOfParcelByDrone(parcel.Id, drone.Id);//send to the function
         }
 
         public void DeliveryParcelByDrone(Drone drone)
         {
             int index = DroneListBL.FindIndex(i => i.Id == drone.Id);
            // Drone drone = GetDrone(ID);
-            Parcel parcel = GetParcel(drone.Parcel.ParcelID);
+            Parcel parcel = GetParcel(drone.Parcel.Id);
             if (drone.Status == DroneStatus.Delivery && parcel.PickUp != null && parcel.Delivered == null)
             {
-                double distance = DistanceCalculation(drone.Location, GetCustomer(parcel.TargetidCustomer.CustomerID).CustomerLocation);
+                double distance = DistanceCalculation(drone.Location, GetCustomer(parcel.TargetidCustomer.Id).Location);
                 switch ((int)drone.Weight)
                 {
                     case (int)WeightCategories.Light:
@@ -202,9 +188,9 @@ namespace BL
                         DroneListBL[index].Battery -= (int)(distance * carriesHeavyWeight);
                         break;
                 }
-                DroneListBL[index].Location = GetCustomer(parcel.TargetidCustomer.CustomerID).CustomerLocation;
+                DroneListBL[index].Location = GetCustomer(parcel.TargetidCustomer.Id).Location;
                 DroneListBL[index].Status = DroneStatus.Available;
-                dal.DeliveryParcelToCustomer(parcel.ParcelID);
+                dal.DeliveryParcelToCustomer(parcel.Id);
             }
             else throw new WorngStatusException("The parcel couldnt be delivered");
         }
@@ -214,7 +200,7 @@ namespace BL
             Drone droneBO = new();
             try
             {
-                IDAL.DO.Drone droneDO = dal.DroneDisplay(id);
+                IDAL.DO.Drone droneDO = dal.GetDrone(id);
                 droneDO.CopyPropertiesTo(droneBO);
             }
             catch (Exception ex)
@@ -229,7 +215,7 @@ namespace BL
 
             if (droneBO.Status == DroneStatus.Delivery)//if not in a delivery mode= doesnt have any parcel
             {
-                IDAL.DO.Parcel parcel = dal.ListParcelDisplay(i=>i.MyDroneID==id).First();
+                IDAL.DO.Parcel parcel = dal.GetListParcel(i=>i.MyDroneID==id).First();
                 droneBO.Parcel.SenderCustomer = new();
                 droneBO.Parcel.ReceiverCustomer = new();
                 parcel.CopyPropertiesTo(droneBO.Parcel);
@@ -238,8 +224,8 @@ namespace BL
                     droneBO.Parcel.Status = false;//waiting
                 else droneBO.Parcel.Status = true;//on the way
 
-                IDAL.DO.Customer senderCustomer = dal.CustomerDisplay(parcel.Sender);
-                IDAL.DO.Customer receiverCustomer = dal.CustomerDisplay(parcel.Targetid);
+                IDAL.DO.Customer senderCustomer = dal.GetCustomer(parcel.Sender);
+                IDAL.DO.Customer receiverCustomer = dal.GetCustomer(parcel.Targetid);
                 senderCustomer.CopyPropertiesTo(droneBO.Parcel.SenderCustomer);
                 receiverCustomer.CopyPropertiesTo(droneBO.Parcel.ReceiverCustomer);
 

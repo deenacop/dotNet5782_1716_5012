@@ -25,7 +25,7 @@ namespace ConsoleUI
             IDAL.DO.Station NewStation = new ();
             Console.WriteLine("Enter the new station details: *station ID (4 digits)");        
             if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewStation.StationID = tmpInt;
+                NewStation.Id = tmpInt;
             Console.WriteLine("*station name");
             NewStation.Name = Console.ReadLine();
             Console.WriteLine("*station number of available charge slots");
@@ -75,7 +75,7 @@ namespace ConsoleUI
             IDAL.DO.Customer NewCustomer = new ();
             Console.WriteLine("Enter the new customer details: *customer ID (9 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewCustomer.CustomerID = tmpInt;
+                NewCustomer.Id = tmpInt;
             Console.WriteLine("*customer name");
             NewCustomer.Name = Console.ReadLine();
             Console.WriteLine("*customer phone number");

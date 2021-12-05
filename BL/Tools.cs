@@ -8,8 +8,6 @@ using IBL.BO;
 using IDAL;
 using BL;
 
-
-
 namespace BL
 {
     public static class Tools

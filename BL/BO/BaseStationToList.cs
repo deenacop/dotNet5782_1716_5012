@@ -11,13 +11,13 @@ namespace IBL.BO
     /// </summary>
     public class BaseStationToList
     {
-        public int StationID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int NumOfAvailableChargingSlots { get; set; }
         public int NumOfBusyChargingSlots { get; set; }
         public override string ToString()
         {
-            string str = "Station ID:" + StationID + "\nStation name:" + Name 
+            string str = "Station ID:" + Id + "\nStation name:" + Name 
                  + "\nNumber Of Available Charging Slots:" + NumOfAvailableChargingSlots +
                   "\nNumber Of Busy Charging Slots:" + NumOfBusyChargingSlots+"\n";
             return str;

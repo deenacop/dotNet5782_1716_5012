@@ -14,10 +14,10 @@ namespace BL
     {
         public void AddBaseStation(BaseStation station)
         {
-            if (CheckNumOfDigits(station.StationID) != 4)
+            if (CheckNumOfDigits(station.Id) != 4)
                 throw new WrongIDException("Wrong ID");
-            if (station.StationLocation.Latitude <= 31 || station.StationLocation.Latitude >= 32
-                || station.StationLocation.Longitude <= 35 || station.StationLocation.Longitude >= 36)
+            if (station.Location.Latitude <= 31 || station.Location.Latitude >= 32
+                || station.Location.Longitude <= 35 || station.Location.Longitude >= 36)
                 throw new UnlogicalLocationException("the location is not logical");
             if (station.NumOfAvailableChargingSlots < 0)
                 throw new NegetiveException("Cant be negative");
@@ -28,8 +28,8 @@ namespace BL
                 object obj = tmpStation;
                 station.CopyPropertiesTo(obj);
                 tmpStation = (IDAL.DO.Station)obj;
-                tmpStation.Longitude = station.StationLocation.Longitude;
-                tmpStation.Latitude = station.StationLocation.Latitude;
+                tmpStation.Longitude = station.Location.Longitude;
+                tmpStation.Latitude = station.Location.Latitude;
                 dal.Add(tmpStation);
             }
             catch (Exception ex)
@@ -38,21 +38,39 @@ namespace BL
             }
         }
 
+        public void UpdateStation(BaseStation baseStation)
+        {
+            if (baseStation.Name == null || baseStation.Name == "")
+                throw new WrongInputException("Missing drone model");
 
-        public BaseStation BaseStationDisplay(int StationID)
+            BaseStationToList stationList = new();
+            baseStation.CopyPropertiesTo(stationList);
+            object obj = new IDAL.DO.Station();
+            baseStation.CopyPropertiesTo(obj);
+            try
+            {
+                dal.UpdateDrone((IDAL.DO.Drone)obj);//calls the function from DALOBJECT
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+        }
+
+        public BaseStation GetBaseStation(int StationID)
         {
             try
             {
                 IDAL.DO.Station station = dal.GetStation(StationID);
                 BaseStation baseStation = new();
                 station.CopyPropertiesTo(baseStation);//we got the station details from DAL
-                baseStation.StationLocation = new()
+                baseStation.Location = new()
                 {
                     Longitude = station.Longitude,
                     Latitude = station.Latitude 
                 };
                 List<DroneInCharging> DroneChargingBL = new();
-                IEnumerable<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.ListOfDroneCharge();//Receive the drone list from the data layer.
+                IEnumerable<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.GetListDroneCharge();//Receive the drone list from the data layer.
                 DroneChargeingListDL.CopyPropertiesToIEnumerable(DroneChargingBL);//convret from IDAT to IBL
 
                 foreach (DroneInCharging currentDronCharge in DroneChargingBL)//running on all the drone charge of BL
@@ -75,28 +93,15 @@ namespace BL
             }
         }
 
-
-        public void UpdateStation(int ID, string name, int numOfSlots)
-        {
-            try
-            {
-                dal.UpdateStation(ID, name, numOfSlots);//calls the function from the dalObject
-            }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
-            }
-        }
-
         public IEnumerable<BaseStationToList> GetBaseStationList(Predicate<BaseStationToList> predicate = null)
         {
-            IEnumerable<IDAL.DO.Station> stations = dal.ListStationDisplay();
+            IEnumerable<IDAL.DO.Station> stations = dal.GetListStation();
             List<BaseStationToList> stationToLists = new();
             foreach (IDAL.DO.Station currentStation in stations)
             {
                 BaseStation tmp = new();
                 BaseStationToList tmpToLst = new();
-                tmp = BaseStationDisplay(currentStation.StationID);
+                tmp = GetBaseStation(currentStation.Id);
                 tmp.CopyPropertiesTo(tmpToLst);
                 tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == null).Count;
                 stationToLists.Add(tmpToLst);

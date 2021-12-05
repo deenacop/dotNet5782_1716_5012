@@ -8,27 +8,7 @@
         Title="AddDroneWindow" Height="640" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Cooper Black">
 
     <Window.Resources>
-       
-        
-        
         <Style x:Key="Design" TargetType="Button" >
-            <!--<Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>-->
-            <!--<Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>-->
-            
             <Setter Property="Background" >
                 <Setter.Value>
                     <LinearGradientBrush >
@@ -74,7 +54,7 @@
                 <ComboBox x:Name="comboStationSelector" Width="130"  Height="30" Margin="-30,5,0,10"
                           SelectedItem="{Binding StationID, Mode=TwoWay}" />
             </StackPanel>
-            <Button x:Name="btnAdd"  Style="{StaticResource Design}" FontWeight="Bold" FontSize="20" Content="Add" Width="220"  Height="40" Margin="10,-200,20,0"
+            <Button x:Name="btnAdd"  Style="{StaticResource Design}"  FontWeight="Bold" FontSize="20" Content="Add" Width="220"  Height="40" Margin="10,-200,20,0"
                     Click="btnAdd_Click" Visibility="Collapsed" 
                     >
             </Button>
