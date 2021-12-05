@@ -14,6 +14,8 @@
             <Grid/>
 
         </ListViewItem>
+        
+        
         <StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>

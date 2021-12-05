@@ -48,7 +48,7 @@ namespace IBL
         /// <param name="ID">The drone to assign</param>
         /// <exception cref="IBL.BO.WorngStatusException"></exception>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void AssignParcelToDrone(int ID);
+        void AssignParcelToDrone(Drone drone);
 
         /// <summary>
         /// Display the base station
@@ -65,7 +65,7 @@ namespace IBL
         /// <param name="ID">drone ID</param>
         /// <exception cref="IBL.BO.WorngStatusException"></exception>
         /// <exception cref="IBL.BO.WorngStatusException"></exception>        
-        void CollectionOfParcelByDrone(int ID);
+        void CollectionParcelByDrone(Drone drone);
 
         /// <summary>
         /// Display one customer
@@ -166,6 +166,6 @@ namespace IBL
         /// </summary>
         /// <param name="ID">drone ID</param>
         /// <exception cref="IBL.BO.WorngStatusException"></exception>
-        void DeliveryParcelByDrone(int ID);
+        void DeliveryParcelByDrone(Drone drone);
     }
 }

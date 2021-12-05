@@ -29,6 +29,7 @@ namespace BL
                 drone.CopyPropertiesTo(obj);
                 dal.Add((IDAL.DO.Drone)obj); //calls the function from DALOBJECT
                 DroneListBL.Add(listDrone);
+                dal.SendingDroneToChargingBaseStation(drone.Id, stationID);
             }
             catch (ItemNotExistException ex)
             {
@@ -143,10 +144,10 @@ namespace BL
             DroneListBL[index] = listDrone;
         }
 
-        public void AssignParcelToDrone(int ID)
+        public void AssignParcelToDrone(Drone drone)
         {
-            int index = DroneListBL.FindIndex(i => i.Id == ID);//find index of the wanted drone
-            Drone drone = GetDrone(ID);//drone from IDAL.DO
+            int index = DroneListBL.FindIndex(i => i.Id == drone.Id);//find index of the wanted drone
+           // Drone drone = GetDrone(ID);//drone from IDAL.DO
             if (drone.Status != DroneStatus.Available)
                 throw new WorngStatusException("The drone is not available");
             //Brings the list of parcels sorted by order of urgency
@@ -166,10 +167,10 @@ namespace BL
             throw new ItemNotExistException("There is no parcel to assign with the drone");
         }
 
-        public void CollectionOfParcelByDrone(int ID)
+        public void CollectionParcelByDrone(Drone drone)
         {
-            int index = DroneListBL.FindIndex(i => i.Id == ID);//find the index of the dron
-            Drone drone = GetDrone(ID);//drone from IDAL.DO
+            int index = DroneListBL.FindIndex(i => i.Id == drone.Id);//find the index of the dron
+           // Drone drone = GetDrone(drone.Id);//drone from IDAL.DO
             if (drone.Status != DroneStatus.Delivery)
                 throw new WorngStatusException("The drone is not in delivery mode");
             Parcel parcel = GetParcel(drone.Parcel.ParcelID);//the wanted parcel
@@ -181,10 +182,10 @@ namespace BL
             dal.CollectionOfParcelByDrone(parcel.ParcelID, drone.Id);//send to the function
         }
 
-        public void DeliveryParcelByDrone(int ID)
+        public void DeliveryParcelByDrone(Drone drone)
         {
-            int index = DroneListBL.FindIndex(i => i.Id == ID);
-            Drone drone = GetDrone(ID);
+            int index = DroneListBL.FindIndex(i => i.Id == drone.Id);
+           // Drone drone = GetDrone(ID);
             Parcel parcel = GetParcel(drone.Parcel.ParcelID);
             if (drone.Status == DroneStatus.Delivery && parcel.PickUp != null && parcel.Delivered == null)
             {

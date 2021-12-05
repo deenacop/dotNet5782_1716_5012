@@ -234,7 +234,7 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            bl.CollectionOfParcelByDrone(ID);
+                                            bl.CollectionParcelByDrone(ID);
                                             break;
                                         }
                                     case (int)UpdateOptions.DeliverParcelByDrone:

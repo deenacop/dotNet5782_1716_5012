@@ -40,7 +40,7 @@ namespace BL
         {
             try
             {
-                dal.UpdateCustomer(ID, name, phone);//calls the function from DALOBJECT
+                dal.UpdateCustomer(ID,name,phone);//calls the function from DALOBJECT
             }
             catch (Exception ex)
             {

@@ -150,20 +150,20 @@ namespace DalObject
             }
         }
 
-        public void UpdateCustomer(int ID, string name, string phone )
+        public void UpdateCustomer(Customer customer )
         {
-            int index = DataSource.Customers.FindIndex(item => item.CustomerID == ID);
+            int index = DataSource.Customers.FindIndex(item => item.CustomerID == customer.CustomerID);
             if (index < 0)
                 throw new ItemNotExistException("The customer does not exsit");
             Customer tmp = DataSource.Customers[index];
-            if (name != null)
+            if (customer.Name != null)
             {
-                tmp.Name = name;
+                tmp.Name = customer.Name;
                 DataSource.Customers[index] = tmp;
             }
-            if (phone != null)
+            if (customer.PhoneNumber != null)
             {
-                tmp.PhoneNumber = phone;
+                tmp.PhoneNumber = customer.PhoneNumber;
                 DataSource.Customers[index] = tmp;
             }
         }

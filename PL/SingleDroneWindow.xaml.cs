@@ -24,7 +24,7 @@ namespace PL
         IBL.IBL bl;
         public Drone Drone { get; set; }
         public int StationID { get; set; }
-
+        private bool _close { get; set; } = false;
         public SingleDroneWindow(IBL.IBL bL, Drone drone)
         {
             bl = bL;
@@ -51,7 +51,7 @@ namespace PL
             Drone.Id = id;
         }
 
-        bool _close = false;
+     
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -107,6 +107,7 @@ namespace PL
             }
             catch (Exception ex)
             {
+                _close = true;
                 MessageBox.Show("Failed to send the drone to charge: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
@@ -123,6 +124,51 @@ namespace PL
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to send the drone to charge: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+        }
+
+        private void btnCollectionParcelByDrone_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.CollectionParcelByDrone(Drone);
+                MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
+                _close = true;
+                try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to send the drone to collect a parcel: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+        }
+
+        private void btnAssignParcelToDrone_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.AssignParcelToDrone(Drone);
+                MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
+                _close = true;
+                try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to assign the drone to charge: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+        }
+
+        private void btnDeliveryParcelByDrone_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.DeliveryParcelByDrone(Drone);
+                MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
+                _close = true;
+                try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to delivery the parcel by the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
     }

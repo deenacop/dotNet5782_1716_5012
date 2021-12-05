@@ -8,7 +8,9 @@
         Title="AddDroneWindow" Height="640" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Cooper Black">
 
     <Window.Resources>
-
+       
+        
+        
         <Style x:Key="Design" TargetType="Button" >
             <!--<Setter Property="Template">
                 <Setter.Value>
@@ -26,6 +28,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>-->
+            
             <Setter Property="Background" >
                 <Setter.Value>
                     <LinearGradientBrush >
@@ -35,16 +38,16 @@
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
-
+            <!--TextDecorations="Underline"-->
         </Style>
 
     </Window.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Center" Grid.Column="1" Width="800">
             <StackPanel DataContext="{Binding Drone}" Height="166" Width="366" Margin="180">
                 <StackPanel Orientation="Horizontal" Width="268">
@@ -65,19 +68,41 @@
                               SelectedItem="{Binding Weight, Mode=TwoWay}" />
                 </StackPanel>
             </StackPanel>
+         
             <StackPanel x:Name="pnlStationId" Orientation="Horizontal" Width="320" Height="54"  Margin="0,-280,35,50" Visibility="Collapsed">
                 <Label Margin="40,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="StationID:"/>
                 <ComboBox x:Name="comboStationSelector" Width="130"  Height="30" Margin="-30,5,0,10"
                           SelectedItem="{Binding StationID, Mode=TwoWay}" />
             </StackPanel>
-            <Button x:Name="btnAdd" Style="{StaticResource Design}" FontWeight="Bold" FontSize="20" Content="Add" Width="220"  Height="40" Margin="10,-200,20,0"
-                    Click="btnAdd_Click" Visibility="Collapsed" />
-            <Button x:Name="btnSendDroneToCharge"  Style="{StaticResource Design}" Margin="40,-800,600,0" FontWeight="Bold"  FontSize="20" Content="Send drone to charge"  Width="130"  Height="130" 
-                    Click="btnSendDroneToCharge_Click"/>
-            <Button x:Name="btnUpdate" Style="{StaticResource Design}"  FontWeight="Bold"  FontSize="20" Content="Update" Width="220"  Height="40" Margin="20,-250,30,50"
+            <Button x:Name="btnAdd"  Style="{StaticResource Design}" FontWeight="Bold" FontSize="20" Content="Add" Width="220"  Height="40" Margin="10,-200,20,0"
+                    Click="btnAdd_Click" Visibility="Collapsed" 
+                    >
+            </Button>
+
+            <Button x:Name="btnUpdate" Style="{StaticResource Design}"  FontWeight="Bold"  FontSize="20" Content="Update" Width="220"  Height="40" Margin="20,-200,30,50"
                     Click="btnUpdate_Click"/>
-            <Button x:Name="btnReleasingDroneFromBaseStation" Style="{StaticResource Design}"  FontWeight="Bold"  FontSize="20" Content="Release drone from baseStation" Width="130"  Height="130" Margin="40,-400,600,0"
-                  Click="btnReleasingDroneFromBaseStation_Click"  />
+           
         </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnCollectionParcelByDrone" Grid.Column="0" Style="{StaticResource Design}" FontWeight="Bold"  FontSize="9" Content="Collect the parcel"  Width="80"  Height="80"  Click="btnCollectionParcelByDrone_Click" ></Button>
+
+            <Button x:Name="btnReleasingDroneFromBaseStation" Grid.Column="1" Style="{StaticResource Design}"  FontWeight="Bold"  FontSize="20" Content="Release drone from baseStation" Width="80"  Height="80" 
+                  Click="btnReleasingDroneFromBaseStation_Click"  />
+            <Button x:Name="btnSendDroneToCharge"  Style="{StaticResource Design}" Grid.Column="2" FontWeight="Bold"  FontSize="20" Content="Send drone to charge"  Width="80"  Height="80" Margin="0,-400"
+                    Click="btnSendDroneToCharge_Click"/>
+            <Button x:Name="btnAssignParcelToDrone" Style="{StaticResource Design}" Grid.Column="3"   Width="80"  Height="80"   Click="btnAssignParcelToDrone_Click" >
+                <TextBlock Text="Assign parcel to a drone" TextWrapping="Wrap" FontWeight="Bold"  FontSize="9" ></TextBlock>
+            </Button>
+            <Button x:Name="btnDeliveryParcelByDrone" Style="{StaticResource Design}" Grid.Column="4" FontWeight="Bold"  FontSize="9" Content="Delivery parcel by a drone"  Width="80"  Height="80"   Click="btnDeliveryParcelByDrone_Click"  ></Button>
+        </Grid>
     </Grid>
 </Window>
