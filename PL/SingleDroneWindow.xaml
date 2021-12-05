@@ -54,7 +54,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="UpdateGrid" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden" DataContext="{Binding Drone}" Height="248">
+        <Grid x:Name="UpdateGrid" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"  DataContext="{Binding Drone}" Height="248">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -62,7 +62,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="4*"/>
                 <RowDefinition Height="4*"/>
-
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
 
 
@@ -85,33 +86,51 @@
                     Click="btnUpdate_Click"/>
 
         </Grid>
-        <Grid x:Name="ParcelAndCustomer" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"  DataContext="{Binding Drone}" Height="404" Width="267">
+        <Grid x:Name="ParcelAndCustomer" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"  DataContext="{Binding Drone}" Height="424" Width="267">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
+            <Label  VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"  Grid.ColumnSpan="2" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Parcel in transfer:"/>
+            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="RoyalBlue" Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20" FontWeight="Bold" Content="ID:"/>
+            <TextBlock Name="txtID" FontWeight="Light" Grid.Column="1" Grid.Row="0"  FontSize="15" FontStyle="Italic" 
+                             TextWrapping="Wrap" Width="130"  Height="30"
+                             Text="{Binding Id, Mode=TwoWay}" />
             <Grid.RowDefinitions>
-                <RowDefinition Height="6*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <Grid x:Name="parcel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"  DataContext="{Binding Drone}" Height="248" Width="267">
+            <Grid x:Name="sender" Grid.Column="0" Grid.Row="5"  HorizontalAlignment="Center" VerticalAlignment="Center"  DataContext="{Binding Drone}" Height="182" Width="133">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="62"/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+            </Grid>
+                <Grid x:Name="receiver" Grid.Column="1" Grid.Row="5"  HorizontalAlignment="Center" VerticalAlignment="Center"  DataContext="{Binding Drone}" Height="182" Width="133">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
-                <Label VerticalAlignment="Top" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Parcel:"/>
+
+
+                <!--<Label VerticalAlignment="Top" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Parcel:"/>
                 <Label VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Parcel:" Height="49"/>
 
                 <TextBox Name="f" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalContentAlignment="Bottom" 
                              Width="130"  Height="30" 
-                             Text="{Binding Model, Mode=TwoWay}" />
+                             Text="{Binding Model, Mode=TwoWay}" />-->
+
             </Grid>
         </Grid>
-
 
         <Grid x:Name="AddGrid" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"  DataContext="{Binding Drone}" Height="317">
             <Grid.ColumnDefinitions>
