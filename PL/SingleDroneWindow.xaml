@@ -82,7 +82,9 @@
             <Button x:Name="btnAssignParcelToDrone" Style="{StaticResource Design}" Grid.Column="3"   Width="80"  Height="80"   Click="btnAssignParcelToDrone_Click" >
                 <TextBlock Text="Assign parcel to a drone" TextWrapping="Wrap" FontWeight="Bold"  FontSize="9" ></TextBlock>
             </Button>
-            <Button x:Name="btnDeliveryParcelByDrone" Style="{StaticResource Design}" Grid.Column="4" FontWeight="Bold"  FontSize="9" Content="Delivery parcel by a drone"  Width="80"  Height="80"   Click="btnDeliveryParcelByDrone_Click"  ></Button>
+            <Button x:Name="btnDeliveryParcelByDrone" Style="{StaticResource Design}" Grid.Column="4"  Width="80"  Height="80"   Click="btnDeliveryParcelByDrone_Click"  >
+                <TextBlock Text="Delivery Parcel By Drone" TextWrapping="Wrap" FontWeight="Bold"  FontSize="9" ></TextBlock>
+            </Button>
         </Grid>
     </Grid>
 </Window>
