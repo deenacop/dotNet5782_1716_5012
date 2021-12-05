@@ -14,7 +14,7 @@ namespace ConsoleUI_BL
         /// <summary>
         /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit
         /// </summary>
-        public enum Options { Add = 1, Update, DisplayIndividual, DisplayList, FindTheDistance, Exit };
+        public enum Options { Add = 1, Update, DisplayIndividual, DisplayList, Exit };
         /// <summary>
         /// Which item to add
         /// </summary>

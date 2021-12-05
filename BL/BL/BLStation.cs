@@ -62,11 +62,11 @@ namespace BL
             }
         }
 
-        public BaseStation GetBaseStation(int StationID)
+        public BaseStation GetBaseStation(int stationID)
         {
             try
             {
-                IDAL.DO.Station station = dal.GetStation(StationID);
+                IDAL.DO.Station station = dal.GetStation(stationID);
                 BaseStation baseStation = new();
                 station.CopyPropertiesTo(baseStation);//we got the station details from DAL
                 baseStation.Location = new()
@@ -75,7 +75,7 @@ namespace BL
                     Latitude = station.Latitude 
                 };
                 List<DroneInCharging> DroneChargingBL = new();
-                IEnumerable<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.GetListDroneCharge();//Receive the drone list from the data layer.
+                IEnumerable<IDAL.DO.DroneCharge> DroneChargeingListDL = dal.GetListDroneCharge(i=>i.BaseStationID==stationID);//Receive the drone list from the data layer.
                 DroneChargeingListDL.CopyPropertiesToIEnumerable(DroneChargingBL);//convret from IDAT to IBL
 
                 foreach (DroneInCharging currentDronCharge in DroneChargingBL)//running on all the drone charge of BL
