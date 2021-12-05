@@ -168,6 +168,7 @@ namespace ConsoleUI_BL
                                             Console.WriteLine("Enter the wanted model");
                                             string model = Console.ReadLine();
                                             Drone tmp = bl.GetDrone(ID);
+                                          
                                             tmp.Model = model;
                                             bl.UpdateDrone(tmp);
                                             break;
@@ -206,8 +207,10 @@ namespace ConsoleUI_BL
                                             if (ansPhone == "")
                                                 ansName = null;
                                             Customer tmp = bl.GetCustomer(ID);
-                                            tmp.Name = ansName;
-                                            tmp.PhoneNumber = ansPhone;
+                                            if(ansName!=null)
+                                                tmp.Name = ansName;
+                                            if (ansPhone != null)
+                                                tmp.PhoneNumber = ansPhone;
                                             bl.UpdateCustomer(tmp);
                                             break;
                                         }
