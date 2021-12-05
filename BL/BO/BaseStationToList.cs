@@ -17,7 +17,7 @@ namespace IBL.BO
         public int NumOfBusyChargingSlots { get; set; }
         public override string ToString()
         {
-            string str = "Station ID:" + StationID + "\nStation name:" + Name 
+            string str = "ID:" + StationID + "\nName:" + Name 
                  + "\nNumber Of Available Charging Slots:" + NumOfAvailableChargingSlots +
                   "\nNumber Of Busy Charging Slots:" + NumOfBusyChargingSlots+"\n";
             return str;

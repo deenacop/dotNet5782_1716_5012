@@ -102,7 +102,7 @@ namespace DalObject
                 //Initializing variables into 10 customers.
                 Customers.Insert(i, new()
                 {
-                    CustomerID = rand.Next(100000000, 1000000000),//9 digits
+                    Id = rand.Next(100000000, 1000000000),//9 digits
                     Latitude = rand.NextDouble() + 31,
                     Longitude = rand.NextDouble() + 35,
                     Name = nameArr[i],
@@ -111,7 +111,7 @@ namespace DalObject
                 });
                 for (int j = 0; j < i; j++)//Checks that indeed the ID number is unique to each customer.
                 {
-                    if (Customers[j].CustomerID == Customers[i].CustomerID)
+                    if (Customers[j].Id == Customers[i].Id)
                     {
                         i--;
                         break;
@@ -125,11 +125,11 @@ namespace DalObject
             {
                 Parcel newParcel = new();
                 newParcel.ParcelID = Config.RunnerIDNumParcels++;//Updating the ID number of the package
-                newParcel.Sender = Customers[rand.Next(0,10)].CustomerID;//Updating the ID number of the sender
+                newParcel.Sender = Customers[rand.Next(0,10)].Id;//Updating the ID number of the sender
                 newParcel.MyDroneID = 0;//Updating the ID number of the drone
                 do
                 {
-                    newParcel.Targetid = Customers[rand.Next(0, 10)].CustomerID;
+                    newParcel.Targetid = Customers[rand.Next(0, 10)].Id;
                 }
                 while (newParcel.Sender == newParcel.Targetid);
 

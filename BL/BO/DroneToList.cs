@@ -23,10 +23,10 @@ namespace IBL.BO
         public int ParcelId { get; set; }
         public override string ToString()
         {
-            string str = "Drone ID: " + Id + "\nDrone model: " + Model + "\nDrone Weight: " + Weight + "\nDrone's battery: " +
-                Battery + "\nDrone Status: " + Status + "\nDrone's location: " + Location + "\n";
+            string str = "ID: " + Id + "\nmodel: " + Model + "\nWeight: " + Weight + "\nbattery: " +
+                Battery + "\nStatus: " + Status + "\nlocation: " + Location + "\n";
             if (ParcelId != 0)
-                str = str + "The parcel number which is transferred: " + ParcelId + "\n";
+                str = str + "The parcel's id which is transferred: " + ParcelId + "\n";
             return str;
             ;
         }

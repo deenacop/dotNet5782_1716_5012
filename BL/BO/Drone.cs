@@ -20,9 +20,9 @@ namespace IBL.BO
         public Location Location { get; set; }
         public override string ToString()
         {
-            return "Drone ID: " + Id + "\nDrone model: " + Model + "\nDrone whight: " + Weight +
-                "\nDrone Battery: " + Battery + "\nDrone status: " + Status + "\nThe parcel that is transfer:" +
-                Parcel + "\nlocation:" + Location + "\n";
+            return "ID: " + Id + "\nModel: " + Model + "\nWhight: " + Weight +
+                "\nBattery: " + Battery + "\nStatus: " + Status + "\nThe parcel that is transfer:" +
+                Parcel + "\nLocation:" + Location + "\n";
         }
     }
 }

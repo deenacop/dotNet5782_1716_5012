@@ -142,7 +142,7 @@ namespace IBL
         /// <param name="name">customer name</param>
         /// <param name="phone">customer phone</param>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void UpdateCustomer(int ID, string name = null, string phone = null);
+        void UpdateCustomer(Customer customer);
 
         /// <summary>
         /// Update the drone model

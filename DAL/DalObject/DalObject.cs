@@ -41,7 +41,7 @@ namespace DalObject
         public void Add(Customer NewCustomer)
         {
             //checks if the customer exists and if not throws an exception
-            if (DataSource.Customers.Exists(item => item.CustomerID == NewCustomer.CustomerID))
+            if (DataSource.Customers.Exists(item => item.Id == NewCustomer.Id))
                 throw new AlreadyExistedItemException("The customer already exists");
             DataSource.Customers.Add(NewCustomer);
         }
@@ -150,20 +150,20 @@ namespace DalObject
             }
         }
 
-        public void UpdateCustomer(Customer customer )
+        public void UpdateCustomer(int ID, string name = null, string phone = null)
         {
-            int index = DataSource.Customers.FindIndex(item => item.CustomerID == customer.CustomerID);
+            int index = DataSource.Customers.FindIndex(item => item.Id == ID);
             if (index < 0)
                 throw new ItemNotExistException("The customer does not exsit");
             Customer tmp = DataSource.Customers[index];
-            if (customer.Name != null)
+            if (name != null)
             {
-                tmp.Name = customer.Name;
+                tmp.Name = name;
                 DataSource.Customers[index] = tmp;
             }
-            if (customer.PhoneNumber != null)
+            if (phone != null)
             {
-                tmp.PhoneNumber = customer.PhoneNumber;
+                tmp.PhoneNumber = phone;
                 DataSource.Customers[index] = tmp;
             }
         }
@@ -197,9 +197,9 @@ namespace DalObject
 
         public Customer CustomerDisplay(int CustomerID)
         {
-            if (!DataSource.Customers.Exists(item => item.CustomerID == CustomerID))
+            if (!DataSource.Customers.Exists(item => item.Id == CustomerID))
                 throw new ItemNotExistException("The customer does not exists");
-            return DataSource.Customers.Find(item => item.CustomerID == CustomerID);
+            return DataSource.Customers.Find(item => item.Id == CustomerID);
         }
 
         public Parcel ParcelDisplay(int ParcelID)

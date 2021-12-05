@@ -19,9 +19,9 @@ namespace IBL.BO
         public ParcelStatus ParcelStatus { get; set; }
         public override string ToString()
         {
-            string str = "Parcel ID:" + ParcelID + "\nSender's Customer name:" + NameOfSender + "\nReceiver's Customer name:" +
-                 NameOfTargetaed + "\nParcel weight:" + Weight + "\nParcel Priority:" + Priority +
-                 "\nParcel Status:" + ParcelStatus + "\n";
+            string str = "ID:" + ParcelID + "\nSender's Customer name:" + NameOfSender + "\nReceiver's Customer name:" +
+                 NameOfTargetaed + "\nWeight:" + Weight + "\nPriority:" + Priority +
+                 "\nStatus:" + ParcelStatus + "\n";
             return str;
         }
 

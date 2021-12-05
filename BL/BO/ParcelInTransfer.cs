@@ -21,8 +21,8 @@ namespace IBL.BO
         public double TransportDistance { get; set; }
         public override string ToString()
         {
-            string str = "Parcel ID:" + ParcelID + "\nParcel status:" + Status 
-                + "\nParcel weight:" + Weight + "\nParcel's sender:" + SenderCustomer + "\nParcel's receiver:" + ReceiverCustomer +
+            string str = "ID:" + ParcelID + "\nStatus:" + Status 
+                + "\nWeight:" + Weight + "\nSender:" + SenderCustomer + "\nReceiver:" + ReceiverCustomer +
                  "\nCollection Location:" + Collection + "\nDelivery Location:" + Delivery +
                  "\nTransport Distance:" + TransportDistance+"\n";
             return str;

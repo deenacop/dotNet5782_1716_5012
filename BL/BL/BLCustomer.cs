@@ -14,7 +14,7 @@ namespace BL
     {
         public void AddCustomer(Customer customer)
         {
-            if (CheckNumOfDigits(customer.CustomerID) != 9)//בדיקה
+            if (CheckNumOfDigits(customer.Id) != 9)//בדיקה
                 throw new WrongIDException("Worng ID");
             if (customer.CustomerLocation.Latitude < 31 || customer.CustomerLocation.Latitude > 32
              || customer.CustomerLocation.Longitude < 35 || customer.CustomerLocation.Longitude > 36)//בדיקה
@@ -36,17 +36,44 @@ namespace BL
             }
         }
 
-        public void UpdateCustomer(int ID, string name , string phone )
+        public void UpdateCustomer(Customer customer)
         {
+            if (customer.Name == null || customer.Name == "")
+               throw new WrongInputException("Missing drone model");
+            if (customer.PhoneNumber == null || customer.PhoneNumber == "")
+                throw new WrongInputException("Missing drone model");
+            CustomerToList Listcustomer = GetListCustomer().FirstOrDefault(i => i.Id == customer.Id);
+            customer.CopyPropertiesTo(Listcustomer);
             try
             {
-                dal.UpdateCustomer(ID,name,phone);//calls the function from DALOBJECT
+                dal.UpdateCustomer(customer.Id, customer.Name, customer.PhoneNumber);//calls the function from DALOBJECT
             }
             catch (Exception ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
         }
+
+        //public void UpdateDrone(Drone drone)
+        //{
+        //    if (drone.Model == null || drone.Model == "")
+        //        throw new WrongInputException("Missing drone model");
+
+        //    DroneToList listDrone = DroneListBL.FirstOrDefault(d => d.Id == drone.Id);
+        //    if (listDrone == null)
+        //        throw new ItemNotExistException("Drone does not exist");
+        //    drone.CopyPropertiesTo(listDrone);
+
+        //    object obj = new IDAL.DO.Drone();
+        //    drone.CopyPropertiesTo(obj);
+        //    try
+        //    {
+        //        dal.UpdateDrone((IDAL.DO.Drone)obj);//calls the function from DALOBJECT
+        //    }
+        //    catch (IDAL.DO.ItemNotExistException ex)
+        //    {
+        //        throw new ItemNotExistException("Drone does not exist", ex);
+        //    }
 
         public Customer GetCustomer(int ID)
         {
@@ -96,7 +123,7 @@ namespace BL
                 receiveParcel.SecondSideOfParcelCustomer = new();
                 receiveParcel.SecondSideOfParcelCustomer.CustomerID = currentParcel.Sender;//second side is targetid
                 receiveParcel.SecondSideOfParcelCustomer.Name = dal.CustomerDisplay(currentParcel.Sender).Name;
-                receiveParcel.ParcelStatus =ParcelStatus.Delivered;//the status id delivered cause its by the targetid..
+                receiveParcel.ParcelStatus = ParcelStatus.Delivered;//the status id delivered cause its by the targetid..
                 //add the parcel to the list
                 customerBO.TOCustomer = new();
                 customerBO.TOCustomer.Add(receiveParcel);
@@ -114,16 +141,16 @@ namespace BL
                 CustomerToList tmpCustomerToList = new();
                 currentCustomer.CopyPropertiesTo(tmpCustomerToList);
                 //brings all the parcels that were send by the current customer and were delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsSendAndDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered != null);
+                IEnumerable<IDAL.DO.Parcel> parcelsSendAndDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.Id && i.Delivered != null);
                 tmpCustomerToList.NumberParcelSentAndDelivered = parcelsSendAndDelivered.Count();
                 //brings all the parcels that were send by the current customer and werent delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsSendAndNOTDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.CustomerID && i.Delivered == null && i.PickUp!= null);
+                IEnumerable<IDAL.DO.Parcel> parcelsSendAndNOTDelivered = dal.ListParcelDisplay(i => i.Sender == currentCustomer.Id && i.Delivered == null && i.PickUp != null);
                 tmpCustomerToList.NumberParcelSentAndNOTDelivered = parcelsSendAndNOTDelivered.Count();
                 //brings all the parcels that were received by the current customer and were delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsReceived = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.Delivered != null);
+                IEnumerable<IDAL.DO.Parcel> parcelsReceived = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.Id && i.Delivered != null);
                 tmpCustomerToList.NumberOfParcelReceived = parcelsReceived.Count();
                 //brings all the parcels that were received by the current customer and werent delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsOnTheWay = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.CustomerID && i.PickUp != null && i.Delivered == null);
+                IEnumerable<IDAL.DO.Parcel> parcelsOnTheWay = dal.ListParcelDisplay(i => i.Targetid == currentCustomer.Id && i.PickUp != null && i.Delivered == null);
                 tmpCustomerToList.NumberOfParcelOnTheWayToCustomer = parcelsOnTheWay.Count();
                 customerToLists.Add(tmpCustomerToList);
             }

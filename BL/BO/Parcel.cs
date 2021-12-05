@@ -23,8 +23,8 @@ namespace IBL.BO
         public DateTime? Delivered { get; set; }
         public override string ToString()
         {
-            string str = "Parcel ID: " + ParcelID + "\nThe sender details: " + SenderCustomer + "\nThe tergeted details: " + TargetidCustomer +
-                "\nParcel weight: " + Weight + "\nParcel priority: " + Priority + "\nThe drone that associated with this parcel: " +
+            string str = "ID: " + ParcelID + "\nThe sender details: " + SenderCustomer + "\nThe tergeted details: " + TargetidCustomer +
+                "\nweight: " + Weight + "\npriority: " + Priority + "\nThe drone that associated with this parcel: " +
                 MyDrone + "\nTime of requested: " + Requested;
             if (Scheduled != null)
                 str = str + "\nTime of schedual: " + Scheduled;

@@ -11,7 +11,7 @@ namespace IBL.BO
     /// </summary>
     public class Customer
     {
-        public int CustomerID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public Location CustomerLocation { get; set; }
@@ -19,7 +19,7 @@ namespace IBL.BO
         public List<ParcelByCustomer> TOCustomer { get; set; } = new();
         public override string ToString()
         {
-            string str = "Customer ID:" + CustomerID + "\nCustomer name:" + Name + "\nCustomer phone number:" +
+            string str = "Customer ID:" + Id + "\nCustomer name:" + Name + "\nCustomer phone number:" +
                 PhoneNumber + "\nCustomer location:\n" + CustomerLocation+"\n" ;
             if (FromCustomer.Capacity > 0)
                 str+="All the parcels that were send from the customer:\n" + String.Join(" ", FromCustomer);

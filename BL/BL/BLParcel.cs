@@ -54,10 +54,10 @@ namespace BL
             {
                 parcelDO = dal.ParcelDisplay(ID);
                 parcelDO.CopyPropertiesTo(parcelBO);
-                parcelBO.SenderCustomer.CustomerID = dal.CustomerDisplay(parcelDO.Sender).CustomerID;
+                parcelBO.SenderCustomer.CustomerID = dal.CustomerDisplay(parcelDO.Sender).Id;
                 parcelBO.MyDrone = new();
                 parcelBO.SenderCustomer.Name = dal.CustomerDisplay(parcelDO.Sender).Name;
-                parcelBO.TargetidCustomer.CustomerID = dal.CustomerDisplay(parcelDO.Targetid).CustomerID;
+                parcelBO.TargetidCustomer.CustomerID = dal.CustomerDisplay(parcelDO.Targetid).Id;
                 parcelBO.TargetidCustomer.Name = dal.CustomerDisplay(parcelDO.Targetid).Name;
             }
             catch (Exception ex)

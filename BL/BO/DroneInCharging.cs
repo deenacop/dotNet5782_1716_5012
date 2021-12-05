@@ -19,7 +19,7 @@ namespace IBL.BO
             string str = "";
             if (FinishedRecharging == null)
             {
-                str += "\nDrone ID:" + Id + "\tDrone Battery:" + Battery;
+                str += "\nID:" + Id + "\tBattery:" + Battery;
             }
             return str;
         }

@@ -110,12 +110,12 @@ namespace ConsoleUI_BL
                                         newParcel.TargetidCustomer = new();
                                         Console.WriteLine("Enter the parcel sender ID (9 digits) from the customer list");
                                         IEnumerable<CustomerToList> ListOfCustomer = bl.GetListCustomer();
-                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.CustomerID); }
+                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.Id); }
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newParcel.SenderCustomer.CustomerID = ID;
                                         Console.WriteLine("Enter the parcel targetid ID (9 digits)from the customer list");
 
-                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.CustomerID); }
+                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.Id); }
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newParcel.TargetidCustomer.CustomerID = ID;
                                         Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
@@ -134,7 +134,7 @@ namespace ConsoleUI_BL
                                         newCustomer.TOCustomer = new();
                                         Console.WriteLine("Enter the customer ID (9 digits)");
                                         int.TryParse(Console.ReadLine(), out ID);
-                                        newCustomer.CustomerID = ID;
+                                        newCustomer.Id = ID;
                                         Console.WriteLine("Enter the customer name");
                                         newCustomer.Name = Console.ReadLine();
                                         Console.WriteLine("Enter the customer phone number");
@@ -199,7 +199,11 @@ namespace ConsoleUI_BL
                                             string ansPhone = Console.ReadLine();
                                             if (ansPhone == "")
                                                 ansName = null;
-                                            bl.UpdateCustomer(ID, ansName, ansPhone);
+                                            Customer customer = new();
+                                            customer.Id = ID;
+                                            customer.Name = ansName;
+                                            customer.PhoneNumber = ansPhone;
+                                            bl.UpdateCustomer(customer);
                                             break;
                                         }
                                     case (int)UpdateOptions.SendDroneToCharge:
@@ -227,21 +231,21 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            bl.AssignParcelToDrone(ID);
+                                            //bl.AssignParcelToDrone(ID);
                                             break;
                                         }
                                     case (int)UpdateOptions.CollectParcelByDrone:
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            bl.CollectionParcelByDrone(ID);
+                                           // bl.CollectionParcelByDrone(ID);
                                             break;
                                         }
                                     case (int)UpdateOptions.DeliverParcelByDrone:
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            bl.DeliveryParcelByDrone(ID);
+                                          //  bl.DeliveryParcelByDrone(ID);
                                             break;
                                         }
                                 }

@@ -75,7 +75,7 @@ namespace ConsoleUI
             IDAL.DO.Customer NewCustomer = new ();
             Console.WriteLine("Enter the new customer details: *customer ID (9 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewCustomer.CustomerID = tmpInt;
+                NewCustomer.Id = tmpInt;
             Console.WriteLine("*customer name");
             NewCustomer.Name = Console.ReadLine();
             Console.WriteLine("*customer phone number");
