@@ -101,7 +101,7 @@ namespace IDAL
         /// </summary>
         /// <param name="customer">the update customer</param>
         /// <exception cref="DalObject.ItemNotExistException"></exception>
-        public void UpdateCustomer(Customer customer);
+        public void UpdateCustomer(int ID, string name = null, string phone = null);
         #endregion
 
         #region Get a single item

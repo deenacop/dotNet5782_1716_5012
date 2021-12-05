@@ -134,6 +134,14 @@ namespace DalObject
         #endregion
 
         #region Updates
+
+        public void UpdateDrone(Drone drone)
+        {
+            int index = DataSource.Drones.FindIndex(item => item.Id == drone.Id);
+            if (index == -1)
+                throw new ItemNotExistException("Drone does not exist");
+            DataSource.Drones[index] = drone;
+        }
         public void UpdateStation(Station station)
         {
             int index = DataSource.Stations.FindIndex(i => i.Id == station.Id);
@@ -160,15 +168,7 @@ namespace DalObject
                 DataSource.Customers[index] = tmp;
             }
         }
-      
 
-        public void UpdateDroneModel(int ID, string model)
-        {
-            int index = DataSource.Drones.FindIndex(item => item.Id == drone.Id);
-            if (index == -1)
-                throw new ItemNotExistException("Drone does not exist");
-            DataSource.Drones[index] = drone;
-        }
         #endregion
 
         #region Display one item

@@ -168,7 +168,7 @@ namespace ConsoleUI_BL
                                             int droneID = ID;
                                             Console.WriteLine("Enter the wanted model");
                                             string model = Console.ReadLine();
-                                            bl.UpdateDrone(droneID, model);
+                                            //bl.UpdateDrone(droneID, model);
                                             break;
                                         }
 
@@ -183,7 +183,7 @@ namespace ConsoleUI_BL
                                             Console.WriteLine("if you want to change the number of slots in the station, enter the new number of slots else continue");
                                             if (!int.TryParse(Console.ReadLine(), out int ansNum))
                                                 ansNum = 0;
-                                            bl.UpdateStation(ID, ansName, ansNum);
+                                           // bl.UpdateStation(ID, ansName, ansNum);
                                             break;
                                         }
 
