@@ -165,10 +165,11 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits) ");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            int droneID = ID;
                                             Console.WriteLine("Enter the wanted model");
                                             string model = Console.ReadLine();
-                                            //bl.UpdateDrone(droneID, model);
+                                            Drone tmp = bl.GetDrone(ID);
+                                            tmp.Model = model;
+                                            bl.UpdateDrone(tmp);
                                             break;
                                         }
 
@@ -183,7 +184,10 @@ namespace ConsoleUI_BL
                                             Console.WriteLine("if you want to change the number of slots in the station, enter the new number of slots else continue");
                                             if (!int.TryParse(Console.ReadLine(), out int ansNum))
                                                 ansNum = 0;
-                                           // bl.UpdateStation(ID, ansName, ansNum);
+                                            BaseStation tmp = bl.GetBaseStation(ID);
+                                            tmp.Name = ansName;
+                                            tmp.NumOfAvailableChargingSlots = ansNum;
+                                            bl.UpdateStation(tmp);
                                             break;
                                         }
 
@@ -199,19 +203,17 @@ namespace ConsoleUI_BL
                                             string ansPhone = Console.ReadLine();
                                             if (ansPhone == "")
                                                 ansName = null;
-                                            Customer customer = new();
-                                            customer.Id = ID;
-                                            customer.Name = ansName;
-                                            customer.PhoneNumber = ansPhone;
-                                            bl.UpdateCustomer(customer);
+                                            Customer tmp = bl.GetCustomer(ID);
+                                            tmp.Name = ansName;
+                                            tmp.PhoneNumber = ansPhone;
+                                            bl.UpdateCustomer(tmp);
                                             break;
                                         }
                                     case (int)UpdateOptions.SendDroneToCharge:
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            Drone drone = new();
-                                            drone.Id = ID;
+                                            Drone drone = bl.GetDrone(ID);
                                             bl.SendDroneToCharge(drone);
                                             break;
                                         }
@@ -222,8 +224,7 @@ namespace ConsoleUI_BL
                                             int.TryParse(Console.ReadLine(), out int ID);
                                             Console.WriteLine("and the the amount of time(by minute) that the drone was in the chaging base station");
                                             int.TryParse(Console.ReadLine(), out int num);
-                                            Drone drone = new();
-                                            drone.Id = ID;
+                                            Drone drone = bl.GetDrone(ID);
                                             bl.ReleasingDroneFromBaseStation(drone, num);
                                             break;
                                         }
@@ -231,21 +232,24 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            //bl.AssignParcelToDrone(ID);
+                                            Drone drone = bl.GetDrone(ID);
+                                            bl.AssignParcelToDrone(drone);
                                             break;
                                         }
                                     case (int)UpdateOptions.CollectParcelByDrone:
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                           // bl.CollectionParcelByDrone(ID);
+                                            Drone drone = bl.GetDrone(ID);
+                                            bl.CollectionParcelByDrone(drone);
                                             break;
                                         }
                                     case (int)UpdateOptions.DeliverParcelByDrone:
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits).");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                          //  bl.DeliveryParcelByDrone(ID);
+                                            Drone drone = bl.GetDrone(ID);
+                                            bl.DeliveryParcelByDrone(drone);
                                             break;
                                         }
                                 }
