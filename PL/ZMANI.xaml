@@ -5,34 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ZMANI" Height="640" Width="800">
-    <Grid>
-        <Viewbox x:Name="DroneDetails" VerticalAlignment="Top" HorizontalAlignment="Center"  Margin="0,30,0,0" Width="350" Height="78" />
-        <DataGrid Margin="200,200"/>
-        <ListViewItem Selected="ListViewItem_Selected">
+        Title="ZMANI" Height="640" Width="800" FontSize="48">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"  />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="2*"  />
+            <RowDefinition Height="3*"  />
+        </Grid.RowDefinitions>
+        <Label Content="Additional Information:" HorizontalAlignment="Left" Grid.Row="2" FontSize="30" FontWeight="Normal" FontStyle="Italic" FontFamily="Aharoni" Width="362" FontStretch="Medium" />
+        <Grid x:Name="data" Height="auto" Grid.Row="1" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="The drone modele is  " HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" FontSize="20" FontWeight="Normal" FontFamily="Arial" FontStyle="Normal"  />
+            <Label Content="and it's Id number is " HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" FontSize="20" FontWeight="Normal" FontFamily="Arial" />
 
-            <Grid/>
-
-        </ListViewItem>
-        
-        
-        <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" SharedSizeGroup="MyGroup"/>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="num1" Content="hello" Height="167" Width="366"/>
-            </Grid>
-            <Grid>
-                <Button  x:Name="num2" Content="deena" Grid.ColumnSpan="2" Margin="299,141,369,-190"/>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" SharedSizeGroup="MyGroup"/>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-            </Grid>
-        </StackPanel>
+        </Grid>
     </Grid>
+
+
+
+
 
 </Window>

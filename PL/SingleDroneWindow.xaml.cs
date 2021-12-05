@@ -23,7 +23,6 @@ namespace PL
     {
         IBL.IBL bl;
         public Drone Drone { get; set; }
-        public int StationID { get; set; }
         private bool _close { get; set; } = false;
         public SingleDroneWindow(IBL.IBL bL, Drone drone)
         {
@@ -31,18 +30,19 @@ namespace PL
             DataContext = this;
             Drone = drone;
             InitializeComponent();
-            comboWeightSelector.ItemsSource = (IBL.BO.WeightCategories[])Enum.GetValues(typeof(IBL.BO.WeightCategories));
+            UpdateGrid.Visibility = Visibility.Visible;
+            comboWeight.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
         }
 
         public SingleDroneWindow(IBL.IBL bL) : this(bL, new())
         {
+            comboWeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             txtId.IsEnabled = true;
-            pnlStationId.Visibility = Visibility.Visible;
-            btnAdd.Visibility = Visibility.Visible;
+            AddGrid.Visibility = Visibility.Visible;
+            UpdateGrid.Visibility = Visibility.Hidden;
             btnUpdate.Visibility = Visibility.Collapsed;
-            btnSendDroneToCharge.Visibility = Visibility.Collapsed;
-            btnReleasingDroneFromBaseStation.Visibility = Visibility.Collapsed;
+            droneOptions.Visibility = Visibility.Collapsed;
         }
 
         private void TxtId_TextChanged(object sender, TextChangedEventArgs e)
@@ -56,7 +56,7 @@ namespace PL
         {
             try
             {
-                bl.AddDrone(Drone, StationID);
+                bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
                 MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -170,6 +170,12 @@ namespace PL
             {
                 MessageBox.Show("Failed to delivery the parcel by the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
+        }
+
+        private void ExitClick(object sender, RoutedEventArgs e)
+        {
+            _close = true;
+            Close();
         }
     }
 }

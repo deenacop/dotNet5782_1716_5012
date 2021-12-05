@@ -9,7 +9,9 @@
 
     <Window.Resources>
         <Style TargetType="ListViewItem">
+           
             <EventSetter Event="MouseDoubleClick" Handler="DroneListView_MouseDoubleClick" />
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
         <Style x:Key="BackGroundDesign" TargetType="ListView" >
             <Setter Property="Background" >
@@ -22,6 +24,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Width" Value="134"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+
+       
+
     </Window.Resources>
 
 
@@ -43,6 +54,23 @@
             <Button x:Name="BTNAddDrone" Content="Add drone" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7085B6" BorderBrush="#2b76b9" Height="70" Width="200" Click="BTNAddDrone_Click" ToolTip="to add a drone"/>
         </Grid>
 
-        <ListView x:Name="DroneListView" Grid.Row="1" Style="{StaticResource BackGroundDesign}" SelectionChanged="DroneListView_SelectionChanged"/>
+        <ListView x:Name="DroneListView" VerticalContentAlignment="Center" Grid.Row="1" Style="{StaticResource BackGroundDesign}" SelectionChanged="DroneListView_SelectionChanged"  >
+            <ListView.ItemContainerStyle>                <Style TargetType="ListViewItem">                    <Setter Property="HorizontalContentAlignment" Value="Center"/>                </Style>            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="130" ></GridViewColumn>
+                    <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="130"></GridViewColumn>
+                    <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="130"></GridViewColumn>
+                    <GridViewColumn Header="Battery " DisplayMemberBinding="{Binding Battery }" Width="130"></GridViewColumn>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="130"></GridViewColumn>
+                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}" Width="130"></GridViewColumn>
+              
+            </GridView>
+            </ListView.View>
+          
+        </ListView>
+
+
     </Grid>
 </Window>

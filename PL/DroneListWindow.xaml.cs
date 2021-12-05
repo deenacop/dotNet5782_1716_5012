@@ -80,7 +80,10 @@ namespace PL
 
         private void DroneListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            // ListViewItem item = (ListViewItem)sender;
+            DroneToList drone = (DroneToList)DroneListView.SelectedItem;
+            if (new SingleDroneWindow(bL, bL.GetDrone(drone.Id)).ShowDialog() ?? false)
+                DroneListView.ItemsSource = bL.GetDroneList();
         }
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

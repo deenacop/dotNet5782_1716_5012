@@ -36,5 +36,20 @@ namespace PL
         {
 
         }
+
+        private void Menu_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void num2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
