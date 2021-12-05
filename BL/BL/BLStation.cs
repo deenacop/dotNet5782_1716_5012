@@ -47,9 +47,14 @@ namespace BL
             baseStation.CopyPropertiesTo(stationList);
             object obj = new IDAL.DO.Station();
             baseStation.CopyPropertiesTo(obj);
+            IDAL.DO.Station tmp = (IDAL.DO.Station)obj;
+            tmp.Latitude = baseStation.Location.Latitude;
+            tmp.Longitude = baseStation.Location.Longitude;
+            obj = tmp;
+
             try
             {
-                dal.UpdateDrone((IDAL.DO.Drone)obj);//calls the function from DALOBJECT
+                dal.UpdateStation((IDAL.DO.Station)obj);//calls the function from DALOBJECT
             }
             catch (Exception ex)
             {

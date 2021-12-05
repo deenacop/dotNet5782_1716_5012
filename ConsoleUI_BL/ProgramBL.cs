@@ -185,8 +185,10 @@ namespace ConsoleUI_BL
                                             if (!int.TryParse(Console.ReadLine(), out int ansNum))
                                                 ansNum = 0;
                                             BaseStation tmp = bl.GetBaseStation(ID);
-                                            tmp.Name = ansName;
-                                            tmp.NumOfAvailableChargingSlots = ansNum;
+                                            if(ansName!=null)
+                                               tmp.Name = ansName;
+                                            if (ansNum != 0)
+                                                tmp.NumOfAvailableChargingSlots = ansNum;
                                             bl.UpdateStation(tmp);
                                             break;
                                         }
