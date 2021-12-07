@@ -7,21 +7,24 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-    <Style x:Key="BackGroundDesign" TargetType="ListView">
-        <Setter Property="Background" >
-            <Setter.Value>
-                <LinearGradientBrush >
-                    <GradientStop Offset="0" Color="#7085B6"/>
-                    <GradientStop Offset="0.1" Color="#87A7D9"/>
-                    <GradientStop Offset="1" Color="#DEF3F8"/>
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
-    </Style>
+        <Style x:Key="BackGroundDesign" TargetType="Button">
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush >
+                        <GradientStop Offset="0" Color="#7085B6"/>
+                        <GradientStop Offset="0.1" Color="#87A7D9"/>
+                        <GradientStop Offset="1" Color="#DEF3F8"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
-        <Button x:Name="btnShowListDrone" Content="Show Drone List" Margin="100,100,488,129" Click="btnShowListDrone_Click" />
-        <TextBox x:Name="id" HorizontalAlignment="Left" Margin="492,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="id_TextChanged"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="518,167,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnShowListDrone" Grid.Column="1" Style="{StaticResource BackGroundDesign}" Content="Show Drone List" FontSize="30"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnShowListDrone_Click" Height="314" Width="280" FontWeight="Bold" FontStyle="Italic" FontFamily="Bodoni MT Black" />
     </Grid>
 </Window>

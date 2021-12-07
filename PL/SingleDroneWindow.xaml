@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="AddDroneWindow" Height="440" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Cooper Black"
+        Title="AddDroneWindow" Height="440" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia" 
         >
-
-    <Window.Background>
-        <!--<Image x:Name="DroneImage"   />-->
+    <!--<Window.Background>
+        -->
+    <!--<Image x:Name="DroneImage"   />-->
+    <!--
         <ImageBrush  Stretch="Fill" ImageSource="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\photo 2021.jpg"></ImageBrush>
-    </Window.Background>
+    </Window.Background>-->
 
     <Window.Resources>
         <Style x:Key="Design" TargetType="Button" >
@@ -46,88 +47,245 @@
         </Style>
 
     </Window.Resources>
-
-    <Grid x:Name="middle" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <Grid x:Name="UpdateGrid" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"  DataContext="{Binding Drone}" Height="248">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid x:Name="UpdateGrid" Visibility="Visible"  DataContext="{Binding Drone}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="12*"/>
             </Grid.RowDefinitions>
+            <Grid x:Name="top" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+
+              
+
+                    <Menu x:Name="droneOptions" Grid.Column="0"  Style="{StaticResource DesignR}" FontWeight="Bold" FontSize="9">
+                        <MenuItem Header="Drone operation" FontSize="9" FontWeight="Bold"  FontFamily="Constantia" Click="MenuItem_Click" Height="16" Width="100" >
+                            <MenuItem Name="MenuSend" FontSize="15" Header="_send drone to charge" IsCheckable="True" Click="btnSendDroneToCharge_Click" />
+                            <MenuItem Name="MenuRelease" FontSize="15" Header="_release drone from charge" IsCheckable="True" Click="btnReleasingDroneFromBaseStation_Click" />
+                            <MenuItem Name="MenuAssign" FontSize="15" Header="_assign drone to parcel" IsCheckable="True" Click="btnAssignParcelToDrone_Click"/>
+                            <MenuItem Name="MenuCollect" FontSize="15" Header="_collect a parcel from customer" IsCheckable="True" Click="btnCollectionParcelByDrone_Click" />
+                            <MenuItem Name="MenuDeliver" FontSize="15" Header="_deliver parcel to customer" IsCheckable="True" Click="btnDeliveryParcelByDrone_Click"/>
+                            <Separator />
+                            <MenuItem Header="exit" Click="ExitClick" />
+                        </MenuItem>
+                    </Menu>
+               
+                    
+
+               
+            </Grid>
 
 
-
-            <Label Foreground="RoyalBlue" Grid.Column="0" Grid.Row="0"  FontSize="20" FontWeight="Bold" Content="ID:"/>
-            <TextBlock x:Name="txtId" FontWeight="Light" Grid.Column="1" Grid.Row="0"  FontSize="15" FontStyle="Italic" 
+            <Grid x:Name="down" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="22*"/>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="98*"/>
+                    <ColumnDefinition Width="148*"/>
+                    <ColumnDefinition Width="89*"/>
+                    <ColumnDefinition Width="74*"/>
+                    <ColumnDefinition Width="59*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="74*"/>
+                    <ColumnDefinition Width="59*"/>
+                    <ColumnDefinition Width="111*"/>
+                    <ColumnDefinition Width="22*"/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="droneLabels" Grid.ColumnSpan="3" Margin="22,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label Foreground="RoyalBlue" Grid.Row="0"  FontSize="15" Content="Drone:" FontWeight="Bold" VerticalAlignment="Bottom"/>
+                    <Label Foreground="RoyalBlue" Grid.Row="1"  FontSize="12" Content="Id:"/>
+                    <Label Foreground="RoyalBlue" Grid.Row="2"  FontSize="12" Content="model:"/>
+                    <Label Foreground="RoyalBlue" Grid.Row="3"  FontSize="12" Content="weight:"/>
+                    <Label Foreground="RoyalBlue" Grid.Row="4"  FontSize="12" Content="battery:"/>
+                    <Label Foreground="RoyalBlue" Grid.Row="5"  FontSize="12" Content="status:"/>
+                    <Label Foreground="RoyalBlue" Grid.Row="6"  FontSize="12" Content="location:"/>
+                    <Button x:Name="showParcel" Foreground="RoyalBlue" Grid.Row="7"  FontSize="13" FontWeight="Bold" Content="dron's parcel:" ToolTip="click to show parcel" Click="showParcel_Click" Height="25"/>
+                </Grid>
+                <Grid x:Name="droneDetails" Grid.Column="2" Grid.ColumnSpan="2" Margin="98,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="txtId" FontWeight="Light" Grid.Column="1" Grid.Row="1"  FontSize="12" 
                              TextWrapping="Wrap" Width="130"  Height="30"
                              Text="{Binding Id, Mode=TwoWay}" />
-
-            <Label VerticalAlignment="Top" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Model:"/>
-            <TextBox x:Name="TXTModel" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalContentAlignment="Bottom" 
+                    <TextBox x:Name="TXTModel" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" FontSize="12" FontWeight="Light"  VerticalContentAlignment="Center" 
                              Width="130"  Height="30" 
                              Text="{Binding Model, Mode=TwoWay}" />
-
-            <Label  VerticalAlignment="Top" VerticalContentAlignment="Center"  Grid.Column="0" Grid.Row="2" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Weight:"/>
-            <ComboBox Name="comboWeight"   Grid.Column="1" Width="130"  Height="30" Grid.Row="2"
+                    <ComboBox Name="comboWeight"   Grid.Column="1" Grid.Row="3" Width="130"  Height="30" 
                               SelectedItem="{Binding Weight, Mode=TwoWay}" />
-
-            <Button x:Name="btnUpdate" Style="{StaticResource Design}"  Grid.ColumnSpan="2"  FontWeight="Bold"  Grid.Row="4" FontSize="20" Content="Update" Width="220"  Height="40" 
-                    Click="btnUpdate_Click"/>
-
-        </Grid>
-        <Grid x:Name="ParcelAndCustomer" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"  DataContext="{Binding Drone}" Height="424" Width="267">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="3*"/>
-            </Grid.RowDefinitions>
-            <Label  VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Top"  Grid.ColumnSpan="2" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Parcel in transfer:"/>
-            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="RoyalBlue" Grid.Column="0" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20" FontWeight="Bold" Content="ID:"/>
-            <TextBlock Name="txtID" FontWeight="Light" Grid.Column="1" Grid.Row="1"  FontSize="15" FontStyle="Italic" 
-                             TextWrapping="Wrap" Width="130"  Height="30"
-                             Text="{Binding Id, Mode=TwoWay}" />
-            <Grid x:Name="sender" Grid.Column="0" Grid.Row="5"  HorizontalAlignment="Center" VerticalAlignment="Center"  DataContext="{Binding Drone}" Height="182" Width="133">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-            </Grid>
-            <Grid x:Name="receiver" Grid.Column="1" Grid.Row="5"  HorizontalAlignment="Center" VerticalAlignment="Center"  DataContext="{Binding Drone}" Height="182" Width="133">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-            </Grid>
-        </Grid>
-        <!--<Label VerticalAlignment="Top" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Parcel:"/>
-                <Label VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Parcel:" Height="49"/>
-
-                <TextBox Name="f" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalContentAlignment="Bottom" 
+                    <TextBlock x:Name="TXTBattery" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4" FontSize="12" FontWeight="Light"  
                              Width="130"  Height="30" 
-                             Text="{Binding Model, Mode=TwoWay}" />-->
+                             Text="{Binding Battery, Mode=TwoWay}" />
+                    <TextBlock x:Name="TXTStatus" TextWrapping="Wrap" Grid.Column="1" Grid.Row="5" FontSize="12" FontWeight="Light" 
+                             Width="130"  Height="30" 
+                             Text="{Binding Status, Mode=TwoWay}" />
+                    <TextBlock x:Name="TXTLocation" TextWrapping="Wrap" Grid.Column="1" Grid.Row="6" FontSize="12" FontWeight="Light" FontStyle="Italic"  
+                             Width="130"  Height="30" 
+                             Text="{Binding Path=Location, Mode=TwoWay}" />
+                    <TextBlock x:Name="TXTParcel" TextWrapping="Wrap" Grid.Column="1" Grid.Row="7" FontSize="12" FontWeight="Light" FontStyle="Italic"  
+                             Width="130"  Height="30" 
+                             Text="{Binding Parcel, Mode=TwoWay}" />
+                </Grid>
+                <Grid x:Name="parcelLabel" Grid.Column="4" Visibility="Hidden" Grid.ColumnSpan="2" Margin="89,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label Foreground="RoyalBlue" Grid.Row="0"  FontSize="15"  Content="Parcel:" FontWeight="Bold" VerticalAlignment="Bottom"/>
+                    <Label Foreground="RoyalBlue" Grid.Row="1"  FontSize="12"  Content="Id:"/>
+                    <Label Foreground="RoyalBlue" Grid.Row="2"  FontSize="12"  Content="wieght:"/>
+                    <Label Foreground="RoyalBlue" Grid.Row="3"  FontSize="12"  Content="status:"/>
+                    <Label Foreground="RoyalBlue" Grid.Row="4"  FontSize="12"  Content="distance:"/>
+                    <Button x:Name="showSender" Foreground="RoyalBlue" Grid.Row="5"  FontSize="15" FontWeight="Bold" Content="sender:" ToolTip="click to soe custumer" Click="showSender_Click" Height="25"/>
+                    <Button x:Name="showReciever" Foreground="RoyalBlue" Grid.Row="6"  FontSize="15" FontWeight="Bold" Content="reciever:" ToolTip="click to soe custumer"  Click="showReciever_Click" Height="25"/>
+                </Grid>
+                <Grid x:Name="parcelDetails" Grid.Column="5" Visibility="Hidden" Grid.ColumnSpan="3" Margin="74,0,29,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="TXTParcelId" TextWrapping="Wrap" Grid.Row="1" FontSize="12" FontWeight="Light" Height="30" 
+                             Text="{Binding Parcel.Id, Mode=TwoWay}"/>
+                    <TextBlock x:Name="TXTParcelWeight" TextWrapping="Wrap" Grid.Row="2" FontSize="12" FontWeight="Light" Height="30" 
+                             Text="{Binding Parcel.Weight, Mode=TwoWay}"/>
+                    <TextBlock x:Name="TXTParcelStatus" TextWrapping="Wrap" Grid.Row="3" FontSize="12" FontWeight="Light" Height="30" 
+                             Text="{Binding Parcel.Status, Mode=TwoWay}"/>
+                    <TextBlock x:Name="TXTParcelDistance" TextWrapping="Wrap" Grid.Row="4" FontSize="12" FontWeight="Light" Height="30" 
+                             Text="{Binding Parcel.TransportDistance, Mode=TwoWay}"/>
+                    <TextBlock x:Name="TXTParcelSender" TextWrapping="Wrap" Grid.Row="5" FontSize="12" FontWeight="Light" Height="30" 
+                             Text="{Binding Parcel.SenderCustomer, Mode=TwoWay}"/>
+                    <TextBlock x:Name="TXTParcelReciever" TextWrapping="Wrap" Grid.Row="6" FontSize="12" FontWeight="Light" Height="30" 
+                             Text="{Binding Parcel.ReceiverCustomer, Mode=TwoWay}"/>
+                </Grid>
+                <Grid x:Name="customer" Grid.Column="7" Grid.ColumnSpan="2" Margin="29,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="senderLAbel" Grid.Column="7" Grid.Row="0" Visibility="Hidden">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.5*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Foreground="RoyalBlue" Grid.Row="1"  FontSize="15"  FontWeight="Bold" Content="sender:"/>
+                        <Label Foreground="RoyalBlue" Grid.Row="2"  FontSize="12"  Content="Id:"/>
+                        <Label Foreground="RoyalBlue" Grid.Row="3"  FontSize="12"  Content="name:"/>
+                        <Label Foreground="RoyalBlue" Grid.Row="4"  FontSize="12"  Content="location:"/>
+                    </Grid>
+                    <Grid x:Name="recieverLAbel" Grid.Column="7" Grid.Row="1" Visibility="Hidden">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="1.5*"/>
+                        </Grid.RowDefinitions>
+                        <Label Foreground="RoyalBlue" Grid.Row="0"  FontSize="15" FontWeight="Bold" Content="reciever:"/>
+                        <Label Foreground="RoyalBlue" Grid.Row="1"  FontSize="12" Content="Id:"/>
+                        <Label Foreground="RoyalBlue" Grid.Row="2"  FontSize="12" Content="name:"/>
+                        <Label Foreground="RoyalBlue" Grid.Row="3"  FontSize="12" Content="location:"/>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="custumerDetails" Grid.Column="8" Grid.ColumnSpan="3" Margin="74,0,111,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="senderDetails" Grid.Row="0"  Visibility="Hidden">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.5*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Name="custumerSId" FontWeight="Light" Grid.Row="2"  FontSize="12"  
+                             TextWrapping="Wrap" Width="130"  Height="30"
+                             Text="{Binding Parcel.SenderCustomer.Id, Mode=TwoWay}" />
+                        <TextBlock Name="custumerSName" FontWeight="Light" Grid.Row="3"  FontSize="12" 
+                             TextWrapping="Wrap" Width="130"  Height="30"
+                             Text="{Binding Parcel.SenderCustomer.Name, Mode=TwoWay}" />
+                        <TextBlock Name="custumerSLocation" FontWeight="Light" Grid.Row="4"  FontSize="12"
+                             TextWrapping="Wrap" Width="130"  Height="30"
+                             Text="{Binding Parcel.Collection, Mode=TwoWay}" />
+                    </Grid>
+                    <Grid x:Name="recieverDetails" Grid.Row="1" Visibility="Hidden">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="1.5*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Name="custumerRId" FontWeight="Light"  Grid.Row="1"  FontSize="12" 
+                             TextWrapping="Wrap" Width="130"  Height="30"
+                             Text="{Binding Parcel.ReceiverCustomer.Id, Mode=TwoWay}" />
+                        <TextBlock Name="custumerRName" FontWeight="Light" Grid.Row="2"  FontSize="12"
+                             TextWrapping="Wrap" Width="130"  Height="30"
+                             Text="{Binding Parcel.ReceiverCustomer.Name, Mode=TwoWay}" />
+                        <TextBlock Name="custumerRLocation" FontWeight="Light" Grid.Row="3"  FontSize="12"
+                             TextWrapping="Wrap" Width="130"  Height="30"
+                             Text="{Binding Parcel.Delivery, Mode=TwoWay}" />
+                    </Grid>
+                </Grid>
+                <Grid x:Name="btns" Grid.Column="10" Grid.ColumnSpan="2" Margin="0,0,22,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="0.6*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.6*"/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnUpdate" Style="{StaticResource Design}"   FontWeight="Bold"  Grid.Row="1" FontSize="9" Content="Update" 
+                    Click="btnUpdate_Click"/>
+                    <Button x:Name="btnCancel" Style="{StaticResource Design}"   FontWeight="Bold"  Grid.Row="3" FontSize="9" Content="Cancel"  
+                    Click="btnCancel_Click"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+
+
+
 
 
 
@@ -167,22 +325,5 @@
                     Click="btnAdd_Click"></Button>
 
         </Grid>
-
-        <Menu x:Name="droneOptions"  Style="{StaticResource DesignR}">
-            <MenuItem Header="Drone operation" FontSize="35" FontWeight="Bold"   Width="269" Height="58" FontFamily="Britannic Bold" >
-                <MenuItem Name="MenuSend" FontSize="15" Header="_send drone to charge" IsCheckable="True" Click="btnSendDroneToCharge_Click" />
-                <MenuItem Name="MenuRelease" FontSize="15" Header="_release drone from charge" IsCheckable="True" Click="btnReleasingDroneFromBaseStation_Click" />
-                <MenuItem Name="MenuAssign" FontSize="15" Header="_assign drone to parcel" IsCheckable="True" Click="btnAssignParcelToDrone_Click"/>
-                <MenuItem Name="MenuCollect" FontSize="15" Header="_collect a parcel from customer" IsCheckable="True" Click="btnCollectionParcelByDrone_Click" />
-                <MenuItem Name="MenuDeliver" FontSize="15" Header="_deliver parcel to customer" IsCheckable="True" Click="btnDeliveryParcelByDrone_Click"/>
-                <Separator />
-                <MenuItem Header="exit" Click="ExitClick" />
-            </MenuItem>
-        </Menu>
-
-
-
-
-
     </Grid>
 </Window>

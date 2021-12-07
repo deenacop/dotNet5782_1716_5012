@@ -7,29 +7,178 @@
         mc:Ignorable="d"
         Title="ZMANI" Height="640" Width="800" FontSize="48">
     <Grid >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="3*"  />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="*"  />
-            <RowDefinition Height="2*"  />
-            <RowDefinition Height="3*"  />
-        </Grid.RowDefinitions>
-        <Label Content="Additional Information:" HorizontalAlignment="Left" Grid.Row="2" FontSize="30" FontWeight="Normal" FontStyle="Italic" FontFamily="Aharoni" Width="362" FontStretch="Medium" />
-        <Grid x:Name="data" Height="auto" Grid.Row="1" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="The drone modele is  " HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" FontSize="20" FontWeight="Normal" FontFamily="Arial" FontStyle="Normal"  />
-            <Label Content="and it's Id number is " HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" FontSize="20" FontWeight="Normal" FontFamily="Arial" />
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition Width="0.8*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="titels" Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Drone details" FontSize="25" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Drone's parcel" FontSize="25" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Sender customer" FontSize="25" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Reciever custumer" FontSize="25" TextWrapping="Wrap"></TextBlock>
+        </Grid>
+        <Grid x:Name="answer" Grid.Column="3" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="drone">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="txtDroneId" FontWeight="Light" Grid.Column="1" Grid.Row="0"  FontSize="15" FontStyle="Italic" 
+                             TextWrapping="Wrap" Width="130"  Height="30"
+                             Text="{Binding Id, Mode=TwoWay}" />
+                <TextBlock x:Name="TXTDroneModel" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" FontSize="15" FontWeight="Light" FontStyle="Italic" 
+                             Width="130"  Height="30" 
+                             Text="{Binding Model, Mode=TwoWay}" />
+                <TextBox x:Name="TXTDroneStatus" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalContentAlignment="Bottom" 
+                             Width="130"  Height="30" 
+                             Text="{Binding Status, Mode=TwoWay}" />
+                <ComboBox Name="comboDroneWeight"   Grid.Column="1" Width="130"  Height="30" Grid.Row="3"
+                              SelectedItem="{Binding Weight, Mode=TwoWay}" />
+                <TextBlock x:Name="TXTDroneBattery" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4" FontSize="15" FontWeight="Light" FontStyle="Italic" 
+                             Text="{Binding Battery, Mode=TwoWay}" />
+                <TextBlock x:Name="TXTDroneLocation" TextWrapping="Wrap" Grid.Column="1" Grid.Row="5" FontSize="15" FontWeight="Light" FontStyle="Italic" 
+                             Width="130"  Height="30" 
+                             Text="{Binding Location, Mode=TwoWay}" />
+            </Grid>
+            <Grid x:Name="parcel" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="txtParcelId" FontWeight="Light" Grid.Column="1" Grid.Row="0"  FontSize="15" FontStyle="Italic" 
+                             TextWrapping="Wrap" Width="130"  Height="30"
+                             Text="{Binding ParcelInTransfer.Id, Mode=TwoWay}" />
+                <TextBlock x:Name="TXTParcelStatus" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" FontSize="15" FontWeight="Light" FontStyle="Italic" 
+                             Width="130"  Height="30" 
+                             Text="{Binding ParcelInTransfer.Status, Mode=TwoWay}" />
+                <TextBlock x:Name="TXTParcelWeight" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" FontSize="15" FontWeight="Light" FontStyle="Italic"  
+                             Width="130"  Height="30" 
+                             Text="{Binding ParcelInTransfer.Weight, Mode=TwoWay}" />
+                <TextBlock x:Name="TXTParcelDistance" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" FontSize="15" FontWeight="Light" FontStyle="Italic"  
+                             Width="130"  Height="30" 
+                             Text="{Binding ParcelInTransfer.Weight, Mode=TwoWay}" />
+            </Grid>
+            <Grid x:Name="CustSender" Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="TXTCustomerlId" TextWrapping="Wrap" Grid.Column="1" Grid.Row="0" FontSize="15" FontWeight="Light" FontStyle="Italic"  
+                             Width="130"  Height="30" 
+                             Text="{Binding ParcelInTransfer.SenderCustomer.Id, Mode=TwoWay}" />
+                <TextBlock x:Name="TXTCustomerlName" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" FontSize="15" FontWeight="Light" FontStyle="Italic"  
+                             Width="130"  Height="30" 
+                             Text="{Binding ParcelInTransfer.SenderCustomer.Name, Mode=TwoWay}" />
+                <TextBlock x:Name="TXTCustomerlLocation" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" FontSize="15" FontWeight="Light" FontStyle="Italic"  
+                             Width="130"  Height="30" 
+                             Text="{Binding ParcelInTransfer.Collection, Mode=TwoWay}" />
+            </Grid>
+            <Grid x:Name="CustReciever" Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="TXTReclId" TextWrapping="Wrap" Grid.Column="1" Grid.Row="0" FontSize="15" FontWeight="Light" FontStyle="Italic"  
+                             Width="130"  Height="30" 
+                             Text="{Binding ParcelInTransfer.ReceiverCustomer.Id, Mode=TwoWay}" />
+                <TextBlock x:Name="TXTReclName" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" FontSize="15" FontWeight="Light" FontStyle="Italic"  
+                             Width="130"  Height="30" 
+                             Text="{Binding ParcelInTransfer.ReceiverCustomer.Name, Mode=TwoWay}" />
+                <TextBlock x:Name="TXTRecLocation" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" FontSize="15" FontWeight="Light" FontStyle="Italic"  
+                             Width="130"  Height="30" 
+                             Text="{Binding ParcelInTransfer.Delivery, Mode=TwoWay}" />
+            </Grid>
+        </Grid>
+        <Grid x:Name="details" Grid.Column="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="droneDetails">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="1.5*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Id:" HorizontalAlignment="Left" FontSize="20" Grid.Row="0"></Label>
+                <Label Content="model:" HorizontalAlignment="Left" FontSize="20" Grid.Row="1"></Label>
+                <Label Content="status:" HorizontalAlignment="Left" FontSize="20" Grid.Row="2"></Label>
+                <Label Content="weight:" HorizontalAlignment="Left" FontSize="20" Grid.Row="3"></Label>
+                <Label Content="battery:" HorizontalAlignment="Left" FontSize="20" Grid.Row="4"></Label>
+                <Label Content="location:" HorizontalAlignment="Left" FontSize="20" Grid.Row="5"></Label>
+            </Grid>
+            <Grid x:Name="dronsParcel" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Id:" HorizontalAlignment="Left" FontSize="20" Grid.Row="0"></Label>
+                <Label Content="status:" HorizontalAlignment="Left" FontSize="20" Grid.Row="1"></Label>
+                <Label Content="weight:" HorizontalAlignment="Left" FontSize="20" Grid.Row="2"></Label>
+                <Label Content="distance:" HorizontalAlignment="Left" FontSize="20" Grid.Row="3"></Label>
+            </Grid>
+            <Grid x:Name="sender" Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Id:" HorizontalAlignment="Left" FontSize="20" Grid.Row="0"></Label>
+                <Label Content="name:" HorizontalAlignment="Left" FontSize="20" Grid.Row="1"></Label>
+                <Label Content="location:" HorizontalAlignment="Left" FontSize="20" Grid.Row="2"></Label>
+            </Grid>
+            <Grid x:Name="reciever" Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="Id:" HorizontalAlignment="Left" FontSize="20" Grid.Row="0"></Label>
+                <Label Content="name:" HorizontalAlignment="Left" FontSize="20" Grid.Row="1"></Label>
+                <Label Content="location:" HorizontalAlignment="Left" FontSize="20" Grid.Row="2"></Label>
+            </Grid>
 
         </Grid>
+        <Menu x:Name="droneOptions" Grid.Column="0">
+            --><!--Style="{StaticResource DesignR}"--><!--
+            <MenuItem Header="Drone operation" FontSize="35" FontWeight="Bold"   Width="269" Height="58" FontFamily="Britannic Bold" ToolTip="Click to see update and exit options" >
+                <MenuItem Name="MenuSend" FontSize="15" Header="_send drone to charge" IsCheckable="True" Click="btnSendDroneToCharge_Click" />
+                <MenuItem Name="MenuRelease" FontSize="15" Header="_release drone from charge" IsCheckable="True" Click="btnReleasingDroneFromBaseStation_Click" />
+                <MenuItem Name="MenuAssign" FontSize="15" Header="_assign drone to parcel" IsCheckable="True" Click="btnAssignParcelToDrone_Click"/>
+                <MenuItem Name="MenuCollect" FontSize="15" Header="_collect a parcel from customer" IsCheckable="True" Click="btnCollectionParcelByDrone_Click" />
+                <MenuItem Name="MenuDeliver" FontSize="15" Header="_deliver parcel to customer" IsCheckable="True" Click="btnDeliveryParcelByDrone_Click"/>
+                <Separator />
+                <MenuItem Header="exit" Click="ExitClick" />
+            </MenuItem>
+        </Menu>-->
     </Grid>
-
-
-
-
-
 </Window>

@@ -64,7 +64,6 @@ namespace PL
                 DroneListView.ItemsSource = bL.GetDroneList(i => i.Weight == (IBL.BO.WeightCategories)weight);
             if (weight != WeightCategories.All && status != DroneStatus.All)
                 DroneListView.ItemsSource = bL.GetDroneList(i => i.Status == (IBL.BO.DroneStatus)status && i.Weight == (IBL.BO.WeightCategories)weight);
-
         }
 
         private void WieghtSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

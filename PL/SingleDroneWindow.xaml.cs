@@ -177,5 +177,35 @@ namespace PL
             _close = true;
             Close();
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void showParcel_Click(object sender, RoutedEventArgs e)
+        {
+            parcelLabel.Visibility = Visibility.Visible;
+            parcelDetails.Visibility = Visibility.Visible;
+        }
+
+        private void showSender_Click(object sender, RoutedEventArgs e)
+        {
+            senderLAbel.Visibility = Visibility.Visible;
+            senderDetails.Visibility = Visibility.Visible;
+
+        }
+
+        private void showReciever_Click(object sender, RoutedEventArgs e)
+        {
+            recieverLAbel.Visibility = Visibility.Visible;
+            recieverDetails.Visibility = Visibility.Visible;
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            _close = true;
+            Close();
+        }
     }
 }
