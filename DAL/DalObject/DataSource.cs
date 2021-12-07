@@ -94,7 +94,7 @@ namespace DalObject
 
             #region customer
             string[] nameArr = { "Shira Segal" , "Deena Copperman" , "Benjamin Netanyahu" , "Yishai Ribu" ,
-                                     "Yossi Cohen","Moshe Leon","Mordechai Glazer","huda Seor","Yigal Eyal","Lior Ackerman"};
+                                     "Yossi Cohen","Moshe Leon","Mordechai Glecer","huda Seor","Yigal Eyal","Lior Ackerman"};
 
             string[] phoneArr = { "0548482282" , "0504188440", "0548324567" , "0547687689", "0525678997",
                                       "0537897889","0527689646","0526789997","0547890087","0505678876"};
