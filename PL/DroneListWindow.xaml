@@ -9,7 +9,7 @@
 
     <Window.Resources>
         <Style TargetType="ListViewItem">
-           
+
             <EventSetter Event="MouseDoubleClick" Handler="DroneListView_MouseDoubleClick" />
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
@@ -31,10 +31,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
 
-       
-
     </Window.Resources>
-
 
     <Grid Name="MainGrid" >
         <Grid.RowDefinitions>
@@ -46,16 +43,29 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+
             </Grid.ColumnDefinitions>
-            <ComboBox Name="ComboStatusSelector" SelectionChanged="StatusSelector_SelectionChanged"  HorizontalAlignment= "Stretch" HorizontalContentAlignment="Center"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1" ToolTip="choose a status"/>
-            <Label Content="Drones list display" FontWeight="Light" FontStyle="Italic" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="70" Width="200" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <ComboBox  Name="ComboWeightSelector" SelectionChanged="WieghtSelector_SelectionChanged"  HorizontalAlignment="Stretch"  HorizontalContentAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="2"  ToolTip="choose the weight"  />
-            <Button x:Name="BTNAddDrone" Content="Add drone" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7085B6" BorderBrush="#2b76b9" Height="70" Width="200" Click="BTNAddDrone_Click" ToolTip="to add a drone"/>
+            <ComboBox Name="ComboStatusSelector" SelectionChanged="StatusSelector_SelectionChanged"  HorizontalAlignment= "Stretch" HorizontalContentAlignment="Center"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" ToolTip="choose a status"/>
+            <ComboBox  Name="ComboWeightSelector" SelectionChanged="WieghtSelector_SelectionChanged"  HorizontalAlignment="Stretch"  HorizontalContentAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1"  ToolTip="choose the weight"/>
+            
+            <Button x:Name="BTNAddDrone" Content="Add drone" FontWeight="Bold" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7085B6" BorderBrush="#2b76b9" Height="70" Click="BTNAddDrone_Click" ToolTip="to add a drone" Grid.ColumnSpan="2" Margin="266,0,0,0" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.323"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="0.661"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
         </Grid>
 
         <ListView x:Name="DroneListView" VerticalContentAlignment="Center" Grid.Row="1" Style="{StaticResource BackGroundDesign}" SelectionChanged="DroneListView_SelectionChanged"  >
-            <ListView.ItemContainerStyle>                <Style TargetType="ListViewItem">                    <Setter Property="HorizontalContentAlignment" Value="Center"/>                </Style>            </ListView.ItemContainerStyle>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
 
             <ListView.View>
                 <GridView>
@@ -65,10 +75,10 @@
                     <GridViewColumn Header="Battery " DisplayMemberBinding="{Binding Battery }" Width="130"></GridViewColumn>
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="130"></GridViewColumn>
                     <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location}" Width="130"></GridViewColumn>
-              
-            </GridView>
+
+                </GridView>
             </ListView.View>
-          
+
         </ListView>
 
 
