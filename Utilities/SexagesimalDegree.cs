@@ -45,11 +45,10 @@ namespace Utilities
             double latSecondsWithFraction = 60 * latFractionalMinutes; // multiplying the fraction by 60
             double lonSecondsWithFraction = 60 * lonFractionalMinutes; //example:  = 29.6
 
-            float latSeconds = (float)latSecondsWithFraction; // Convert the seconds to a float
-            float lonSeconds = (float)lonSecondsWithFraction; //example:  = 30
 
-            latitudeAndLongitude += lonDegrees + "°" + lonMinutes + "’" + lonSeconds + "’’" + lonDirection + "\n" +
-                   latDegrees + "°" + latMinutes + "’" + latSeconds + "’’" + latdirection;
+
+            latitudeAndLongitude += lonDegrees + "°" + lonMinutes + "’" + Math.Round(lonSecondsWithFraction) + "’’" + lonDirection + "\n" +
+                   latDegrees + "°" + latMinutes + "’" + Math.Round(latSecondsWithFraction) + "’’" + latdirection;
 
             return latitudeAndLongitude;
         }
