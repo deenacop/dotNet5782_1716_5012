@@ -34,7 +34,13 @@ namespace PL
     public partial class DroneListWindow : Window
     {
         IBL.IBL bL;
+
         public ObservableCollection<DroneToList> droneToLists;
+
+       /// <summary>
+       /// ctor 
+       /// </summary>
+       /// <param name="bl">the BL object</param>
         public DroneListWindow(IBL.IBL bl)
         {
             bL = bl;
@@ -47,12 +53,18 @@ namespace PL
             ComboStatusSelector.SelectedIndex = 3;
             droneToLists.CollectionChanged += DroneListView_CollectionChanged;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DroneListView_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             SelectionStatusAndWeight();
         }
-
+        /// <summary>
+        /// convert to ObservableCollection
+        /// </summary>
         private void InitDrones()
         {
             List<DroneToList> temp = bL.GetDroneList().ToList();
@@ -105,8 +117,6 @@ namespace PL
             DroneListView.ItemsSource = bL.GetDroneList();
         }
 
-        private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-        }
+        private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) { }
     }
 }
