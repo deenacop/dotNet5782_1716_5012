@@ -11,9 +11,12 @@ namespace Utilities
     /// </summary>
     public static class Util
     {
-        public static string SexagesimalCoordinate(double lon, double lat)
+        //public static string Longitude { get; private set; }
+
+        //public static string Latitude { get; private set; }
+        public static string SexagesimalCoordinate(double lon, double lat,  string slon = "",  string slat = "")
         {
-            string latitudeAndLongitude = "";
+         
             double latDegreesWithFraction = lat;
             char lonDirection;
             char latdirection;
@@ -44,13 +47,14 @@ namespace Utilities
 
             double latSecondsWithFraction = 60 * latFractionalMinutes; // multiplying the fraction by 60
             double lonSecondsWithFraction = 60 * lonFractionalMinutes; //example:  = 29.6
+            slon = lonDegrees + "°" + lonMinutes + "’" + Math.Round(lonSecondsWithFraction) + "’’" + lonDirection;
+           slat = latDegrees + "°" + latMinutes + "’" + Math.Round(latSecondsWithFraction) + "’’" + latdirection;
+            return slon +" \n" + slat;
 
 
 
-            latitudeAndLongitude += lonDegrees + "°" + lonMinutes + "’" + Math.Round(lonSecondsWithFraction) + "’’" + lonDirection + "\n" +
-                   latDegrees + "°" + latMinutes + "’" + Math.Round(latSecondsWithFraction) + "’’" + latdirection;
-
-            return latitudeAndLongitude;
         }
+        
+
     }
 }

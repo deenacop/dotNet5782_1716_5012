@@ -12,9 +12,16 @@ namespace IBL.BO
     {
         public double Longitude { get; set; }
         public double Latitude { get; set; }
+        // Longitude + Latitude
+
+        public string _Latitude { get; set; }
+       
+        public string _Longitude { get; set; }
+        public string _ToString { get { return ToString(); } set { } }
+
         public override string ToString()
         {
-            return (Util.SexagesimalCoordinate(Longitude, Latitude));
+            return Util.SexagesimalCoordinate(Longitude, Latitude, _Longitude, _Latitude);
         }
     }
 }

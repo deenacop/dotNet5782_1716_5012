@@ -39,8 +39,9 @@ namespace PL
         public SingleDroneWindow(IBL.IBL bL, Drone drone, DroneListWindow _droneListWindow, int _Index)
         {
             bl = bL;
-            DataContext = this;
             Drone = drone;
+            DataContext = this;
+           
             Index = _Index;
             InitializeComponent();
             this.droneListWindow = _droneListWindow;
