@@ -121,7 +121,7 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="showParcel" Background="WhiteSmoke" Grid.ColumnSpan="2" Height="35" ToolTip="click to show parcel" Click="showParcel_Click" VerticalAlignment="Bottom" >
+                    <Button x:Name="showParcel"  Background="WhiteSmoke" Grid.ColumnSpan="2" Height="35" ToolTip="click to show parcel" Click="showParcel_Click" VerticalAlignment="Bottom" >
                         <TextBlock  Background="WhiteSmoke"  FontSize="12" Foreground="#ff0844" FontWeight="Bold" Text="click to see the drone's parcel:" TextWrapping="Wrap"/>
                     </Button>
                 </Grid>
@@ -252,7 +252,7 @@
         </Grid>
 
 
-        <Grid x:Name="AddGrid" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"  DataContext="{Binding Drone}" Height="317">
+        <Grid x:Name="AddGrid" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"  DataContext="{Binding Drone}" Height="340">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -264,6 +264,7 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Label Foreground="RoyalBlue" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold" Content="ID:"/>
@@ -284,12 +285,19 @@
             <ComboBox Name="comboStationSelector" Width="130" Grid.Column="1" Grid.Row="3"  Height="30" VerticalContentAlignment="Center"
                           SelectedItem="content" />
 
-            <Button x:Name="btnAdd"    Grid.ColumnSpan="2" FontWeight="Bold" Grid.Row="4" FontSize="20" Content="Add" Width="220"  Height="40" 
+            <Button x:Name="btnAdd"    Grid.ColumnSpan="2" FontWeight="Bold" Grid.Row="4" FontSize="20" Content="Add" Width="220"  Height="30" 
                     Click="btnAdd_Click" Style="{StaticResource DesignRRR}">
 
             </Button>
             <!---->
-
+            <Grid Grid.Row="5" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="btncancel" Content="Cancel" FontSize="12" FontWeight="Bold" Click="btnCancel_Click_1" Style="{DynamicResource DesignRRR}" Width="220"  Height="20"></Button>
+                
+            </Grid>
         </Grid>
     </Grid>
 </Window>

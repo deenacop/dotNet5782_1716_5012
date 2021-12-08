@@ -13,6 +13,7 @@ namespace IBL.BO
     {
         public int Id { get; set; }
         public int Battery { get; set; }
+        public DateTime? EnterToChargBase { get; set; }
         public DateTime? FinishedRecharging { get; set; }
         public override string ToString()
         {
