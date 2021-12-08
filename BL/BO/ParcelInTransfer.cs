@@ -18,13 +18,13 @@ namespace IBL.BO
         public CustomerInParcel ReceiverCustomer { get; set; }
         public Location Collection { get; set; }
         public Location Delivery { get; set; }
-        public double TransportDistance { get; set; }
+        public float TransportDistance { get; set; }
         public override string ToString()
         {
             string str = "ID:" + Id + "\nStatus:" + Status 
                 + "\nWeight:" + Weight + "\nSender:" + SenderCustomer + "\nReceiver:" + ReceiverCustomer +
                  "\nCollection Location:" + Collection + "\nDelivery Location:" + Delivery +
-                 "\nTransport Distance:" + TransportDistance+"\n";
+                 "\nTransport Distance:" +  Math.Round(TransportDistance)+"\n";
             return str;
         }
     }

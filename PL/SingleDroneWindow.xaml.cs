@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Text.RegularExpressions;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -63,11 +64,18 @@ namespace PL
         {
             try
             {
-                bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
-                MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
-                droneListWindow.droneToLists.Add(bl.GetDroneList().First(i => i.Id == Drone.Id));
-                _close = true;
-                try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+                if (comboStationSelector.SelectedItem == null || txtID == null || txtMODEL==null || comboWeightSelector==null )
+                {
+                    MessageBox.Show("Failed to add the drone: ");
+                }
+                else
+                {
+                    bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
+                    MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
+                    droneListWindow.droneToLists.Add(bl.GetDroneList().First(i => i.Id == Drone.Id));
+                    _close = true;
+                    try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+                }
             }
             catch (Exception ex)
             {
@@ -101,7 +109,6 @@ namespace PL
                 droneListWindow.droneToLists[Index] = droneToList;
                 droneListWindow.DroneListView.Items.Refresh();
                 Close();
-                ;
             }
             catch (Exception ex)
             {
@@ -113,6 +120,7 @@ namespace PL
             try
             {
                 bl.SendDroneToCharge(Drone);
+                droneListWindow.DroneListView.Items.Refresh();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -129,6 +137,8 @@ namespace PL
             try
             {
                 bl.ReleasingDroneFromBaseStation(Drone);
+                droneListWindow.DroneListView.Items.Refresh();
+
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -144,6 +154,8 @@ namespace PL
             try
             {
                 bl.CollectionParcelByDrone(Drone);
+                droneListWindow.DroneListView.Items.Refresh();
+
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -159,6 +171,8 @@ namespace PL
             try
             {
                 bl.AssignParcelToDrone(Drone);
+                droneListWindow.DroneListView.Items.Refresh();
+
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -174,6 +188,8 @@ namespace PL
             try
             {
                 bl.DeliveryParcelByDrone(Drone);
+                droneListWindow.DroneListView.Items.Refresh();
+
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -184,10 +200,10 @@ namespace PL
             }
         }
 
-        private void ExitClick(object sender, RoutedEventArgs e)
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            _close = true;
-            Close();
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

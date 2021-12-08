@@ -235,7 +235,7 @@ namespace BL
 
                 droneBO.Parcel.Collection = new() { Longitude = senderCustomer.Longitude, Latitude = senderCustomer.Latitude };
                 droneBO.Parcel.Delivery = new() { Longitude = receiverCustomer.Longitude, Latitude = receiverCustomer.Latitude };
-                droneBO.Parcel.TransportDistance = DistanceCalculation(droneBO.Parcel.Collection, droneBO.Parcel.Delivery);
+                droneBO.Parcel.TransportDistance = (float)DistanceCalculation(droneBO.Parcel.Collection, droneBO.Parcel.Delivery);
             }
             return droneBO;
         }
