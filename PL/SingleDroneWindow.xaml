@@ -188,9 +188,8 @@
                              TextWrapping="Wrap" 
                              Text="{Binding Parcel.SenderCustomer.Name, Mode=TwoWay}" />
                         <TextBlock x:Name="TXTLocation1sender" Foreground="Snow" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" FontSize="13" VerticalAlignment="Bottom"  
-                            FontWeight="Bold" Text="{Binding Path=Collection.Longitude, Mode=TwoWay}" />
-                        <TextBlock x:Name="TXTLocation2sender" Foreground="Snow" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4" FontSize="13" VerticalAlignment="Top"   
-                              FontWeight="Bold" Text="{Binding Path=Collection.Latitude, Mode=TwoWay}" />
+                            FontWeight="Bold"  Text="{Binding Path=Parcel.Collection._ToString,  Mode=TwoWay}" />
+                       
                     </Grid>
                     <Grid x:Name="btnReciver" Grid.Column="2" Grid.RowSpan="4" Visibility="Hidden" >
                         <Grid.RowDefinitions>
@@ -226,9 +225,7 @@
                         <TextBlock Name="custumerRName" Foreground="Snow" Grid.Column="1" Grid.Row="2"  FontSize="12" TextWrapping="Wrap" FontWeight="Bold"
                              Text="{Binding Parcel.ReceiverCustomer.Name, Mode=TwoWay}" />
                         <TextBlock x:Name="TXTLocation1reciever" Foreground="Snow" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" FontSize="13" VerticalAlignment="Bottom"  
-                               FontWeight="Bold" Text="{Binding Path=Delivery.Longitude, Mode=TwoWay}" />
-                        <TextBlock x:Name="TXTLocation2reciver" Foreground="Snow" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4" FontSize="13" VerticalAlignment="Top"   
-                               FontWeight="Bold" Text="{Binding Path=Delivery.Latitude, Mode=TwoWay}" />
+                               FontWeight="Bold" Text="{Binding Path=Parcel.Delivery._ToString, Mode=TwoWay}" />
                     </Grid>
                 </Grid>
             </Grid>
