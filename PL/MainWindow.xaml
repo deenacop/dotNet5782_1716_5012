@@ -5,13 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Window.Background>
-        <ImageBrush  Stretch="Fill" ImageSource="https://images.squarespace-cdn.com/content/v1/53777176e4b0f6c6b684652b/1545843455112-DQKFW0FSLIATEO94L5CK/drone-dribbb.gif?format=750w.jpg"></ImageBrush>
-    </Window.Background>
-    <!--<Window.Background>
-        <Image gif:ImageBehavior.AnimatedSource="https://images.squarespace-cdn.com/content/v1/53777176e4b0f6c6b684652b/1545843455112-DQKFW0FSLIATEO94L5CK/drone-dribbb.gif?format=750w.gif" />
-    </Window.Background>-->
+       
+        Title="MainWindow" Height="450" Width="800"
+         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif">
     <Window.Resources>
         <Style x:Key="BackGroundDesign" TargetType="Button">
             <Setter Property="Background" >
@@ -20,21 +16,37 @@
                         <GradientStop Offset="0.4" Color="#BDBBBE"/>
                         <GradientStop Offset="1" Color="#ffb199"/>
                     </LinearGradientBrush>
+
                 </Setter.Value>
             </Setter>
-           
+
         </Style>
     </Window.Resources>
-    <Grid>
+
+    <Grid  Background="LightGray">
+        <Image gif:AnimationBehavior.SourceUri="Properties/drone.gif" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Button  x:Name="btnShowListDrone" Background="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnShowListDrone_Click" Height="100" Width="100" FontWeight="Bold" FontStyle="Italic" FontFamily="Bodoni MT Black" Margin="637,267,0,0" >
+            <TextBlock   Text="Click to reveal the secrets within" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="15" Foreground="Tomato" TextAlignment="Center" FontWeight="Normal" FontStyle="Normal" LineHeight="10" />
+
+        </Button>
+    </Grid>
+
+
+
+
+
+
+
+
+
+    <!--<Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnShowListDrone" Grid.Column="1" Style="{StaticResource BackGroundDesign}" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnShowListDrone_Click" Height="110" Width="336" FontWeight="Bold" FontStyle="Italic" FontFamily="Bodoni MT Black" Margin="0,277,0,0" >
-            <TextBlock Foreground="DarkSlateGray"  Text="Click to see the world world of magic" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="30" TextAlignment="Center" FontWeight="Normal" FontStyle="Normal" LineHeight="10" />
+       
+        
+    </Grid>-->
 
-
-        </Button>
-    </Grid>
 </Window>
