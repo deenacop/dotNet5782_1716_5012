@@ -24,18 +24,25 @@ namespace PL
         IBL.IBL bl;
         public Drone Drone { get; set; }
         private bool _close { get; set; } = false;
-        public SingleDroneWindow(IBL.IBL bL, Drone drone)
+
+        private DroneListWindow droneListWindow;
+
+        private int Index;
+
+        public SingleDroneWindow(IBL.IBL bL, Drone drone, DroneListWindow _droneListWindow, int _Index)
         {
             bl = bL;
             DataContext = this;
             Drone = drone;
+            Index = _Index;
             InitializeComponent();
+            this.droneListWindow = _droneListWindow;
             UpdateGrid.Visibility = Visibility.Visible;
             comboWeight.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
         }
 
-        public SingleDroneWindow(IBL.IBL bL) : this(bL, new())
+        public SingleDroneWindow(IBL.IBL bL, DroneListWindow droneListWindow) : this(bL, new(), droneListWindow, 0)
         {
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             txtId.IsEnabled = true;
@@ -51,13 +58,14 @@ namespace PL
             Drone.Id = id;
         }
 
-     
+
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
                 MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
+                droneListWindow.droneToLists.Add(bl.GetDroneList().First(i => i.Id == Drone.Id));
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
             }
@@ -88,14 +96,18 @@ namespace PL
                 bl.UpdateDrone(Drone);
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
-                try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+                DroneToList droneToList = droneListWindow.droneToLists[Index];
+                droneToList.Model = Drone.Model;
+                droneListWindow.droneToLists[Index] = droneToList;
+                droneListWindow.DroneListView.Items.Refresh();
+                Close();
+                ;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
-
         private void btnSendDroneToCharge_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -181,26 +193,23 @@ namespace PL
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
 
-        }
 
+        }
         private void showParcel_Click(object sender, RoutedEventArgs e)
         {
-            parcelLabel.Visibility = Visibility.Visible;
             parcelDetails.Visibility = Visibility.Visible;
+            btnReciver.Visibility = Visibility.Visible;
+            btnSender.Visibility = Visibility.Visible;
         }
-
         private void showSender_Click(object sender, RoutedEventArgs e)
         {
-            senderLAbel.Visibility = Visibility.Visible;
             senderDetails.Visibility = Visibility.Visible;
-
         }
-
-        private void showReciever_Click(object sender, RoutedEventArgs e)
+        private void showreciver_Click(object sender, RoutedEventArgs e)
         {
-            recieverLAbel.Visibility = Visibility.Visible;
             recieverDetails.Visibility = Visibility.Visible;
         }
+
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
