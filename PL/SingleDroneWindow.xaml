@@ -8,7 +8,7 @@
         Title="AddDroneWindow" Height="440" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia"
         >
     <Window.Background>
-        <ImageBrush  Stretch="Fill" ImageSource="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\photo 2021jj.jpg"></ImageBrush>
+        <ImageBrush  Stretch="Fill" ImageSource="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\photo 2021.jpg"></ImageBrush>
     </Window.Background>
 
 

@@ -47,14 +47,18 @@ namespace PL
             InitializeComponent();
             droneToLists = new ObservableCollection<DroneToList>();
             InitDrones();
+            //for the options in the combo text
             ComboStatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
+            //for the options in the combo text
             ComboWeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             DroneListView.ItemsSource = droneToLists;
+            //Default - all
             ComboStatusSelector.SelectedIndex = 3;
+            //Event registration
             droneToLists.CollectionChanged += DroneListView_CollectionChanged;
         }
         /// <summary>
-        /// 
+        /// Function that updates in case of a change in the list by resending for filtering
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -73,15 +77,22 @@ namespace PL
                 droneToLists.Add(item);
             }
         }
-
+        /// <summary>
+        /// Filter by status
+        /// </summary>
+        /// <param name="sender">wanded item from the combo box</param>
+        /// <param name="e">event</param>
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectionStatusAndWeight();
         }
-
+        /// <summary>
+        /// Filter according to the two filters. Weight and status
+        /// </summary>
         private void SelectionStatusAndWeight()
         {
             DroneStatus status = (DroneStatus)ComboStatusSelector.SelectedItem;
+            //Sent before the second is updated anג its null
             if (ComboWeightSelector.SelectedIndex == -1)
             {
                 ComboWeightSelector.SelectedIndex = 3;
@@ -97,26 +108,42 @@ namespace PL
             if (weight != WeightCategories.All && status != DroneStatus.All)
                 DroneListView.ItemsSource = droneToLists.ToList().FindAll(i => i.Status == (IBL.BO.DroneStatus)status && i.Weight == (IBL.BO.WeightCategories)weight);
         }
-
+        /// <summary>
+        /// Filter by wieght
+        /// </summary>
+        /// <param name="sender">wanded item from the combo box</param>
+        /// <param name="e">event</param>
         private void WieghtSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectionStatusAndWeight();
         }
-
+        /// <summary>
+        /// Click event. Add button
+        /// </summary>
+        /// <param name="sender">Add button</param>
+        /// <param name="e">event</param>
         private void BTNAddDrone_Click(object sender, RoutedEventArgs e)
         {
+            //Sends to the add window 
             new SingleDroneWindow(bL, this).Show();
         }
+        /// <summary>
+        /// chosen drone
+        /// </summary>
+        /// <param name="sender">item from the list view</param>
+        /// <param name="e">event</param>
         private void DroneListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // ListViewItem item = (ListViewItem)sender;
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
             if (drone != null)
                 new SingleDroneWindow(bL, bL.GetDrone(drone.Id), this, DroneListView.SelectedIndex).Show();
-            //    if (new SingleDroneWindow(bL, bL.GetDrone(drone.Id)).ShowDialog() ?? false)
             DroneListView.ItemsSource = bL.GetDroneList();
         }
-
+        /// <summary>
+        /// Double click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">event</param>
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) { }
     }
 }

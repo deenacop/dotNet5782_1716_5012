@@ -29,7 +29,7 @@ namespace DalObject
             static internal double CarriesLightWeight = 5;//per km
             static internal double CarriesMediumWeight = 8;//per km
             static internal double CarriesHeavyWeight = 10;//per km
-            static internal double DroneLoadingRate = 5;//per min
+            static internal double DroneLoadingRate =20;//per min
         }
 
         /// <summary>

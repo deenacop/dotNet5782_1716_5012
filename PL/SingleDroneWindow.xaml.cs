@@ -34,17 +34,17 @@ namespace PL
         /// </summary>
         /// <param name="bL">BL object</param>
         /// <param name="drone">selected drone</param>
-        /// <param name="_droneListWindow"></param>
+        /// <param name="_droneListWindow">access to the window</param>
         /// <param name="_Index">the drone index</param>
         public SingleDroneWindow(IBL.IBL bL, Drone drone, DroneListWindow _droneListWindow, int _Index)
         {
             bl = bL;
             Drone = drone;
-            DataContext = this;
-           
+            DataContext = this;   
             Index = _Index;
             InitializeComponent();
             this.droneListWindow = _droneListWindow;
+            //show the update grid:
             UpdateGrid.Visibility = Visibility.Visible;
             comboWeight.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
@@ -52,12 +52,13 @@ namespace PL
         /// <summary>
         /// ctor of add
         /// </summary>
-        /// <param name="bL"></param>
-        /// <param name="droneListWindow"></param>
+        /// <param name="bL">BL object</param>
+        /// <param name="droneListWindow">access to the window</param>
         public SingleDroneWindow(IBL.IBL bL, DroneListWindow droneListWindow) : this(bL, new(), droneListWindow, 0)
         {
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             txtId.IsEnabled = true;
+            //show the add grid
             AddGrid.Visibility = Visibility.Visible;
             UpdateGrid.Visibility = Visibility.Hidden;
             btnUpdate.Visibility = Visibility.Collapsed;
@@ -67,7 +68,7 @@ namespace PL
         /// for changing the id txt box
         /// </summary>
         /// <param name="sender">wanted drone</param>
-        /// <param name="e">wanted event</param>
+        /// <param name="e">event</param>
         private void TxtId_TextChanged(object sender, TextChangedEventArgs e)
         {
             int.TryParse(txtId.Text, out int id);
@@ -78,7 +79,7 @@ namespace PL
         /// add butten
         /// </summary>
         /// <param name="sender">wanted drone</param>
-        /// <param name="e">wanted event</param>
+        /// <param name="e">event</param>
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -108,14 +109,14 @@ namespace PL
         /// <summary>
         /// load the window
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">wanted event</param>
+        /// <param name="sender">the window</param>
+        /// <param name="e">event</param>
         private void Window_Loaded(object sender, RoutedEventArgs e) { }
 
         /// <summary>
         /// The function is prevent force closing
         /// </summary>
-        /// <param name="sender"> window</param>
+        /// <param name="sender">a window</param>
         /// <param name="e">wanted event</param>
         private void Window_Closing(object sender, CancelEventArgs e)
         {
@@ -126,10 +127,10 @@ namespace PL
             }
         }
         /// <summary>
-        /// The update butten
+        /// Click event-update butten
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">wanted event</param>
+        /// <param name="sender">update butten</param>
+        /// <param name="e"> event</param>
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -143,15 +144,15 @@ namespace PL
                 droneListWindow.DroneListView.Items.Refresh();
                 Close();
             }
-            catch (Exception ex)
+            catch (Exception ex)//faild
             {
                 MessageBox.Show("Failed to update the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
         /// <summary>
-        /// update- send drone to charge
+        /// Click event - update- send drone to charge
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">menu item</param>
         /// <param name="e">wanted event</param>
         private void btnSendDroneToCharge_Click(object sender, RoutedEventArgs e)
         {
@@ -171,70 +172,86 @@ namespace PL
                 MessageBox.Show("Failed to send the drone to charge: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
-
+        /// <summary>
+        /// Click event - update- release drone frome charge
+        /// </summary>
+        /// <param name="sender">menu item</param>
+        /// <param name="e">event</param>
         private void btnReleasingDroneFromBaseStation_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                //send to the bl function
                 bl.ReleasingDroneFromBaseStation(Drone);
                 droneListWindow.DroneListView.Items.Refresh();
-
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
             }
-            catch (Exception ex)
+            catch (Exception ex)//faild
             {
                 MessageBox.Show("Failed to send the drone to charge: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
-
+        /// <summary>
+        /// Click event - update - collect parcel
+        /// </summary>
+        /// <param name="sender">menu item</param>
+        /// <param name="e">event</param>
         private void btnCollectionParcelByDrone_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                //send to the bl function
                 bl.CollectionParcelByDrone(Drone);
                 droneListWindow.DroneListView.Items.Refresh();
-
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
             }
-            catch (Exception ex)
+            catch (Exception ex)//faild
             {
                 MessageBox.Show("Failed to send the drone to collect a parcel: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
-
+        /// <summary>
+        /// Click event- update - assign parcel to a drone
+        /// </summary>
+        /// <param name="sender">menu item</param>
+        /// <param name="e">event</param>
         private void btnAssignParcelToDrone_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                //send to the bl function
                 bl.AssignParcelToDrone(Drone);
                 droneListWindow.DroneListView.Items.Refresh();
-
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
             }
-            catch (Exception ex)
+            catch (Exception ex)//faild
             {
                 MessageBox.Show("Failed to assign the drone to charge: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
-
+        /// <summary>
+        /// Click event - update - deliver parcel
+        /// </summary>
+        /// <param name="sender">menu item</param>
+        /// <param name="e">event</param>
         private void btnDeliveryParcelByDrone_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                //send to the bl function
                 bl.DeliveryParcelByDrone(Drone);
                 droneListWindow.DroneListView.Items.Refresh();
-
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
             }
-            catch (Exception ex)
+            catch (Exception ex)//faild
             {
                 MessageBox.Show("Failed to delivery the parcel by the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
@@ -242,8 +259,8 @@ namespace PL
         /// <summary>
         /// prevents from the user to enter letters in the id box
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">wanted event</param>
+        /// <param name="sender">text box</param>
+        /// <param name="e">event</param>
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
@@ -252,44 +269,62 @@ namespace PL
         /// <summary>
         /// open the menu
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">menu</param>
+        /// <param name="e">event</param>
         private void MenuItem_Click(object sender, RoutedEventArgs e)  {      }
         /// <summary>
-        /// 
+        /// Button for display parcel if exist. 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">the butten</param>
+        /// <param name="e">event</param>
         private void showParcel_Click(object sender, RoutedEventArgs e)
         {
-            if (Drone.Status == IBL.BO.DroneStatus.Delivery)
+            if (Drone.Status == IBL.BO.DroneStatus.Delivery)//if there is a parcel
             {
                 parcelDetails.Visibility = Visibility.Visible;
                 btnReciver.Visibility = Visibility.Visible;
                 btnSender.Visibility = Visibility.Visible;
             }
-            else
+            else//if there is no parcel a message will be displayed to the user
             {
                 MessageBox.Show("There is no parcel in transfer" );
 
             }
         }
+        /// <summary>
+        /// Button for display sender
+        /// </summary>
+        /// <param name="sender">the butten</param>
+        /// <param name="e">event</param>
         private void showSender_Click(object sender, RoutedEventArgs e)
         {
             senderDetails.Visibility = Visibility.Visible;
         }
+        /// <summary>
+        /// Button for display reciver
+        /// </summary>
+        /// <param name="sender">the butten</param>
+        /// <param name="e">event</param>
         private void showreciver_Click(object sender, RoutedEventArgs e)
         {
             recieverDetails.Visibility = Visibility.Visible;
         }
 
-
+        /// <summary>
+        /// Cancel button - closes a window
+        /// </summary>
+        /// <param name="sender">cancel butten</param>
+        /// <param name="e">event</param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             _close = true;
             Close();
         }
-
+        /// <summary>
+        /// Cancel button - closes a window
+        /// </summary>
+        /// <param name="sender">cancel butten</param>
+        /// <param name="e">event</param>
         private void btnCancel_Click_1(object sender, RoutedEventArgs e)
         {
             _close = true;
