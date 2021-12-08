@@ -128,7 +128,7 @@ namespace PL
         {
             try
             {
-                bl.ReleasingDroneFromBaseStation(Drone, 50);
+                bl.ReleasingDroneFromBaseStation(Drone);
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -197,9 +197,17 @@ namespace PL
         }
         private void showParcel_Click(object sender, RoutedEventArgs e)
         {
-            parcelDetails.Visibility = Visibility.Visible;
-            btnReciver.Visibility = Visibility.Visible;
-            btnSender.Visibility = Visibility.Visible;
+            if (Drone.Status == IBL.BO.DroneStatus.Delivery)
+            {
+                parcelDetails.Visibility = Visibility.Visible;
+                btnReciver.Visibility = Visibility.Visible;
+                btnSender.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MessageBox.Show("There is no parcel in transfer" );
+
+            }
         }
         private void showSender_Click(object sender, RoutedEventArgs e)
         {
@@ -212,6 +220,12 @@ namespace PL
 
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            _close = true;
+            Close();
+        }
+
+        private void btnCancel_Click_1(object sender, RoutedEventArgs e)
         {
             _close = true;
             Close();

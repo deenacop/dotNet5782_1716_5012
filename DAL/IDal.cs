@@ -111,6 +111,14 @@ namespace IDAL
         /// <param name="droneID">The requested drone</param>
         /// <exception cref="DalObject.ItemNotExistException"></exception>
         public Drone GetDrone(int droneID);
+        /// <summary>
+        /// Return the wanted droneCharge
+        /// </summary>
+        /// <param name="droneID">The requested drone</param>
+        /// <param name="baseStationId">The requested station</param>
+        /// <returns>wanted droneCharge, the index that the drone is in</returns>
+        /// <exception cref="IDAL.DO.ItemNotExistException"></exception>
+        public (DroneCharge, int) GetDroneCharge(int droneID, int baseStationId);
 
         /// <summary>
         /// Return the wanted station

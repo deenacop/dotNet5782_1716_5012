@@ -60,6 +60,31 @@ namespace IBL
         /// <exception cref="IBL.BO.WorngStatusException"></exception>
         /// <exception cref="IBL.BO.WorngStatusException"></exception>        
         void CollectionParcelByDrone(Drone drone);
+        /// <summary>
+        /// The function send a specific drone to the closest available station
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        /// <exception cref="IBL.BO.NotEnoughBatteryException"></exception>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        void SendDroneToCharge(Drone drone);
+
+        /// <summary>
+        /// Delivers a parcel to the receiver
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        /// <exception cref="IBL.BO.WorngStatusException"></exception>
+        void DeliveryParcelByDrone(Drone drone);
+        /// <summary>
+        /// This function is relaesing a drone
+        /// </summary>
+        /// <param name="ID">drone ID</param>
+        /// <param name="minuteInCharge">the amount of time(by minute) that the drone was in charge</param>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        /// <exception cref="IBL.BO.NotEnoughBatteryException"></exception>
+        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
+        void ReleasingDroneFromBaseStation(Drone drone);
         #endregion
 
         #region get a single item
@@ -91,32 +116,6 @@ namespace IBL
         /// <param name="ID">customer ID</param>
         /// <returns>The wanted customer</returns>
         /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        /// <summary>
-        /// This function is relaesing a drone
-        /// </summary>
-        /// <param name="ID">drone ID</param>
-        /// <param name="minuteInCharge">the amount of time(by minute) that the drone was in charge</param>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        /// <exception cref="IBL.BO.NotEnoughBatteryException"></exception>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void ReleasingDroneFromBaseStation(Drone drone, int minuteInCharge);
-
-        /// <summary>
-        /// The function send a specific drone to the closest available station
-        /// </summary>
-        /// <param name="ID">drone ID</param>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        /// <exception cref="IBL.BO.NotEnoughBatteryException"></exception>
-        /// <exception cref="IBL.BO.ItemNotExistException"></exception>
-        void SendDroneToCharge(Drone drone);
-
-        /// <summary>
-        /// Delivers a parcel to the receiver
-        /// </summary>
-        /// <param name="ID">drone ID</param>
-        /// <exception cref="IBL.BO.WorngStatusException"></exception>
-        void DeliveryParcelByDrone(Drone drone);
         Customer GetCustomer(int ID);
         #endregion
 

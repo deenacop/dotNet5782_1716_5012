@@ -230,7 +230,7 @@ namespace ConsoleUI_BL
                                             Console.WriteLine("and the the amount of time(by minute) that the drone was in the chaging base station");
                                             int.TryParse(Console.ReadLine(), out int num);
                                             Drone drone = bl.GetDrone(ID);
-                                            bl.ReleasingDroneFromBaseStation(drone, num);
+                                            bl.ReleasingDroneFromBaseStation(drone);
                                             break;
                                         }
                                     case (int)UpdateOptions.AssignParcelToDrone:

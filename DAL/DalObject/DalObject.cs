@@ -105,6 +105,7 @@ namespace DalObject
             DroneCharge ChargingDroneBattery = new();
             ChargingDroneBattery.Id = droneID;
             ChargingDroneBattery.BaseStationID = stationID;
+            ChargingDroneBattery.EnterToChargBase = DateTime.Now;
             //adds
             DataSource.DroneCharges.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
@@ -120,10 +121,11 @@ namespace DalObject
                 throw new ItemNotExistException("The drone does not exists");
             if (!DataSource.Stations.Exists(i => i.Id == baseStationID))
                 throw new ItemNotExistException("The station does not exists");
-            int index = DataSource.DroneCharges.FindIndex(i => i.Id == droneID && i.BaseStationID == baseStationID);//finds the drone charge
-            if (index < 0)//not found
-                throw new ItemNotExistException("the drone does not exist in the wanted base station");
-            DroneCharge tmp1 = DataSource.DroneCharges[index];
+            //int index = DataSource.DroneCharges.FindIndex(i => i.Id == droneID && i.BaseStationID == baseStationID);//finds the drone charge
+            //if (index < 0)//not found
+            //    throw new ItemNotExistException("the drone does not exist in the wanted base station");
+            DroneCharge tmp1 = /*DataSource.DroneCharges[index];*/GetDroneCharge(droneID, baseStationID).Item1;
+            int index = GetDroneCharge(droneID, baseStationID).Item2;
             tmp1.FinishedRecharging = DateTime.Now; ;//delete the drone from the list of the drone charge
             DataSource.DroneCharges[index] = tmp1;
             index = DataSource.Stations.FindIndex(i => i.Id == baseStationID);//finds the station
@@ -172,6 +174,13 @@ namespace DalObject
         #endregion
 
         #region Display one item
+        public (DroneCharge,int) GetDroneCharge(int droneID, int baseStationId)
+        {
+            int index = DataSource.DroneCharges.FindIndex(i => i.Id == droneID && i.BaseStationID == baseStationId);//finds the drone charge
+            if (index < 0)//not found
+                throw new ItemNotExistException("the drone does not exist in the wanted base station");
+            return (DataSource.DroneCharges[index],index);
+        }
         public Drone GetDrone(int droneID)
         {
             if (!DataSource.Drones.Exists(i => i.Id == droneID))

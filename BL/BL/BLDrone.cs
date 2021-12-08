@@ -102,8 +102,12 @@ namespace BL
             DroneListBL[index] = listDrone;
         }
 
-        public void ReleasingDroneFromBaseStation(Drone drone, int minuteInCharge)
+        public void ReleasingDroneFromBaseStation(Drone drone)
         {
+            int baseStationId = dal.GetListStation().First(i => i.Latitude == drone.Location.Latitude && i.Longitude == drone.Location.Longitude).Id;
+             IDAL.DO.DroneCharge droneCharge = dal.GetDroneCharge(drone.Id, baseStationId).Item1;
+            TimeSpan diff = DateTime.Now- (DateTime)droneCharge.EnterToChargBase;
+            int minuteInCharge = (int)diff.TotalSeconds/60;
             DroneToList listDrone = DroneListBL.FirstOrDefault(d => d.Id == drone.Id);
             if (listDrone == null)
                 throw new ItemNotExistException("Drone does not exist");
