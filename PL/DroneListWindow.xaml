@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-    Title="ListOfDronesWindow" Height="640" Width="800" Background="#7085B6">
+    Title="ListOfDronesWindow" Height="640" Width="800" Background="#e8198b">
 
     <Window.Resources>
         <Style TargetType="ListViewItem">
@@ -17,9 +17,9 @@
             <Setter Property="Background" >
                 <Setter.Value>
                     <LinearGradientBrush >
-                        <GradientStop Offset="0" Color="#7085B6"/>
-                        <GradientStop Offset="0.1" Color="#87A7D9"/>
-                        <GradientStop Offset="1" Color="#DEF3F8"/>
+                        <GradientStop Offset="0.3" Color="#f794a4"/>
+                        <GradientStop Offset="0.8" Color="#fdd6bd"/>
+
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
@@ -47,13 +47,13 @@
             </Grid.ColumnDefinitions>
             <ComboBox Name="ComboStatusSelector" SelectionChanged="StatusSelector_SelectionChanged"  HorizontalAlignment= "Stretch" HorizontalContentAlignment="Center"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="0" ToolTip="choose a status"/>
             <ComboBox  Name="ComboWeightSelector" SelectionChanged="WieghtSelector_SelectionChanged"  HorizontalAlignment="Stretch"  HorizontalContentAlignment="Center" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="1"  ToolTip="choose the weight"/>
-            
-            <Button x:Name="BTNAddDrone" Content="Add drone" FontWeight="Bold" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#7085B6" BorderBrush="#2b76b9" Height="70" Click="BTNAddDrone_Click" ToolTip="to add a drone" Grid.ColumnSpan="2" Margin="266,0,0,0" RenderTransformOrigin="0.5,0.5">
+
+            <Button x:Name="BTNAddDrone" Foreground="#e8198b" Content="Add drone" FontWeight="Bold" FontSize="30" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#fdd6bd" BorderBrush="#fdd6bd" Click="BTNAddDrone_Click" ToolTip="to add a drone" Grid.ColumnSpan="2"  Height="70"  VerticalAlignment="Center">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
                         <SkewTransform AngleY="0.323"/>
-                        <RotateTransform/>
+                        <RotateTransform Angle="-0.432"/>
                         <TranslateTransform Y="0.661"/>
                     </TransformGroup>
                 </Button.RenderTransform>
@@ -69,8 +69,8 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="130" ></GridViewColumn>
-                    <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="130"></GridViewColumn>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="130"   ></GridViewColumn>
+                    <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="130"  ></GridViewColumn>
                     <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="130"></GridViewColumn>
                     <GridViewColumn Header="Battery " DisplayMemberBinding="{Binding Battery }" Width="130"></GridViewColumn>
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="130"></GridViewColumn>

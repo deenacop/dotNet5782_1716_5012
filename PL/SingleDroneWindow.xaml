@@ -5,14 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="AddDroneWindow" Height="440" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia" 
+        Title="AddDroneWindow" Height="440" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia"
         >
-    <!--<Window.Background>
-        -->
-    <!--<Image x:Name="DroneImage"   />-->
-    <!--
-        <ImageBrush  Stretch="Fill" ImageSource="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\photo 2021.jpg"></ImageBrush>
-    </Window.Background>-->
+    <Window.Background>
+        <ImageBrush  Stretch="Fill" ImageSource="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\photo 2021jj.jpg"></ImageBrush>
+    </Window.Background>
+    
 
     <Window.Resources>
         <Style x:Key="DesignM" TargetType="Menu" >
@@ -45,11 +43,8 @@
                 <RowDefinition Height="14*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
-            <Grid x:Name="top" Grid.Row="0"  Style="{DynamicResource DesignGrid}">
-                <!--<Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="7*"/>
-                </Grid.ColumnDefinitions>-->
+            <Grid x:Name="top" Grid.Row="0"  >
+               
 
                 <Menu x:Name="droneOptions" Grid.Column="0" Style="{DynamicResource DesignM}" >
                     <MenuItem Header="menu" FontSize="16" FontWeight="Bold" FontFamily="Constantia" Click="MenuItem_Click"   >
@@ -90,26 +85,26 @@
                         <RowDefinition Height="1.5*"/>
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0"  FontSize="15" Content="Drone:" FontWeight="Bold" VerticalAlignment="Bottom"/>
-                    <Label Grid.Row="1"  FontSize="13" Content="Id:"/>
-                    <Label Grid.Row="2"  FontSize="13" Content="model:"/>
-                    <Label Grid.Row="3"  FontSize="13" Content="weight:"/>
-                    <Label Grid.Row="4"  FontSize="13" Content="battery:"/>
-                    <Label Grid.Row="5"  FontSize="13" Content="status:"/>
-                    <Label Grid.Row="6"  FontSize="13" Content="location:"/>
-                    <TextBlock x:Name="txtId" Grid.Column="1" Grid.Row="1"  FontSize="13"  TextWrapping="Wrap" 
+                    <Label Grid.Row="0"  FontSize="15" Content="Drone:" Foreground="Snow"  FontWeight="ExtraBold" VerticalAlignment="Bottom"/>
+                    <Label Grid.Row="1"  FontSize="13" Content="Id:"  Foreground="Snow" FontWeight="ExtraBold"/>
+                    <Label Grid.Row="2"  FontSize="13" Content="model:" Foreground="Snow" FontWeight="ExtraBold"/>
+                    <Label Grid.Row="3"  FontSize="13" Content="weight:" Foreground="Snow" FontWeight="ExtraBold"/>
+                    <Label Grid.Row="4"  FontSize="13" Content="battery:" Foreground="Snow"  FontWeight="ExtraBold"/>
+                    <Label Grid.Row="5"  FontSize="13" Content="status:" Foreground="Snow" FontWeight="ExtraBold"/>
+                    <Label Grid.Row="6"  FontSize="13" Content="location:" Foreground="Snow"  FontWeight="ExtraBold"/>
+                    <TextBlock x:Name="txtId" Grid.Column="1" Grid.Row="1" Foreground="Snow" FontSize="13"  TextWrapping="Wrap" 
                              Text="{Binding Id, Mode=TwoWay}" />
-                    <TextBox x:Name="TXTModel" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" FontSize="13" VerticalContentAlignment="Center" VerticalAlignment="Center"
+                    <TextBox x:Name="TXTModel" TextWrapping="Wrap"  Grid.Column="1" Grid.Row="2" FontSize="13" VerticalContentAlignment="Center" VerticalAlignment="Center"  FontWeight="Bold"
                              Text="{Binding Model, Mode=TwoWay}" />
                     <ComboBox Name="comboWeight"   Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"
                               SelectedItem="{Binding Weight, Mode=TwoWay}" />
-                    <TextBlock x:Name="TXTBattery" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4" FontSize="13"   
+                    <TextBlock x:Name="TXTBattery" TextWrapping="Wrap" Foreground="Snow" Grid.Column="1" Grid.Row="4" FontSize="13"  FontWeight="Bold" 
                              Text="{Binding Battery, Mode=TwoWay}" />
-                    <TextBlock x:Name="TXTStatus" TextWrapping="Wrap" Grid.Column="1" Grid.Row="5" FontSize="13"  
+                    <TextBlock x:Name="TXTStatus" TextWrapping="Wrap" Foreground="Snow" Grid.Column="1" Grid.Row="5" FontSize="13"  FontWeight="Bold"
                              Text="{Binding Status, Mode=TwoWay}" />
-                    <TextBlock x:Name="TXTLocation1" TextWrapping="Wrap" Grid.Column="1" Grid.Row="6" FontSize="13" VerticalAlignment="Bottom"  
+                    <TextBlock x:Name="TXTLocation1" TextWrapping="Wrap" Foreground="Snow" Grid.Column="1" Grid.Row="6" FontSize="13" VerticalAlignment="Bottom"  FontWeight="Bold"
                              Text="{Binding Location}" />
-                    <TextBlock x:Name="TXTLocation2" TextWrapping="Wrap" Grid.Column="1" Grid.Row="7" FontSize="13" VerticalAlignment="Top"   
+                    <TextBlock x:Name="TXTLocation2" TextWrapping="Wrap" Foreground="Snow" Grid.Column="1" Grid.Row="7" FontSize="13" VerticalAlignment="Top"   FontWeight="Bold"
                              Text="{Binding Location, Mode=TwoWay}" />
                 </Grid>
                 <Grid x:Name="btnParcel" Grid.Column="3">
@@ -138,17 +133,17 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="1"  FontSize="13"  Content="Id:"/>
-                    <Label Grid.Row="2"  FontSize="13"  Content="wieght:"/>
-                    <Label Grid.Row="3"  FontSize="13"  Content="status:"/>
-                    <Label Grid.Row="4"  FontSize="13"  Content="distance:"/>
-                    <TextBlock x:Name="TXTParcelId" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" FontSize="13" 
+                    <Label Grid.Row="1"  FontSize="13"  Content="Id:" Foreground="Snow"  FontWeight="ExtraBold"/>
+                    <Label Grid.Row="2"  FontSize="13"  Content="wieght:" Foreground="Snow" FontWeight="ExtraBold"/>
+                    <Label Grid.Row="3"  FontSize="13"  Content="status:" Foreground="Snow" FontWeight="ExtraBold"/>
+                    <Label Grid.Row="4"  FontSize="13"  Content="distance:" Foreground="Snow" FontWeight="ExtraBold"/>
+                    <TextBlock x:Name="TXTParcelId" TextWrapping="Wrap" Foreground="Snow" Grid.Row="1" Grid.Column="1" FontSize="13" FontWeight="Bold"
                              Text="{Binding Parcel.Id, Mode=TwoWay}"/>
-                    <TextBlock x:Name="TXTParcelWeight" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" FontSize="13" 
+                    <TextBlock x:Name="TXTParcelWeight" TextWrapping="Wrap" Foreground="Snow" Grid.Row="2" Grid.Column="1" FontSize="13" FontWeight="Bold"
                              Text="{Binding Parcel.Weight, Mode=TwoWay}"/>
-                    <TextBlock x:Name="TXTParcelStatus" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" FontSize="13" 
+                    <TextBlock x:Name="TXTParcelStatus" TextWrapping="Wrap" Foreground="Snow" Grid.Row="3" Grid.Column="1" FontSize="13" FontWeight="Bold"
                              Text="{Binding Parcel.Status, Mode=TwoWay}"/>
-                    <TextBlock x:Name="TXTParcelDistance" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1" FontSize="13" 
+                    <TextBlock x:Name="TXTParcelDistance" TextWrapping="Wrap" Foreground="Snow" Grid.Row="4" Grid.Column="1" FontSize="13" FontWeight="Bold"
                              Text="{Binding Parcel.TransportDistance, Mode=TwoWay}"/>
                 </Grid>
                 <Grid x:Name="custumerInParcel" Grid.Column="5">
@@ -183,19 +178,19 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="1"  FontSize="12" Content="Id:"/>
-                        <Label Grid.Row="2"  FontSize="12" Content="name:"/>
-                        <Label Grid.Row="3"  FontSize="12" Content="location:"/>
-                        <TextBlock Name="custumerSId" Grid.Row="1" Grid.Column="1" FontSize="12"  
+                        <Label Grid.Row="1"  FontSize="12" Content="Id:" Foreground="Snow"  FontWeight="ExtraBold"/>
+                        <Label Grid.Row="2"  FontSize="12" Content="name:" Foreground="Snow"  FontWeight="ExtraBold"/>
+                        <Label Grid.Row="3"  FontSize="12" Content="location:" Foreground="Snow"  FontWeight="ExtraBold"/>
+                        <TextBlock Name="custumerSId" Foreground="Snow" Grid.Row="1" Grid.Column="1" FontSize="12"  FontWeight="Bold"
                              TextWrapping="Wrap" 
                              Text="{Binding Parcel.SenderCustomer.Id, Mode=TwoWay}" />
-                        <TextBlock Name="custumerSName" Grid.Row="2" FontSize="12" Grid.Column="1"
+                        <TextBlock Name="custumerSName" Foreground="Snow" Grid.Row="2" FontSize="12" Grid.Column="1" FontWeight="Bold"
                              TextWrapping="Wrap" 
                              Text="{Binding Parcel.SenderCustomer.Name, Mode=TwoWay}" />
-                        <TextBlock x:Name="TXTLocation1sender" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" FontSize="13" VerticalAlignment="Bottom"  
-                             Text="{Binding Path=Collection.Longitude, Mode=TwoWay}" />
-                        <TextBlock x:Name="TXTLocation2sender" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4" FontSize="13" VerticalAlignment="Top"   
-                             Text="{Binding Path=Collection.Latitude, Mode=TwoWay}" />
+                        <TextBlock x:Name="TXTLocation1sender" Foreground="Snow" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" FontSize="13" VerticalAlignment="Bottom"  
+                            FontWeight="Bold" Text="{Binding Path=Collection.Longitude, Mode=TwoWay}" />
+                        <TextBlock x:Name="TXTLocation2sender" Foreground="Snow" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4" FontSize="13" VerticalAlignment="Top"   
+                              FontWeight="Bold" Text="{Binding Path=Collection.Latitude, Mode=TwoWay}" />
                     </Grid>
                     <Grid x:Name="btnReciver" Grid.Column="2" Grid.RowSpan="4" Visibility="Hidden" >
                         <Grid.RowDefinitions>
@@ -223,17 +218,17 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="1"  FontSize="12" Content="Id:"/>
-                        <Label Grid.Row="2"  FontSize="12" Content="name:"/>
-                        <Label Grid.Row="3"  FontSize="12" Content="location:"/>
-                        <TextBlock Name="custumerRId"  Grid.Column="1" Grid.Row="1"  FontSize="12" TextWrapping="Wrap" 
+                        <Label Grid.Row="1" Foreground="Snow"  FontSize="12" Content="Id:"  FontWeight="ExtraBold"/>
+                        <Label Grid.Row="2" Foreground="Snow"  FontSize="12" Content="name:"  FontWeight="ExtraBold"/>
+                        <Label Grid.Row="3" Foreground="Snow"  FontSize="12" Content="location:"  FontWeight="ExtraBold"/>
+                        <TextBlock Name="custumerRId" Foreground="Snow" Grid.Column="1" Grid.Row="1"  FontSize="12" TextWrapping="Wrap" FontWeight="Bold"
                              Text="{Binding Parcel.ReceiverCustomer.Id, Mode=TwoWay}" />
-                        <TextBlock Name="custumerRName" Grid.Column="1" Grid.Row="2"  FontSize="12" TextWrapping="Wrap"
+                        <TextBlock Name="custumerRName" Foreground="Snow" Grid.Column="1" Grid.Row="2"  FontSize="12" TextWrapping="Wrap" FontWeight="Bold"
                              Text="{Binding Parcel.ReceiverCustomer.Name, Mode=TwoWay}" />
-                        <TextBlock x:Name="TXTLocation1reciever" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" FontSize="13" VerticalAlignment="Bottom"  
-                             Text="{Binding Path=Delivery.Longitude, Mode=TwoWay}" />
-                        <TextBlock x:Name="TXTLocation2reciver" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4" FontSize="13" VerticalAlignment="Top"   
-                             Text="{Binding Path=Delivery.Latitude, Mode=TwoWay}" />
+                        <TextBlock x:Name="TXTLocation1reciever" Foreground="Snow" TextWrapping="Wrap" Grid.Column="1" Grid.Row="3" FontSize="13" VerticalAlignment="Bottom"  
+                               FontWeight="Bold" Text="{Binding Path=Delivery.Longitude, Mode=TwoWay}" />
+                        <TextBlock x:Name="TXTLocation2reciver" Foreground="Snow" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4" FontSize="13" VerticalAlignment="Top"   
+                               FontWeight="Bold" Text="{Binding Path=Delivery.Latitude, Mode=TwoWay}" />
                     </Grid>
                 </Grid>
             </Grid>
@@ -253,6 +248,8 @@
 
 
         <Grid x:Name="AddGrid" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"  DataContext="{Binding Drone}" Height="317">
+            
+          
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -266,21 +263,21 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
-            <Label Foreground="RoyalBlue" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold" Content="ID:"/>
+            <Label Foreground="#ff0844" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold" Content="ID:"/>
             <TextBox FontWeight="Light" Grid.Column="1" Grid.Row="0"  FontSize="15" FontStyle="Italic" 
                              TextWrapping="Wrap" Width="130"  Height="30"
                              Text="{Binding Id, Mode=TwoWay}" />
 
-            <Label VerticalAlignment="Top" Grid.Column="0" VerticalContentAlignment="Center" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Model:" Grid.ColumnSpan="2" Height="59" Margin="0,63,130,0" Grid.RowSpan="2"/>
+            <Label VerticalAlignment="Top" Grid.Column="0" VerticalContentAlignment="Center" Foreground="#ff0844"  FontSize="20" FontWeight="Bold" Content="Model:" Grid.ColumnSpan="2" Height="59" Margin="0,63,130,0" Grid.RowSpan="2"/>
             <TextBox  TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalAlignment="Center" VerticalContentAlignment="Center" 
                              Width="130"  Height="30" 
                              Text="{Binding Model, Mode=TwoWay}" />
 
-            <Label  VerticalAlignment="Top" VerticalContentAlignment="Center"  Grid.Column="0" Grid.Row="2" Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold" Content="Weight:" Grid.ColumnSpan="2" Height="58" Margin="0,0,130,0"/>
+            <Label  VerticalAlignment="Top" VerticalContentAlignment="Center"  Grid.Column="0" Grid.Row="2" Foreground="#ff0844"  FontSize="20" FontWeight="Bold" Content="Weight:" Grid.ColumnSpan="2" Height="58" Margin="0,0,130,0"/>
             <ComboBox Name="comboWeightSelector" Grid.Column="1" Width="130"  Height="30" Grid.Row="2"
                                 SelectedItem="{Binding Weight, Mode=TwoWay}"/>
 
-            <Label Foreground="RoyalBlue"  FontSize="20" FontWeight="Bold"  Grid.Column="0" Grid.Row="3" VerticalContentAlignment="Center"  Content="StationID:"/>
+            <Label Foreground="#ff0844"  FontSize="20" FontWeight="Bold"  Grid.Column="0" Grid.Row="3" VerticalContentAlignment="Center"  Content="StationID:"/>
             <ComboBox Name="comboStationSelector" Width="130" Grid.Column="1" Grid.Row="3"  Height="30" VerticalContentAlignment="Center"
                           SelectedItem="content" />
 
@@ -288,8 +285,12 @@
                     Click="btnAdd_Click" Style="{StaticResource DesignRRR}">
 
             </Button>
+           
             <!---->
 
         </Grid>
+        
+
+
     </Grid>
 </Window>

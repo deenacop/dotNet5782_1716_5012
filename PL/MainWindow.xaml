@@ -6,17 +6,23 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush  Stretch="Fill" ImageSource="https://images.squarespace-cdn.com/content/v1/53777176e4b0f6c6b684652b/1545843455112-DQKFW0FSLIATEO94L5CK/drone-dribbb.gif?format=750w.jpg"></ImageBrush>
+    </Window.Background>
+    <!--<Window.Background>
+        <Image gif:ImageBehavior.AnimatedSource="https://images.squarespace-cdn.com/content/v1/53777176e4b0f6c6b684652b/1545843455112-DQKFW0FSLIATEO94L5CK/drone-dribbb.gif?format=750w.gif" />
+    </Window.Background>-->
     <Window.Resources>
         <Style x:Key="BackGroundDesign" TargetType="Button">
             <Setter Property="Background" >
                 <Setter.Value>
                     <LinearGradientBrush >
-                        <GradientStop Offset="0" Color="#7085B6"/>
-                        <GradientStop Offset="0.1" Color="#87A7D9"/>
-                        <GradientStop Offset="1" Color="#DEF3F8"/>
+                        <GradientStop Offset="0.4" Color="#BDBBBE"/>
+                        <GradientStop Offset="1" Color="#ffb199"/>
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
+           
         </Style>
     </Window.Resources>
     <Grid>
@@ -25,6 +31,10 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnShowListDrone" Grid.Column="1" Style="{StaticResource BackGroundDesign}" Content="Show Drone List" FontSize="30"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnShowListDrone_Click" Height="314" Width="280" FontWeight="Bold" FontStyle="Italic" FontFamily="Bodoni MT Black" />
+        <Button x:Name="btnShowListDrone" Grid.Column="1" Style="{StaticResource BackGroundDesign}" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnShowListDrone_Click" Height="110" Width="336" FontWeight="Bold" FontStyle="Italic" FontFamily="Bodoni MT Black" Margin="0,277,0,0" >
+            <TextBlock Foreground="DarkSlateGray"  Text="Click to see the world world of magic" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="30" TextAlignment="Center" FontWeight="Normal" FontStyle="Normal" LineHeight="10" />
+
+
+        </Button>
     </Grid>
 </Window>
