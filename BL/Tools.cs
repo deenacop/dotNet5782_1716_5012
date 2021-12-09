@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 using IDAL;
 using BL;
 

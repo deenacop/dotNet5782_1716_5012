@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL.BO;
+using BO;
 
 namespace PL
 {
@@ -22,7 +22,7 @@ namespace PL
     /// </summary>
     public partial class SingleDroneWindow : Window
     {
-        IBL.IBL bl;
+        IBL.BlApi bl;
         public Drone Drone { get; set; }//drone for binding
         private bool _close { get; set; } = false;//for closing the window
 
@@ -36,7 +36,7 @@ namespace PL
         /// <param name="drone">selected drone</param>
         /// <param name="_droneListWindow">access to the window</param>
         /// <param name="_Index">the drone index</param>
-        public SingleDroneWindow(IBL.IBL bL, Drone drone, DroneListWindow _droneListWindow, int _Index)
+        public SingleDroneWindow(IBL.BlApi bL, Drone drone, DroneListWindow _droneListWindow, int _Index)
         {
             bl = bL;
             Drone = drone;
@@ -46,7 +46,7 @@ namespace PL
             this.droneListWindow = _droneListWindow;
             //show the update grid:
             UpdateGrid.Visibility = Visibility.Visible;
-            comboWeight.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+            comboWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
         }
         /// <summary>
@@ -54,9 +54,9 @@ namespace PL
         /// </summary>
         /// <param name="bL">BL object</param>
         /// <param name="droneListWindow">access to the window</param>
-        public SingleDroneWindow(IBL.IBL bL, DroneListWindow droneListWindow) : this(bL, new(), droneListWindow, 0)
+        public SingleDroneWindow(IBL.BlApi bL, DroneListWindow droneListWindow) : this(bL, new(), droneListWindow, 0)
         {
-            comboWeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
+            comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             txtId.IsEnabled = true;
             //show the add grid
             AddGrid.Visibility = Visibility.Visible;
@@ -279,7 +279,7 @@ namespace PL
         /// <param name="e">event</param>
         private void showParcel_Click(object sender, RoutedEventArgs e)
         {
-            if (Drone.Status == IBL.BO.DroneStatus.Delivery)//if there is a parcel
+            if (Drone.Status == BO.DroneStatus.Delivery)//if there is a parcel
             {
                 parcelDetails.Visibility = Visibility.Visible;
                 btnReciver.Visibility = Visibility.Visible;

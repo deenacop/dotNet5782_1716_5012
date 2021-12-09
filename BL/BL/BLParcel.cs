@@ -1,11 +1,11 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BL
 {
-    public partial class BL : IBL.IBL
+    public partial class BL : IBL.BlApi
     {
         public void AddParcel(Parcel parcel)
         {
@@ -29,10 +29,10 @@ namespace BL
             parcel.MyDrone = new();
             try
             {
-                IDAL.DO.Parcel tmpParcel = new();
+                DO.Parcel tmpParcel = new();
                 object obj = tmpParcel;
                 parcel.CopyPropertiesTo(obj);
-                tmpParcel = (IDAL.DO.Parcel)obj;
+                tmpParcel = (DO.Parcel)obj;
                 tmpParcel.Sender = parcel.SenderCustomer.Id;
                 tmpParcel.Targetid = parcel.TargetidCustomer.Id;
 
@@ -46,7 +46,7 @@ namespace BL
 
         public Parcel GetParcel(int ID)
         {
-            IDAL.DO.Parcel parcelDO = new();
+            DO.Parcel parcelDO = new();
             Parcel parcelBO = new();
             parcelBO.SenderCustomer = new();
             parcelBO.TargetidCustomer = new();
@@ -76,9 +76,9 @@ namespace BL
 
         public IEnumerable<ParcelToList> GetListParcel(Predicate<ParcelToList> predicate = null)
         {
-            IEnumerable<IDAL.DO.Parcel> parcelsDO = dal.GetListParcel();
+            IEnumerable<DO.Parcel> parcelsDO = dal.GetListParcel();
             List<ParcelToList> listParcelToList = new();
-            foreach (IDAL.DO.Parcel currentParcel in parcelsDO)
+            foreach (DO.Parcel currentParcel in parcelsDO)
             {
                 ParcelToList tmpParcelBO = new();
                 Parcel tmp = GetParcel(currentParcel.Id);

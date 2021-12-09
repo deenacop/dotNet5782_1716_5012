@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DalObject;
-using IBL.BO;
+using BO;
 using IDAL;
 
 namespace BL
 {
-    public partial class BL : IBL.IBL
+    public partial class BL : IBL.BlApi
     {
         public void AddDrone(Drone drone, int stationID)
         {
@@ -20,14 +20,14 @@ namespace BL
             try
             {
                 DroneToList listDrone = new();
-                IDAL.DO.Station wantedStation = dal.GetStation(stationID);
+                DO.Station wantedStation = dal.GetStation(stationID);
                 drone.CopyPropertiesTo(listDrone);
                 listDrone.Location = new() { Longitude = wantedStation.Longitude, Latitude = wantedStation.Latitude };
                 listDrone.Battery = rand.Next(20, 41);
                 listDrone.Status = DroneStatus.Maintenance;
-                object obj = new IDAL.DO.Drone();
+                object obj = new DO.Drone();
                 drone.CopyPropertiesTo(obj);
-                dal.Add((IDAL.DO.Drone)obj); //calls the function from DALOBJECT
+                dal.Add((DO.Drone)obj); //calls the function from DALOBJECT
                 DroneListBL.Add(listDrone);
                 dal.SendingDroneToChargingBaseStation(drone.Id, stationID);
             }
@@ -49,13 +49,13 @@ namespace BL
             if (listDrone == null)
                 throw new ItemNotExistException("Drone does not exist");
             drone.CopyPropertiesTo(listDrone);
-            object obj = new IDAL.DO.Drone();
+            object obj = new DO.Drone();
             drone.CopyPropertiesTo(obj);
             try
             {
-                dal.UpdateDrone((IDAL.DO.Drone)obj);//calls the function from DALOBJECT
+                dal.UpdateDrone((DO.Drone)obj);//calls the function from DALOBJECT
             }
-            catch (IDAL.DO.ItemNotExistException ex)
+            catch (DO.ItemNotExistException ex)
             {
                 throw new ItemNotExistException("Drone does not exist", ex);
             }
@@ -71,7 +71,7 @@ namespace BL
                 throw new ItemNotExistException("Drone is not available");
             //drone.CopyPropertiesTo(listDrone);
             List<BaseStation> BaseStationListBL = new();
-            IEnumerable<IDAL.DO.Station> StationListDL = dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0).ToList();//Receive the drone list from the data layer.
+            IEnumerable<DO.Station> StationListDL = dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0).ToList();//Receive the drone list from the data layer.
             StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from IDAT to IBL
             int i = 0;
             foreach (BaseStation currentStation in BaseStationListBL)
@@ -105,7 +105,7 @@ namespace BL
         public void ReleasingDroneFromBaseStation(Drone drone)
         {
             int baseStationId = dal.GetListStation().First(i => i.Latitude == drone.Location.Latitude && i.Longitude == drone.Location.Longitude).Id;
-             IDAL.DO.DroneCharge droneCharge = dal.GetDroneCharge(drone.Id, baseStationId).Item1;
+             DO.DroneCharge droneCharge = dal.GetDroneCharge(drone.Id, baseStationId).Item1;
             TimeSpan diff = DateTime.Now- (DateTime)droneCharge.EnterToChargBase;
             int minuteInCharge = (int)diff.TotalSeconds/60;
             DroneToList listDrone = DroneListBL.FirstOrDefault(d => d.Id == drone.Id);
@@ -115,7 +115,7 @@ namespace BL
                 throw new NotEnoughBatteryException("The drone needs to be charged");
             try
             {//we brought the station that has the right location
-                IDAL.DO.Station station = dal.GetListStation(item => item.Latitude == listDrone.Location.Latitude
+                DO.Station station = dal.GetListStation(item => item.Latitude == listDrone.Location.Latitude
                      && item.Longitude == listDrone.Location.Longitude).First();
                //update
                 dal.ReleasingDroneFromChargingBaseStation(listDrone.Id, station.Id);
@@ -141,11 +141,11 @@ namespace BL
             if (drone.Status != DroneStatus.Available)
                 throw new WorngStatusException("The drone is not available");
             //Brings the list of parcels sorted by order of urgency
-            IEnumerable<IDAL.DO.Parcel> parcels = dal.GetListParcel(i => i.MyDroneID == 0 && (int)i.Weight <= (int)drone.Weight).
+            IEnumerable<DO.Parcel> parcels = dal.GetListParcel(i => i.MyDroneID == 0 && (int)i.Weight <= (int)drone.Weight).
                 OrderByDescending(currentParcel => currentParcel.Priority).ThenByDescending(currentParcel =>
                  currentParcel.Weight).ThenByDescending(currentParcel =>
                      DistanceCalculation(drone.Location, GetCustomer(currentParcel.Sender).Location)).ToList();
-            foreach (IDAL.DO.Parcel currentParcel in parcels)//Tests whether the drone can perform the shipping route (battery test)
+            foreach (DO.Parcel currentParcel in parcels)//Tests whether the drone can perform the shipping route (battery test)
             {
                 if (BatteryCheckingForDroneAndParcel(currentParcel, drone))
                 {
@@ -204,7 +204,7 @@ namespace BL
             Drone droneBO = new();
             try
             {
-                IDAL.DO.Drone droneDO = dal.GetDrone(id);
+                DO.Drone droneDO = dal.GetDrone(id);
                 droneDO.CopyPropertiesTo(droneBO);
             }
             catch (Exception ex)
@@ -219,7 +219,7 @@ namespace BL
 
             if (droneBO.Status == DroneStatus.Delivery)//if not in a delivery mode= doesnt have any parcel
             {
-                IDAL.DO.Parcel parcel = dal.GetListParcel(i=>i.MyDroneID==id).First();
+                DO.Parcel parcel = dal.GetListParcel(i=>i.MyDroneID==id).First();
                 droneBO.Parcel.SenderCustomer = new();
                 droneBO.Parcel.ReceiverCustomer = new();
                 parcel.CopyPropertiesTo(droneBO.Parcel);
@@ -228,8 +228,8 @@ namespace BL
                     droneBO.Parcel.Status = false;//waiting
                 else droneBO.Parcel.Status = true;//on the way
 
-                IDAL.DO.Customer senderCustomer = dal.GetCustomer(parcel.Sender);
-                IDAL.DO.Customer receiverCustomer = dal.GetCustomer(parcel.Targetid);
+                DO.Customer senderCustomer = dal.GetCustomer(parcel.Sender);
+                DO.Customer receiverCustomer = dal.GetCustomer(parcel.Targetid);
                 senderCustomer.CopyPropertiesTo(droneBO.Parcel.SenderCustomer);
                 receiverCustomer.CopyPropertiesTo(droneBO.Parcel.ReceiverCustomer);
 

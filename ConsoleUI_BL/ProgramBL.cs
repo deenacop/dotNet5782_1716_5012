@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 namespace ConsoleUI_BL
 {
 
     public class ProgramBL
     {
-        static IBL.IBL bl = new BL.BL();
+        static IBL.BlApi bl = new BL.BL();
         /// <summary>
         /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit
         /// </summary>

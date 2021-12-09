@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDAL.DO
+namespace DO
 {
     [Serializable]
     public class ItemNotExistException: Exception
@@ -24,6 +24,18 @@ namespace IDAL.DO
         public AlreadyExistedItemException() : base() { }
         public AlreadyExistedItemException(string message) : base(message) { }
         public AlreadyExistedItemException(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
+        {
+            return Message;
+        }
+    }
+
+    [Serializable]
+    public class WrongInputException : Exception
+    {
+        public WrongInputException() : base() { }
+        public WrongInputException(string message) : base(message) { }
+        public WrongInputException(string message, Exception inner) : base(message, inner) { }
         public override string ToString()
         {
             return Message;

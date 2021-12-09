@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DalObject;
-using IBL.BO;
+using BO;
 using IDAL;
 using BL;
 
 namespace BL
 {
-    public partial class BL : IBL.IBL
+    public partial class BL : IBL.BlApi
     {
         public void AddCustomer(Customer customer)
         {
@@ -21,10 +21,10 @@ namespace BL
                 throw new UnlogicalLocationException("The location is not logical");
             try
             {
-                IDAL.DO.Customer customerDO = new();
+                DO.Customer customerDO = new();
                 object obj = customerDO;
                 customer.CopyPropertiesTo(obj);
-                customerDO = (IDAL.DO.Customer)obj;
+                customerDO = (DO.Customer)obj;
                 //needs to update by hand the location
                 customerDO.Longitude = customer.Location.Longitude;
                 customerDO.Latitude = customer.Location.Latitude;
@@ -77,7 +77,7 @@ namespace BL
 
         public Customer GetCustomer(int ID)
         {
-            IDAL.DO.Customer customerDO = new();
+            DO.Customer customerDO = new();
             Customer customerBO = new();
             try
             {
@@ -94,11 +94,11 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
 
-            IEnumerable<IDAL.DO.Parcel> SenderParcels = dal.GetListParcel(i => i.Sender == ID).ToList();//the list of the parcels that the customer send
-            IEnumerable<IDAL.DO.Parcel> ReceiverParcels = dal.GetListParcel(i => i.Targetid == ID).ToList();//the list of the parcels that the customer received
+            IEnumerable<DO.Parcel> SenderParcels = dal.GetListParcel(i => i.Sender == ID).ToList();//the list of the parcels that the customer send
+            IEnumerable<DO.Parcel> ReceiverParcels = dal.GetListParcel(i => i.Targetid == ID).ToList();//the list of the parcels that the customer received
             ParcelByCustomer sendParcel = new();
 
-            foreach (IDAL.DO.Parcel currentParcel in SenderParcels)
+            foreach (DO.Parcel currentParcel in SenderParcels)
             {
                 currentParcel.CopyPropertiesTo(sendParcel);
                 sendParcel.SecondSideOfParcelCustomer = new();
@@ -117,7 +117,7 @@ namespace BL
             }
             ParcelByCustomer receiveParcel = new();
 
-            foreach (IDAL.DO.Parcel currentParcel in ReceiverParcels)
+            foreach (DO.Parcel currentParcel in ReceiverParcels)
             {
                 currentParcel.CopyPropertiesTo(receiveParcel);
                 receiveParcel.SecondSideOfParcelCustomer = new();
@@ -134,23 +134,23 @@ namespace BL
 
         public IEnumerable<CustomerToList> GetListCustomer(Predicate<CustomerToList> predicate = null)
         {
-            IEnumerable<IDAL.DO.Customer> customerDO = dal.GetListCustomer();
+            IEnumerable<DO.Customer> customerDO = dal.GetListCustomer();
             List<CustomerToList> customerToLists = new();
-            foreach (IDAL.DO.Customer currentCustomer in customerDO)
+            foreach (DO.Customer currentCustomer in customerDO)
             {
                 CustomerToList tmpCustomerToList = new();
                 currentCustomer.CopyPropertiesTo(tmpCustomerToList);
                 //brings all the parcels that were send by the current customer and were delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsSendAndDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered != null);
+                IEnumerable<DO.Parcel> parcelsSendAndDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered != null);
                 tmpCustomerToList.NumberParcelSentAndDelivered = parcelsSendAndDelivered.Count();
                 //brings all the parcels that were send by the current customer and werent delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsSendAndNOTDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered == null && i.PickUp!= null);
+                IEnumerable<DO.Parcel> parcelsSendAndNOTDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered == null && i.PickUp!= null);
                 tmpCustomerToList.NumberParcelSentAndNOTDelivered = parcelsSendAndNOTDelivered.Count();
                 //brings all the parcels that were received by the current customer and were delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsReceived = dal.GetListParcel(i => i.Targetid == currentCustomer.Id && i.Delivered != null);
+                IEnumerable<DO.Parcel> parcelsReceived = dal.GetListParcel(i => i.Targetid == currentCustomer.Id && i.Delivered != null);
                 tmpCustomerToList.NumberOfParcelReceived = parcelsReceived.Count();
                 //brings all the parcels that were received by the current customer and werent delivered
-                IEnumerable<IDAL.DO.Parcel> parcelsOnTheWay = dal.GetListParcel(i => i.Targetid == currentCustomer.Id && i.PickUp != null && i.Delivered == null);
+                IEnumerable<DO.Parcel> parcelsOnTheWay = dal.GetListParcel(i => i.Targetid == currentCustomer.Id && i.PickUp != null && i.Delivered == null);
                 tmpCustomerToList.NumberOfParcelOnTheWayToCustomer = parcelsOnTheWay.Count();
                 customerToLists.Add(tmpCustomerToList);
             }

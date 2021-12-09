@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
-using IDAL.DO;
+using DO;
 using DalObject;
 using IDAL;
 
@@ -36,7 +36,7 @@ namespace ConsoleUI
             DisplyDroneList = 1, DisplyStationList, DisplayParcelList,
             DisplayCustomerList, ListOfUnassignedParcels, ListOfAvailableChargingStations
         };
-        public static readonly IDal DalObj = new DalObject.DalObject();
+        public static readonly DalApi DalObj = new DalObject.DalObject();
         static public void Main(string[] args)
         {
 

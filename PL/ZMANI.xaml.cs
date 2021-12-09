@@ -20,7 +20,7 @@ namespace PL
     public partial class ZMANI : Window
     {
         
-        public ZMANI(IBL.IBL bL, int ID)
+        public ZMANI(IBL.BlApi bL, int ID)
         {
             
 

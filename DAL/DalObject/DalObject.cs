@@ -4,13 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL;
-using IDAL.DO;
+using DO;
 
 namespace DalObject
 {
-    public class DalObject : IDal
+    internal  sealed class DalObject : DalApi
     {
-        public DalObject() { DataSource.Initialize(); }
+        internal static readonly DalObject instance = new();
+
+        DalObject() { DataSource.Initialize(); }
+
+        internal static DalObject Instance { get { return instance; } }
 
         #region Add
         /// <summary>

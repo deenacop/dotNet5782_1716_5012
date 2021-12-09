@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
 
 namespace IDAL
 {
-    public interface IDal
+    public interface DalApi
     {
         #region Add
         /// <summary>

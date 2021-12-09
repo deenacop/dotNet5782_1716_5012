@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
 using DalObject;
 using IDAL;
 //We wanted to shorten the main so we added this function
@@ -22,7 +22,7 @@ namespace ConsoleUI
         #region Add
         public static void AddStation()
         {
-            IDAL.DO.Station NewStation = new ();
+            DO.Station NewStation = new ();
             Console.WriteLine("Enter the new station details: *station ID (4 digits)");        
             if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewStation.Id = tmpInt;
@@ -46,7 +46,7 @@ namespace ConsoleUI
         public static void AddParcel()
         {
             DateTime DateAndTime = new ();
-            IDAL.DO.Parcel NewParcel = new ();
+            DO.Parcel NewParcel = new ();
             Console.WriteLine("*parcel sender ID (6 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewParcel.Sender = tmpInt;
@@ -72,7 +72,7 @@ namespace ConsoleUI
         /// </summary>
         public static void AddCustomer()
         {
-            IDAL.DO.Customer NewCustomer = new ();
+            DO.Customer NewCustomer = new ();
             Console.WriteLine("Enter the new customer details: *customer ID (9 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewCustomer.Id = tmpInt;
@@ -94,7 +94,7 @@ namespace ConsoleUI
         /// </summary>
         public static void AddDrone()
         {
-            IDAL.DO.Drone NewDrone = new ();
+            DO.Drone NewDrone = new ();
             Console.WriteLine("Enter the new drone details: *drone ID (3 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewDrone.Id = tmpInt;

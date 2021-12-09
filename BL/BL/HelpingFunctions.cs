@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 
 namespace BL
@@ -62,7 +62,7 @@ namespace BL
         /// <param name="parcel">The parcel that needs to be picked up</param>
         /// <param name="drone">The drone that needs to do the delivary</param>
         /// <returns>true or false</returns>
-        bool BatteryCheckingForDroneAndParcel(IDAL.DO.Parcel parcel, Drone drone)
+        bool BatteryCheckingForDroneAndParcel(DO.Parcel parcel, Drone drone)
         {
             int minBattery;
             double distance = DistanceCalculation(drone.Location, GetCustomer(parcel.Sender).Location);
@@ -81,7 +81,7 @@ namespace BL
                     break;
             }
             List<BaseStation> BaseStationListBL = new();
-            List<IDAL.DO.Station> StationListDL = dal.GetListStation().ToList();//Receive the drone list from the data layer.
+            List<DO.Station> StationListDL = dal.GetListStation().ToList();//Receive the drone list from the data layer.
             StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from IDAT to IBL
             int i = 0;
             foreach(BaseStation currentStation in BaseStationListBL)
