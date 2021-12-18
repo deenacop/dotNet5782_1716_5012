@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BO
 {
     /// <summary>
-    /// Parcel details
+    /// Parcel object. BL type - contains all the details of a parcel
     /// </summary>
     public class Parcel
     {
+        /// <summary>
+        /// Id number
+        /// </summary>
         public int Id { get; set; }
         public CustomerInParcel SenderCustomer { get; set; }
         public CustomerInParcel TargetidCustomer { get; set; }

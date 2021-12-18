@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DO;
-using DalObject;
-using IDAL;
 //We wanted to shorten the main so we added this function
 namespace ConsoleUI
 {
     /// <summary>
     /// Auxiliary function to add an item to one of the lists
     /// </summary>
-    public class MainFuncAdd
+    public static class MainFuncAdd
     {
         static int tmpInt;
         static double tmpDouble;
@@ -37,7 +35,7 @@ namespace ConsoleUI
             Console.WriteLine("*station latitude");
             if (double.TryParse(Console.ReadLine(), out tmpDouble))
                 NewStation.Latitude = tmpDouble;
-            Program.DalObj.Add(NewStation);
+            Program.Dal.Add(NewStation);
         }
 
         /// <summary>
@@ -64,7 +62,7 @@ namespace ConsoleUI
             NewParcel.Scheduled = DateAndTime;
             NewParcel.PickUp = DateAndTime;
             NewParcel.Delivered = DateAndTime;
-            Program.DalObj.Add(NewParcel);
+            Program.Dal.Add(NewParcel);
         }
 
         /// <summary>
@@ -86,7 +84,7 @@ namespace ConsoleUI
             Console.WriteLine("*customer latitude");
             double.TryParse(Console.ReadLine(), out tmpDouble);
             NewCustomer.Latitude = tmpDouble;
-            Program.DalObj.Add(NewCustomer);
+            Program.Dal.Add(NewCustomer);
         }
 
         /// <summary>
@@ -103,7 +101,7 @@ namespace ConsoleUI
             Console.WriteLine("*drones weight (for light type 0, midium type 1, heavy type 2)");
             int.TryParse(Console.ReadLine(), out tmpInt);
             NewDrone.Weight = (WeightCategories)tmpInt;
-            Program.DalObj.Add(NewDrone);
+            Program.Dal.Add(NewDrone);
         }
         #endregion
     }

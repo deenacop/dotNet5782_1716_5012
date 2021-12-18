@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
 using DO;
-using DalObject;
-using IDAL;
 
 namespace ConsoleUI
 {
@@ -36,8 +34,8 @@ namespace ConsoleUI
             DisplyDroneList = 1, DisplyStationList, DisplayParcelList,
             DisplayCustomerList, ListOfUnassignedParcels, ListOfAvailableChargingStations
         };
-        public static readonly DalApi DalObj = new DalObject.DalObject();
-        static public void Main(string[] args)
+        public static readonly DalApi.IDal Dal = DalApi.DalFactory.GetDal();
+        public static void Main(string[] args)
         {
 
             int userAnswer = 0;
@@ -102,7 +100,7 @@ namespace ConsoleUI
                                             Console.WriteLine("Enter drone ID (3 digits).");
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser2);
-                                            DalObj.AssignParcelToDrone(IDFromUser1, IDFromUser2);
+                                            Dal.AssignParcelToDrone(IDFromUser1, IDFromUser2);
                                             break;
                                         }
 
@@ -114,7 +112,7 @@ namespace ConsoleUI
                                             Console.WriteLine("Enter drone ID (3 digits).");
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser2);
-                                            DalObj.CollectionOfParcelByDrone(IDFromUser1, IDFromUser2);
+                                            Dal.CollectionOfParcelByDrone(IDFromUser1, IDFromUser2);
                                             break;
                                         }
 
@@ -123,7 +121,7 @@ namespace ConsoleUI
                                             Console.WriteLine("Enter parcel ID (6 digits).");
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser1);
-                                            DalObj.DeliveryParcelToCustomer(IDFromUser1);
+                                            Dal.DeliveryParcelToCustomer(IDFromUser1);
                                             break;
                                         }
                                     case (int)UpdateOptions.SendDroneToChargingBaseStation:
@@ -132,11 +130,11 @@ namespace ConsoleUI
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser1);
                                             Console.WriteLine("Choose from the following available stations. Enter the chosen ID (4 digits).");
-                                            IEnumerable<Station> ListOfStation = DalObj.GetListStation(i => i.NumOfAvailableChargingSlots > 0);
+                                            IEnumerable<Station> ListOfStation = Dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0);
                                             foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser2);
-                                            DalObj.SendingDroneToChargingBaseStation(IDFromUser1, IDFromUser2);
+                                            Dal.SendingDroneToChargingBaseStation(IDFromUser1, IDFromUser2);
                                             break;
                                         }
 
@@ -148,7 +146,7 @@ namespace ConsoleUI
                                             Console.WriteLine("Enter station ID (4 digits).");
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser2);
-                                            DalObj.ReleasingDroneFromChargingBaseStation(IDFromUser1, IDFromUser2);
+                                            Dal.ReleasingDroneFromChargingBaseStation(IDFromUser1, IDFromUser2);
                                             break;
                                         }
 
@@ -171,7 +169,7 @@ namespace ConsoleUI
                                             Console.WriteLine("Enter drone ID (3 digits).");
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser1);
-                                            Drone droneWanted = DalObj.GetDrone(IDFromUser1);
+                                            Drone droneWanted = Dal.GetDrone(IDFromUser1);
                                             Console.WriteLine(droneWanted);
                                             break;
                                         }
@@ -181,7 +179,7 @@ namespace ConsoleUI
                                             Console.WriteLine("Enter station ID (4 digits).");
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser1);
-                                            Station stationWanted = DalObj.GetStation(IDFromUser1);
+                                            Station stationWanted = Dal.GetStation(IDFromUser1);
                                             Console.WriteLine(stationWanted);
                                             break;
                                         }
@@ -191,7 +189,7 @@ namespace ConsoleUI
                                             Console.WriteLine("Enter parcel ID (6 digits).");
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser1);
-                                            Parcel parcelWanted = DalObj.GetParcel(IDFromUser1);
+                                            Parcel parcelWanted = Dal.GetParcel(IDFromUser1);
                                             Console.WriteLine(parcelWanted);
                                             break;
                                         }
@@ -201,7 +199,7 @@ namespace ConsoleUI
                                             Console.WriteLine("Enter customer ID (9 digits).");
                                             input = Console.ReadLine();
                                             int.TryParse(input, out IDFromUser1);
-                                            Customer custumerWanted = DalObj.GetCustomer(IDFromUser1);
+                                            Customer custumerWanted = Dal.GetCustomer(IDFromUser1);
                                             Console.WriteLine(custumerWanted);
                                             break;
                                         }
@@ -220,41 +218,41 @@ namespace ConsoleUI
                                 {
                                     case (int)DisplayListOptions.DisplyDroneList:
                                         {
-                                            IEnumerable<Drone> ListOfDrones = DalObj.GetListDrone();
+                                            IEnumerable<Drone> ListOfDrones = Dal.GetListDrone();
                                             foreach (Drone tmp in ListOfDrones) { Console.WriteLine(tmp); }
                                         }
                                         break;
 
                                     case (int)DisplayListOptions.DisplyStationList:
                                         {
-                                            IEnumerable<Station> ListOfStation = DalObj.GetListStation();
+                                            IEnumerable<Station> ListOfStation = Dal.GetListStation();
                                             foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
                                         }
                                         break;
 
                                     case (int)DisplayListOptions.DisplayParcelList:
                                         {
-                                            IEnumerable<Parcel> ListOfParcel = DalObj.GetListParcel();
+                                            IEnumerable<Parcel> ListOfParcel = Dal.GetListParcel();
                                             foreach (Parcel tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                         }
                                         break;
 
                                     case (int)DisplayListOptions.DisplayCustomerList:
                                         {
-                                            IEnumerable<Customer> ListOfCustomer = DalObj.GetListCustomer();
+                                            IEnumerable<Customer> ListOfCustomer = Dal.GetListCustomer();
                                             foreach (Customer tmp in ListOfCustomer) { Console.WriteLine(tmp); }
                                         }
                                         break;
                                     case (int)DisplayListOptions.ListOfUnassignedParcels:
                                         {
-                                            IEnumerable<Parcel> ListOfParcel = DalObj.GetListParcel(i=>i.MyDroneID==0);
+                                            IEnumerable<Parcel> ListOfParcel = Dal.GetListParcel(i=>i.MyDroneID==0);
                                             foreach (Parcel tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                             break;
                                         }
 
                                     case (int)DisplayListOptions.ListOfAvailableChargingStations:
                                         {
-                                            IEnumerable<Station> ListOfStation = DalObj.GetListStation(i=>i.NumOfAvailableChargingSlots>0);
+                                            IEnumerable<Station> ListOfStation = Dal.GetListStation(i=>i.NumOfAvailableChargingSlots>0);
                                             foreach (Station tmp in ListOfStation) { Console.WriteLine(tmp); }
                                             break;
                                         }

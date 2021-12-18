@@ -1,22 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BO
 {
     /// <summary>
-    /// costomer to list
+    /// Customer type object. A concise object for a list
     /// </summary>
     public class CustomerToList
     {
+        /// <summary>
+        /// Id number
+        /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// name of customer
+        /// </summary>
         public string  Name { get; set; }
+        /// <summary>
+        /// the phone number
+        /// </summary>
         public string PhoneNumber { get; set; }
+        /// <summary>
+        /// amount of parcel that have been sent an delivered
+        /// </summary>
         public int NumberParcelSentAndDelivered { get; set; }
+        /// <summary>
+        /// amount of parcel that only sent
+        /// </summary>
         public int NumberParcelSentAndNOTDelivered { get; set; }
+        /// <summary>
+        /// amount of parcel that have been received
+        /// </summary>
         public int NumberOfParcelReceived { get; set; }
+        /// <summary>
+        /// amount of parcel thar are on the way to the customer
+        /// </summary>
         public int NumberOfParcelOnTheWayToCustomer { get; set; }
         public override string ToString()
         {

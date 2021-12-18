@@ -1,19 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BO
 {
     /// <summary>
-    /// Base station to list
+    /// Station type object. A concise object for a list
     /// </summary>
     public class BaseStationToList
     {
+        /// <summary>
+        /// id number
+        /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// name of the station
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// amount of available slots at the station
+        /// </summary>
         public int NumOfAvailableChargingSlots { get; set; }
+        /// <summary>
+        /// amount of busy slots at the station
+        /// </summary>
         public int NumOfBusyChargingSlots { get; set; }
         public override string ToString()
         {

@@ -1,18 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DO
 {
     /// <summary>
-    /// Drone details
+    /// Drone details. Type DO i.e. filtered information
     /// </summary>
     public struct Drone
     {
+        /// <summary>
+        /// id number
+        /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// drone model
+        /// </summary>
         public string Model { get; set; }
+        /// <summary>
+        /// drone weight
+        /// </summary>
         public WeightCategories Weight { get; set; }
         public override string ToString()
         {

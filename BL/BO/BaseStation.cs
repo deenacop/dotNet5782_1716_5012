@@ -1,20 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BO
 {
     /// <summary>
-    /// Base stations details
+    /// Charging station object. The BL type includes all the details related to the station
     /// </summary>
     public class BaseStation
     {
+        /// <summary>
+        /// Id number
+        /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// name of the station
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// location of the station
+        /// </summary>
         public Location Location { get; set; }
+        /// <summary>
+        /// amount of available slots at the station
+        /// </summary>
         public int NumOfAvailableChargingSlots { get; set; }
+        /// <summary>
+        /// list of the drones that charged at the station
+        /// </summary>
         public List<DroneInCharging> DronesInCharging { get; set; }
         public override string ToString()
         {

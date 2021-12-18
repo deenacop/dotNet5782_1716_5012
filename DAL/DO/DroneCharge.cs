@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DO
 {
     /// <summary>
-    /// Drone charge details
+    /// Drone charge details. Type DO i.e. filtered information
     /// </summary>
     public struct DroneCharge
     {

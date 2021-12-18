@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BO;
+using DalApi;
+
 
 namespace ConsoleUI_BL
 {
 
     public class ProgramBL
     {
-        static IBL.BlApi bl = new BL.BL();
         /// <summary>
         /// Add , Update, DisplayIndividual, DisplayList, FindTheDistance,Exit
         /// </summary>
@@ -40,8 +38,10 @@ namespace ConsoleUI_BL
             DisplayCustomerList, ListOfUnassignedParcels, ListOfAvailableChargingStations
         };
 
-        static public void Main(string[] args)
+        public static void Main(string[] args)
         {
+            BlApi.IBL bl = BlApi.BlFactory.GetBl();
+
 
             int userAnswer = 0;
             int IDFromUser1;

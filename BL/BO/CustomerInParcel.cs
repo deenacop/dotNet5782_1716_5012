@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BO
 {
@@ -11,7 +7,13 @@ namespace BO
     /// </summary>
     public class CustomerInParcel
     {
+        /// <summary>
+        /// Id number
+        /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// name of customer
+        /// </summary>
         public string Name { get; set; }
         public override string ToString()
         {
