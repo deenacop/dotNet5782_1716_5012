@@ -1,16 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Text.RegularExpressions;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
-using System.Collections.ObjectModel;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using BO;
-using BlApi;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
 namespace PL
 {
+    /// <summary>
+    /// Interaction logic for Listxaml.xaml
+    /// </summary>
     /// <summary>
     /// The Drone status(פנוי,תחוזקה,משלוח)
     /// </summary>
@@ -19,24 +30,15 @@ namespace PL
     /// The drone weights
     /// </summary>
     public enum WeightCategories { Light, Medium, Heavy, All };
-
-    /// <summary>
-    /// Interaction logic for DroneListWindow.xaml
-    /// </summary>
-    public partial class DroneListWindow : Window
+    public partial class Listxaml : Window
     {
         BlApi.IBL bL;
 
         public ObservableCollection<DroneToList> droneToLists;
-
-       /// <summary>
-       /// ctor 
-       /// </summary>
-       /// <param name="bl">the BL object</param>
-        public DroneListWindow(BlApi.IBL bl)
+        public Listxaml(BlApi.IBL bl)
         {
-            bL = bl;
             InitializeComponent();
+            bL = bl;
             droneToLists = new ObservableCollection<DroneToList>();
             InitDrones();
             //for the options in the combo text
@@ -49,6 +51,7 @@ namespace PL
             //Event registration
             droneToLists.CollectionChanged += DroneListView_CollectionChanged;
         }
+
         /// <summary>
         /// Function that updates in case of a change in the list by resending for filtering
         /// </summary>
@@ -146,4 +149,5 @@ namespace PL
             DroneListView.ItemsSource = bL.GetDroneList();
         }
     }
+
 }

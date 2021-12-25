@@ -1,0 +1,134 @@
+﻿<Window x:Class="PL.MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+            Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" Closing="Window_Closing" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Window.Resources>
+        <Style x:Key="btnB" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#FFD6D6D6" RenderTransformOrigin="0.475,0.533">
+        <Grid x:Name="panelHeader" VerticalAlignment="Top" Height="50" Background="#FF0F4E7A">
+            <TextBlock Text="DLIVERY" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Century Gothic" FontSize="20" FontWeight="Bold" Foreground="White"/>
+        </Grid>
+        <Grid x:Name="sidePanel" Background="#FF0F4E7A" HorizontalAlignment="Left" Width="150">
+            <StackPanel>
+                <Grid Height="50" Background="White">
+                    <Button HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Click="Button_Click">
+                        <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\menu!.png" Height="20"/>
+                    </Button>
+                </Grid>
+                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Century Gothic" FontSize="14" Foreground="White" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold">
+                    <ListViewItem Name="home" Height="30" Selected="home_Selected">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\homeMenu.png"  Height="20" VerticalAlignment="Center"/>
+                            <TextBlock Margin="18 0 0 0" Text="Home" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Name="drone" Height="30" Selected="drone_Selected">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\droneMenu.png" Height="20" VerticalAlignment="Center"/>
+                            <TextBlock Margin="18 0 0 0" Text="Drone" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Name="customer" Height="30" Selected="customer_Selected">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\customerMenu.png" Height="20" VerticalAlignment="Center"/>
+                            <TextBlock Margin="18 0 0 0" Text="Custumer" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Name="parcel" Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\parcelMenu.png" Height="20" VerticalAlignment="Center"/>
+                            <TextBlock Margin="18 0 0 0" Text="Parcel" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Name="station" Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\stationMenu.png" Height="20" VerticalAlignment="Center"/>
+                            <TextBlock Margin="18 0 0 0" Text="Station" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                </ListView>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="droneDisplay" Margin="200,75,45,50">
+            <TextBlock Margin="22,25,277,200" FontFamily="Elephant" Text="  view our drones" TextWrapping="WrapWithOverflow"
+                       FontSize="40"  Foreground="Blue" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}" TextAlignment="Center" />
+            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\view.png" Margin="-20,42,425,261" >
+       
+            </Image>
+        </Grid>
+
+        <StackPanel x:Name="lists" Margin="150,70,0,0" Visibility="Hidden"  >
+            <Grid Height="375" Width="638">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="68*"/>
+                    <ColumnDefinition Width="65*"/>
+                    <ColumnDefinition Width="67*"/>
+                    <ColumnDefinition Width="67*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Drone.png" HorizontalAlignment="Center" Width="150" Margin="0,0,0,3" Grid.Row="1" Grid.Column="1" />
+                <Button x:Name="dronsList" Content="click to see our drones" Grid.Row="1" Grid.Column="1" Style="{DynamicResource btnB}" Background="Yellow" FontWeight="Bold" Margin="13,199,14,30" Click="dronsList_Click" />
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Customer.png" HorizontalAlignment="Center" Width="150" Margin="0,0,0,3" Grid.Column="2" Grid.Row="1" />
+                <Button x:Name="customersList" Content="click to the customers" Grid.Row="1" Grid.Column="2" Style="{DynamicResource btnB}" Background="Magenta" FontWeight="Bold" Margin="11,199,16,30" />
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Parcel.png" HorizontalAlignment="Center" Width="150" Margin="0,0,0,3"  Grid.Column="3" Grid.Row="1" />
+                <Button x:Name="parcelsList" Content="click to see all parcels" Grid.Row="1" Grid.Column="3" Style="{DynamicResource btnB}" Background="DeepSkyBlue" FontWeight="Bold" Margin="11,199,16,30" />
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\BaseStation.png" HorizontalAlignment="Center" Width="150" Margin="0,0,0,3" Grid.Row="1" Grid.Column="4" />
+                <Button x:Name="stationsList" Content="click to see all stations" Grid.Row="1" Grid.Column="4" Style="{DynamicResource btnB}" Background="LawnGreen"  FontWeight="Bold" Margin="15,199,12,30" />
+
+
+            </Grid>
+        </StackPanel>
+
+
+        <StackPanel x:Name="adds" Margin="100,70,0,0" Visibility="Hidden"  >
+            <Grid Height="350" Width="350">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Drone.png" HorizontalAlignment="Center" Width="176" Height="170" Grid.Row="0" Grid.Column="0" />
+                <Button x:Name="AddDrons" Content="For adding a drone" Grid.Row="0" Grid.Column="0" Style="{DynamicResource btnB}" Background="Yellow" FontWeight="Bold" FontSize="10" Click="dronsList_Click" Width="100" Height="18" Margin="65,147,10,10" />
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Customer.png" HorizontalAlignment="Left" Width="176" Height="170" Margin="5,-14,0,159" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" />
+                <Button x:Name="AddCustomers" Content="For adding a customer" Grid.Row="0" Grid.Column="1" Style="{DynamicResource btnB}" Background="Magenta" FontWeight="Bold" FontSize="10" Width="100" Height="18" Margin="65,147,12,9"  />
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Parcel.png" HorizontalAlignment="Center" Width="176" Grid.Row="1" Margin="0,8,0,2" />
+                <Button x:Name="AddParcels" Content="For adding a parcel" Grid.Row="1" Grid.Column="0" Style="{DynamicResource btnB}" Background="DeepSkyBlue" FontWeight="Bold" Width="100" Height="18" FontSize="10" Margin="67,154,8,3" />
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\BaseStation.png" HorizontalAlignment="Left" Width="174" Grid.Column="1" Margin="7,7,0,0" Grid.Row="1" />
+                <Button x:Name="AddStations" Content="For adding a station" Grid.Row="1" Grid.Column="1" Style="{DynamicResource btnB}" Background="LawnGreen"  FontWeight="Bold" Width="100" Height="18" FontSize="10" Margin="67,152,8,5"  />
+
+
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
+    
+    
+    
+    

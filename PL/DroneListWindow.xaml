@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-    Title="ListOfDronesWindow" Height="640" Width="800" Background="#e8198b">
+            Title="ListOfDronesWindow" Height="640" Width="800" Background="#e8198b">
 
     <Window.Resources>
         <Style TargetType="ListViewItem">
@@ -66,9 +66,12 @@
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 </Style>
             </ListView.ItemContainerStyle>
-
+          
             <ListView.View>
+               
+
                 <GridView>
+                   
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="130"   ></GridViewColumn>
                     <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="130"  ></GridViewColumn>
                     <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="130"></GridViewColumn>

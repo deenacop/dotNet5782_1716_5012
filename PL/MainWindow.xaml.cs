@@ -18,15 +18,21 @@ namespace PL
             bl = BlFactory.GetBl();
             InitializeComponent();
         }
-        /// <summary>
-        /// Click event- a button to go to the List View window is pressed
-        /// </summary>
-        /// <param name="sender">the button for switching to the drones window </param>
-        /// <param name="e">event</param>
-        private void btnShowListDrone_Click(object sender, RoutedEventArgs e)
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new DroneListWindow(bl).Show();
+            new MenuWindow(bl).Show();
+
         }
 
+        private void addUser_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Close();
+        }
     }
 }

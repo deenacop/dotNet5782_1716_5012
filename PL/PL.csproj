@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Listxaml.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Properties\drone.gif" />
   </ItemGroup>
 
@@ -17,17 +21,6 @@
 
   <ItemGroup>
     <Resource Include="Properties\drone.gif" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Drones\DroneListWindow.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Drones\SingleDroneWindow.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
 
 </Project>

@@ -3,44 +3,46 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Text.RegularExpressions;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
 using BO;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for AddDroneWindow.xaml
+    /// Interaction logic for DroneWindow.xaml
     /// </summary>
-    public partial class SingleDroneWindow : Window
+    public partial class DroneWindow : Window
     {
-       BlApi.IBL bl;
+        BlApi.IBL bl;
         public Drone Drone { get; set; }//drone for binding
         private bool _close { get; set; } = false;//for closing the window
 
         private DroneListWindow droneListWindow;
 
         private int Index;
+
         /// <summary>
-        /// ctor of the update
+        /// ctor for update
         /// </summary>
         /// <param name="bL">BL object</param>
         /// <param name="drone">selected drone</param>
         /// <param name="_droneListWindow">access to the window</param>
         /// <param name="_Index">the drone index</param>
-        public SingleDroneWindow(BlApi.IBL bL, Drone drone, DroneListWindow _droneListWindow, int _Index)
+        public DroneWindow(BlApi.IBL bL, Drone drone, DroneListWindow _droneListWindow, int _Index)
         {
             bl = bL;
             Drone = drone;
-            DataContext = this;   
+            DataContext = this;
             Index = _Index;
             InitializeComponent();
             this.droneListWindow = _droneListWindow;
@@ -50,11 +52,11 @@ namespace PL
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
         }
         /// <summary>
-        /// ctor of add
+        /// ctor for add
         /// </summary>
         /// <param name="bL">BL object</param>
         /// <param name="droneListWindow">access to the window</param>
-        public SingleDroneWindow(BlApi.IBL bL, DroneListWindow droneListWindow) : this(bL, new(), droneListWindow, 0)
+        public DroneWindow(BlApi.IBL bL, DroneListWindow droneListWindow) : this(bL, new(), droneListWindow, 0)//sends to the other ctor
         {
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             txtId.IsEnabled = true;
@@ -85,17 +87,21 @@ namespace PL
             try
             {
                 //if not filled the details
-                if (comboStationSelector.SelectedItem == null || txtID == null || txtMODEL==null || comboWeightSelector==null )
+                if (comboStationSelector.SelectedItem == null || txtID == null || txtMODEL == null || comboWeightSelector == null)
                 {
                     MessageBox.Show("Missing drone details: ");
                 }
                 else
                 {
-                    //sending foe add
+                    //sending for add
                     bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
                     //success
                     MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
-                    droneListWindow.droneToLists.Add(bl.GetDroneList().First(i => i.Id == Drone.Id));
+                    foreach(var item in droneListWindow.droneToLists.Where(i => i.Key.Status == Drone.Status && i.Key.Weight == Drone.Weight))
+                    {
+                        item.Append(bl.GetDroneList(i => i.Id == Drone.Id).First());
+                        break;
+                    }             
                     //close window
                     _close = true;
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -106,12 +112,15 @@ namespace PL
                 MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
+
         /// <summary>
         /// load the window
         /// </summary>
         /// <param name="sender">the window</param>
         /// <param name="e">event</param>
-        private void Window_Loaded(object sender, RoutedEventArgs e) { }
+        private void Window_Loaded(object sender, RoutedEventArgs e) 
+        { 
+        }
 
         /// <summary>
         /// The function is prevent force closing
@@ -126,6 +135,7 @@ namespace PL
                 MessageBox.Show("You can't force close the window");
             }
         }
+
         /// <summary>
         /// Click event-update butten
         /// </summary>
@@ -135,12 +145,13 @@ namespace PL
         {
             try
             {
+               // var item = droneListWindow.droneToLists.Where(i => i.Key.Status == Drone.Status && i.Key.Weight == Drone.Weight).first();
                 bl.UpdateDrone(Drone);
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
-                DroneToList droneToList = droneListWindow.droneToLists[Index];
+                DroneToList droneToList = (DroneToList)droneListWindow.droneToLists[Index];
                 droneToList.Model = Drone.Model;
-                droneListWindow.droneToLists[Index] = droneToList;
+                droneListWindow.droneToLists[Index] = (IGrouping<FilterByWeightAndStatus, DroneToList>)droneToList;
                 droneListWindow.DroneListView.Items.Refresh();
                 Close();
             }
@@ -263,7 +274,7 @@ namespace PL
         /// <param name="e">event</param>
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
+            System.Text.RegularExpressions.Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
         /// <summary>
@@ -271,7 +282,9 @@ namespace PL
         /// </summary>
         /// <param name="sender">menu</param>
         /// <param name="e">event</param>
-        private void MenuItem_Click(object sender, RoutedEventArgs e)  {      }
+        private void MenuItem_Click(object sender, RoutedEventArgs e) 
+        { 
+        }
         /// <summary>
         /// Button for display parcel if exist. 
         /// </summary>
@@ -287,7 +300,7 @@ namespace PL
             }
             else//if there is no parcel a message will be displayed to the user
             {
-                MessageBox.Show("There is no parcel in transfer" );
+                MessageBox.Show("There is no parcel in transfer");
 
             }
         }
