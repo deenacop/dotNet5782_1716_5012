@@ -26,7 +26,7 @@ namespace PL
     /// </summary>
     public enum WeightCategories { Light, Medium, Heavy, All };
 
-    public class FilterByWeightAndStatus
+    public struct FilterByWeightAndStatus
     {
         public BO.WeightCategories Weight { get; set; }   
         public BO.DroneStatus Status { get; set; }
@@ -34,15 +34,19 @@ namespace PL
     public partial class DroneListWindow : Window
     {
         BlApi.IBL bL;
+        public Dictionary<FilterByWeightAndStatus, List<DroneToList>> droneToLists;
 
-        public ObservableCollection<IGrouping<FilterByWeightAndStatus, DroneToList>> droneToLists;//public ObservableCollection 
+       // public ObservableCollection<IGrouping<FilterByWeightAndStatus, DroneToList>> droneToLists;//public ObservableCollection 
         public DroneListWindow(BlApi.IBL bl)
         {
             InitializeComponent();
             bL = bl;
-            droneToLists = new ObservableCollection<IGrouping<FilterByWeightAndStatus, DroneToList>>();
+            droneToLists = new Dictionary<FilterByWeightAndStatus, List<DroneToList>>();
+            //  droneToLists = new ObservableCollection<IGrouping<FilterByWeightAndStatus, DroneToList>>();
+
             InitDrones();//Sends to a function that will populate the ObservableCollection
-            DroneListView.ItemsSource = droneToLists.SelectMany(i=>i); 
+
+            DroneListView.ItemsSource = droneToLists.Values.SelectMany(i=>i); 
             //for the options in the combo text
             ComboStatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             //for the options in the combo text
@@ -51,7 +55,9 @@ namespace PL
             //Default - all
             ComboStatusSelector.SelectedIndex = 3;
             //Event registration
-            droneToLists.CollectionChanged += DroneListView_CollectionChanged;
+
+
+           // droneToLists.CollectionChanged += DroneListView_CollectionChanged;
         }
         /// <summary>
         /// populate the ObservableCollection
@@ -60,14 +66,13 @@ namespace PL
         {//The function executes a query,
          //the query divides into groups according to the key.
          //Recall that the key consists of a class that has weight and status.
-         //After creating a group, it converts it to a list (currently on var defenition and cannot enter to the ObservableCollection).
-         //After that puts on the ObservableCollection
-            (from item in bL.GetDroneList()
+         //After creating a group, it converts it to a dictionary with a key and a list (its value)
+            droneToLists = (from item in bL.GetDroneList()
              group item by new FilterByWeightAndStatus()
              {
                  Weight = item.Weight,
                  Status = item.Status
-             }).ToList().ForEach(i => droneToLists.Add(i));
+             }).ToDictionary(i => i.Key, i => i.ToList());
         }
         /// <summary>
         /// Function that updates in case of a change in the list by resending for filtering
@@ -91,7 +96,7 @@ namespace PL
         /// <summary>
         /// Filter according to the two filters. Weight and status
         /// </summary>
-        private void SelectionStatusAndWeight()
+        internal void SelectionStatusAndWeight()
         {
             DroneStatus status = (DroneStatus)ComboStatusSelector.SelectedItem;
             //Sent before the second is updated anג its null
@@ -102,13 +107,13 @@ namespace PL
             WeightCategories weight = (WeightCategories)ComboWeightSelector.SelectedItem;
             DroneListView.ItemsSource = null;
             if (weight == WeightCategories.All && status == DroneStatus.All)
-                DroneListView.ItemsSource = droneToLists.SelectMany(i=>i);
+                DroneListView.ItemsSource = droneToLists.Values.SelectMany(i=>i);
             if (weight == WeightCategories.All && status != DroneStatus.All)
-                DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Status == (BO.DroneStatus)status)/*.SelectMany(i=>i)*/;
+                DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Status == (BO.DroneStatus)status).SelectMany(i=>i.Value);
             if (weight != WeightCategories.All && status == DroneStatus.All)
-                DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Weight == (BO.WeightCategories)weight).SelectMany(i => i);
+                DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Weight == (BO.WeightCategories)weight).SelectMany(i => i.Value);
             if (weight != WeightCategories.All && status != DroneStatus.All)
-                DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Status == (BO.DroneStatus)status && i.Key.Weight == (BO.WeightCategories)weight).SelectMany(i => i);
+                DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Status == (BO.DroneStatus)status && i.Key.Weight == (BO.WeightCategories)weight).SelectMany(i => i.Value);
         }
         /// <summary>
         /// Filter by wieght

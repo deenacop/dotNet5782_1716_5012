@@ -91,6 +91,21 @@
                     VerticalContentAlignment="Center" Click="Button_Click" BorderBrush="{x:Null}" OpacityMask="#00000000">-->
             <Image MouseDown="Image_MouseDown" Grid.Column="1" HorizontalAlignment="Left" Margin="239,11,0,0" Width="25" Height="20" VerticalAlignment="Top"  Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\exit.png"/>
             <!--</Button>-->
+            <!--<TextBlock x:Name="k"  Width="70" Height="80" Margin="164,107,42,20" Grid.Row="1" Background="Azure"
+            />
+            <ListView Grid.Row="1" Grid.Column="1" Width="40" Height="80" Margin="44,92,190,35" >
+               <ListView.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=k, Path=IsMouseOver}" >
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+
+                </Style>
+                        </ListView.Style>
+            </ListView>-->
         </Grid>
 
         <!--<Grid x:Name="addUser"  Visibility="Hidden">

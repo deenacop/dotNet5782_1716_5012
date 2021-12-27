@@ -26,7 +26,7 @@ namespace PL
         BlApi.IBL bl;
         public Drone Drone { get; set; }//drone for binding
         private bool _close { get; set; } = false;//for closing the window
-
+        FilterByWeightAndStatus weightAndStatus;
         private DroneListWindow droneListWindow;
 
         private int Index;
@@ -42,6 +42,7 @@ namespace PL
         {
             bl = bL;
             Drone = drone;
+            weightAndStatus = new();
             DataContext = this;
             Index = _Index;
             InitializeComponent();
@@ -95,14 +96,13 @@ namespace PL
                 {
                     //sending for add
                     bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
+                    weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;
+                    weightAndStatus.Status = Drone.Status;
+                    droneListWindow.droneToLists[weightAndStatus].Add(bl.GetDroneList(i => i.Id == Drone.Id).First());
+                    droneListWindow.SelectionStatusAndWeight();
                     //success
                     MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
-                    foreach(var item in droneListWindow.droneToLists.Where(i => i.Key.Status == Drone.Status && i.Key.Weight == Drone.Weight))
-                    {
-                        item.Append(bl.GetDroneList(i => i.Id == Drone.Id).First());
-                        break;
-                    }             
-                    //close window
+
                     _close = true;
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
                 }
@@ -149,10 +149,6 @@ namespace PL
                 bl.UpdateDrone(Drone);
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
-                DroneToList droneToList = (DroneToList)droneListWindow.droneToLists[Index];
-                droneToList.Model = Drone.Model;
-                droneListWindow.droneToLists[Index] = (IGrouping<FilterByWeightAndStatus, DroneToList>)droneToList;
-                droneListWindow.DroneListView.Items.Refresh();
                 Close();
             }
             catch (Exception ex)//faild

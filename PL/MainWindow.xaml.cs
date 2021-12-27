@@ -34,5 +34,10 @@ namespace PL
         {
             Close();
         }
+
+        private void TextBlock_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
     }
 }
