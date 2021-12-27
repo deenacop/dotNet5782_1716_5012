@@ -26,38 +26,32 @@ namespace PL
     /// </summary>
     public enum WeightCategories { Light, Medium, Heavy, All };
 
+    /// <summary>
+    /// A class by which the items in the list are sorted. The key to the dictionary is an object of the class
+    /// </summary>
     public struct FilterByWeightAndStatus
-    {
+    {//Type of structure because you want to avoid reference
         public BO.WeightCategories Weight { get; set; }   
         public BO.DroneStatus Status { get; set; }
     }
+
     public partial class DroneListWindow : Window
     {
         BlApi.IBL bL;
         public Dictionary<FilterByWeightAndStatus, List<DroneToList>> droneToLists;
-
-       // public ObservableCollection<IGrouping<FilterByWeightAndStatus, DroneToList>> droneToLists;//public ObservableCollection 
         public DroneListWindow(BlApi.IBL bl)
         {
             InitializeComponent();
             bL = bl;
             droneToLists = new Dictionary<FilterByWeightAndStatus, List<DroneToList>>();
-            //  droneToLists = new ObservableCollection<IGrouping<FilterByWeightAndStatus, DroneToList>>();
-
-            InitDrones();//Sends to a function that will populate the ObservableCollection
-
+            InitDrones();//Sends to a function that will populate the dictionary
             DroneListView.ItemsSource = droneToLists.Values.SelectMany(i=>i); 
             //for the options in the combo text
             ComboStatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             //for the options in the combo text
-            ComboWeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-           
+            ComboWeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));         
             //Default - all
             ComboStatusSelector.SelectedIndex = 3;
-            //Event registration
-
-
-           // droneToLists.CollectionChanged += DroneListView_CollectionChanged;
         }
         /// <summary>
         /// populate the ObservableCollection

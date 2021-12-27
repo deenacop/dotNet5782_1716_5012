@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,10 +21,10 @@ namespace PL
     /// </summary>
     public partial class MenuWindow : Window
     {
-        DispatcherTimer timer;
+        DispatcherTimer timer;//
         BlApi.IBL bL;
         double panelWidth;
-        bool hidden;
+        bool hidden;//menu is open or close
         private bool _close { get; set; } = false;//for closing the window
 
         public MenuWindow(BlApi.IBL bl)
@@ -36,7 +35,6 @@ namespace PL
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);//Gets or sets the period of time between timer ticks.
             timer.Tick += Timer_Tick;
-
             panelWidth = sidePanel.Width;
         }
 
