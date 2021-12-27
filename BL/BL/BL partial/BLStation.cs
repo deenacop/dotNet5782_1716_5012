@@ -69,6 +69,8 @@ namespace BL
                     Longitude = station.Longitude,
                     Latitude = station.Latitude 
                 };
+                //baseStation.DronesInCharging = from item in dal.GetListDroneCharge(i => i.BaseStationID == stationID).
+                //                               let temp = DroneListBL.Find(i => i.Id == item.Id);
                 List<DroneInCharging> DroneChargingBL = new();
                 IEnumerable<DO.DroneCharge> DroneChargeingListDL = dal.GetListDroneCharge(i=>i.BaseStationID==stationID);//Receive the drone list from the data layer.
                 DroneChargeingListDL.CopyPropertiesToIEnumerable(DroneChargingBL);//convret from DalApi to BL
