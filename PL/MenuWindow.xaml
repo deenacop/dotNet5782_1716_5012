@@ -7,11 +7,35 @@
         mc:Ignorable="d"
             Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" Closing="Window_Closing" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
+
+        <Style TargetType="ListViewItem">
+
+            <EventSetter Event="MouseDoubleClick" Handler="DroneListView_MouseDoubleClick" />
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+        <Style x:Key="BackGroundDesign" TargetType="ListView" >
+            <Setter Property="Background" >
+                <Setter.Value>
+                    <LinearGradientBrush >
+                        <GradientStop Offset="0.3" Color="#f794a4"/>
+                        <GradientStop Offset="0.8" Color="#fdd6bd"/>
+
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Width" Value="134"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+
         <Style x:Key="btnB" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderThickness="1">
+                        <Border CornerRadius="70" Background="{TemplateBinding Background}" BorderThickness="1">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -27,13 +51,13 @@
             <StackPanel>
                 <Grid Height="50" Background="White">
                     <Button HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Click="Button_Click">
-                        <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\menu!.png" Height="20"/>
+                        <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\menu!.png" Height="20"/>
                     </Button>
                 </Grid>
-                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Century Gothic" FontSize="14" Foreground="White" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold">
+                <ListView x:Name="menuListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Century Gothic" FontSize="14" Foreground="White" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold">
                     <ListViewItem Name="home" Height="30" Selected="home_Selected">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\homeMenu.png"  Height="20" VerticalAlignment="Center"/>
+                            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\homeMenu.png"  Height="20" VerticalAlignment="Center"/>
                             <TextBlock Margin="18 0 0 0" Text="Home" VerticalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
@@ -49,13 +73,13 @@
                             <TextBlock Margin="18 0 0 0" Text="Custumer" VerticalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Name="parcel" Height="30">
+                    <ListViewItem Name="parcel" Height="30" Selected="parcel_Selected">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\parcelMenu.png" Height="20" VerticalAlignment="Center"/>
                             <TextBlock Margin="18 0 0 0" Text="Parcel" VerticalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Name="station" Height="30">
+                    <ListViewItem Name="station" Height="30" Selected="station_Selected">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\stationMenu.png" Height="20" VerticalAlignment="Center"/>
                             <TextBlock Margin="18 0 0 0" Text="Station" VerticalAlignment="Center"/>
@@ -66,66 +90,152 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="droneDisplay" Margin="200,75,45,50">
-            <TextBlock Margin="22,25,277,200" FontFamily="Elephant" Text="  view our drones" TextWrapping="WrapWithOverflow"
-                       FontSize="40"  Foreground="Blue" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}" TextAlignment="Center" />
-            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\view.png" Margin="-20,42,425,261" >
-       
-            </Image>
+        <Grid x:Name="droneLists" Margin="242,96,51,10" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="145*"/>
+                <ColumnDefinition Width="362*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="153*"/>
+            </Grid.RowDefinitions>
+            <Grid Height="auto" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="232*"/>
+                    <ColumnDefinition Width="49*"/>
+                    <ColumnDefinition Width="281*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Name="ComboStatusSelector" SelectionChanged="StatusSelector_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" ToolTip="choose a status" Grid.ColumnSpan="2"/>
+                <ComboBox  Name="ComboWeightSelector" SelectionChanged="WieghtSelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2"  ToolTip="choose the weight" BorderBrush="#FF140303"/>
+
+
+            </Grid>
+            <ListView x:Name="DroneListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource BackGroundDesign}" MouseDoubleClick="DroneListView_MouseDoubleClick"  Grid.Row="2" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.ColumnSpan="2"  >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="90"    ></GridViewColumn>
+                        <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="90"  ></GridViewColumn>
+                        <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="90"></GridViewColumn>
+                        <GridViewColumn Header="Battery " DisplayMemberBinding="{Binding Battery }" Width="90"></GridViewColumn>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="90"></GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
         </Grid>
 
-        <StackPanel x:Name="lists" Margin="150,70,0,0" Visibility="Hidden"  >
-            <Grid Height="375" Width="638">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="68*"/>
-                    <ColumnDefinition Width="65*"/>
-                    <ColumnDefinition Width="67*"/>
-                    <ColumnDefinition Width="67*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <Grid x:Name="customerList" Margin="242,96,51,10" Visibility="Hidden">
 
-                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Drone.png" HorizontalAlignment="Center" Width="150" Margin="0,0,0,3" Grid.Row="1" Grid.Column="1" />
-                <Button x:Name="dronsList" Content="click to see our drones" Grid.Row="1" Grid.Column="1" Style="{DynamicResource btnB}" Background="Yellow" FontWeight="Bold" Margin="13,199,14,30" Click="dronsList_Click" />
-                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Customer.png" HorizontalAlignment="Center" Width="150" Margin="0,0,0,3" Grid.Column="2" Grid.Row="1" />
-                <Button x:Name="customersList" Content="click to the customers" Grid.Row="1" Grid.Column="2" Style="{DynamicResource btnB}" Background="Magenta" FontWeight="Bold" Margin="11,199,16,30" />
-                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Parcel.png" HorizontalAlignment="Center" Width="150" Margin="0,0,0,3"  Grid.Column="3" Grid.Row="1" />
-                <Button x:Name="parcelsList" Content="click to see all parcels" Grid.Row="1" Grid.Column="3" Style="{DynamicResource btnB}" Background="DeepSkyBlue" FontWeight="Bold" Margin="11,199,16,30" />
-                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\BaseStation.png" HorizontalAlignment="Center" Width="150" Margin="0,0,0,3" Grid.Row="1" Grid.Column="4" />
-                <Button x:Name="stationsList" Content="click to see all stations" Grid.Row="1" Grid.Column="4" Style="{DynamicResource btnB}" Background="LawnGreen"  FontWeight="Bold" Margin="15,199,12,30" />
+            <ListView x:Name="CustomerListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource BackGroundDesign}" MouseDoubleClick="CustomerListView_MouseDoubleClick"   Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Stretch"  >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="180"    ></GridViewColumn>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="180"  ></GridViewColumn>
+                        <GridViewColumn Header="Phone Number" DisplayMemberBinding="{Binding PhoneNumber}" Width="180"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+
+        <Grid x:Name="parcelLists" Margin="242,96,51,10" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="145*"/>
+                <ColumnDefinition Width="362*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="153*"/>
+            </Grid.RowDefinitions>
+            <Grid Height="auto" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="232*"/>
+                    <ColumnDefinition Width="49*"/>
+                    <ColumnDefinition Width="281*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Name="comboStatusSelector" SelectionChanged="comboStatusSelector_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" ToolTip="choose a status" Grid.ColumnSpan="2"/>
+                <ComboBox  Name="comboPrioritySelector" SelectionChanged="comboPrioritySelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2"  ToolTip="choose the weight" BorderBrush="#FF140303"/>
 
 
             </Grid>
-        </StackPanel>
+            <ListView x:Name="ParcelListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource BackGroundDesign}" MouseDoubleClick="ParcelListView_MouseDoubleClick"  Grid.Row="2" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.ColumnSpan="2"  >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
 
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="80"    ></GridViewColumn>
+                        <GridViewColumn Header="sender" DisplayMemberBinding="{Binding NameOfSender}" Width="80"  ></GridViewColumn>
+                        <GridViewColumn Header="reciever" DisplayMemberBinding="{Binding NameOfTargetid}" Width="80"></GridViewColumn>
+                        <GridViewColumn Header="weight " DisplayMemberBinding="{Binding Weight }" Width="80"></GridViewColumn>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="80"></GridViewColumn>
+                        <GridViewColumn Header="priority" DisplayMemberBinding="{Binding Priority}" Width="80"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
 
-        <StackPanel x:Name="adds" Margin="100,70,0,0" Visibility="Hidden"  >
-            <Grid Height="350" Width="350">
+        <Grid x:Name="stationLists" Margin="242,96,51,10" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="145*"/>
+                <ColumnDefinition Width="362*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0*"/>
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="153*"/>
+            </Grid.RowDefinitions>
+            <Grid Height="auto" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"  >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="232*"/>
+                    <ColumnDefinition Width="49*"/>
+                    <ColumnDefinition Width="281*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Drone.png" HorizontalAlignment="Center" Width="176" Height="170" Grid.Row="0" Grid.Column="0" />
-                <Button x:Name="AddDrons" Content="For adding a drone" Grid.Row="0" Grid.Column="0" Style="{DynamicResource btnB}" Background="Yellow" FontWeight="Bold" FontSize="10" Click="dronsList_Click" Width="100" Height="18" Margin="65,147,10,10" />
-                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Customer.png" HorizontalAlignment="Left" Width="176" Height="170" Margin="5,-14,0,159" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" />
-                <Button x:Name="AddCustomers" Content="For adding a customer" Grid.Row="0" Grid.Column="1" Style="{DynamicResource btnB}" Background="Magenta" FontWeight="Bold" FontSize="10" Width="100" Height="18" Margin="65,147,12,9"  />
-                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Parcel.png" HorizontalAlignment="Center" Width="176" Grid.Row="1" Margin="0,8,0,2" />
-                <Button x:Name="AddParcels" Content="For adding a parcel" Grid.Row="1" Grid.Column="0" Style="{DynamicResource btnB}" Background="DeepSkyBlue" FontWeight="Bold" Width="100" Height="18" FontSize="10" Margin="67,154,8,3" />
-                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\BaseStation.png" HorizontalAlignment="Left" Width="174" Grid.Column="1" Margin="7,7,0,0" Grid.Row="1" />
-                <Button x:Name="AddStations" Content="For adding a station" Grid.Row="1" Grid.Column="1" Style="{DynamicResource btnB}" Background="LawnGreen"  FontWeight="Bold" Width="100" Height="18" FontSize="10" Margin="67,152,8,5"  />
-
-
+                <!--<ComboBox Name="comboStatusSelector" SelectionChanged="comboStatusSelector_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" ToolTip="choose a status" Grid.ColumnSpan="2"/>
+                <ComboBox  Name="comboPrioritySelector" SelectionChanged="comboPrioritySelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2"  ToolTip="choose the weight" BorderBrush="#FF140303"/>-->
+                <CheckBox x:Name="checkBoxSelector" Background="#FF0F4E7A" HorizontalAlignment="Left" VerticalAlignment="Center"  Grid.ColumnSpan="2"  ToolTip="choose the weight" Height="18" Width="21" Checked="checkBoxSelector_Checked"  />
+                <Label Content="Sort list by number of available charging slots"  Grid.ColumnSpan="3" Margin="18,4,201,-4" FontWeight="Bold" FontStyle="Italic"></Label>
             </Grid>
-        </StackPanel>
+            <ListView x:Name="StationListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource BackGroundDesign}" MouseDoubleClick="ParcelListView_MouseDoubleClick"  Grid.Row="2" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.ColumnSpan="2"  >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="90"    ></GridViewColumn>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="90"  ></GridViewColumn>
+                        <GridViewColumn Header="Number of available slots" DisplayMemberBinding="{Binding NumOfAvailableChargingSlots}" Width="120"></GridViewColumn>
+                        <GridViewColumn Header="Number of occupied slots" DisplayMemberBinding="{Binding NumOfBusyChargingSlots }" Width="120"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <Button x:Name="btnAdd" Visibility="Hidden" Background="#FF0F4E7A"  Style="{DynamicResource btnB}" Click="btnAdd_Click" ToolTip="to add a drone" Height="34"  VerticalAlignment="Top" Margin="739,404,24,0" RenderTransformOrigin="0.5,0.5">
+            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\add!.png"/>
+        </Button>
+
     </Grid>
 </Window>
     

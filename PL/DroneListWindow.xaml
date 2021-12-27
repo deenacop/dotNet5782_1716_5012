@@ -7,8 +7,9 @@
         mc:Ignorable="d"
             Title="ListOfDronesWindow" Height="640" Width="800" Background="#e8198b">
 
-    <Window.Resources>
-        <Style TargetType="ListViewItem">
+    <Grid>
+
+        <!--<Style TargetType="ListViewItem">
 
             <EventSetter Event="MouseDoubleClick" Handler="DroneListView_MouseDoubleClick" />
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
@@ -82,7 +83,7 @@
                 </GridView>
             </ListView.View>
 
-        </ListView>
+        </ListView>-->
 
 
     </Grid>

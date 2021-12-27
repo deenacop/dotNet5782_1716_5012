@@ -27,7 +27,7 @@ namespace PL
         public Drone Drone { get; set; }//drone for binding
         private bool _close { get; set; } = false;//for closing the window
         FilterByWeightAndStatus weightAndStatus;
-        private DroneListWindow droneListWindow;
+        private MenuWindow droneListWindow;
 
         private int Index;
 
@@ -38,7 +38,7 @@ namespace PL
         /// <param name="drone">selected drone</param>
         /// <param name="_droneListWindow">access to the window</param>
         /// <param name="_Index">the drone index</param>
-        public DroneWindow(BlApi.IBL bL, Drone drone, DroneListWindow _droneListWindow, int _Index)
+        public DroneWindow(BlApi.IBL bL, Drone drone, MenuWindow _droneListWindow, int _Index)
         {
             bl = bL;
             Drone = drone;
@@ -57,7 +57,7 @@ namespace PL
         /// </summary>
         /// <param name="bL">BL object</param>
         /// <param name="droneListWindow">access to the window</param>
-        public DroneWindow(BlApi.IBL bL, DroneListWindow droneListWindow) : this(bL, new(), droneListWindow, 0)//sends to the other ctor
+        public DroneWindow(BlApi.IBL bL, MenuWindow droneListWindow) : this(bL, new(), droneListWindow, 0)//sends to the other ctor
         {
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             txtId.IsEnabled = true;
