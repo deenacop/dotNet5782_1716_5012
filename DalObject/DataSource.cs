@@ -47,7 +47,7 @@ namespace Dal
                 Stations.Insert(i, new()
                 {
                     Id = rand.Next(1000, 10000),
-                    NumOfAvailableChargingSlots = rand.Next(0, 100),
+                    NumOfAvailableChargingSlots = rand.Next(0,30),
                     Name = addresArr[i],
                     Latitude = rand.NextDouble() + 31,
                     Longitude = rand.NextDouble() + 35

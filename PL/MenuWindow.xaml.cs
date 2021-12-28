@@ -30,12 +30,12 @@ namespace PL
     /// <summary>
     /// Delivery priorities
     /// </summary>
-    public enum Priorities { Normal, Fast, Urgent,All };
+    public enum Priorities { Normal, Fast, Urgent, All };
 
     /// <summary>
     /// The parcel status (הוגדר,שויך,נאסף עי רחפן,סופק ללקוח)
     /// </summary>
-    public enum ParcelStatus { Defined, Associated, PickedUp, Delivered,All }
+    public enum ParcelStatus { Defined, Associated, PickedUp, Delivered, All }
     /// <summary>
     /// A class by which the items in the list are sorted. The key to the dictionary is an object of the class
     /// </summary>
@@ -56,6 +56,7 @@ namespace PL
     public partial class MenuWindow : Window
     {
         public Dictionary<FilterByWeightAndStatus, List<DroneToList>> droneToLists;//a dictionary to present the list of drones
+        public Dictionary<int, List<BaseStationToList>> sortedStationToLists;//a dictionary to present the sorted list of stations
         public Dictionary<FilterByPriorityAndStatus, List<ParcelToList>> parcelToList;//a dictionary to present the list of parcels
         public ObservableCollection<CustomerToList> customerToLists;//an ObservableCollection to present the list of customers
         public ObservableCollection<BaseStationToList> stationToLists;//an ObservableCollection to present the list of stations
@@ -123,8 +124,9 @@ namespace PL
         {
             droneToLists = new Dictionary<FilterByWeightAndStatus, List<DroneToList>>();
             InitDrones();//Sends to a function that will populate the dictionary
-            DroneListView.ItemsSource = droneToLists.Values.SelectMany(i => i);
             //for the options in the combo text
+            DroneListView.ItemsSource = droneToLists.Values.SelectMany(i => i);
+
             ComboStatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
             //for the options in the combo text
             ComboWeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
@@ -171,8 +173,10 @@ namespace PL
             }
             WeightCategories weight = (WeightCategories)ComboWeightSelector.SelectedItem;
             DroneListView.ItemsSource = null;
-            if (weight == WeightCategories.All && status == DroneStatus.All)
-                DroneListView.ItemsSource = droneToLists.Values.SelectMany(i => i);
+            if (status == DroneStatus.All && weight == WeightCategories.All)
+                DroneListView.ItemsSource = from item in droneToLists.Values.SelectMany(i => i)
+                                            orderby ( item.Weight, item.Status)
+                                            select item;
             if (weight == WeightCategories.All && status != DroneStatus.All)
                 DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Status == (BO.DroneStatus)status).SelectMany(i => i.Value);
             if (weight != WeightCategories.All && status == DroneStatus.All)
@@ -194,13 +198,13 @@ namespace PL
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
             if (drone != null)
                 new DroneWindow(bL, bL.GetDrone(drone.Id), this, DroneListView.SelectedIndex).Show();
-           // DroneListView.ItemsSource = bL.GetDroneList();
+            // DroneListView.ItemsSource = bL.GetDroneList();
         }
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DroneListViewSelectedItem();
         }
-    
+
         #endregion
 
         #region customer item selected
@@ -220,7 +224,7 @@ namespace PL
             CustomerToList customer = (CustomerToList)CustomerListView.SelectedItem;
             if (customer != null)
                 new CustomerWindow().Show();
-           // DroneListView.ItemsSource = bL.GetDroneList();
+            // DroneListView.ItemsSource = bL.GetDroneList();
         }
 
         private void CustomerToLists_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -316,7 +320,10 @@ namespace PL
             foreach (var current in tmp)
                 stationToLists.Add(current);
             StationListView.ItemsSource = stationToLists;
-            stationToLists.CollectionChanged += StationToLists_CollectionChanged; ;
+            stationToLists.CollectionChanged += StationToLists_CollectionChanged;
+            sortedStationToLists = new Dictionary<int, List<BaseStationToList>>();
+            sortedStationToLists = (from item in tmp
+                                  group item by item.NumOfAvailableChargingSlots).ToDictionary(i => i.Key, i => i.ToList());
             stationLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
         }
@@ -325,6 +332,25 @@ namespace PL
         {
             StationListView.Items.Refresh();
         }
+        private void checkBoxSelector_Checked(object sender, RoutedEventArgs e)
+        {
+            if(checkBoxSelector.IsChecked==true)
+            {
+                StationListView.ItemsSource = sortedStationToLists.Values.SelectMany(i=>i);
+            }
+            else
+            {
+                StationListView.ItemsSource = stationToLists;
+            }
+        }
+        private void StationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BaseStationToList station = (BaseStationToList)StationListView.SelectedItem;
+            if (station != null)
+                new StationWindow().Show();
+            // DroneListView.ItemsSource = bL.GetDroneList();
+        }
+
         #endregion
         /// <summary>
         /// an add button sent each time to add another item. According to the SelectedItem
@@ -337,7 +363,7 @@ namespace PL
             {
                 new DroneWindow(bL, this).Show();
             }
-            if(menuListView.SelectedItem ==customer)
+            if (menuListView.SelectedItem == customer)
             {
                 new CustomerWindow().Show();
             }
@@ -348,16 +374,6 @@ namespace PL
             if (menuListView.SelectedItem == station)
             {
                 new StationWindow().Show();
-            }
-        }
-
-        private void checkBoxSelector_Checked(object sender, RoutedEventArgs e)
-        {
-            if(checkBoxSelector.IsChecked==true)//user asked to sort the list
-            {                 
-                StationListView.ItemsSource = stationToLists.OrderBy(i => i.NumOfAvailableChargingSlots);
-                StationListView.Items.Refresh();
-
             }
         }
     }
