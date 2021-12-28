@@ -17,7 +17,7 @@
         <Style TargetType="GridViewColumnHeader">
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Width" Value="180"/>
+            <Setter Property="Width" Value="190"/>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
 
@@ -82,7 +82,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="droneLists" Height="250" Width="500"  Visibility="Hidden" Margin="218,100,82,100">
+        <Grid x:Name="droneLists" Height="270" Width="550"  Visibility="Hidden" Margin="172,85,28,95">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="145*"/>
                 <ColumnDefinition Width="362*"/>
@@ -111,11 +111,11 @@
 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="90"    ></GridViewColumn>
-                        <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="90"  ></GridViewColumn>
-                        <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="90"></GridViewColumn>
-                        <GridViewColumn Header="Battery " DisplayMemberBinding="{Binding Battery }" Width="90"></GridViewColumn>
-                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="90"></GridViewColumn>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="110"    ></GridViewColumn>
+                        <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="110"  ></GridViewColumn>
+                        <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="110"></GridViewColumn>
+                        <GridViewColumn Header="Battery " DisplayMemberBinding="{Binding Battery }" Width="110"></GridViewColumn>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"></GridViewColumn>
 
                     </GridView>
                 </ListView.View>
@@ -123,9 +123,9 @@
 
         </Grid>
 
-        <Grid x:Name="customerList" Height="250" Width="500"  Visibility="Hidden" Margin="218,100,82,100">
+        <Grid x:Name="customerList" Height="270" Width="540"  Visibility="Hidden" Margin="172,85,28,95" >
 
-            <ListView x:Name="CustomerListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="CustomerListView_MouseDoubleClick"   Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Margin="83,-16,-83,16"  >
+            <ListView x:Name="CustomerListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="CustomerListView_MouseDoubleClick"   Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}"   >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -143,7 +143,7 @@
 
         </Grid>
 
-        <Grid x:Name="parcelLists" Height="270" Width="600"  Visibility="Visible" Margin="172,85,28,95">
+        <Grid x:Name="parcelLists" Height="270" Width="600"  Visibility="Hidden" Margin="172,85,28,95">
             <Grid.RowDefinitions>
                 <RowDefinition Height="13*"/>
                 <RowDefinition Height="153*"/>
