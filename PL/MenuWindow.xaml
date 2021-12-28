@@ -63,25 +63,25 @@
                     </ListViewItem>
                     <ListViewItem Name="drone" Height="30" Selected="drone_Selected">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\droneMenu.png" Height="20" VerticalAlignment="Center"/>
+                            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\droneMenu.png" Height="20" VerticalAlignment="Center"/>
                             <TextBlock Margin="18 0 0 0" Text="Drone" VerticalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Name="customer" Height="30" Selected="customer_Selected">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\customerMenu.png" Height="20" VerticalAlignment="Center"/>
+                            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\customerMenu.png" Height="20" VerticalAlignment="Center"/>
                             <TextBlock Margin="18 0 0 0" Text="Custumer" VerticalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Name="parcel" Height="30" Selected="parcel_Selected">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\parcelMenu.png" Height="20" VerticalAlignment="Center"/>
+                            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\parcelMenu.png" Height="20" VerticalAlignment="Center"/>
                             <TextBlock Margin="18 0 0 0" Text="Parcel" VerticalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Name="station" Height="30" Selected="station_Selected">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\stationMenu.png" Height="20" VerticalAlignment="Center"/>
+                            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\stationMenu.png" Height="20" VerticalAlignment="Center"/>
                             <TextBlock Margin="18 0 0 0" Text="Station" VerticalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>
@@ -193,7 +193,7 @@
             </ListView>
         </Grid>
 
-        <Grid x:Name="stationLists" Margin="242,96,51,10" Visibility="Visible">
+        <Grid x:Name="stationLists" Margin="242,96,51,10" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="145*"/>
                 <ColumnDefinition Width="362*"/>
