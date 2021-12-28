@@ -8,26 +8,16 @@
             Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" Closing="Window_Closing" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
 
-        <Style TargetType="ListViewItem">
 
+        <Style TargetType="ListViewItem">
             <EventSetter Event="MouseDoubleClick" Handler="DroneListView_MouseDoubleClick" />
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
-        <Style x:Key="BackGroundDesign" TargetType="ListView" >
-            <Setter Property="Background" >
-                <Setter.Value>
-                    <LinearGradientBrush >
-                        <GradientStop Offset="0.3" Color="#f794a4"/>
-                        <GradientStop Offset="0.8" Color="#fdd6bd"/>
-
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>
 
         <Style TargetType="GridViewColumnHeader">
-            <Setter Property="Width" Value="134"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="180"/>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>
 
@@ -42,7 +32,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Window.Resources>
+
     <Grid Background="#FFD6D6D6" RenderTransformOrigin="0.475,0.533">
         <Grid x:Name="panelHeader" VerticalAlignment="Top" Height="50" Background="#FF0F4E7A">
             <TextBlock Text="DLIVERY" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Century Gothic" FontSize="20" FontWeight="Bold" Foreground="White"/>
@@ -90,7 +82,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="droneLists" Margin="242,96,51,10" Visibility="Hidden">
+        <Grid x:Name="droneLists" Height="250" Width="500"  Visibility="Hidden" Margin="218,100,82,100">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="145*"/>
                 <ColumnDefinition Width="362*"/>
@@ -108,10 +100,9 @@
                 </Grid.ColumnDefinitions>
                 <ComboBox Name="ComboStatusSelector" SelectionChanged="StatusSelector_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" ToolTip="choose a status" Grid.ColumnSpan="2"/>
                 <ComboBox  Name="ComboWeightSelector" SelectionChanged="WieghtSelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2"  ToolTip="choose the weight" BorderBrush="#FF140303"/>
-
-
             </Grid>
-            <ListView x:Name="DroneListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource BackGroundDesign}" MouseDoubleClick="DroneListView_MouseDoubleClick"  Grid.Row="2" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.ColumnSpan="2"  >
+
+            <ListView x:Name="DroneListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  MouseDoubleClick="DroneListView_MouseDoubleClick"  Grid.Row="2" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.ColumnSpan="2"  >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -120,7 +111,7 @@
 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="90"    ></GridViewColumn>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="90"    ></GridViewColumn>
                         <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="90"  ></GridViewColumn>
                         <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="90"></GridViewColumn>
                         <GridViewColumn Header="Battery " DisplayMemberBinding="{Binding Battery }" Width="90"></GridViewColumn>
@@ -132,9 +123,9 @@
 
         </Grid>
 
-        <Grid x:Name="customerList" Margin="242,96,51,10" Visibility="Hidden">
+        <Grid x:Name="customerList" Height="250" Width="500"  Visibility="Hidden" Margin="218,100,82,100">
 
-            <ListView x:Name="CustomerListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource BackGroundDesign}" MouseDoubleClick="CustomerListView_MouseDoubleClick"   Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Stretch"  >
+            <ListView x:Name="CustomerListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="CustomerListView_MouseDoubleClick"   Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Margin="83,-16,-83,16"  >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -152,28 +143,20 @@
 
         </Grid>
 
-        <Grid x:Name="parcelLists" Margin="242,96,51,10" Visibility="Hidden">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="145*"/>
-                <ColumnDefinition Width="362*"/>
-            </Grid.ColumnDefinitions>
+        <Grid x:Name="parcelLists" Height="270" Width="600"  Visibility="Visible" Margin="172,85,28,95">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0*"/>
-                <RowDefinition Height="19*"/>
+                <RowDefinition Height="13*"/>
                 <RowDefinition Height="153*"/>
             </Grid.RowDefinitions>
-            <Grid Height="auto" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"  >
+            <Grid Height="auto" Grid.Row="0" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="232*"/>
-                    <ColumnDefinition Width="49*"/>
-                    <ColumnDefinition Width="281*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Name="comboStatusSelector" SelectionChanged="comboStatusSelector_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" ToolTip="choose a status" Grid.ColumnSpan="2"/>
-                <ComboBox  Name="comboPrioritySelector" SelectionChanged="comboPrioritySelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2"  ToolTip="choose the weight" BorderBrush="#FF140303"/>
-
-
+                <ComboBox Name="comboStatusSelector" SelectionChanged="comboStatusSelector_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0" ToolTip="choose a status" />
+                <ComboBox  Name="comboPrioritySelector" SelectionChanged="comboPrioritySelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1"  ToolTip="choose the weight" BorderBrush="#FF140303"/>
             </Grid>
-            <ListView x:Name="ParcelListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource BackGroundDesign}" MouseDoubleClick="ParcelListView_MouseDoubleClick"  Grid.Row="2" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.ColumnSpan="2"  >
+            <ListView x:Name="ParcelListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="ParcelListView_MouseDoubleClick"  Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.Row="1"   >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -182,39 +165,25 @@
 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="80"    ></GridViewColumn>
-                        <GridViewColumn Header="sender" DisplayMemberBinding="{Binding NameOfSender}" Width="80"  ></GridViewColumn>
-                        <GridViewColumn Header="reciever" DisplayMemberBinding="{Binding NameOfTargetid}" Width="80"></GridViewColumn>
-                        <GridViewColumn Header="weight " DisplayMemberBinding="{Binding Weight }" Width="80"></GridViewColumn>
-                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="80"></GridViewColumn>
-                        <GridViewColumn Header="priority" DisplayMemberBinding="{Binding Priority}" Width="80"></GridViewColumn>
+                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="100"    ></GridViewColumn>
+                        <GridViewColumn Header="sender" DisplayMemberBinding="{Binding NameOfSender}" Width="130"  ></GridViewColumn>
+                        <GridViewColumn Header="reciever" DisplayMemberBinding="{Binding NameOfTargetid}" Width="130"></GridViewColumn>
+                        <GridViewColumn Header="weight " DisplayMemberBinding="{Binding Weight }" Width="100"></GridViewColumn>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"></GridViewColumn>
+                        <GridViewColumn Header="priority" DisplayMemberBinding="{Binding Priority}" Width="100"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
         </Grid>
 
-        <Grid x:Name="stationLists" Margin="242,96,51,10" Visibility="Hidden">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="145*"/>
-                <ColumnDefinition Width="362*"/>
-            </Grid.ColumnDefinitions>
+        <Grid x:Name="stationLists" Height="250" Width="580"  Visibility="Hidden" Margin="193,100,27,100">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0*"/>
-                <RowDefinition Height="19*"/>
+                <RowDefinition Height="15*"/>
                 <RowDefinition Height="153*"/>
             </Grid.RowDefinitions>
-            <Grid Height="auto" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"  >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="232*"/>
-                    <ColumnDefinition Width="49*"/>
-                    <ColumnDefinition Width="281*"/>
-                </Grid.ColumnDefinitions>
-                <!--<ComboBox Name="comboStatusSelector" SelectionChanged="comboStatusSelector_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" ToolTip="choose a status" Grid.ColumnSpan="2"/>
-                <ComboBox  Name="comboPrioritySelector" SelectionChanged="comboPrioritySelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2"  ToolTip="choose the weight" BorderBrush="#FF140303"/>-->
-                <CheckBox x:Name="checkBoxSelector" Background="#FF0F4E7A" HorizontalAlignment="Left" VerticalAlignment="Center"  Grid.ColumnSpan="2"  ToolTip="choose the weight" Height="18" Width="21" Checked="checkBoxSelector_Checked"  />
-                <Label Content="Sort list by number of available charging slots"  Grid.ColumnSpan="3" Margin="18,4,201,-4" FontWeight="Bold" FontStyle="Italic"></Label>
-            </Grid>
-            <ListView x:Name="StationListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource BackGroundDesign}" MouseDoubleClick="ParcelListView_MouseDoubleClick"  Grid.Row="2" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.ColumnSpan="2"  >
+            <ComboBox Grid.Row="0" Name="comboAvailableSlostSelector" SelectionChanged="comboAvailableSlostSelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  ToolTip="sort" BorderBrush="#FF140303" Grid.ColumnSpan="2" />
+
+            <ListView x:Name="StationListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  MouseDoubleClick="ParcelListView_MouseDoubleClick" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.Row="1">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -223,10 +192,10 @@
 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="90"    ></GridViewColumn>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="90"  ></GridViewColumn>
-                        <GridViewColumn Header="Number of available slots" DisplayMemberBinding="{Binding NumOfAvailableChargingSlots}" Width="120"></GridViewColumn>
-                        <GridViewColumn Header="Number of occupied slots" DisplayMemberBinding="{Binding NumOfBusyChargingSlots }" Width="120"></GridViewColumn>
+                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="125"    ></GridViewColumn>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="165"  ></GridViewColumn>
+                        <GridViewColumn Header="Available slots" DisplayMemberBinding="{Binding NumOfAvailableChargingSlots}" Width="145"></GridViewColumn>
+                        <GridViewColumn Header="Occupied slots" DisplayMemberBinding="{Binding NumOfBusyChargingSlots }" Width="145"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>

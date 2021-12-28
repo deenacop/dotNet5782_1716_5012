@@ -37,6 +37,10 @@ namespace PL
     /// </summary>
     public enum ParcelStatus { Defined, Associated, PickedUp, Delivered, All }
     /// <summary>
+    /// The station status af availability (for the comboBox)
+    /// </summary>
+    public enum AvailablityStation { Available, Unavailable, All }
+    /// <summary>
     /// A class by which the items in the list are sorted. The key to the dictionary is an object of the class
     /// </summary>
     public struct FilterByWeightAndStatus
@@ -59,10 +63,11 @@ namespace PL
         public Dictionary<int, List<BaseStationToList>> sortedStationToLists;//a dictionary to present the sorted list of stations
         public Dictionary<FilterByPriorityAndStatus, List<ParcelToList>> parcelToList;//a dictionary to present the list of parcels
         public ObservableCollection<CustomerToList> customerToLists;//an ObservableCollection to present the list of customers
-        public ObservableCollection<BaseStationToList> stationToLists;//an ObservableCollection to present the list of stations
+        public Dictionary<bool, List<BaseStationToList>> stationToLists;//a dictionary to present the list of stations
         DispatcherTimer timer;//
         BlApi.IBL bL;
         double panelWidth;
+        int width=100;
         bool hidden;//menu is open or close
 
 
@@ -132,9 +137,15 @@ namespace PL
             ComboWeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             //Default - all
             ComboStatusSelector.SelectedIndex = 3;
+            parcelLists.Visibility = Visibility.Collapsed;
+            customerList.Visibility = Visibility.Collapsed;
+            stationLists.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
+            
         }
+
+
 
         /// <summary>
         /// populate the ObservableCollection
@@ -216,6 +227,9 @@ namespace PL
                 customerToLists.Add(current);
             CustomerListView.ItemsSource = customerToLists;
             customerToLists.CollectionChanged += CustomerToLists_CollectionChanged;
+            droneLists.Visibility = Visibility.Collapsed;
+            parcelLists.Visibility = Visibility.Collapsed;
+            stationLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
         }
@@ -245,6 +259,9 @@ namespace PL
             comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             //Default - all
             comboStatusSelector.SelectedIndex = 4;
+            droneLists.Visibility = Visibility.Collapsed;
+            stationLists.Visibility = Visibility.Collapsed;
+            customerList.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
         }
@@ -315,15 +332,16 @@ namespace PL
         #region station item selected
         private void station_Selected(object sender, RoutedEventArgs e)
         {
-            stationToLists = new ObservableCollection<BaseStationToList>();
-            IEnumerable<BaseStationToList> tmp = bL.GetBaseStationList();
-            foreach (var current in tmp)
-                stationToLists.Add(current);
-            StationListView.ItemsSource = stationToLists;
-            stationToLists.CollectionChanged += StationToLists_CollectionChanged;
-            sortedStationToLists = new Dictionary<int, List<BaseStationToList>>();
-            sortedStationToLists = (from item in tmp
-                                  group item by item.NumOfAvailableChargingSlots).ToDictionary(i => i.Key, i => i.ToList());
+            stationToLists = new Dictionary<bool, List<BaseStationToList>>();
+            stationToLists = (from item in bL.GetBaseStationList()
+                              group item by (item.NumOfAvailableChargingSlots > 0 ? true : false)).ToDictionary(i => i.Key, i => i.ToList());
+            comboAvailableSlostSelector.ItemsSource = Enum.GetValues(typeof(AvailablityStation));
+            StationListView.ItemsSource = stationToLists.Values.SelectMany(i => i);
+            comboAvailableSlostSelector.SelectedIndex = 2;
+            width = 125;
+            droneLists.Visibility = Visibility.Collapsed;
+            parcelLists.Visibility = Visibility.Collapsed;
+            customerList.Visibility = Visibility.Collapsed;
             stationLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
         }
@@ -332,17 +350,7 @@ namespace PL
         {
             StationListView.Items.Refresh();
         }
-        private void checkBoxSelector_Checked(object sender, RoutedEventArgs e)
-        {
-            if(checkBoxSelector.IsChecked==true)
-            {
-                StationListView.ItemsSource = sortedStationToLists.Values.SelectMany(i=>i);
-            }
-            else
-            {
-                StationListView.ItemsSource = stationToLists;
-            }
-        }
+
         private void StationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BaseStationToList station = (BaseStationToList)StationListView.SelectedItem;
@@ -350,7 +358,19 @@ namespace PL
                 new StationWindow().Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
-
+        private void comboAvailableSlostSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AvailablityStation availablity = (AvailablityStation)comboAvailableSlostSelector.SelectedItem;
+            StationListView.ItemsSource = null;
+            if (availablity == AvailablityStation.All)
+                StationListView.ItemsSource = from item in stationToLists.Values.SelectMany(i => i)
+                                              orderby (item.NumOfAvailableChargingSlots)
+                                              select item;
+            if (availablity == AvailablityStation.Available)
+                StationListView.ItemsSource = stationToLists.Where(i => i.Key == true).SelectMany(i => i.Value);
+            if (availablity == AvailablityStation.Unavailable)
+                StationListView.ItemsSource = stationToLists.Where(i => i.Key == false).SelectMany(i => i.Value);
+        }
         #endregion
         /// <summary>
         /// an add button sent each time to add another item. According to the SelectedItem
@@ -359,19 +379,20 @@ namespace PL
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {//Sends to the add window 
-            if (menuListView.SelectedItem == drone)
+            //check which grid is currently open
+            if (droneLists.Visibility == Visibility.Visible)
             {
                 new DroneWindow(bL, this).Show();
             }
-            if (menuListView.SelectedItem == customer)
+            if (menuListView.Visibility == Visibility.Visible)
             {
                 new CustomerWindow().Show();
             }
-            if (menuListView.SelectedItem == parcel)
+            if (menuListView.Visibility == Visibility.Visible)
             {
                 new ParcelWindow().Show();
             }
-            if (menuListView.SelectedItem == station)
+            if (menuListView.Visibility == Visibility.Visible)
             {
                 new StationWindow().Show();
             }
