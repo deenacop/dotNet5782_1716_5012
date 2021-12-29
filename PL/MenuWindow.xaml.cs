@@ -381,7 +381,7 @@ namespace PL
             //check which grid is currently open
             if (menuListView.SelectedItem == drone)
             {
-                new DroneWindow(bL, this).Show();
+                new tmpWindow("add").Show();
             }
             if (menuListView.SelectedItem == customer)
             {
