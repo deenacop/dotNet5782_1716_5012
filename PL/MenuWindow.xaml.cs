@@ -67,9 +67,7 @@ namespace PL
         DispatcherTimer timer;//
         BlApi.IBL bL;
         double panelWidth;
-        int width=100;
         bool hidden;//menu is open or close
-
 
         private bool _close { get; set; } = false;//for closing the window
 
@@ -83,6 +81,7 @@ namespace PL
             timer.Tick += Timer_Tick;
             panelWidth = sidePanel.Width;
         }
+
         #region menu open and close
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -338,7 +337,6 @@ namespace PL
             comboAvailableSlostSelector.ItemsSource = Enum.GetValues(typeof(AvailablityStation));
             StationListView.ItemsSource = stationToLists.Values.SelectMany(i => i);
             comboAvailableSlostSelector.SelectedIndex = 2;
-            width = 125;
             droneLists.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Collapsed;
@@ -372,6 +370,7 @@ namespace PL
                 StationListView.ItemsSource = stationToLists.Where(i => i.Key == false).SelectMany(i => i.Value);
         }
         #endregion
+
         /// <summary>
         /// an add button sent each time to add another item. According to the SelectedItem
         /// </summary>
@@ -380,19 +379,19 @@ namespace PL
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {//Sends to the add window 
             //check which grid is currently open
-            if (droneLists.Visibility == Visibility.Visible)
+            if (menuListView.SelectedItem == drone)
             {
                 new DroneWindow(bL, this).Show();
             }
-            if (menuListView.Visibility == Visibility.Visible)
+            if (menuListView.SelectedItem == customer)
             {
                 new CustomerWindow().Show();
             }
-            if (menuListView.Visibility == Visibility.Visible)
+            if (menuListView.SelectedItem == parcel)
             {
                 new ParcelWindow().Show();
             }
-            if (menuListView.Visibility == Visibility.Visible)
+            if (menuListView.SelectedItem == station)
             {
                 new StationWindow().Show();
             }
