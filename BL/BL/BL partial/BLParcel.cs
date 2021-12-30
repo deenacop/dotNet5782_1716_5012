@@ -23,9 +23,6 @@ namespace BL
             if (parcel.Priority < Priorities.Normal || parcel.Priority > Priorities.Urgent)
                 throw new WrongInputException("Wrong input");
             parcel.Requested = DateTime.Now;
-            //parcel.Scheduled = null;
-            //parcel.PickUp = null;
-            //parcel.Delivered = null;
             parcel.MyDrone = new();
             try
             {

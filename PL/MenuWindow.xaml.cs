@@ -322,7 +322,7 @@ namespace PL
         {
             ParcelToList parcel = (ParcelToList)ParcelListView.SelectedItem;
             if (parcel != null)
-                new ParcelWindow().Show();
+                new ParcelWindow(bL,this).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
 
@@ -389,7 +389,7 @@ namespace PL
             }
             if (menuListView.SelectedItem == parcel)
             {
-                new ParcelWindow().Show();
+                new ParcelWindow(bL,this).Show();
             }
             if (menuListView.SelectedItem == station)
             {
