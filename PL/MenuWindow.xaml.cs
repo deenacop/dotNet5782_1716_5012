@@ -236,7 +236,7 @@ namespace PL
         {
             CustomerToList customer = (CustomerToList)CustomerListView.SelectedItem;
             if (customer != null)
-                new CustomerWindow().Show();
+                new CustomerWindow(bL,this).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
 
@@ -385,7 +385,7 @@ namespace PL
             }
             if (menuListView.SelectedItem == customer)
             {
-                new CustomerWindow().Show();
+                new CustomerWindow(bL,this).Show();
             }
             if (menuListView.SelectedItem == parcel)
             {
