@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="tmpWindow" Height="370" Width="340" Background="#FF0F4E7A" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid x:Name="AddGrid" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible"  DataContext="{Binding Drone}" Height="340">
+        <!--<Grid x:Name="AddGrid" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Visible"  DataContext="{Binding Drone}" Height="340">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
 
@@ -71,6 +71,6 @@
 
 
             </Grid>
-        </Grid>
+        </Grid>-->
     </Grid>
 </Window>
