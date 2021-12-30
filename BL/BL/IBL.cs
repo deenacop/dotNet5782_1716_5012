@@ -42,6 +42,12 @@ namespace BlApi
         /// <exception cref="BlApi.BO.WrongIDException"></exception>
         /// <exception cref="BlApi.BO.AlreadyExistedItemException"></exception>
         void AddParcel(Parcel parcel);
+        /// <summary>
+        /// Add a user to the list of users in the IDAL
+        /// </summary>
+        /// <param name="user">a user</param>
+        /// <exception cref="BO.ItemAlreadyExistsException"></exception>
+        public void AddUser(User user);
         #endregion
 
         #region drone operations
@@ -117,6 +123,13 @@ namespace BlApi
         /// <returns>The wanted customer</returns>
         /// <exception cref="BlApi.BO.ItemNotExistException"></exception>
         Customer GetCustomer(int ID);
+        /// <summary>
+        /// Display one user
+        /// </summary>
+        /// <param name="mail">user mail</param>
+        /// <returns>The wanted user</returns>
+        /// <exception cref="BlApi.BO.ItemNotExistException"></exception>
+        User GetUser(string mail);
         #endregion
 
         #region update
@@ -171,6 +184,11 @@ namespace BlApi
         /// </summary>
         /// <returns>The list of parceld</returns>
         IEnumerable<ParcelToList> GetListParcel(Predicate<ParcelToList> predicate = null);
+        /// <summary>
+        /// Displays the list of BL users
+        /// </summary>
+        /// <returns>The list of users</returns>
+        IEnumerable<User> GetListUsers(Predicate<User> predicate = null);
         #endregion
 
     }

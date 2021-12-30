@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Linq;
 using System.Windows;
 using BlApi;
+using BO;
 
 namespace PL
 {
@@ -19,35 +22,44 @@ namespace PL
             InitializeComponent();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new MenuWindow(bl).Show();
-
-        }
-
-        private void addUser_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Close();
         }
 
-        private void TextBlock_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
-        }
-
         private void Label_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            new GetPasswordWindow(bl).Show();
         }
 
         private void Label_MouseDoubleClick_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new SignUpWindow(bl).Show();
+        }
+        /// <summary>
+        /// for sign in
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {          
+                try
+                {
+                  User tmp=  bl.GetUser(username.Text);
+                    if (tmp.Password != passwordcode.Text)
+                        throw new ItemNotExistException();
+                    new MenuWindow(bl).Show();
+
+                }
+                catch (Exception )
+                {
+                    MessageBox.Show("you enter a non correct Username or password");
+                }
         }
     }
 }
