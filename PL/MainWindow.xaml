@@ -6,104 +6,69 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="entery"  Height="415.2" Width="550"  
-         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  WindowStyle="None" >
-    <Window.Resources>
-        <Style x:Key="btnBackground" TargetType="Button">
-            <Setter Property="Background" Value="#FFA11A2F"/>
-            <Setter Property="Foreground" Value="#FFEFEFEF"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderThickness="1">
-                            <!--<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-                            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\exit.png" Margin="-3,-1,-3,-1"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-    <Grid>
-        <Grid x:Name="entery" Background="#FFEFEFEF" Visibility="Visible" >
+        Title="entery"  Height="300" Width="550"  
+         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Bahnschrift SemiBold" >
+    <Grid Height="300" Width="550">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="235*"/>
-                <ColumnDefinition Width="234*"/>
-                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="0.65*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
-            <Label Content="SIGN IN:" Foreground="#FF7D1A29" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"  Margin="104.667,75,79,0" VerticalAlignment="Top" Height="30" Width="91" FontSize="20" FontFamily="Franklin Gothic Book"/>
-            <Label Content="SIGN UP:" Foreground="#FF7D1A29" Grid.Row="0" HorizontalAlignment="Center"  Margin="119,75,65.333,0" VerticalAlignment="Top" Height="30" Width="91"  FontSize="20" FontFamily="Franklin Gothic Book"/>
-            <Label Content="User Name" Foreground="#FF7D1A29" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"  Margin="100.667,128,83,0" VerticalAlignment="Top" Height="30" Width="91" FontWeight="Bold" FontSize="16" FontFamily="Franklin Gothic Book"/>
-            <Label Content="Password"  Foreground="#FF7D1A29" Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Center" Margin="103.667,0,81,147.333" VerticalAlignment="Bottom" Height="30" Width="90" FontSize="16" FontFamily="Franklin Gothic Book" FontWeight="Bold" />
-            <!--<TextBox x:Name="userName"  Grid.Column="1"  Grid.Row="0" MaxLength="10" HorizontalAlignment="Left" Height="23" Margin="83.667,170,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" PreviewKeyDown="TextBox_OnlyLetters_PreviewKeyDown" CaretBrush="#FF090304" SelectionBrush="#FF071017" />-->
-            <!--<PasswordBox x:Name="password" Grid.Column="1"  Grid.Row="1"  HorizontalAlignment="Left" Height="23" Margin="80.667,66,0,0"  VerticalAlignment="Top" Width="120"  FontSize="12" PreviewKeyDown="password_PreviewKeyDown" MaxLength="6" Foreground="Black" CaretBrush="#FF0C0812" SelectionBrush="#FF0B131A" BorderBrush="#89110808"/>-->
-            <!--<Label Content="forget your password?" Foreground="#FF7D1A29" Grid.Row="1" HorizontalAlignment="Center"  Margin="194,134,189,0" VerticalAlignment="Top" Height="30" Width="167"  FontSize="16" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick" Grid.ColumnSpan="2"/>
-        <Label Content="change your password?" Foreground="#FF7D1A29" Grid.Row="1" HorizontalAlignment="Center"  Margin="194,169,189,0" VerticalAlignment="Top" Height="30" Width="167"  FontSize="16" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick_1" Grid.ColumnSpan="2"/>-->
-            <StackPanel  Grid.RowSpan="2" Margin="83,136,31.333,133.333" Height="150"  >
-                <Button x:Name="btnAddUser" ToolTip="Click here to sign up" Background="#FFA11A2F" BorderBrush="#FFA11A2F" Click="addUser_Click" Height="150">
-                    <StackPanel Orientation="Horizontal">
-                        <!--<Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\addUser.png" Height="150" Width="150" />-->
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-            <Button Margin="18,11,138,157" Content="znani" Click="Button_Click_1"></Button>
-            <!--<Button Grid.Column="1" HorizontalAlignment="Left" Margin="239,11,0,0" Style="{StaticResource btnBackground}"  Width="25" Height="20" VerticalAlignment="Top"  
-                    VerticalContentAlignment="Center" Click="Button_Click" BorderBrush="{x:Null}" OpacityMask="#00000000">-->
-            <Image MouseDown="Image_MouseDown" Grid.Column="1" HorizontalAlignment="Left" Margin="239,11,0,0" Width="25" Height="20" VerticalAlignment="Top"  Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\exit.png"/>
-            <!--</Button>-->
-            <!--<TextBlock x:Name="k"  Width="70" Height="80" Margin="164,107,42,20" Grid.Row="1" Background="Azure"
-            />
-            <ListView Grid.Row="1" Grid.Column="1" Width="40" Height="80" Margin="44,92,190,35" >
-               <ListView.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=k, Path=IsMouseOver}" >
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-
-                </Style>
-                        </ListView.Style>
-            </ListView>-->
+            <Grid Background="#FF0F4E7A" Grid.ColumnSpan="2">
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\exit.png" HorizontalAlignment="Left" Height="15" Margin="529,6,0,6" MouseDown="Image_MouseDown"/>
+            </Grid>
+            <Grid Background="#FF0F4E7A" Grid.Row="1"/>
+            <Grid Grid.Column="1" Grid.Row="1" >
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Drone!!.png" Height="354" VerticalAlignment="Center"/>
+            </Grid>
         </Grid>
+        <TextBlock Margin="85,50,295,55" Text="GET  YOUR DELIVERY TODAY!" FontSize="25" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="36" Foreground="#FFFAF7F7" Grid.RowSpan="2"/>
+        <TextBlock Margin="85,168,345,54" Background="White"/>
+        <TextBlock Margin="85,187,365,55" Text="The new gimmick of today" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="18" FontSize="12" Foreground="#FFFAF7F7" Grid.RowSpan="2" />
+        <StackPanel Margin="345,50,46,30" Background="White" Opacity="0.8" Grid.RowSpan="2">
+            <TextBlock Text="SIGN IN" HorizontalAlignment="Stretch" Height="23" Background="#FF0F4E7A" TextAlignment="Center" Foreground="White"/>
+            <Label Height="35" Content="Fill up this form in order to sign in&#xA; to your acount." FontSize="8" Foreground="#FF0F4E7A"/>
+            <Label Content="User Details" FontSize="7" Foreground="#FF0F4E7A" VerticalContentAlignment="Bottom" Height="20"/>
+            <Label Height="8"/>
+            <Grid Height="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Column="2" Height="20"/>
+                <Image  Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\user.png" Grid.Column="1" Margin="3,2,0,5"/>
+                <TextBox Grid.Column="2" Grid.Row="2" Height="20"/>
+                <Image  Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\password.png" Grid.Column="1" Grid.Row="2" Margin="5,4,2,5"/>
+            </Grid>
+            <Label Height="14"/>
+            <Label Content="forget your password?" Foreground="#FF0F4E7A" Height="21" Width="167"  FontSize="10" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick"  />
+            <Label Content="change your password?" Foreground="#FF0F4E7A" Height="21" Width="167"  FontSize="10" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick_1" />
+            <TextBlock Text="let me in" HorizontalAlignment="Stretch" Height="20" Background="#FF0F4E7A" TextAlignment="Center" Foreground="White"/>
+        </StackPanel>
+        <Button Margin="81,7,328,47" Background="White" Grid.Row="1" Opacity="0.8" BorderBrush="#FF131F5C" Content="SIGN UP" Foreground="#FF0F4E7A" />
+        <Button Width="40" Height="40" Margin="10,10,500,25" Grid.Row="1" Content="ZMANI" Click="Button_Click_1" />
 
-        <!--<Grid x:Name="addUser"  Visibility="Hidden">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\drone.jpg" Stretch="Fill" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
-
-            <StackPanel Grid.Row="1" Grid.Column="1" Opacity="0.8" Background="#FF484842" Visibility="Visible"  >
-                <Label Content="USERNAME:" HorizontalAlignment="Center"  Margin="0,20,200,9" FontFamily="Franklin Gothic Book" FontWeight="Bold" Foreground="#FF7D1A29" />
-                <Label Content="PASSWORD:" HorizontalAlignment="Center" Margin="47,59,47,0" VerticalAlignment="Top" FontFamily="Franklin Gothic Book" FontWeight="Bold" Foreground="#FF7D1A29" Grid.RowSpan="2"/>
-                <Label Content="ALLOWING ACCESS:" HorizontalAlignment="Center" Margin="0,10" Grid.Row="2" VerticalAlignment="Top" FontFamily="Franklin Gothic Book" FontWeight="Bold" Foreground="#FF7D1A29"/>
-                <TextBox x:Name="userName" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="33,4,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="231" PreviewKeyDown="TextBox_OnlyLetters_PreviewKeyDown" MaxLength="10" />
-                <RadioButton x:Name="manager" FontFamily="Franklin Gothic Book" Content="MANAGER" Background="#FF7D1A29" Foreground="#FF7D1A29" FontWeight="Bold" />
-                <TextBox x:Name="password" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="33,57,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="231" PreviewKeyDown="password_PreviewKeyDown" MaxLength="6" Grid.RowSpan="2" />
-                <RadioButton x:Name="user" FontFamily="Franklin Gothic Book" Content="USER" Grid.Column="2" HorizontalAlignment="Left" Margin="10,15.333,0,0" Grid.Row="2" VerticalAlignment="Top"  Background="#FF7D1A29" Foreground="#FF7D1A29" FontWeight="Bold"/>
-                <Button  Background="#FFA11A2F" BorderBrush="#FFA11A2F"   Grid.Column="2" Margin="123,0,8,37.333" VerticalAlignment="Bottom" Width="Auto" Height="30"  RenderTransformOrigin="0.762,0.556" Click="backHome_Click">
-                </Button>
-                <Button Background="#FFA11A2F" BorderBrush="#FFA11A2F"  Content="save" Grid.Column="2" HorizontalAlignment="Stretch" Margin="81,32.333,15,10.333" Grid.Row="2"  VerticalAlignment="Stretch" Height="Auto" RenderTransformOrigin="0,0" FontWeight="Normal" Click="save_Click"/>
-                <Label Content="E-MAIL:" HorizontalAlignment="Center" Margin="59,31.667,59,0" VerticalAlignment="Top" FontFamily="Franklin Gothic Book" FontWeight="Bold" Foreground="#FF7D1A29" Grid.Row="1"/>
-                <TextBox x:Name="email" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="33,31.667,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="231"   Grid.Row="1" PreviewKeyDown="TextBox_Email_PreviewKeyDown" />
-
-            </StackPanel>
-
-        </Grid>-->
-
-
+        <!--<Rectangle Margin="295,50,80,30" Stroke="White" >
+            <Rectangle.Fill>
+                <SolidColorBrush Color="White" Opacity="0.9"/>
+            </Rectangle.Fill>
+            
+        </Rectangle>-->
     </Grid>
 </Window>
 
