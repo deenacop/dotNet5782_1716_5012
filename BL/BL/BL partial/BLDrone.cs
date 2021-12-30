@@ -19,15 +19,19 @@ namespace BL
             {
                 DroneToList listDrone = new();
                 DO.Station wantedStation = dal.GetStation(stationID);
-                drone.CopyPropertiesTo(listDrone);
+                
+                drone.Location = new() { Longitude = wantedStation.Longitude, Latitude = wantedStation.Latitude };
+                drone.Battery = rand.Next(20, 41);
+                drone.Status = DroneStatus.Maintenance;//By adding a drone it is initialized to a maintenance mode
                 listDrone.Location = new() { Longitude = wantedStation.Longitude, Latitude = wantedStation.Latitude };
-                listDrone.Battery = rand.Next(20, 41);
-                listDrone.Status = DroneStatus.Maintenance;//By adding a drone it is initialized to a maintenance mode
+
+                drone.CopyPropertiesTo(listDrone);
                 object obj = new DO.Drone();//Boxing and unBoxing
                 drone.CopyPropertiesTo(obj);
                 dal.Add((DO.Drone)obj); //calls the function from DALOBJECT
                 DroneListBL.Add(listDrone);
-                dal.SendingDroneToChargingBaseStation(drone.Id, stationID);
+                //listDrone.CopyPropertiesTo(drone);
+                dal.SendingDroneToChargingBaseStation(listDrone.Id, stationID);
             }
             catch (ItemNotExistException ex)
             {

@@ -43,7 +43,7 @@
             <StackPanel>
                 <Grid Height="50" Background="White">
                     <Button HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Click="Button_Click">
-                        <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\menu!.png" Height="20"/>
+                        <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\leftfinal.png" Height="20"/>
                     </Button>
                 </Grid>
                 <ListView x:Name="menuListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontFamily="Century Gothic" FontSize="14" Foreground="White" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold">

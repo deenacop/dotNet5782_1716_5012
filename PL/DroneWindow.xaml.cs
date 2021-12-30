@@ -31,6 +31,9 @@ namespace PL
 
         private int Index;
 
+        public int sizeH { get; set; }
+        public int sizeW { get; set; }
+
         /// <summary>
         /// ctor for update
         /// </summary>
@@ -43,14 +46,23 @@ namespace PL
             bl = bL;
             Drone = drone;
             weightAndStatus = new();
-            DataContext = this;
             Index = _Index;
+            if (_Index == 0)
+            {
+                sizeW = 340; sizeH = 370;
+            }
+            else
+            {
+                sizeH = 400; sizeW = 500;
+            }
+            DataContext = this;
             InitializeComponent();
             this.droneListWindow = _droneListWindow;
             //show the update grid:
             UpdateGrid.Visibility = Visibility.Visible;
             comboWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
+
         }
         /// <summary>
         /// ctor for add
@@ -94,11 +106,16 @@ namespace PL
                 }
                 else
                 {
+                    
                     //sending for add
                     bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
                     weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;
                     weightAndStatus.Status = Drone.Status;
-                    droneListWindow.droneToLists[weightAndStatus].Add(bl.GetDroneList(i => i.Id == Drone.Id).First());
+                    if (droneListWindow.droneToLists.ContainsKey(weightAndStatus))
+                        droneListWindow.droneToLists[weightAndStatus].Add(bl.GetDroneList().First(i => i.Id == Drone.Id));
+                    else
+                        droneListWindow.droneToLists.Add(weightAndStatus,bl.GetDroneList().Where(i=>i.Id == Drone.Id).ToList());
+                    
                     droneListWindow.SelectionStatusAndWeight();
                     //success
                     MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
@@ -147,6 +164,7 @@ namespace PL
             {
                // var item = droneListWindow.droneToLists.Where(i => i.Key.Status == Drone.Status && i.Key.Weight == Drone.Weight).first();
                 bl.UpdateDrone(Drone);
+                droneListWindow.DroneListView.Items.Refresh();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 Close();

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-     Title="AddDroneWindow" Height="440" Width="800" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia"
+     Title="AddDroneWindow" Height="{Binding Path=sizeH}" Width="{Binding Path=sizeW}" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         >
     <!--<Window.Background>
         <ImageBrush  Stretch="Fill" ImageSource="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\photo 2021jj.jpg"></ImageBrush>
@@ -37,7 +37,7 @@
 
     </Window.Resources>
     <Grid>
-        <Grid x:Name="UpdateGrid" Visibility="Visible"  DataContext="{Binding Drone}">
+        <Grid x:Name="UpdateGrid" Visibility="Hidden"  DataContext="{Binding Drone}" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="14*"/>
@@ -46,8 +46,9 @@
             <Grid x:Name="top" Grid.Row="0"  >
 
 
-                <Menu x:Name="droneOptions" Grid.Column="0" Style="{DynamicResource DesignM}" >
-                    <MenuItem Header="menu" FontSize="16" FontWeight="Bold" FontFamily="Constantia" Click="MenuItem_Click"   >
+                <Menu x:Name="droneOptions" Grid.Column="0" Background="#FF0F4E7A" >
+                    <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\menu!.png" MouseDown="MenuItem_Click"/>
+                    <MenuItem  Width="22" Height="20" HorizontalAlignment="Left">
                         <MenuItem Name="MenuSend" FontSize="15" Header="_send drone to charge" IsCheckable="True" Click="btnSendDroneToCharge_Click" />
                         <MenuItem Name="MenuRelease" FontSize="15" Header="_release drone from charge" IsCheckable="True" Click="btnReleasingDroneFromBaseStation_Click" />
                         <MenuItem Name="MenuAssign" FontSize="15" Header="_assign drone to parcel" IsCheckable="True" Click="btnAssignParcelToDrone_Click"/>
@@ -55,6 +56,7 @@
                         <MenuItem Name="MenuDeliver" FontSize="15" Header="_deliver parcel to customer" IsCheckable="True" Click="btnDeliveryParcelByDrone_Click"/>
                         <Separator />
                     </MenuItem>
+
                 </Menu>
             </Grid>
 
@@ -85,26 +87,26 @@
                         <RowDefinition Height="1.5*"/>
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0"  FontSize="15" Content="Drone:" Foreground="Snow"  FontWeight="ExtraBold" VerticalAlignment="Bottom"/>
-                    <Label Grid.Row="1"  FontSize="13" Content="Id:"  Foreground="Snow" FontWeight="ExtraBold"/>
-                    <Label Grid.Row="2"  FontSize="13" Content="model:" Foreground="Snow" FontWeight="ExtraBold"/>
-                    <Label Grid.Row="3"  FontSize="13" Content="weight:" Foreground="Snow" FontWeight="ExtraBold"/>
-                    <Label Grid.Row="4"  FontSize="13" Content="battery:" Foreground="Snow"  FontWeight="ExtraBold"/>
-                    <Label Grid.Row="5"  FontSize="13" Content="status:" Foreground="Snow" FontWeight="ExtraBold"/>
-                    <Label Grid.Row="6"  FontSize="13" Content="location:" Foreground="Snow"  FontWeight="ExtraBold"/>
-                    <TextBlock x:Name="txtId" Grid.Column="1" Grid.Row="1" Foreground="Snow" FontSize="13"  TextWrapping="Wrap" 
+                    <Label Grid.Row="0"  FontSize="15" Content="Drone:" Foreground="#FF0F4E7A"  FontWeight="ExtraBold" VerticalAlignment="Bottom"/>
+                    <Label Grid.Row="1"  FontSize="13" Content="Id:"  Foreground="#FF0F4E7A" FontWeight="ExtraBold"/>
+                    <Label Grid.Row="2"  FontSize="13" Content="model:" Foreground="#FF0F4E7A" FontWeight="ExtraBold"/>
+                    <Label Grid.Row="3"  FontSize="13" Content="weight:" Foreground="#FF0F4E7A" FontWeight="ExtraBold"/>
+                    <Label Grid.Row="4"  FontSize="13" Content="battery:" Foreground="#FF0F4E7A"  FontWeight="ExtraBold"/>
+                    <Label Grid.Row="5"  FontSize="13" Content="status:" Foreground="#FF0F4E7A" FontWeight="ExtraBold"/>
+                    <Label Grid.Row="6"  FontSize="13" Content="location:" Foreground="#FF0F4E7A"  FontWeight="ExtraBold"/>
+                    <TextBlock x:Name="txtId" Grid.Column="1" Grid.Row="1" Foreground="#FF0F4E7A" FontSize="13"  TextWrapping="Wrap" 
                              Text="{Binding Id, Mode=TwoWay}" />
                     <TextBox x:Name="TXTModel" TextWrapping="Wrap"  Grid.Column="1" Grid.Row="2" FontSize="13" VerticalContentAlignment="Center" VerticalAlignment="Center"  FontWeight="Bold"
                              Text="{Binding Model, Mode=TwoWay}" />
                     <ComboBox Name="comboWeight"   Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"
                               SelectedItem="{Binding Weight, Mode=TwoWay}" />
-                    <TextBlock x:Name="TXTBattery" TextWrapping="Wrap" Foreground="Snow" Grid.Column="1" Grid.Row="4" FontSize="13"  FontWeight="Bold" 
+                    <TextBlock x:Name="TXTBattery" TextWrapping="Wrap" Foreground="#FF0F4E7A" Grid.Column="1" Grid.Row="4" FontSize="13"  FontWeight="Bold" 
                              Text="{Binding Battery, Mode=TwoWay}" />
-                    <TextBlock x:Name="TXTStatus" TextWrapping="Wrap" Foreground="Snow" Grid.Column="1" Grid.Row="5" FontSize="13"  FontWeight="Bold"
+                    <TextBlock x:Name="TXTStatus" TextWrapping="Wrap" Foreground="#FF0F4E7A" Grid.Column="1" Grid.Row="5" FontSize="13"  FontWeight="Bold"
                              Text="{Binding Status, Mode=TwoWay}" />
-                    <TextBlock x:Name="TXTLocation1" TextWrapping="Wrap" Foreground="Snow" Grid.Column="1" Grid.Row="6" FontSize="13" VerticalAlignment="Bottom"  FontWeight="Bold"
+                    <TextBlock x:Name="TXTLocation1" TextWrapping="Wrap" Foreground="#FF0F4E7A" Grid.Column="1" Grid.Row="6" FontSize="13" VerticalAlignment="Bottom"  FontWeight="Bold"
                              Text="{Binding Location}" />
-                    <TextBlock x:Name="TXTLocation2" TextWrapping="Wrap" Foreground="Snow" Grid.Column="1" Grid.Row="7" FontSize="13" VerticalAlignment="Top"   FontWeight="Bold"
+                    <TextBlock x:Name="TXTLocation2" TextWrapping="Wrap" Foreground="#FF0F4E7A" Grid.Column="1" Grid.Row="7" FontSize="13" VerticalAlignment="Top"   FontWeight="Bold"
                              Text="{Binding Location, Mode=TwoWay}" />
                 </Grid>
                 <Grid x:Name="btnParcel" Grid.Column="3">
@@ -117,7 +119,7 @@
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
                     <Button x:Name="showParcel"  Background="WhiteSmoke" Grid.ColumnSpan="2" Height="35" ToolTip="click to show parcel" Click="showParcel_Click" VerticalAlignment="Bottom" >
-                        <TextBlock  Background="WhiteSmoke"  FontSize="12" Foreground="#ff0844" FontWeight="Bold" Text="click to see the drone's parcel:" TextWrapping="Wrap"/>
+                        <TextBlock  Background="WhiteSmoke"  FontSize="12" Foreground="#FF0F4E7A" FontWeight="Bold" Text="click to see the drone's parcel:" TextWrapping="Wrap"/>
                     </Button>
                 </Grid>
                 <Grid x:Name="parcelDetails" Grid.Column="3" Visibility="Hidden">
@@ -162,7 +164,7 @@
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
                         <Button x:Name="showSender" Background="WhiteSmoke" Grid.ColumnSpan="2" ToolTip="click to see custumer" Click="showSender_Click" VerticalAlignment="Bottom" Height="35" >
-                            <TextBlock Background="WhiteSmoke"  Foreground="#ff0844" Text="click to see the parcel's  sender"  FontSize="12" FontWeight="Bold" TextWrapping="Wrap"/>
+                            <TextBlock Background="WhiteSmoke"  Foreground="#FF0F4E7A" Text="click to see the parcel's  sender"  FontSize="12" FontWeight="Bold" TextWrapping="Wrap"/>
                         </Button>
                     </Grid>
                     <Grid x:Name="senderDetails" Grid.Column="0" Grid.RowSpan="4" Visibility="Hidden" >
@@ -236,15 +238,23 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="btnUpdate"   FontWeight="Bold"  Grid.Row="0" FontSize="9" Content="Update" 
-                    Click="btnUpdate_Click" Style="{StaticResource DesignRRR}"/>
-                <Button x:Name="btnCancel"    FontWeight="Bold"  Grid.Row="2" FontSize="9" Content="Cancel"  
-                    Click="btnCancel_Click" Style="{StaticResource DesignRRR}"/>
+                <Button x:Name="btnUpdate"     Grid.Row="0"  
+                    Click="btnUpdate_Click" Background="#FF0F4E7A">
+                    <TextBlock Text="Update" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold" Foreground="White">
+                    </TextBlock>
+                </Button>
+
+                <Button x:Name="btnCancel"      Grid.Row="2"  Background="#FF0F4E7A"
+                    Click="btnCancel_Click" >
+                    <TextBlock Text="cancel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold" Foreground="White">
+                    </TextBlock>
+                </Button>
             </Grid>
         </Grid>
 
 
-        <Grid x:Name="AddGrid" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"  DataContext="{Binding Drone}" Height="340">
+
+        <!--<Grid x:Name="AddGrid" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"  DataContext="{Binding Drone}" Height="340">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -282,13 +292,82 @@
 
             </Button>
 
-            <!---->
+            -->
+        <!---->
+        <!--
             <Grid Grid.Row="5" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
 
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Button x:Name="btncancel" Content="Cancel" FontSize="15" FontWeight="Bold" Click="btnCancel_Click_1" Style="{DynamicResource DesignRRR}" Width="220" VerticalAlignment="Center" Height="28" ></Button>
+
+            </Grid>-->
+        <!--</Grid>-->
+
+        <Grid x:Name="AddGrid" Background="#FF0F4E7A" DataContext="{Binding Drone}" Grid.Column="1" Height="340" Visibility="Hidden"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Label Foreground="White" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold" Content="ID:" Margin="53,6,0,50" Grid.RowSpan="2"/>
+            <TextBox x:Name="txtID" FontWeight="Light" Grid.Column="1" Grid.Row="0"  FontSize="15" FontStyle="Italic" PreviewTextInput="NumberValidationTextBox"
+                             TextWrapping="Wrap" Width="90"  Height="30"
+                             Text="{Binding Id, Mode=TwoWay}" Margin="40,21,40,6" />
+
+            <Label VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0" VerticalContentAlignment="Center" Foreground="White"  FontSize="20" FontWeight="Bold" Content="Model:" Height="59" Margin="51,6,0,0" Grid.RowSpan="2" Grid.Row="1"/>
+            <TextBox x:Name="txtMODEL" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1"  FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalAlignment="Top" VerticalContentAlignment="Center" 
+                             Width="90"  Height="30" 
+                             Text="{Binding Model, Mode=TwoWay}" Margin="40,19,40,0" />
+
+            <Label  VerticalAlignment="Center" HorizontalAlignment="Left" VerticalContentAlignment="Center"  Grid.Column="0" Grid.Row="2" Foreground="White"  FontSize="20" FontWeight="Bold" Content="Weight:" Height="58" Margin="48,0,0,0"/>
+            <ComboBox Name="comboWeightSelector" Grid.Column="1" Width="90"  Height="30" Grid.Row="2"
+                                SelectedItem="{Binding Weight, Mode=TwoWay}" />
+
+            <Label Foreground="White"  FontSize="20" FontWeight="Bold"  Grid.Column="0" Grid.Row="3" VerticalContentAlignment="Center"  Content="StationID:" Margin="49,0,4,56" Grid.RowSpan="2"/>
+            <ComboBox Name="comboStationSelector" Width="90" Grid.Column="1" Grid.Row="3"  Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Center"
+                          SelectedItem="content"  />
+
+            <Button x:Name="btnAdd" Background="White"  Grid.ColumnSpan="2"  Grid.Row="4"  Width="220" Height="30" VerticalAlignment="Center"
+                    Click="btnAdd_Click">
+                <TextBlock Text="Add" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="#FF0F4E7A">
+
+                </TextBlock>
+
+            </Button>
+
+
+
+
+            <Grid Grid.Row="5" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="109*"/>
+                    <ColumnDefinition Width="100*"/>
+                    <ColumnDefinition Width="11*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="btncancel" Background="White" Click="btnCancel_Click_1"  Width="220" Height="30" VerticalAlignment="Center" Grid.ColumnSpan="3">
+                    <TextBlock Text="Cancle" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="#FF0F4E7A"/>
+
+                </Button>
+                <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\cancelfinal.png" Margin="14,16,45,14" Grid.Column="1"/>
+                <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\addfinal.png" Margin="16,-42,43,72" Grid.Column="1"/>
+
+
 
             </Grid>
         </Grid>
