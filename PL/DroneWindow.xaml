@@ -5,12 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-     Title="AddDroneWindow" Height="400" Width="500" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
-        >
-    <!--<Window.Background>
-        <ImageBrush  Stretch="Fill" ImageSource="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\photo 2021jj.jpg"></ImageBrush>
-    </Window.Background>-->
-
+     Title="AddDroneWindow" Height="370" Width="340" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style x:Key="DesignM" TargetType="Menu" >

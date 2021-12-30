@@ -228,9 +228,6 @@ namespace Dal
 
         public IEnumerable<Station> GetListStation(Predicate<Station> predicate = null)
         {
-            //List<Station> ListOfStation = new();
-            //foreach (Station currentStation in DataSource.Stations) { ListOfStation.Add(currentStation); }
-            //return ListOfStation.FindAll(i => predicate == null ? true : predicate(i));
             return from item in DataSource.Stations
                    where (predicate == null ? true : predicate(item))
                    select item;
