@@ -26,8 +26,10 @@ namespace PL
         BlApi.IBL bl;
         public Drone Drone { get; set; }//drone for binding
         private bool _close { get; set; } = false;//for closing the window
+
         FilterByWeightAndStatus weightAndStatus;
-        private MenuWindow droneListWindow;
+
+        private MenuWindow droneListWindow;//brings the menu window of the drone list
 
         private int Index;
 
@@ -353,6 +355,7 @@ namespace PL
             _close = true;
             Close();
         }
+
         /// <summary>
         /// Cancel button - closes a window
         /// </summary>

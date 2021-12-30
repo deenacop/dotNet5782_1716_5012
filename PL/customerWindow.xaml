@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="CustomerWindow" Height="370" Width="340">
+        Title="CustomerWindow" Closing="Window_Closing" Height="370" Width="340" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid x:Name="AddGrid" Background="#FF0F4E7A" DataContext="{Binding Drone}" Grid.Column="1" Height="340" Visibility="Visible"  >
+        <Grid x:Name="AddGrid" Background="#FF0F4E7A" DataContext="{Binding Customer}" Grid.Column="1" Height="340" Visibility="Visible"   >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
 
@@ -26,7 +26,7 @@
             <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold" Content="ID:" />
             <TextBox x:Name="txtID" FontWeight="Light" Grid.Column="1" Grid.Row="0"  FontSize="15" FontStyle="Italic" PreviewTextInput="NumberValidationTextBox"
                              TextWrapping="Wrap" Width="90"  Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"
-                             Text="{Binding Id, Mode=TwoWay}" TextChanged="txtID_TextChanged"  />
+                             Text="{Binding Id, Mode=TwoWay}"  />
 
 
             <Label VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" VerticalContentAlignment="Center" Foreground="White"  FontSize="20" FontWeight="Bold" Content="Name:"   Grid.Row="1"/>
@@ -36,7 +36,7 @@
 
 
             <Label  VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Top"  Grid.Column="0" Grid.Row="2" Foreground="White"  FontSize="20" FontWeight="Bold" Content="Phone number:" />
-            <TextBox x:Name="txtPhone"  Grid.Column="1" Width="90"  Height="30" Grid.Row="2"
+            <TextBox x:Name="txtPhone"  Grid.Column="1" Width="90"  Height="30" Grid.Row="2" PreviewTextInput="NumberValidationTextBox"
                                Text="{Binding PhoneNumber, Mode=TwoWay}"  HorizontalAlignment="Center" VerticalAlignment="Center" />
 
             <Grid Grid.ColumnSpan="2" Grid.Row="3">
@@ -78,7 +78,7 @@
 
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="btncancel" Background="White" Click="btnCancel_Click_1"  Width="220" Height="30" VerticalAlignment="Center" Grid.ColumnSpan="3">
+                <Button x:Name="btncancel" Background="White" Click="btnCancel_Click"   Width="220" Height="30" VerticalAlignment="Center" Grid.ColumnSpan="3">
                     <TextBlock Text="Cancle" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="#FF0F4E7A"/>
 
                 </Button>

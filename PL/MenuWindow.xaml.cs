@@ -225,12 +225,13 @@ namespace PL
             foreach (var current in tmp)
                 customerToLists.Add(current);
             CustomerListView.ItemsSource = customerToLists;
-            customerToLists.CollectionChanged += CustomerToLists_CollectionChanged;
             droneLists.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
             stationLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
+            customerToLists.CollectionChanged += CustomerToLists_CollectionChanged;
+
         }
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -344,19 +345,15 @@ namespace PL
             btnAdd.Visibility = Visibility.Visible;
         }
 
-        private void StationToLists_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            StationListView.Items.Refresh();
-        }
-
         private void StationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BaseStationToList station = (BaseStationToList)StationListView.SelectedItem;
             if (station != null)
-                new StationWindow().Show();
+                new StationWindow(bL,this).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
-        private void comboAvailableSlostSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        internal void SelectionAvailablity()
         {
             AvailablityStation availablity = (AvailablityStation)comboAvailableSlostSelector.SelectedItem;
             StationListView.ItemsSource = null;
@@ -368,6 +365,10 @@ namespace PL
                 StationListView.ItemsSource = stationToLists.Where(i => i.Key == true).SelectMany(i => i.Value);
             if (availablity == AvailablityStation.Unavailable)
                 StationListView.ItemsSource = stationToLists.Where(i => i.Key == false).SelectMany(i => i.Value);
+        }
+        private void comboAvailableSlostSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectionAvailablity();
         }
         #endregion
 
@@ -393,7 +394,7 @@ namespace PL
             }
             if (menuListView.SelectedItem == station)
             {
-                new StationWindow().Show();
+                new StationWindow(bL,this).Show();
             }
         }
     }
