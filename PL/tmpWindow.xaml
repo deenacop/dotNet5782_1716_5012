@@ -9,7 +9,7 @@
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         >
     <Grid>
-        <Image Margin="41,24,204,144" Stretch="Fill" gif:AnimationBehavior.SourceUri="" />
+        <Image Margin="41,24,204,144" Stretch="Fill"  gif:AnimationBehavior.SourceUri="Resources/droneSmaller.gif" />
 
         <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
