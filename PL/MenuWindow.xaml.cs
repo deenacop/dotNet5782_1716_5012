@@ -136,6 +136,7 @@ namespace PL
             ComboWeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             //Default - all
             ComboStatusSelector.SelectedIndex = 3;
+            droneGif.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Collapsed;
             stationLists.Visibility = Visibility.Collapsed;
@@ -225,6 +226,7 @@ namespace PL
             foreach (var current in tmp)
                 customerToLists.Add(current);
             CustomerListView.ItemsSource = customerToLists;
+            droneGif.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
             stationLists.Visibility = Visibility.Collapsed;
@@ -259,6 +261,7 @@ namespace PL
             comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             //Default - all
             comboStatusSelector.SelectedIndex = 4;
+            droneGif.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Collapsed;
             stationLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Collapsed;
@@ -338,6 +341,7 @@ namespace PL
             comboAvailableSlostSelector.ItemsSource = Enum.GetValues(typeof(AvailablityStation));
             StationListView.ItemsSource = stationToLists.Values.SelectMany(i => i);
             comboAvailableSlostSelector.SelectedIndex = 2;
+            droneGif.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Collapsed;

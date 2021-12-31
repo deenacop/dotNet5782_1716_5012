@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-     Title="AddDroneWindow" Height="400" Width="500" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+     Title="AddDroneWindow" Height="{Binding Path=sizeH}" Width="{Binding Path=sizeW}" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
+
         <Grid x:Name="UpdateGrid" Visibility="Visible"  DataContext="{Binding Drone}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1" Background="#FF0F4E7A"></Grid>
-            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\drone update.png" Height="150" Width="200" Margin="279,197,21,37" Grid.ColumnSpan="2"></Image>
+            <Grid Grid.Column="1"  Background="#FF0F4E7A"  >
+
+            </Grid>
+            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\drone update.png" Margin="300,197,41,63" Grid.ColumnSpan="2"/>
 
             <Grid x:Name="droneDetails" Grid.Column="0">
                 <Grid.ColumnDefinitions>
