@@ -18,6 +18,7 @@ namespace Dal
         static internal List<Station> Stations = new(5);
         static internal List<Customer> Customers = new(100);
         static internal List<DroneCharge> DroneCharges = new(10);
+        static internal List<User> Users = new(100);
         #endregion
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace Dal
                 Stations.Insert(i, new()
                 {
                     Id = rand.Next(1000, 10000),
-                    NumOfAvailableChargingSlots = rand.Next(0,30),
+                    NumOfAvailableChargingSlots = rand.Next(0, 30),
                     Name = addresArr[i],
                     Latitude = rand.NextDouble() + 31,
                     Longitude = rand.NextDouble() + 35
@@ -178,8 +179,32 @@ namespace Dal
                 }
                 Parcels.Add(newParcel);
             }
+            #endregion
+
+            #region User
+            Users.Insert(0, new()
+            {
+                Name = "shira segal",
+                Password = "shira1234",
+                EmailAddress = "103shira@gmail.com",
+                IsManager = true
+            });
+            Users.Insert(1, new()
+            {
+                Name = "deena cooperman",
+                Password = "deena1234",
+                EmailAddress = "deenacop@gmail.com",
+                IsManager = true
+            });
+            Users.Insert(2, new()
+            {
+                Name = "naama segal",
+                Password = "naama1234",
+                EmailAddress = "1654naama@gmail.com",
+                IsManager = false
+            });
+            #endregion
         }
-        #endregion
     }
 }
 

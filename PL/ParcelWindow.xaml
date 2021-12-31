@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ParcelWindow" Height="370" Width="340">
+        Title="ParcelWindow" Height="400" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid x:Name="AddGrid" Background="#FF0F4E7A" DataContext="{Binding Parcel}" Visibility="Visible"  >
+        <Grid x:Name="AddGrid" Background="#FF0F4E7A" DataContext="{Binding Parcel}" Visibility="Hidden"  >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

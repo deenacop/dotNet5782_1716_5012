@@ -34,6 +34,12 @@ namespace DalApi
         /// <param name="customer">The new Customer that will be added to the list of customer</param>
         /// <exception cref="DalObject.AlreadyExistedItemException>"
         public void Add(Customer customer);
+        /// <summary>
+        /// Add a user
+        /// </summary>
+        /// <param name="user">a user</param>
+        /// <exception cref="DO.AlreadyExistedItemException"></exception>
+        public void Add(User user);
         #endregion
 
         #region Drone operations
@@ -141,6 +147,12 @@ namespace DalApi
         /// <param name="parcelID"> The requested parcel</param>
         /// <exception cref="DalObject.ItemNotExistException"></exception>
         public Parcel GetParcel(int parcelID);
+        /// <summary>
+        /// Return the wanted user
+        /// </summary>
+        /// <param name="mail"> The requested mail</param>
+        /// <exception cref="DalObject.ItemNotExistException"></exception>
+        public User GetUser(string mail);
         #endregion
 
         #region List of items
@@ -169,6 +181,12 @@ namespace DalApi
         /// </summary>
         /// <returns>list of the drone in charging</returns>
         public IEnumerable<DroneCharge> GetListDroneCharge(Predicate<DroneCharge> predicate = null);
+        /// <summary>
+        /// Returns all the users 
+        /// </summary>
+        /// <returns>list of the users</returns>
+        public IEnumerable<User> GetListUsers(Predicate<User> predicate = null);
+
 
         /// <summary>
         /// requests power consumption by a drone

@@ -46,6 +46,12 @@ namespace Dal
                 throw new AlreadyExistedItemException("The customer already exists");
             DataSource.Customers.Add(customer);
         }
+        public void Add(User user)
+        {
+            if (DataSource.Users.Exists(i => i.EmailAddress == user.EmailAddress))
+                throw new AlreadyExistedItemException("The user already exists");
+            DataSource.Users.Add(user);
+        }
         #endregion
 
         #region Drone operations
@@ -205,6 +211,12 @@ namespace Dal
                 throw new ItemNotExistException("The parcel does not exists");
             return DataSource.Parcels.Find(i => i.Id == parcelID);
         }
+        public User GetUser(string mail)
+        {
+            if (!DataSource.Users.Exists(i => i.EmailAddress == mail))
+                throw new ItemNotExistException("The user does not exists");
+            return DataSource.Users.Find(i => i.EmailAddress == mail);
+        }
         #endregion
 
         #region Lists of items
@@ -249,6 +261,12 @@ namespace Dal
             //foreach (DroneCharge currentDrone in DataSource.DroneCharges) { droneCharging.Add(currentDrone); }
             //return droneCharging.FindAll(i => predicate == null ? true : predicate(i)); 
             return from item in DataSource.DroneCharges
+                   where (predicate == null ? true : predicate(item))
+                   select item;
+        }
+        public IEnumerable<User> GetListUsers(Predicate<User> predicate = null)
+        {
+            return from item in DataSource.Users
                    where (predicate == null ? true : predicate(item))
                    select item;
         }
