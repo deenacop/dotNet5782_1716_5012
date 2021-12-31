@@ -175,9 +175,9 @@ namespace PL
         {
             if (Drone.Status == BO.DroneStatus.Delivery)//if there is a parcel
             {
-                parcelDetails.Visibility = Visibility.Visible;
-                btnReciver.Visibility = Visibility.Visible;
-                btnSender.Visibility = Visibility.Visible;
+                //parcelDetails.Visibility = Visibility.Visible;
+                //btnReciver.Visibility = Visibility.Visible;
+                //btnSender.Visibility = Visibility.Visible;
             }
             else//if there is no parcel a message will be displayed to the user
             {
@@ -190,19 +190,19 @@ namespace PL
         /// </summary>
         /// <param name="sender">the butten</param>
         /// <param name="e">event</param>
-        private void showSender_Click(object sender, RoutedEventArgs e)
-        {
-            senderDetails.Visibility = Visibility.Visible;
-        }
+        //private void showSender_Click(object sender, RoutedEventArgs e)
+        //{
+        //    senderDetails.Visibility = Visibility.Visible;
+        //}
         /// <summary>
         /// Button for display reciver
         /// </summary>
         /// <param name="sender">the butten</param>
         /// <param name="e">event</param>
-        private void showreciver_Click(object sender, RoutedEventArgs e)
-        {
-            recieverDetails.Visibility = Visibility.Visible;
-        }
+        //private void showreciver_Click(object sender, RoutedEventArgs e)
+        //{
+        //    recieverDetails.Visibility = Visibility.Visible;
+        //}
 
         #endregion
         /// <summary>
@@ -230,7 +230,7 @@ namespace PL
             InitializeComponent();
             this.droneListWindow = _droneListWindow;
             //show the update grid:
-            UpdateGrid.Visibility = Visibility.Visible;
+            //UpdateGrid.Visibility = Visibility.Visible;
             comboWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
 
@@ -246,7 +246,7 @@ namespace PL
             txtId.IsEnabled = true;
             //show the add grid
             AddGrid.Visibility = Visibility.Visible;
-            UpdateGrid.Visibility = Visibility.Hidden;
+            //UpdateGrid.Visibility = Visibility.Hidden;
             btnUpdate.Visibility = Visibility.Collapsed;
             droneOptions.Visibility = Visibility.Collapsed;
         }
