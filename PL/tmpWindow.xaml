@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="tmpWindow" Height="400" Width="500"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="tmpWindow" Height="400" Width="500"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        >
     <Grid>
+        <Image Margin="41,24,204,144" Stretch="Fill" gif:AnimationBehavior.SourceUri="" />
+
         <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*"/>
