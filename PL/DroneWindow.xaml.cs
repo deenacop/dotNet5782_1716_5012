@@ -246,7 +246,7 @@ namespace PL
             txtId.IsEnabled = true;
             //show the add grid
             AddGrid.Visibility = Visibility.Visible;
-            //UpdateGrid.Visibility = Visibility.Hidden;
+            UpdateGrid.Visibility = Visibility.Hidden;
             btnUpdate.Visibility = Visibility.Collapsed;
             droneOptions.Visibility = Visibility.Collapsed;
         }

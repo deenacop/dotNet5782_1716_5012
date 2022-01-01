@@ -24,21 +24,74 @@ namespace PL
     {
         BlApi.IBL bl;
         public BaseStation Station { get; set; }//drone for binding
+
+        private int Index;
+        public int sizeH { get; set; }
+        public int sizeW { get; set; }
         private bool _close { get; set; } = false;//for closing the window
 
 
         private MenuWindow stationListWindow;
-        public StationWindow(BlApi.IBL bL, MenuWindow _stationListWindow)
-        {
+        //public StationWindow(BlApi.IBL bL, MenuWindow _stationListWindow)
+        //{
 
+        //    bl = bL;
+        //    Station = new();
+        //    Station.Location = new();
+        //    Station.DronesInCharging = new();
+        //    DataContext = this;
+        //    InitializeComponent();
+        //    this.stationListWindow = _stationListWindow;
+        //}
+
+        /// <summary>
+        /// ctor for update
+        /// </summary>
+        /// <param name="bL">BL object</param>
+        /// <param name="drone">selected drone</param>
+        /// <param name="_droneListWindow">access to the window</param>
+        /// <param name="_Index">the drone index</param>
+        public StationWindow(BlApi.IBL bL, BaseStation station, MenuWindow _stationListWindow, int _Index)
+        {
             bl = bL;
-            Station = new();
-            Station.Location = new();
-            Station.DronesInCharging = new();
+            Station = station;
+            
+            Index = _Index;
+            if (_Index == 0)
+            {
+                sizeW = 340; sizeH = 370;
+            }
+            else
+            {
+                sizeH = 400; sizeW = 500;
+            }
             DataContext = this;
             InitializeComponent();
             this.stationListWindow = _stationListWindow;
+            //show the update grid:
+            //UpdateGrid.Visibility = Visibility.Visible;
+           
+            
+
         }
+        /// <summary>
+        /// ctor for add
+        /// </summary>
+        /// <param name="bL">BL object</param>
+        /// <param name="droneListWindow">access to the window</param>
+        public StationWindow(BlApi.IBL bL, MenuWindow stationListWindow) : this(bL, new(), stationListWindow, 0)//sends to the other ctor
+        {
+            Station.Location = new();
+            Station.DronesInCharging = new();
+            txtId.IsEnabled = true;
+            //show the add grid
+            AddGrid.Visibility = Visibility.Visible;
+            UpdateGrid.Visibility = Visibility.Hidden;
+            //btnUpdate.Visibility = Visibility.Collapsed;
+            
+        }
+
+        #region
         /// <summary>
         /// add butten
         /// </summary>
@@ -103,6 +156,7 @@ namespace PL
                 MessageBox.Show("You can't force close the window");
             }
         }
+        #endregion
 
         /// <summary>
         /// Cancel button - closes a window
@@ -113,6 +167,33 @@ namespace PL
         {
             _close = true;
             Close();
+        }
+
+        /// <summary>
+        /// Click event-update butten
+        /// </summary>
+        /// <param name="sender">update butten</param>
+        /// <param name="e"> event</param>
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.UpdateStation(Station);
+                //stationListWindow.StationListView.Items.Refresh();
+                MessageBox.Show("The station has been updated successfully :)\n" + Station.ToString());
+                stationListWindow.SelectionAvailablity();
+                _close = true;
+                Close();
+            }
+            catch (Exception ex)//faild
+            {
+                MessageBox.Show("Failed to update the station: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+        }
+
+        private void showDrone_Click(object sender, RoutedEventArgs e)
+        {
+            new DroneInChargingWindow(bl).Show();
         }
     }
 }

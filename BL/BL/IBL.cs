@@ -123,6 +123,20 @@ namespace BlApi
         /// <returns>The wanted customer</returns>
         /// <exception cref="BlApi.BO.ItemNotExistException"></exception>
         Customer GetCustomer(int ID);
+
+
+
+
+        /// <summary>
+        /// Display one drone in charge
+        /// </summary>
+        /// <param name="id">drone ID</param>
+        /// <param name="stationId">station id</param>
+        /// <returns>the wanted drone</returns>
+        /// /// <exception cref="BlApi.BO.ItemNotExistException"></exception>
+        public DroneInCharging GetDroneInCharge(int id, int stationId);
+
+
         /// <summary>
         /// Display one user
         /// </summary>
@@ -189,6 +203,13 @@ namespace BlApi
         /// </summary>
         /// <returns>The list of users</returns>
         IEnumerable<User> GetListUsers(Predicate<User> predicate = null);
+
+        /// <summary>
+        /// Displays the list of BL drone in charging
+        /// </summary>
+        /// <returns>The list of drones</returns>
+        public IEnumerable<DroneInCharging> GetDroneInChargingList(Predicate<DroneInCharging> predicate = null);
+
         #endregion
 
     }

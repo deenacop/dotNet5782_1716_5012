@@ -206,6 +206,27 @@ namespace BL
             else throw new WorngStatusException("The parcel couldnt be delivered");
         }
 
+        public DroneInCharging GetDroneInCharge(int id, int stationId)
+        {
+
+            DroneInCharging droneInChargingBO = new();
+            try
+            {
+                DO.DroneCharge droneCharge = dal.GetDroneCharge(id, stationId).Item1;
+
+                droneCharge.CopyPropertiesTo(droneInChargingBO);
+                droneInChargingBO.Battery=DroneListBL.Find(i => i.Id == id).Battery;
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+
+            //if(droneInChargingBO.FinishedRecharging!=null)
+                return droneInChargingBO;
+            //throw new ItemNotExistException("drone does not exist");
+        }
+
         public Drone GetDrone(int id)
         {
             Drone droneBO = new();
@@ -247,6 +268,17 @@ namespace BL
             return droneBO;
         }
 
+      
+        public IEnumerable<DroneInCharging> GetDroneInChargingList(Predicate<DroneInCharging> predicate = null)
+        {
+            List<DroneInCharging> droneChargeBO=new();
+            foreach (DO.DroneCharge droneCharge in dal.GetListDroneCharge())
+            {
+                droneChargeBO.Add(GetDroneInCharge(droneCharge.Id, droneCharge.BaseStationID));
+            }
+            return droneChargeBO;
+        }
+       
         public IEnumerable<DroneToList> GetDroneList(Predicate<DroneToList> predicate = null)
         {
             return DroneListBL.FindAll(i => predicate == null ? true : predicate(i));
