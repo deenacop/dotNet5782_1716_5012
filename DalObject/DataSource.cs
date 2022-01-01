@@ -203,6 +203,13 @@ namespace Dal
                 EmailAddress = "1654naama@gmail.com",
                 IsManager = false
             });
+            Users.Insert(2, new()
+            {
+                Name = "try",
+                Password = "try",
+                EmailAddress = "try",
+                IsManager = true
+            });
             #endregion
         }
     }

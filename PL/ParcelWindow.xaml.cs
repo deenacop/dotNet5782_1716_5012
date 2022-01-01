@@ -48,9 +48,6 @@ namespace PL
             InitializeComponent();
             this.menuWindow = _menuWindow;
             //show the update grid:
-            comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
-            comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
-
         }
         /// <summary>
         /// ctor for add
@@ -66,9 +63,7 @@ namespace PL
             txtReciver.ItemsSource = bl.GetListCustomer().Select(i => i.Id);
             txtSender.ItemsSource = bl.GetListCustomer().Select(i => i.Id);
             AddGrid.Visibility = Visibility.Visible;
-            //UpdateGrid.Visibility = Visibility.Hidden;
-            //btnUpdate.Visibility = Visibility.Collapsed;
-            //droneOptions.Visibility = Visibility.Collapsed;
+            UpdateGrid.Visibility = Visibility.Hidden;
         }
 
 
@@ -137,15 +132,6 @@ namespace PL
         }
 
         /// <summary>
-        /// open the menu
-        /// </summary>
-        /// <param name="sender">menu</param>
-        /// <param name="e">event</param>
-        //private void MenuItem_Click(object sender, RoutedEventArgs e)
-        //{
-        //}
-
-        /// <summary>
         /// Cancel button - closes a window
         /// </summary>
         /// <param name="sender">cancel butten</param>
@@ -154,6 +140,19 @@ namespace PL
         {
             _close = true;
             Close();
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(Parcel.MyDrone.Id!=0)
+                 new DroneInParcelWindow(Parcel.MyDrone,bl,menuWindow).Show();
+            else if(Parcel.Delivered==null)
+                MessageBox.Show("The parcel has not been associated yet - there are no details about the drone");
+            else
+                MessageBox.Show("The parcel has been delivered - there are no details about the drone");
+
+
+
         }
     }
 }
