@@ -353,9 +353,11 @@ namespace PL
         {
             BaseStationToList station = (BaseStationToList)StationListView.SelectedItem;
             if (station != null)
-                new StationWindow(bL,this).Show();
-            // DroneListView.ItemsSource = bL.GetDroneList();
+                new StationWindow(bL, bL.GetBaseStation(station.Id), this, StationListView.SelectedIndex).Show();
+           
         }
+
+        
 
         internal void SelectionAvailablity()
         {

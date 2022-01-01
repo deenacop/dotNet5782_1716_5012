@@ -36,7 +36,7 @@ namespace BL
         public void UpdateStation(BaseStation baseStation)
         {
             if (baseStation.Name == null || baseStation.Name == "")
-                throw new WrongInputException("Missing drone model");
+                throw new WrongInputException("Missing station model");
             BaseStationToList stationList = new();
             baseStation.CopyPropertiesTo(stationList);
             object obj = new DO.Station();//Boxing and unBoxing

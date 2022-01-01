@@ -1,0 +1,32 @@
+﻿<Window x:Class="PL.DroneInChargingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="DroneInChargingWindow" Height="270" Width="540">
+    <Grid>
+        <Grid x:Name="DroneInChargingList" Height="270" Width="540" Background="#FFD6D6D6"  Visibility="Visible" DataContext="{Binding DroneInCharging}"  >
+
+            <ListView x:Name="DroneInChargingView"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"    Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}"   >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding DroneInCharging.Id}" Width="70"    ></GridViewColumn>
+                        <GridViewColumn Header="Battery" DisplayMemberBinding="{Binding DroneInCharging.Battery}" Width="70"  ></GridViewColumn>
+                        <GridViewColumn Header="Drone entry time for charging" DisplayMemberBinding="{Binding DroneInCharging.EnterToChargBase}" Width="180"></GridViewColumn>
+                        <GridViewColumn Header="Drone departure time from charging" DisplayMemberBinding="{Binding DroneInCharging.FinishedRecharging}" Width="220"></GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+    </Grid>
+</Window>

@@ -185,7 +185,7 @@
             </Grid.RowDefinitions>
             <ComboBox Grid.Row="0" Name="comboAvailableSlostSelector" SelectionChanged="comboAvailableSlostSelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  ToolTip="sort" BorderBrush="#FF140303" Grid.ColumnSpan="2" />
 
-            <ListView x:Name="StationListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  MouseDoubleClick="ParcelListView_MouseDoubleClick" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.Row="1">
+            <ListView x:Name="StationListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  MouseDoubleClick="StationListView_MouseDoubleClick" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.Row="1">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
