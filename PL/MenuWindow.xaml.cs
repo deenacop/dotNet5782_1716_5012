@@ -239,7 +239,7 @@ namespace PL
         {
             CustomerToList customer = (CustomerToList)CustomerListView.SelectedItem;
             if (customer != null)
-                new CustomerWindow(bL,this).Show();
+                new CustomerWindow(bL, bL.GetCustomer(customer.Id), this, CustomerListView.SelectedIndex).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
 

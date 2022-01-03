@@ -26,16 +26,91 @@ namespace PL
         private bool _close { get; set; } = false;//for closing the window
         
         private MenuWindow customerListWindow;//brings the menu window of the customer list
+        
+        private int Index;
+        public int sizeH { get; set; }
+        public int sizeW { get; set; }
 
-        public CustomerWindow(BlApi.IBL bL, MenuWindow _customerListWindow)
+
+        /// <summary>
+        /// ctor for update
+        /// </summary>
+        /// <param name="bL">BL object</param>
+        /// <param name="drone">selected drone</param>
+        /// <param name="_droneListWindow">access to the window</param>
+        /// <param name="_Index">the drone index</param>
+        public CustomerWindow(BlApi.IBL bL, Customer customer, MenuWindow _customerListWindow, int _Index)
+        {
+            bl = bL;
+            Customer = customer;
+
+            Index = _Index;
+            if (_Index == 0)
+            {
+                sizeW = 340; sizeH = 370;
+            }
+            else
+            {
+                sizeH = 400; sizeW = 500;
+            }
+            DataContext = this;
+            InitializeComponent();
+            this.customerListWindow = _customerListWindow;
+            //show the update grid:
+            //UpdateGrid.Visibility = Visibility.Visible;
+
+
+
+        }
+        /// <summary>
+        /// ctor for add
+        /// </summary>
+        /// <param name="bL">BL object</param>
+        /// <param name="droneListWindow">access to the window</param>
+        public CustomerWindow(BlApi.IBL bL, MenuWindow customerListWindow) : this(bL, new(), customerListWindow, 0)//sends to the other ctor
         {
             bl = bL;
             Customer = new();
             Customer.Location = new();
-            DataContext = this;
-            InitializeComponent();
-            this.customerListWindow = _customerListWindow;
+            txtId.IsEnabled = true;
+            AddGrid.Visibility = Visibility.Visible;
+            UpdateGrid.Visibility = Visibility.Hidden;
+       
         }
+
+        /// <summary>
+        /// Cancel button - closes a window
+        /// </summary>
+        /// <param name="sender">cancel butten</param>
+        /// <param name="e">event</param>
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            _close = true;
+            Close();
+        }
+
+        /// <summary>
+        /// Click event-update butten
+        /// </summary>
+        /// <param name="sender">update butten</param>
+        /// <param name="e"> event</param>
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.UpdateCustomer(Customer);
+                //stationListWindow.StationListView.Items.Refresh();
+                MessageBox.Show("The station has been updated successfully :)\n" + Customer.ToString());
+                
+                _close = true;
+                Close();
+            }
+            catch (Exception ex)//faild
+            {
+                MessageBox.Show("Failed to update the station: " + ex.GetType().Name + "\n" + ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// add butten
@@ -95,17 +170,21 @@ namespace PL
                 MessageBox.Show("You can't force close the window");
             }
         }
-
-        /// <summary>
-        /// Cancel button - closes a window
-        /// </summary>
-        /// <param name="sender">cancel butten</param>
-        /// <param name="e">event</param>
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void Image_MouseDown_sent(object sender, MouseButtonEventArgs e)
         {
-            _close = true;
-            Close();
+            if (Customer.FromCustomer.Count !=0)
+                new ParcelByCustomerWindow(Customer.FromCustomer, bl, customerListWindow).Show();
+            else
+                MessageBox.Show("The cutomer didn't send any parcels!");
         }
+        private void Image_MouseDown_received(object sender, MouseButtonEventArgs e)
+        {
+            if (Customer.ToCustomer.Count != 0)
+                new ParcelByCustomerWindow(Customer.ToCustomer, bl, customerListWindow).Show();
+            else
+                MessageBox.Show("The cutomer didn't receive any parcels!");
+        }
+        
     }
 
 

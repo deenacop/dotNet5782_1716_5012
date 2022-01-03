@@ -15,25 +15,24 @@ using BO;
 
 namespace PL
 {
-   
     /// <summary>
-    /// Interaction logic for DroneInChargingWindow.xaml
+    /// Interaction logic for ParcelByCustomerWindow.xaml
     /// </summary>
-    public partial class DroneInChargingWindow : Window
+    public partial class ParcelByCustomerWindow : Window
     {
-        public List<DroneInCharging> DroneInChargingLists;
-       
+        
         BlApi.IBL bL;
+        List<ParcelByCustomer> ParcelList;
         private bool _close { get; set; } = false;//for closing the window
-        public DroneInChargingWindow(BlApi.IBL bl, List<DroneInCharging> droneInChargingLists)
+        public ParcelByCustomerWindow(List<ParcelByCustomer> parcelList, BlApi.IBL bl, MenuWindow menu)
         {
             InitializeComponent();
             bL = bl;
-            DroneInChargingLists = new List<DroneInCharging>();
-            DroneInChargingLists = droneInChargingLists;
-            DroneInChargingView.ItemsSource = DroneInChargingLists;
+            ParcelList = new List<ParcelByCustomer>();
            
+            ParcelList = parcelList;
+            ParcelByCustomerView.ItemsSource = ParcelList;
         }
-        
     }
 }
+

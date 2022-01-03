@@ -342,7 +342,9 @@ namespace PL
         /// <param name="sender">menu</param>
         /// <param name="e">event</param>
         private void MenuItem_Click(object sender, RoutedEventArgs e) 
-        { 
+        {
+            new Menu().DataContext = droneOptions;
+            
         }
         
         /// <summary>
@@ -366,5 +368,7 @@ namespace PL
             _close = true;
             Close();
         }
+
+        
     }
 }

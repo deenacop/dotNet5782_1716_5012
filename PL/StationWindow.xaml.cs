@@ -193,7 +193,7 @@ namespace PL
 
         private void showDrone_Click(object sender, RoutedEventArgs e)
         {
-            new DroneInChargingWindow(bl).Show();
+            new DroneInChargingWindow(bl, Station.DronesInCharging).Show();
         }
     }
 }
