@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL
 {
@@ -19,9 +20,23 @@ namespace PL
     /// </summary>
     public partial class ParcelInTransferWindow : Window
     {
-        public ParcelInTransferWindow()
+        ParcelInTransfer parcelInTransfer; 
+        public ParcelInTransferWindow(ParcelInTransfer parcelIn)
         {
             InitializeComponent();
+            parcelInTransfer = parcelIn;
+            DataContext = parcelIn;
+        }
+        
+
+        private void Image_MouseDown_sender(object sender, MouseButtonEventArgs e)
+        {
+            new CustomerInParcelWindow(parcelInTransfer.SenderCustomer).Show();
+        }
+
+        private void Image_MouseDown_receiver(object sender, MouseButtonEventArgs e)
+        {
+            new CustomerInParcelWindow(parcelInTransfer.ReceiverCustomer).Show();
         }
     }
 }

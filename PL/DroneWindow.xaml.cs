@@ -197,9 +197,7 @@ namespace PL
         {
             if (Drone.Status == BO.DroneStatus.Delivery)//if there is a parcel
             {
-                //parcelDetails.Visibility = Visibility.Visible;
-                //btnReciver.Visibility = Visibility.Visible;
-                //btnSender.Visibility = Visibility.Visible;
+                new ParcelInTransferWindow(Drone.Parcel).Show();
             }
             else//if there is no parcel a message will be displayed to the user
             {
@@ -232,8 +230,7 @@ namespace PL
             DataContext = this;
             InitializeComponent();
             this.droneListWindow = _droneListWindow;
-            //show the update grid:
-            //UpdateGrid.Visibility = Visibility.Visible;
+            
             comboWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
 
