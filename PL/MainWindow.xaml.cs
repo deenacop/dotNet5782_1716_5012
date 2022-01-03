@@ -68,7 +68,10 @@ namespace PL
                 User tmp = bl.GetUser(username.Text);
                 if (tmp.Password != passwordcode.Text)
                     throw new ItemNotExistException();
-                new MenuWindow(bl).Show();
+                if (tmp.IsManager == true)
+                    new MenuWindow(bl).Show();
+                else
+                    new MenueUserWindow().Show();
 
             }
             catch (Exception)
