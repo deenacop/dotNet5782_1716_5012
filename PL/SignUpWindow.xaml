@@ -11,7 +11,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Label">
-                        <Border   BorderBrush="#FF0F4E7A" BorderThickness="2" Background="#FFD6D6D6" Opacity="0.9" Margin="-15,0,-13,10">
+                        <Border BorderBrush="#FF0F4E7A" BorderThickness="2" Background="#FFD6D6D6" Opacity="0.9" Margin="-15,0,-13,10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
@@ -28,15 +28,15 @@
             <RowDefinition Height="1.4*"/>
         </Grid.RowDefinitions>
         <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" Text="Create Account" Foreground="#FF0F4E7A" FontWeight="Bold" />
-        <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="120" Height="45" Style="{DynamicResource RoundedButtonStyle}"  >
-            <TextBox BorderBrush="{x:Null}" Width="132" Height="24" Background="{x:Null}" Text="{Binding Path=Name, Mode=TwoWay}" PreviewKeyDown="TextBox_OnlyLetters_PreviewKeyDown"   />
+        <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="120" Height="45" Style="{DynamicResource RoundedButtonStyle}" >
+            <TextBox BorderBrush="{x:Null}" Width="132" Height="24" Background="{x:Null}" Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" Text="{Binding Name, Mode=TwoWay}"  />
         </Label>
-      
-        <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Width="120" Height="45" Style="{DynamicResource RoundedButtonStyle}">
-            <TextBox  BorderBrush="{x:Null}" Width="132" Height="24" Background="{x:Null}" Foreground="White" FontFamily="Franklin Gothic Demi" Text="{Binding Path=EmailAddress, Mode=TwoWay}" PreviewKeyDown="TextBox_Email_PreviewKeyDown" />
+
+        <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Width="120" Height="45" Style="{DynamicResource RoundedButtonStyle}" >
+            <TextBox  BorderBrush="{x:Null}" Width="132" Height="24" Background="{x:Null}" Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" Text="{Binding EmailAddress, Mode=TwoWay}" />
         </Label>
-        <Label  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="3" Width="120" Height="45" Style="{DynamicResource RoundedButtonStyle}">
-            <TextBox BorderBrush="{x:Null}" Width="132" Height="24" Background="{x:Null}"  Text="{Binding Path=Password, Mode=TwoWay}" PreviewKeyDown="password_PreviewKeyDown"/>
+        <Label  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="3" Width="120" Height="45" Style="{DynamicResource RoundedButtonStyle}" >
+            <TextBox BorderBrush="{x:Null}" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" Text="{Binding Password, Mode=TwoWay}" />
         </Label>
         <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Width="70" Height="25" HorizontalContentAlignment="Center" Background="#FF0F4E7A" Content="SIGN UP" FontFamily="Franklin Gothic Demi" FontSize="10" Foreground="White" MouseDown="save_Click">
         </Label>

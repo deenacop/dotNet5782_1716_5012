@@ -23,12 +23,12 @@ namespace PL
             bl = BlFactory.GetBl();
             InitializeComponent();
         }
-         public override ValidationResult validate(Object value, CultureInfo culterInfo)
-        {
-            string charString = value as string;
-            if (charString.Length < 0)
-                return new ValidationResult(false, $"email address");
-        }
+        // public override ValidationResult validate(Object value, CultureInfo culterInfo)
+        //{
+        //    string charString = value as string;
+        //    if (charString.Length < 0)
+        //        return new ValidationResult(false, $"email address");
+        //}
         /// <summary>
         /// send to a get password window 
         /// </summary>

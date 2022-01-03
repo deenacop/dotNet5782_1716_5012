@@ -25,6 +25,11 @@ namespace PL
     {
         BlApi.IBL bl;
         public User user { get; set; }
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="bL"></param>
         public SignUpWindow(BlApi.IBL bL)
         {
             bl = bL;
@@ -34,142 +39,123 @@ namespace PL
             InitializeComponent();
         }
 
-        private void TextBox_OnlyLetters_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
+        //private void TextBox_OnlyLetters_PreviewKeyDown(object sender, KeyEventArgs e)
+        //{
 
-            TextBox text = sender as TextBox;
-            if (text == null) return;
-            if (e == null) return;
+        //    TextBox text = sender as TextBox;
+        //    if (text == null) return;
+        //    if (e == null) return;
 
-            //allow get out of the text box
-            if (e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Tab)
-            {
-                e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
-            }
+        //    //allow get out of the text box
+        //    if (e.Key == Key.Enter  e.Key == Key.Return  e.Key == Key.Tab)
+        //    {
+        //        e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
+        //    }
 
-            //allow list of system keys 
-            if (e.Key == Key.Escape || e.Key == Key.Back || e.Key == Key.Delete ||
-                e.Key == Key.CapsLock || e.Key == Key.LeftShift || e.Key == Key.Home
-             || e.Key == Key.End || e.Key == Key.Insert || e.Key == Key.Down || e.Key == Key.Right)
-                return;
+        //    //allow list of system keys 
+        //    if (e.Key == Key.Escape  e.Key == Key.Back  e.Key == Key.Delete 
+        //        e.Key == Key.CapsLock  e.Key == Key.LeftShift  e.Key == Key.Home
+        //      e.Key == Key.End  e.Key == Key.Insert  e.Key == Key.Down  e.Key == Key.Right)
+        //        return;
 
-            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+        //    char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
 
-            //allow control system keys
-            if (Char.IsControl(c)) return;
+        //    //allow control system keys
+        //    if (Char.IsControl(c)) return;
 
-            //allow digits (without Shift or Alt)
-            if (Char.IsLetter(c))
-                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
-                    return; //let this key be written inside the textbox
-                            //forbid letters and signs (#,$, %, ...)
-            e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
-            return;
-        }
-        private void password_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            if (text == null) return;
-            if (e == null) return;
+        //    //allow digits (without Shift or Alt)
+        //    if (Char.IsLetter(c))
+        //        if (!(Keyboard.IsKeyDown(Key.LeftShift)  Keyboard.IsKeyDown(Key.RightAlt)))
+        //            return; //let this key be written inside the textbox
+        //                    //forbid letters and signs (#,$, %, ...)
+        //    e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
+        //    return;
+        //}
+        //private void password_PreviewKeyDown(object sender, KeyEventArgs e)
+        //{
+        //    TextBox text = sender as TextBox;
+        //    if (text == null) return;
+        //    if (e == null) return;
 
-            //allow get out of the text box
-            if (e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Tab)
-            {
-                e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
-            }
+        //    //allow get out of the text box
+        //    if (e.Key == Key.Enter  e.Key == Key.Return  e.Key == Key.Tab)
+        //    {
+        //        e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
+        //    }
 
-            //allow list of system keys 
-            if (e.Key == Key.Escape || e.Key == Key.Back || e.Key == Key.Delete ||
-                e.Key == Key.CapsLock || e.Key == Key.LeftShift || e.Key == Key.Home
-             || e.Key == Key.End || e.Key == Key.Insert || e.Key == Key.Down || e.Key == Key.Right)
-                return;
+        //    //allow list of system keys 
+        //    if (e.Key == Key.Escape  e.Key == Key.Back  e.Key == Key.Delete 
+        //        e.Key == Key.CapsLock  e.Key == Key.LeftShift  e.Key == Key.Home
+        //      e.Key == Key.End  e.Key == Key.Insert  e.Key == Key.Down  e.Key == Key.Right)
+        //        return;
 
-            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+        //    char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
 
-            //allow control system keys
-            if (Char.IsControl(c)) return;
+        //    //allow control system keys
+        //    if (Char.IsControl(c)) return;
 
-            //allow digits (without Shift or Alt)
-            if (Char.IsDigit(c))
-                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
-                    return; //let this key be written inside the textbox
-                            //forbid letters and signs (#,$, %, ...)
-            e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
-            return;
-        }
-        private void SendMail()
-        {
-            try
-            {
-                MailMessage mail = new MailMessage();
-                mail.To.Add(user.EmailAddress);
-                mail.From = new MailAddress("wingsdronedeliverysystem@gmail.com");
-                mail.Subject = "Welcome to our delivery by drone System!";
-                mail.Body = "Hi " + user.Name + "\nRegistration for the system has been successfully completed.\nYour login information is: \nuser: " + user.Name + " password: " + user.Password;
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
-                {
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("wingsdronedeliverysystem@gmail.com", "Wings1234"),
-                    EnableSsl = true
-                };
+        //    //allow digits (without Shift or Alt)
+        //    if (Char.IsDigit(c))
+        //        if (!(Keyboard.IsKeyDown(Key.LeftShift)  Keyboard.IsKeyDown(Key.RightAlt)))
+        //            return; //let this key be written inside the textbox
+        //                    //forbid letters and signs (#,$, %, ...)
+        //    e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
+        //    return;
+        //}
 
-              smtp.Send(mail);
-            }
-            catch (Exception ex)
-            {
-                //תפיסה וטיפול בשגיאות
-                MessageBox.Show(ex.Message);
-            }
-        }
-        private void TextBox_Email_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            if (text == null) return;
-            if (e == null) return;
+        //private void TextBox_Email_PreviewKeyDown(object sender, KeyEventArgs e)
+        //{
+        //    TextBox text = sender as TextBox;
+        //    if (text == null) return;
+        //    if (e == null) return;
+        //    //allow get out of the text box
+        //    if (e.Key == Key.Enter  e.Key == Key.Return  e.Key == Key.Tab)
+        //    {
+        //        e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
+        //    }
 
-            //allow get out of the text box
-            if (e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Tab)
-            {
-                e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
-            }
+        //    //allow list of system keys 
+        //    if (e.Key == Key.Escape  e.Key == Key.Back  e.Key == Key.Delete 
+        //        e.Key == Key.CapsLock  e.Key == Key.LeftShift  e.Key == Key.Home
+        //      e.Key == Key.End  e.Key == Key.Insert  e.Key == Key.Down  e.Key == Key.Right)
+        //        return;
 
-            //allow list of system keys 
-            if (e.Key == Key.Escape || e.Key == Key.Back || e.Key == Key.Delete ||
-                e.Key == Key.CapsLock || e.Key == Key.LeftShift || e.Key == Key.Home
-             || e.Key == Key.End || e.Key == Key.Insert || e.Key == Key.Down || e.Key == Key.Right)
-                return;
+        //    char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
 
-            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
+        //    //allow control system keys
+        //    if (Char.IsControl(c)) return;
 
-            //allow control system keys
-            if (Char.IsControl(c)) return;
+        //    //allow dot
+        //    if (e.Key == Key.OemPeriod)
+        //    {
+        //        return;
+        //    }
 
-            //allow dot
-            if (e.Key == Key.OemPeriod)
-            {
-                return;
-            }
-
-            //allow @
-            if (e.Key == Key.Attn)
-            {
-                return;
-            }
+        //    //allow @
+        //    if (e.Key == Key.Attn)
+        //    {
+        //        return;
+        //    }
 
 
-            //allow digits (without Shift or Alt)
-            if (Char.IsLetterOrDigit(c))
-                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
-                    return; //let this key be written inside the textbox
-                            //forbid letters and signs (#,$, %, ...)
-            e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
-            return;
-        }
-        private void save_Click(object sender, RoutedEventArgs e)
+        //    //allow digits (without Shift or Alt)
+        //    if (Char.IsLetterOrDigit(c))
+        //        if (!(Keyboard.IsKeyDown(Key.LeftShift)  Keyboard.IsKeyDown(Key.RightAlt)))
+        //            return; //let this key be written inside the textbox
+        //                    //forbid letters and signs (#,$, %, ...)
+        //    e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
+        //    return;
+        //}
+        /// <summary>
+        /// save details and sign in
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void save_Click(object sender, RoutedEventArgs e)//
         {
             try
             {
-                if (user.Password == null || user.Name == null || user.EmailAddress == null )
+                if (user.Password == null||  user.Name == null || user.EmailAddress == null )
                 {
                     MessageBox.Show("you must fill all fields");
                     return;
@@ -187,7 +173,6 @@ namespace PL
                         SendMail();
                         Close();
                     }
-
                 }
             }
             catch (FormatException)
@@ -198,10 +183,33 @@ namespace PL
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-      
-            //Regex.IsMatch(user.Name, @"^[a-zA-Z]+$");
-            
+        /// <summary>
+        /// send mail to the new user
+        /// </summary>
+        private void SendMail()
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                mail.To.Add(user.EmailAddress);
+                mail.From = new MailAddress("wingsdronedeliverysystem@gmail.com");
+                mail.Subject = "Welcome to our delivery by drone System!";
+                mail.Body = "Hi " + user.Name + "\nRegistration for the system has been successfully completed.\nYour login information is: \nuser: " + user.Name + " password: " + user.Password;
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("wingsdronedeliverysystem@gmail.com", "Wings1234"),
+                    EnableSsl = true
+                };
+
+                smtp.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                //תפיסה וטיפול בשגיאות
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

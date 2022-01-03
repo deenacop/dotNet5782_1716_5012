@@ -193,7 +193,7 @@ namespace PL
         /// </summary>
         /// <param name="sender">the butten</param>
         /// <param name="e">event</param>
-        private void showParcel_Click(object sender, RoutedEventArgs e)
+        private void Image_MouseDown(object sender, RoutedEventArgs e)
         {
             if (Drone.Status == BO.DroneStatus.Delivery)//if there is a parcel
             {

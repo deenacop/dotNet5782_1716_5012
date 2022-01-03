@@ -23,6 +23,6 @@
         <Label Content="{Binding Id}" Foreground="White" FontSize="10" FontFamily="Ubuntu" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Width="90" />
         <Label Content="{Binding Name}" Foreground="White" FontSize="10" FontFamily="Ubuntu" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2"  Grid.Column="1" HorizontalAlignment="Center"  Width="100" />
         <Label Content="click to&#xA; see more" Foreground="White" Grid.Row="3" FontSize="6" FontWeight="Bold" Margin="45,11,82,-6" Grid.ColumnSpan="2" />
-        <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\leftfinal.png" Grid.Row="4" Height="20" Margin="17,9,50,15" MouseDown="Image_MouseDown"/>
+        <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\eye_64px.png" Grid.Row="4" Height="20" Margin="17,9,50,15" MouseDown="Image_MouseDown"/>
     </Grid>
 </Window>

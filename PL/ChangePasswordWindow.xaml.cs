@@ -22,22 +22,23 @@ namespace PL
     /// </summary>
     public partial class ChangePasswordWindow : Window
     {
-       public User user { get; set; }
         BlApi.IBL bL;
         public ChangePasswordWindow(BlApi.IBL bl)
         {
-            bL = bl;
-            user = new();
-            DataContext = this;
             InitializeComponent();
+            bL = bl;
         }
 
-   
+        /// <summary>
+        /// save the details and send a massage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void save_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (user.EmailAddress == "" || user.Password == ""|| newPassword.Text=="")
+                if (mailAddress.Text == "" || oldPassword.Text == "" || newPassword.Text == "")
                 {
                     MessageBox.Show("you must fill all fields");
                 }
@@ -45,14 +46,14 @@ namespace PL
                 {
                     MessageBox.Show("password should be with 6 digits");
                 }
-                if (newPassword.Text == bL.GetUser(user.EmailAddress).Password)
+                if (newPassword.Text == bL.GetUser(mailAddress.Text).Password)
                 {
                     MessageBox.Show("Choose a password that does not exist in the system");
                 }
                 else
                 {
                     SendMail();
-                    bL.updateUser(user.EmailAddress,newPassword.Text);
+                    bL.updateUser(mailAddress.Text, newPassword.Text);
                     Close();
                 }
             }
@@ -72,10 +73,10 @@ namespace PL
             try
             {
                 MailMessage mail = new MailMessage();
-                mail.To.Add(user.EmailAddress);
+                mail.To.Add(mailAddress.Text);
                 mail.From = new MailAddress("wingsdronedeliverysystem@gmail.com");
                 mail.Subject = "Get a new Password";
-                mail.Body = "Hi " + bL.GetUser(user.EmailAddress).Name + "\nYour new password is: " + newPassword.Text;
+                mail.Body = "Hi " + bL.GetUser(mailAddress.Text).Name + "\nYour new password is: " + newPassword.Text;
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
                 {
                     UseDefaultCredentials = false,
@@ -94,5 +95,3 @@ namespace PL
 
     }
 }
-
-

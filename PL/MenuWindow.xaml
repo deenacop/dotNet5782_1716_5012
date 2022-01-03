@@ -76,7 +76,7 @@
                     </ListViewItem>
                     <ListViewItem Name="logOut" Height="30" Selected="logOut_Selected">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\logout.png"  Height="20" VerticalAlignment="Center"/>
+                            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\logout.png"  Height="20" VerticalAlignment="Center"/>
                             <TextBlock Margin="18 0 0 0" Text="Sign out" VerticalAlignment="Center"/>
                         </StackPanel>
                     </ListViewItem>

@@ -115,7 +115,6 @@
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="1.5*"/>
-                    <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
 
@@ -142,8 +141,7 @@
 
                 <TextBlock x:Name="TXTLocation1" TextWrapping="Wrap" Foreground="#FF0F4E7A" Grid.Column="1" Grid.Row="6" FontSize="13" VerticalAlignment="Center"  FontWeight="Bold"
                              Text="{Binding Location}" HorizontalAlignment="Center" Width="120" />
-                <TextBlock x:Name="TXTLocation2" TextWrapping="Wrap" Foreground="#FF0F4E7A" Grid.Column="1" Grid.Row="7" FontSize="13" VerticalAlignment="Center"   FontWeight="Bold"
-                             Text="{Binding Location, Mode=TwoWay}" HorizontalAlignment="Center" Width="120" />
+                
                 <Button x:Name="btnCancel" Grid.Column="0"  Grid.Row="8" Height="20" Width="120" HorizontalAlignment="Center" Background="#FF0F4E7A"
                     Click="btnCancel_Click"  >
                     <TextBlock Text="cancel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold" Foreground="White">

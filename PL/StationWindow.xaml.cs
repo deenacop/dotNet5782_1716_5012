@@ -25,6 +25,8 @@ namespace PL
         BlApi.IBL bl;
         public BaseStation Station { get; set; }//drone for binding
 
+        public BaseStationToList BaseStationToList { get; set; }
+
         private int Index;
         public int sizeH { get; set; }
         public int sizeW { get; set; }
@@ -55,7 +57,7 @@ namespace PL
         {
             bl = bL;
             Station = station;
-            
+           
             Index = _Index;
             if (_Index == 0)
             {
@@ -191,9 +193,12 @@ namespace PL
             }
         }
 
-        private void showDrone_Click(object sender, RoutedEventArgs e)
+        private void Image_MouseDown(object sender, RoutedEventArgs e)
         {
-            new DroneInChargingWindow(bl, Station.DronesInCharging).Show();
+            if(Station.DronesInCharging.Count!=0)
+                new DroneInChargingWindow(bl, Station.DronesInCharging).Show();
+            else
+                MessageBox.Show("No drone are charging in this station ");
         }
     }
 }

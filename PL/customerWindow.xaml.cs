@@ -78,10 +78,7 @@ namespace PL
        
         }
 
-        public CustomerWindow(int id)
-        {
-            this.id = id;
-        }
+     
 
         /// <summary>
         /// Cancel button - closes a window
