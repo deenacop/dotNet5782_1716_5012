@@ -105,6 +105,14 @@ namespace DalApi
         /// <param name="customer">the update customer</param>
         /// <exception cref="DalObject.ItemNotExistException"></exception>
         public void UpdateCustomer(int ID, string name = null, string phone = null);
+        /// <summary>
+        /// Update the user password
+        /// </summary>
+        /// <param name="mail">the user mail</param>
+        /// <param name="password">the new password</param>
+        /// <exception cref="DalObject.ItemNotExistException"></exception>
+        public void updateUser(string mail, string password);
+
         #endregion
 
         #region Get a single item

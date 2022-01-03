@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Station>
+    <Id>5839</Id>
+    <Name>Balfour street, Jerusalem</Name>
+    <NumOfAvailableChargingSlots>27</NumOfAvailableChargingSlots>
+    <Longitude>35.738330082846026</Longitude>
+    <Latitude>31.51242946158742</Latitude>
+  </Station>
+  <Station>
+    <Id>1645</Id>
+    <Name>4 David Remez Street, Jerusalem</Name>
+    <NumOfAvailableChargingSlots>9</NumOfAvailableChargingSlots>
+    <Longitude>35.86691501870142</Longitude>
+    <Latitude>31.88915404206568</Latitude>
+  </Station>
+</ArrayOfStation>

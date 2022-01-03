@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Customer>
+    <Id>317133420</Id>
+    <Name>Shira Segal</Name>
+    <PhoneNumber>0548482282</PhoneNumber>
+    <Longitude>35.4004878850656</Longitude>
+    <Latitude>31.227495278803396</Latitude>
+  </Customer>
+  <Customer>
+    <Id>423684685</Id>
+    <Name>Deena Copperman</Name>
+    <PhoneNumber>0504188440</PhoneNumber>
+    <Longitude>35.118672928828126</Longitude>
+    <Latitude>31.266090597149958</Latitude>
+  </Customer>
+  <Customer>
+    <Id>152006552</Id>
+    <Name>Benjamin Netanyahu</Name>
+    <PhoneNumber>0548324567</PhoneNumber>
+    <Longitude>35.7822994551539</Longitude>
+    <Latitude>31.780671411091774</Latitude>
+  </Customer>
+  <Customer>
+    <Id>273291013</Id>
+    <Name>Yishai Ribu</Name>
+    <PhoneNumber>0547687689</PhoneNumber>
+    <Longitude>35.60971348435139</Longitude>
+    <Latitude>31.15327616555303</Latitude>
+  </Customer>
+  <Customer>
+    <Id>400638472</Id>
+    <Name>Yossi Cohen</Name>
+    <PhoneNumber>0525678997</PhoneNumber>
+    <Longitude>35.99984202114858</Longitude>
+    <Latitude>31.120998439901044</Latitude>
+  </Customer>
+  <Customer>
+    <Id>215644200</Id>
+    <Name>Moshe Leon</Name>
+    <PhoneNumber>0537897889</PhoneNumber>
+    <Longitude>35.233251401331856</Longitude>
+    <Latitude>31.688916513085793</Latitude>
+  </Customer>
+  <Customer>
+    <Id>494152658</Id>
+    <Name>Mordechai Glecer</Name>
+    <PhoneNumber>0527689646</PhoneNumber>
+    <Longitude>35.0367638860069</Longitude>
+    <Latitude>31.383796884391362</Latitude>
+  </Customer>
+  <Customer>
+    <Id>711248302</Id>
+    <Name>huda Seor</Name>
+    <PhoneNumber>0526789997</PhoneNumber>
+    <Longitude>35.852352330858054</Longitude>
+    <Latitude>31.67449303189036</Latitude>
+  </Customer>
+  <Customer>
+    <Id>723964238</Id>
+    <Name>Yigal Eyal</Name>
+    <PhoneNumber>0547890087</PhoneNumber>
+    <Longitude>35.29097429909323</Longitude>
+    <Latitude>31.016315661844015</Latitude>
+  </Customer>
+  <Customer>
+    <Id>773103599</Id>
+    <Name>Lior Ackerman</Name>
+    <PhoneNumber>0505678876</PhoneNumber>
+    <Longitude>35.09817567658526</Longitude>
+    <Latitude>31.711170818522188</Latitude>
+  </Customer>
+</ArrayOfCustomer>

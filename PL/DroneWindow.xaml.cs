@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using BlApi;
 using BO;
 
 namespace PL
@@ -41,6 +41,28 @@ namespace PL
         /// </summary>
         /// <param name="sender">update butten</param>
         /// <param name="e"> event</param>
+        public DroneWindow(IBL bL, Drone drone, int _Index)
+        {
+            bl = bL;
+            Drone = drone;
+            Index = _Index;
+            if (_Index == 0)
+            {
+                sizeW = 340; sizeH = 370;
+            }
+            else
+            {
+                sizeH = 400; sizeW = 500;
+            }
+            DataContext = this;
+            InitializeComponent();
+            comboWeight.SelectedItem = drone.Weight;
+            comboWeight.IsEnabled = false;
+            TXTModel.IsEnabled = false;
+            btnUpdate.Visibility = Visibility.Hidden;
+
+        }
+
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -185,25 +207,6 @@ namespace PL
 
             }
         }
-        /// <summary>
-        /// Button for display sender
-        /// </summary>
-        /// <param name="sender">the butten</param>
-        /// <param name="e">event</param>
-        //private void showSender_Click(object sender, RoutedEventArgs e)
-        //{
-        //    senderDetails.Visibility = Visibility.Visible;
-        //}
-        /// <summary>
-        /// Button for display reciver
-        /// </summary>
-        /// <param name="sender">the butten</param>
-        /// <param name="e">event</param>
-        //private void showreciver_Click(object sender, RoutedEventArgs e)
-        //{
-        //    recieverDetails.Visibility = Visibility.Visible;
-        //}
-
         #endregion
         /// <summary>
         /// ctor for update
@@ -250,16 +253,6 @@ namespace PL
             btnUpdate.Visibility = Visibility.Collapsed;
             droneOptions.Visibility = Visibility.Collapsed;
         }
-        /// <summary>
-        /// for changing the id txt box
-        /// </summary>
-        /// <param name="sender">wanted drone</param>
-        /// <param name="e">event</param>
-        //private void TxtId_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    int.TryParse(txtId.Text, out int id);
-        //    Drone.Id = id;
-        //}
 
         /// <summary>
         /// add butten
@@ -277,7 +270,7 @@ namespace PL
                 }
                 else
                 {
-                    
+
                     //sending for add
                     bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
                     weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;
@@ -285,8 +278,8 @@ namespace PL
                     if (droneListWindow.droneToLists.ContainsKey(weightAndStatus))
                         droneListWindow.droneToLists[weightAndStatus].Add(bl.GetDroneList().First(i => i.Id == Drone.Id));
                     else
-                        droneListWindow.droneToLists.Add(weightAndStatus,bl.GetDroneList().Where(i=>i.Id == Drone.Id).ToList());
-                    
+                        droneListWindow.droneToLists.Add(weightAndStatus, bl.GetDroneList().Where(i => i.Id == Drone.Id).ToList());
+
                     droneListWindow.SelectionStatusAndWeight();
                     //success
                     MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
@@ -306,8 +299,8 @@ namespace PL
         /// </summary>
         /// <param name="sender">the window</param>
         /// <param name="e">event</param>
-        private void Window_Loaded(object sender, RoutedEventArgs e) 
-        { 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
         }
 
         /// <summary>
@@ -324,8 +317,8 @@ namespace PL
             }
         }
 
-        
-        
+
+
         /// <summary>
         /// prevents from the user to enter letters in the id box
         /// </summary>
@@ -341,10 +334,10 @@ namespace PL
         /// </summary>
         /// <param name="sender">menu</param>
         /// <param name="e">event</param>
-        private void MenuItem_Click(object sender, RoutedEventArgs e) 
-        { 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
         }
-        
+
         /// <summary>
         /// Cancel button - closes a window
         /// </summary>

@@ -46,6 +46,17 @@ namespace BL
             }
 
         }
+        public void updateUser(string mail, string password)
+        {
+            try
+            {
+                dal.updateUser(mail,password);
+            }
+            catch(Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+        }
 
 
     }

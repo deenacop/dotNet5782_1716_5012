@@ -83,7 +83,7 @@
                 </Button>
                 <Button x:Name="btnUpdate"     Grid.Row="9" Grid.Column="1" Height="20" Width="80" HorizontalAlignment="Left"
                     Click="btnUpdate_Click" Background="#FF0F4E7A" Margin="88,26,0,26">
-                    <TextBlock Text="Update" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="10" FontWeight="Bold" Foreground="White">
+                    <TextBlock  Text="Update" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="10" FontWeight="Bold" Foreground="White">
                     </TextBlock>
                 </Button>
                 <Button x:Name="showParcel" Grid.Row="9"  Grid.ColumnSpan="2" Background="#FF0F4E7A"   Width="140"  Height="20" ToolTip="click to show parcel" Click="showParcel_Click" VerticalAlignment="Center" >

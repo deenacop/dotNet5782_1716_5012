@@ -26,6 +26,7 @@ namespace PL
         private bool _close { get; set; } = false;//for closing the window
         
         private MenuWindow customerListWindow;//brings the menu window of the customer list
+        private int id;
 
         public CustomerWindow(BlApi.IBL bL, MenuWindow _customerListWindow)
         {
@@ -35,6 +36,11 @@ namespace PL
             DataContext = this;
             InitializeComponent();
             this.customerListWindow = _customerListWindow;
+        }
+
+        public CustomerWindow(int id)
+        {
+            this.id = id;
         }
 
         /// <summary>

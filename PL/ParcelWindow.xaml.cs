@@ -31,9 +31,7 @@ namespace PL
         public ParcelWindow(BlApi.IBL bL, Parcel parcel, MenuWindow _menuWindow, int _Index)
         {
             bl = bL;
-            Parcel = parcel;
-            Parcel.SenderCustomer = new();
-            Parcel.TargetidCustomer = new();
+            Parcel = parcel;         
             PriorityAndStatus = new();
             Index = _Index;
             if (_Index == 0)
@@ -153,6 +151,24 @@ namespace PL
 
 
 
+        }
+        /// <summary>
+        /// a click event- see sender details 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Image_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            new CustomerInParcelWindow(Parcel.SenderCustomer).Show();
+        }
+        /// <summary>
+        /// a click event- see targetid details 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Image_MouseDown_2(object sender, MouseButtonEventArgs e)
+        {
+            new CustomerInParcelWindow(Parcel.TargetidCustomer).Show();
         }
     }
 }

@@ -23,18 +23,23 @@ namespace PL
         MenuWindow menuWindow;
         BlApi.IBL bL;
         DroneInParcel Drone;
-        public DroneInParcelWindow(DroneInParcel drone, BlApi.IBL bl,MenuWindow menu)
+        public DroneInParcelWindow(DroneInParcel drone, BlApi.IBL bl, MenuWindow menu)
         {
             InitializeComponent();
             bL = bl;
             DataContext = drone;
             Drone = drone;
+            Drone.Location = bl.GetDrone(drone.Id).Location;
             menuWindow = menu;
         }
-
+        /// <summary>
+        /// a click event- send to the DroneWindow if user like to see all details
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            new DroneWindow(bL,bL.GetDrone(Drone.Id),menuWindow,1).Show();
+            new DroneWindow(bL, bL.GetDrone(Drone.Id), 1).Show();
         }
     }
 }

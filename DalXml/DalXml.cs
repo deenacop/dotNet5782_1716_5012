@@ -1,19 +1,26 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using DO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using DalApi;
+using DO;
 
 namespace Dal
 {
-    internal sealed class DalObject : DalApi.IDal
+    internal sealed class DalXml : IDal
     {
+        private static string DroneXml = @"DroneXml.xml";
+        private static string ParcelXml = @"ParcelXml.xml";
+        private static string StationXml = @"StationXml.xml";
+        private static string DroneChargeXml = @"DroneChargeXml.xml";
+        private static string CustomerXml = @"CustomerXml.xml";
         #region singelton
-        internal static DalObject instance { get { return Instance.Value; } }
-        private static readonly Lazy<DalObject> Instance = new Lazy<DalObject>(() => new DalObject()); //Lazy initialization of an object means that its creation is deferred until it is first used.
-        static DalObject() {  }
-        private DalObject() { DataSource.Initialize(); }//ctor
-     
+        internal static DalXml instance { get { return Instance.Value; } }
+        private static readonly Lazy<DalXml> Instance = new Lazy<DalXml>(() => new DalXml()); //Lazy initialization of an object means that its creation is deferred until it is first used.
+        static DalXml() { }
+        private DalXml() { }//ctor
+
         #endregion
 
         #region Add
@@ -62,7 +69,7 @@ namespace Dal
                 throw new ItemNotExistException("The drone does not exists");
             //finds the wanted parcel
             int index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
-            if (index ==-1)//not found
+            if (index == -1)//not found
                 throw new ItemNotExistException("The station does not exists");
             //updates the parcel
             Parcel parcel = DataSource.Parcels[index];
@@ -126,7 +133,7 @@ namespace Dal
             if (!DataSource.Drones.Exists(i => i.Id == droneID))
                 throw new ItemNotExistException("The drone does not exists");
             int index = DataSource.Stations.FindIndex(i => i.Id == baseStationID);
-            if (index==-1)
+            if (index == -1)
                 throw new ItemNotExistException("The station does not exists");
             Station station = DataSource.Stations[index];
             station.NumOfAvailableChargingSlots++;
@@ -173,14 +180,14 @@ namespace Dal
                 DataSource.Customers[index] = tmp;
             }
         }
-        public void updateUser(string mail,string password)
+        public void updateUser(string mail, string password)
         {
             int index = DataSource.Users.FindIndex(i => i.EmailAddress == mail);
-            if(index == -1)//not exist
+            if (index == -1)//not exist
                 throw new ItemNotExistException("The user does not exsit");
             User tmp = DataSource.Users[index];
             tmp.Password = password;
-            DataSource.Users[index]=tmp;
+            DataSource.Users[index] = tmp;
         }
 
 
@@ -290,6 +297,4 @@ namespace Dal
         }
     }
 }
-
-
 

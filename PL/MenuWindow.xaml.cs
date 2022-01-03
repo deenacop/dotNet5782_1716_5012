@@ -111,8 +111,8 @@ namespace PL
         }
         #endregion
 
-        #region home item selected
-        private void home_Selected(object sender, RoutedEventArgs e)
+        #region logOut item selected
+        private void logOut_Selected(object sender, RoutedEventArgs e)
         {
             _close = true;
             Close();

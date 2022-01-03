@@ -11,7 +11,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Label">
-                        <Border CornerRadius="15" BorderThickness="1" Background="#FF0F4E7A" Opacity="0.9" Margin="-15,0,-13,10">
+                        <Border   BorderBrush="#FF0F4E7A" BorderThickness="2" Background="#FFD6D6D6" Opacity="0.9" Margin="-15,0,-13,10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
@@ -19,7 +19,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Background="WhiteSmoke" Opacity="1" Width="200" DataContext="{Binding user}">
+    <Grid Background="#FFD6D6D6" Opacity="1" Width="200" DataContext="{Binding user}">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1.2*"/>
@@ -38,7 +38,7 @@
         <Label  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="3" Width="120" Height="45" Style="{DynamicResource RoundedButtonStyle}">
             <TextBox BorderBrush="{x:Null}" Width="132" Height="24" Background="{x:Null}"  Text="{Binding Path=Password, Mode=TwoWay}" PreviewKeyDown="password_PreviewKeyDown"/>
         </Label>
-        <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Width="70" Height="37" Style="{DynamicResource RoundedButtonStyle}"  Content="SIGN UP" FontFamily="Franklin Gothic Demi" FontSize="10" Foreground="White" MouseDown="save_Click">
+        <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Width="70" Height="25" HorizontalContentAlignment="Center" Background="#FF0F4E7A" Content="SIGN UP" FontFamily="Franklin Gothic Demi" FontSize="10" Foreground="White" MouseDown="save_Click">
         </Label>
     </Grid>
 </Window>

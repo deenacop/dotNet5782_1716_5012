@@ -11,34 +11,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for tmpWindow.xaml
+    /// Interaction logic for CustomerInParcelWindow.xaml
     /// </summary>
-
-     
-    
-    public partial class tmpWindow : Window
+    public partial class CustomerInParcelWindow : Window
     {
-        public int sizeH { get; set; }
-        public int sizeW { get; set; }
-
-        public tmpWindow(string str)
+        CustomerInParcel customer;
+        public CustomerInParcelWindow(CustomerInParcel customerIn)
         {
-            if(str=="add")
-            {
-                sizeW = 340; sizeH = 370;
-            }
-            if(str=="update")
-            {
-                sizeH = 400; sizeW = 400;
-            }
-            DataContext = this;
             InitializeComponent();
+            customer = customerIn;
+            DataContext = customerIn;
         }
 
-
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
     }
 }

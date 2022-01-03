@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Properties\drone.gif" />
     <None Remove="Properties\droneSmaller.gif" />
   </ItemGroup>
 
@@ -29,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Properties\drone.gif" />
     <Resource Include="Properties\droneSmaller.gif" />
   </ItemGroup>
 

@@ -172,6 +172,13 @@ namespace BlApi
         /// <param name="numOfSlots">The numOfSlots of the wanted station</param>
         /// <exception cref="BlApi.BO.ItemNotExistException"></exception>
         void UpdateStation(BaseStation baseStation);
+        /// <summary>
+        /// Updates the User
+        /// </summary>
+        /// <param name="mail">the user mail</param>
+        /// <exception cref="BlApi.BO.ItemNotExistException"></exception>
+        void updateUser(string mail,string password);
+
         #endregion
 
         #region get list of items

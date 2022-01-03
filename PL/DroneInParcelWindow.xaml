@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneInParcelWindow" Height="260" Width="200" WindowStartupLocation="CenterScreen"  DataContext="{Binding Drone}">
+        Title="DroneInParcelWindow" Height="260" Width="200" WindowStartupLocation="CenterScreen"  DataContext="{Binding drone}">
     <Grid Background="#FF0F4E7A" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -25,9 +25,9 @@
 
         <Label Content="{Binding Path=Id}" Foreground="White" FontSize="10" FontFamily="Ubuntu" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" />
         <Label Content="{Binding Path=Battery}" Foreground="White" FontSize="10" FontFamily="Ubuntu" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2"  Grid.Column="1" HorizontalAlignment="Left" />
-        <Label Content="{Binding Path=Location}" Foreground="White" FontSize="5" FontFamily="Ubuntu" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Margin="0,44,0,0" Grid.RowSpan="2" Width="50"  />
-        <Label Content="{Binding Path=Location}" Foreground="White" FontSize="5" FontFamily="Ubuntu" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="23" Margin="0,0,0,44" Grid.RowSpan="2" Width="60" />
-        <Label Content="click to see&#xA; drone details" Foreground="White" Grid.Row="4" FontSize="6" FontWeight="Bold" Margin="47,7,80,-2" Grid.ColumnSpan="2" />
+        <Label Content="{Binding Path=Location}" Foreground="White" FontSize="10" FontFamily="Ubuntu" FontWeight="Bold"  HorizontalContentAlignment="Left" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="22"  Width="100"  />
+        <Label Content="{Binding Path=Location}" Foreground="White" FontSize="10" FontFamily="Ubuntu" FontWeight="Bold"  HorizontalContentAlignment="Left" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="23"  Width="100" />
+        <Label Content="click to see more&#xA; drone details" Foreground="White" Grid.Row="4" FontSize="6" FontWeight="Bold" Margin="45,7,82,-2" Grid.ColumnSpan="2" />
         <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\leftfinal.png" Grid.Row="4" Height="20" Margin="17,9,50,15" MouseDown="Image_MouseDown"/>
     </Grid>
 </Window>
