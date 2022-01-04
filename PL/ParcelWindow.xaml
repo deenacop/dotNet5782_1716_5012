@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ParcelWindow" Height="400" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="ParcelWindow" Height="{Binding Path=sizeH}" Width="{Binding Path=sizeW}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif">
     <Window.Resources>
         <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Button}">

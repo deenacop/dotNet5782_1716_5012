@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="StationWindow" Height="400" Width="500" ResizeMode="NoResize" Closing="Window_Closing" WindowStartupLocation="CenterScreen"
+        Title="StationWindow" Height="{Binding Path=sizeH}" Width="{Binding Path=sizeW}" ResizeMode="NoResize" Closing="Window_Closing" WindowStartupLocation="CenterScreen"
          xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif">
     <Grid>
         <Grid x:Name="AddGrid" Background="#FF0F4E7A" DataContext="{Binding BaseStation}"  Height="340" Visibility="Hidden"   >

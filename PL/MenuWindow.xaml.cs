@@ -353,7 +353,7 @@ namespace PL
         {
             BaseStationToList station = (BaseStationToList)StationListView.SelectedItem;
             if (station != null)
-                new StationWindow(bL, bL.GetBaseStation(station.Id), this, StationListView.SelectedIndex).Show();
+                new StationWindow(bL, bL.GetBaseStation(station.Id), this, 1).Show();
            
         }
 
