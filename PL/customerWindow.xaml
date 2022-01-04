@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="CustomerWindow" Closing="Window_Closing" Height="400" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="CustomerWindow" Closing="Window_Closing" Height="{Binding Path=sizeH}" Width="{Binding Path=sizeW}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif">
 
     <Grid>
