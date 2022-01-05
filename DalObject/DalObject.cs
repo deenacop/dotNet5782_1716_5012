@@ -48,8 +48,10 @@ namespace Dal
         }
         public void Add(User user)
         {
-            if (DataSource.Users.Exists(i => i.EmailAddress == user.EmailAddress))
+            if (DataSource.Users.Exists(i => i.EmailAddress == user.EmailAddress || i.Id==user.Id))
                 throw new AlreadyExistedItemException("The user already exists");
+            Customer customer=user.ConverUserToCustomer();
+            DataSource.Customers.Add(customer);
             DataSource.Users.Add(user);
         }
         #endregion

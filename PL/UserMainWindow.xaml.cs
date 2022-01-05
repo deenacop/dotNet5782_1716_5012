@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL
 {
@@ -20,10 +21,60 @@ namespace PL
     public partial class UserMainWindow : Window
     {
         BlApi.IBL bL;
-        public UserMainWindow(BlApi.IBL bl)
+        public Parcel addParcel { get; set; }
+        User user;
+        private bool _close { get; set; } = false;//for closing the window
+
+        public UserMainWindow(BlApi.IBL bl, User User)
         {
+            user = User;
             bL = bl;
+            addParcel = new();
+            addParcel.SenderCustomer = new();
+            addParcel.TargetidCustomer = new();
             InitializeComponent();
+            DataContext = this;
+            txtReciver.ItemsSource = bl.GetListCustomer().Select(i => i.Id);
+            comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.ParcelStatus));
+            comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+        }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            _close = true;
+            Close();
+        }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (comboPrioritySelector.SelectedItem == null || txtReciver == null || comboWeightSelector == null)
+            {
+                MessageBox.Show("Missing drone details: ");
+            }
+            else
+            {
+                addParcel.SenderCustomer.Id = user.Id;
+                //sending for add
+                bL.AddParcel(addParcel);
+               // menuWindow.parcelToList[PriorityAndStatus].Add(bl.GetListParcel().Last());
+                //success
+                MessageBox.Show("The parcel has been added successfully :)\n" + addParcel.ToString());
+
+                _close = true;
+                try { DialogResult = true; }
+                catch (InvalidOperationException) { Close(); }
+
+                catch (Exception ex)//failed
+                {
+                    MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message);
+                }
+            }
+
         }
     }
 }

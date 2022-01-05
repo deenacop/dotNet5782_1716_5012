@@ -53,6 +53,22 @@ namespace DO
                 to.Add(t);
             }
         }
+        /// <summary>
+        /// convert by hand a user to a customer
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="customer"></param>
+        public static Customer ConverUserToCustomer(this User user)
+        {
+            return new()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                PhoneNumber = user.PhoneNumber,
+                Longitude = user.Longitude,
+                Latitude = user.Latitude
+            };
+        }
     }
 }
 

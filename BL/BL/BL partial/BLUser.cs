@@ -17,6 +17,8 @@ namespace BL
                 object obj = tmpUser;//Boxing and unBoxing
                 user.CopyPropertiesTo(obj);
                 tmpUser = (DO.User)obj;
+                tmpUser.Longitude = user.Location.Longitude;
+                tmpUser.Latitude = user.Location.Latitude;
                 dal.Add(tmpUser);
             }
             catch (Exception ex)

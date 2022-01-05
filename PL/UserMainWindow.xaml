@@ -5,41 +5,159 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UserMainWindow" Height="450" Width="800">
-    <Grid Background="WhiteSmoke" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1" >
+        Title="UserMainWindow" Height="450" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TabControl  TabStripPlacement="Bottom">
+            <TabItem Header="HOME" Height="50" Width="200" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" >
+                <Grid Background="WhiteSmoke" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.3*"/>
+                        <RowDefinition   Height="5*"/>
+
+                    </Grid.RowDefinitions>
+                    <Grid  Background="#FFCAA5A5" >
+                     <Label Content="contact details: wingsdronedeliverysystem@gmail.com" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF0F3A63"/>
+                    </Grid>
+                        <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\UserMenu.jpg" Grid.Column="1" Margin="9,0,-9,0"/>
+                        <Label Content="WELCOME TO WINGS&#xA; future is alredy here" Margin="94,78,288,91" FontFamily="Aharoni" FontSize="38" Grid.ColumnSpan="3" Foreground="#FF0F3A63"/>
+                        <Expander Margin="101,183,392,-29" Content="Drones offer a more cost-effective way to deliver,&#xA;by reducing shipping times and reducing operating costs.&#xA;Through our constant focus on customers, employees and safety,&#xA;we create new and innovative logistics platforms for companies and government agencies."
+                      FontSize="9" Header="Drones supply is a disruptive technology&#xA; that redefines the traditional logistics industry.&#xA;&#xA;read more" Foreground="#FF0F3A63" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </Grid>
+                <!--<Grid Grid.Row="2">-->
+            </TabItem >
+
+            <TabItem Header="SEND A PARCEL" Height="50" Width="200" Foreground="#FF0F3A63"  FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15">
+                <Grid  Background="#FFC7E0F1">
+                    <Grid  Background="#FF0F4E7A" DataContext="{Binding addParcel}" Width="250" Height="300" Visibility="Visible" Opacity="0.7" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.ColumnSpan="2" Content="plesce enter yours parcel details" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Foreground="White"  FontSize="13" FontFamily="Arial" BorderBrush="#FFF5E6E6" BorderThickness="1"/>
+
+                        <Label Content="please choose the ID&#xA;of the recipient of the&#xA;parcel" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Foreground="White"  FontSize="9" FontFamily="Arial" />
+                        <ComboBox x:Name="txtReciver"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                             Width="90"  Height="30" SelectedItem="{Binding TargetidCustomer.Id ,Mode=TwoWay}"  />
+
+
+                        <Label Content="please choose yours&#xA;parcel weight" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Foreground="White"  FontSize="9" FontFamily="Arial" />
+                        <ComboBox Name="comboWeightSelector" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Width="90"  Height="30" 
+                                SelectedItem="{Binding Weight, Mode=TwoWay}"  />
+
+
+                        <Label Content="please choose yours&#xA;parcel priority&#xA;  *in order for the delivery&#xA;   to arrive on time" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Foreground="White"  FontSize="8" FontFamily="Arial" />
+                        <ComboBox Name="comboPrioritySelector" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"  Width="90" Height="30" VerticalContentAlignment="Center"
+                          SelectedItem="{Binding Path=Priority, Mode=TwoWay}"  />
+
+
+                        <Button x:Name="btnAdd"  VerticalAlignment="Center" Grid.ColumnSpan="2"  Grid.Row="4"  Width="220" Height="30" Background="White"
+                    Content="Add" VerticalContentAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="#FF0F4E7A" Click="btnAdd_Click">
+                        </Button>
+                        <!--<Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\cancelfinal.png" Margin="14,16,45,14" Grid.Column="1"/>
+            <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\addfinal.png" Margin="16,-42,43,72" Grid.Column="1"/>-->
+                    </Grid>
+
+                </Grid>
+
+
+            </TabItem>
+            <TabItem Header="VIEW MY PARCELS"  Height="50" Width="200" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15">
+                <Grid Background="#FF0F4E7A" Opacity="0.7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="SeeToMe" Content="check to see the parcel that in the way to you" Foreground="WhiteSmoke" FontSize="16" Margin="17,75,10,250" />
+                    <CheckBox x:Name="SeefromMe" Content="check to see the parcel that you sent" Foreground="WhiteSmoke" FontSize="16" Margin="17,25,30,306" />
+                    <ListView x:Name="ParcelByCustomerView" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="28" Width="370" Margin="17,103,0,0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.Style>
+                            <Style TargetType="ListView">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=SeefromMe, Path=IsChecked}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.Style>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="40"    ></GridViewColumn>
+                                <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="40"  ></GridViewColumn>
+                                <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding  Priority}" Width="50"></GridViewColumn>
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding  Status}" Width="50"></GridViewColumn>
+                                <GridViewColumn Header="Id of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Id}" Width="170"></GridViewColumn>
+                                <GridViewColumn Header="Name of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Name}" Width="170"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <ListView x:Name="ParcelByCustomerView1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="28" Width="370" Margin="17,103,0,0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.Style>
+                            <Style TargetType="ListView">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=SeeToMe, Path=IsChecked}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.Style>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="40"    ></GridViewColumn>
+                                <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="40"  ></GridViewColumn>
+                                <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding  Priority}" Width="50"></GridViewColumn>
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding  Status}" Width="50"></GridViewColumn>
+                                <GridViewColumn Header="Id of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Id}" Width="170"></GridViewColumn>
+                                <GridViewColumn Header="Name of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Name}" Width="170"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\UserMenu.jpg"  Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <Label Content="WELCOME TO WINGS&#xA; future is alredy here" Margin="94,84,288,102" FontFamily="Aharoni" FontSize="38" Grid.ColumnSpan="2" Foreground="#FF0F3A63"/>
-            <Expander Margin="101,201,392,53" Content="
-                      Drones offer a more cost-effective way to deliver,&#xA; by reducing shipping times and reducing operating costs.&#xA;
-                      Through our constant focus on customers, employees and safety,&#xA; we create new and innovative logistics platforms for companies and government agencies."
-                      FontSize="11" Header="Drones supply is a disruptive technology&#xA; that redefines the traditional logistics industry.&#xA;read more" Foreground="#FF0F3A63" Grid.ColumnSpan="2"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="LOG OUT" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF0B222A" MouseDown="Label_MouseDown" Margin="0,0,0,1"/>
+            <Image Grid.Row="1" Grid.Column="1" Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\shutdown.png" VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" MouseDown="Label_MouseDown" Margin="164,0,0,0"/>
         </Grid>
-        <Grid Grid.Row="2">
-            <TabControl>
-                <TabItem Header="Name of tab 1">
-                    <Label Content="content"/>
-                </TabItem>
-                <TabItem Header="name">
-                    <Label Content="content"/>
-
-                </TabItem>
-                <TabItem Header="name3">
-                    <Label Content="content"/>
-                </TabItem>
-            </TabControl>
-            
-        </Grid>
-
-
     </Grid>
+
+
+    <!--</Grid>-->
+
+
+
 </Window>

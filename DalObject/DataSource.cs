@@ -186,31 +186,82 @@ namespace Dal
             #region User
             Users.Insert(0, new()
             {
+                Id = 768594756,
                 Name = "shira segal",
+                PhoneNumber = "0549764329",
                 Password = "shira1234",
                 EmailAddress = "103shira@gmail.com",
-                IsManager = true
+                IsManager = true,
+                Latitude = 31.4,
+                Longitude = 35.5
             });
             Users.Insert(1, new()
             {
+                Id = 123456789,
                 Name = "deena cooperman",
+                PhoneNumber = "0547628751",
                 Password = "deena1234",
                 EmailAddress = "deenacop@gmail.com",
-                IsManager = true
+                IsManager = true,
+                Latitude = 31.2,
+                Longitude = 35.2
             });
             Users.Insert(2, new()
             {
+                Id = 345678912,
                 Name = "naama segal",
+                PhoneNumber = "0547627751",
                 Password = "naama1234",
                 EmailAddress = "1654naama@gmail.com",
-                IsManager = false
+                IsManager = false,
+                Longitude = 35.6,
+                Latitude = 31.3
             });
             Users.Insert(2, new()
             {
+                Id = 567891234,
                 Name = "try",
+                PhoneNumber = "0549096309",
                 Password = "try",
                 EmailAddress = "try",
-                IsManager = true
+                IsManager = true,
+                Longitude = 35.8,
+                Latitude = 31.4
+            });
+            //My program is based on the fact that every new user is automatically registered in the system as a customer as well.
+            //Because in the data layer I initialize by hand (in order to run), I now add each of the users I entered by hand to the user list,
+            //also to the customer list at the same time.
+            Customers.Insert(10, new()
+            {
+                Id = 768594756,
+                Name = "shira segal",
+                PhoneNumber = "0549764329",
+                Latitude = 31.4,
+                Longitude = 35.5
+            });
+            Customers.Insert(11, new()
+            {
+                Id = 123456789,
+                Name = "deena cooperman",
+                PhoneNumber = "0547628751",
+                Latitude = 31.2,
+                Longitude = 35.2
+            });
+            Customers.Insert(12, new()
+            {
+                Id = 345678912,
+                Name = "naama segal",
+                PhoneNumber = "0547627751",
+                Longitude = 35.6,
+                Latitude = 31.3
+            });
+            Customers.Insert(13, new()
+            {
+                Id = 567891234,
+                Name = "try",
+                PhoneNumber = "0549096309",
+                Longitude = 35.8,
+                Latitude = 31.4
             });
             #endregion
 

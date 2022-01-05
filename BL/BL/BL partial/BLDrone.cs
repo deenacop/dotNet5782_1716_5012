@@ -50,6 +50,8 @@ namespace BL
             DroneToList listDrone = DroneListBL.FirstOrDefault(d => d.Id == drone.Id);
             if (listDrone == null)
                 throw new ItemNotExistException("Drone does not exist");
+            if(drone.Status==DroneStatus.Delivery)//
+                throw new WorngStatusException ("Drone cant be update while delivery");
             drone.CopyPropertiesTo(listDrone);
             object obj = new DO.Drone();//Boxing and unBoxing
             drone.CopyPropertiesTo(obj);

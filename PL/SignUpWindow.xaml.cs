@@ -34,7 +34,10 @@ namespace PL
         {
             bl = bL;
             user = new();
-            user.IsManager = false;
+            user.Location = new();
+            user.IsManager = false;//We do not want to allow anyone who enters the app to register as a manager.
+                                   //If you want to register as a manager you must get a special permit from usת
+                                   //and we will register you by hand.
             DataContext = this;
             InitializeComponent();
         }
@@ -146,6 +149,7 @@ namespace PL
         //    e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
         //    return;
         //}
+
         /// <summary>
         /// save details and sign in
         /// </summary>

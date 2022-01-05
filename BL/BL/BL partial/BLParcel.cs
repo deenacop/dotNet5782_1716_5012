@@ -11,8 +11,8 @@ namespace BL
         {
             try
             {
-                dal.GetCustomer(parcel.SenderCustomer.Id);
-                dal.GetCustomer(parcel.TargetidCustomer.Id);
+                parcel.SenderCustomer.Name=dal.GetCustomer(parcel.SenderCustomer.Id).Name;
+                parcel.TargetidCustomer.Name=dal.GetCustomer(parcel.TargetidCustomer.Id).Name;
             }
             catch (Exception)
             {
