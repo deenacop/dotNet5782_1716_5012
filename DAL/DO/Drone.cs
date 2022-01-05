@@ -18,6 +18,11 @@ namespace DO
         /// <summary>
         /// drone weight
         /// </summary>
+
+        /// <summary>
+        /// Field that tells you if the item has been removed or not
+        /// </summary>
+        public bool IsRemoved { get; set; }
         public WeightCategories Weight { get; set; }
         public override string ToString()
         {

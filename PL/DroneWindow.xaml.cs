@@ -197,7 +197,7 @@ namespace PL
         {
             if (Drone.Status == BO.DroneStatus.Delivery)//if there is a parcel
             {
-                new ParcelInTransferWindow(Drone.Parcel).Show();
+                new ParcelInTransferWindow(Drone.Parcel,bl, droneListWindow).Show();
             }
             else//if there is no parcel a message will be displayed to the user
             {

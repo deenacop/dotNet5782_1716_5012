@@ -27,6 +27,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{B2ED
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{69FB672E-98E1-425B-AE35-0254A6902CBD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xmlFiles", "xmlFiles", "{8F9DF0B3-DA5B-4D31-B2A4-B4648FF55A4B}"
+	ProjectSection(SolutionItems) = preProject
+		CustomerXml.xml = CustomerXml.xml
+		DroneChargeXml.xml = DroneChargeXml.xml
+		DroneXml.xml = DroneXml.xml
+		ParcelXml.xml = ParcelXml.xml
+		StationXml.xml = StationXml.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

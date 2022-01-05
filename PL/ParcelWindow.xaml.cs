@@ -55,6 +55,7 @@ namespace PL
         public ParcelWindow(BlApi.IBL bL, MenuWindow menuWindow) : this(bL, new(), menuWindow, 0)//sends to the other ctor
         {
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+            comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
             txtSender.IsEnabled = true;
             txtReciver.IsEnabled = true;
             //show the add grid
@@ -81,11 +82,13 @@ namespace PL
                 }
                 else
                 {
+                    Parcel.SenderCustomer = new();
+                    Parcel.TargetidCustomer = new();
                     Parcel.SenderCustomer.Id = (int)txtSender.SelectedItem;
                     Parcel.TargetidCustomer.Id = (int)txtReciver.SelectedItem;
                     //sending for add
                     bl.AddParcel(Parcel);
-                    PriorityAndStatus.Priority = Parcel.Priority;
+                    PriorityAndStatus.Priority = BO.Priorities.Normal;
                     PriorityAndStatus.Status = BO.ParcelStatus.Defined;
                     if (menuWindow.parcelToList.ContainsKey(PriorityAndStatus))
                         menuWindow.parcelToList[PriorityAndStatus].Add(bl.GetListParcel().Last());
@@ -159,7 +162,7 @@ namespace PL
         /// <param name="e"></param>
         private void Image_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            new CustomerInParcelWindow(Parcel.SenderCustomer).Show();
+            new CustomerInParcelWindow(Parcel.SenderCustomer,bl,menuWindow).Show();
         }
         /// <summary>
         /// a click event- see targetid details 
@@ -168,7 +171,7 @@ namespace PL
         /// <param name="e"></param>
         private void Image_MouseDown_2(object sender, MouseButtonEventArgs e)
         {
-            new CustomerInParcelWindow(Parcel.TargetidCustomer).Show();
+            new CustomerInParcelWindow(Parcel.TargetidCustomer, bl, menuWindow).Show();
         }
     }
 }

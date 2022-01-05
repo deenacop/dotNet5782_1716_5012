@@ -11,7 +11,7 @@ namespace BL
         {
             try
             {
-                parcel.SenderCustomer.Name=dal.GetCustomer(parcel.SenderCustomer.Id).Name;
+                parcel.SenderCustomer.Name = dal.GetCustomer(parcel.SenderCustomer.Id).Name;
                 parcel.TargetidCustomer.Name=dal.GetCustomer(parcel.TargetidCustomer.Id).Name;
             }
             catch (Exception)
@@ -24,6 +24,7 @@ namespace BL
                 throw new WrongInputException("Wrong input");
             parcel.Requested = DateTime.Now;
             parcel.MyDrone = new();
+            
             try
             {
                 DO.Parcel tmpParcel = new();
@@ -32,11 +33,28 @@ namespace BL
                 tmpParcel = (DO.Parcel)obj;
                 tmpParcel.Sender = parcel.SenderCustomer.Id;
                 tmpParcel.Targetid = parcel.TargetidCustomer.Id;
-                dal.Add(tmpParcel);
+                int id=dal.Add(tmpParcel);
+                parcel.Id = id;
             }
             catch (Exception ex)
             {
                 throw new ItemAlreadyExistsException(ex.Message);
+            }
+        }
+
+        public void RemoveParcel(Parcel parcel)
+        {
+            try
+            {
+                DO.Parcel parcelDO = new();
+                object obj = parcelDO;//boxing and unBoxing
+                parcel.CopyPropertiesTo(obj);
+                parcelDO = (DO.Parcel)obj;
+                dal.Remove(parcelDO);
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
             }
         }
 

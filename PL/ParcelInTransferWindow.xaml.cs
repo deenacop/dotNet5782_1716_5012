@@ -20,23 +20,27 @@ namespace PL
     /// </summary>
     public partial class ParcelInTransferWindow : Window
     {
+        BlApi.IBL bL;
+        MenuWindow menuWindow;
         ParcelInTransfer parcelInTransfer; 
-        public ParcelInTransferWindow(ParcelInTransfer parcelIn)
+        public ParcelInTransferWindow(ParcelInTransfer parcelIn, BlApi.IBL bl, MenuWindow menu)
         {
             InitializeComponent();
             parcelInTransfer = parcelIn;
             DataContext = parcelIn;
+            bL = bl;
+            menuWindow = menu;
         }
         
 
         private void Image_MouseDown_sender(object sender, MouseButtonEventArgs e)
         {
-            new CustomerInParcelWindow(parcelInTransfer.SenderCustomer).Show();
+            new CustomerInParcelWindow(parcelInTransfer.SenderCustomer,bL, menuWindow).Show();
         }
 
         private void Image_MouseDown_receiver(object sender, MouseButtonEventArgs e)
         {
-            new CustomerInParcelWindow(parcelInTransfer.ReceiverCustomer).Show();
+            new CustomerInParcelWindow(parcelInTransfer.ReceiverCustomer, bL, menuWindow).Show();
         }
     }
 }
