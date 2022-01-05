@@ -52,9 +52,10 @@ namespace Dal
                     Id = rand.Next(1000, 10000),
                     NumOfAvailableChargingSlots = rand.Next(0, 30),
                     Name = addresArr[i],
+                    IsRemoved = false,
                     Latitude = rand.NextDouble() + 31,
                     Longitude = rand.NextDouble() + 35
-                });
+                }) ;
                 for (int j = 0; j < i; j++)//Checks that the ID number is unique to each station.
                 {
                     if (Stations[j].Id == Stations[i].Id)
@@ -77,6 +78,7 @@ namespace Dal
                 drone.Id = rand.Next(100, 1000);
                 drone.Model = modelArr[rand.Next(5)];
                 drone.Weight = WeightCategories.Heavy;
+                drone.IsRemoved = false;
                 if (flag >= 20)
                 {
                     drone.Weight = WeightCategories.Medium;
@@ -111,7 +113,8 @@ namespace Dal
                     Latitude = rand.NextDouble() + 31,
                     Longitude = rand.NextDouble() + 35,
                     Name = nameArr[i],
-                    PhoneNumber = phoneArr[i]
+                    PhoneNumber = phoneArr[i],
+                    IsRemoved=false
 
                 });
                 for (int j = 0; j < i; j++)//Checks that the ID number is unique to each customer.
@@ -132,6 +135,7 @@ namespace Dal
                 newParcel.Id = Config.RunnerIDNumParcels++;//Updating the ID number of the package
                 newParcel.Sender = Customers[rand.Next(0, 10)].Id;//Updating the ID number of the sender
                 newParcel.MyDroneID = 0;//Updating the ID number of the drone
+                newParcel.IsRemoved = false;
                 do//checks that the sender and the receiver are noT the same person
                 {
                     newParcel.Targetid = Customers[rand.Next(0, 10)].Id;
@@ -190,6 +194,7 @@ namespace Dal
                 Password = "shira1234",
                 EmailAddress = "103shira@gmail.com",
                 IsManager = true
+                
             });
             Users.Insert(1, new()
             {

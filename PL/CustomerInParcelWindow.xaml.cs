@@ -20,17 +20,21 @@ namespace PL
     /// </summary>
     public partial class CustomerInParcelWindow : Window
     {
+        MenuWindow menuWindow;
+        BlApi.IBL bL;
         CustomerInParcel customer;
-        public CustomerInParcelWindow(CustomerInParcel customerIn)
+        public CustomerInParcelWindow(CustomerInParcel customerIn,BlApi.IBL bl, MenuWindow menu)
         {
             InitializeComponent();
             customer = customerIn;
             DataContext = customerIn;
+            bL = bl;
+            menuWindow = menu;
         }
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            new CustomerWindow(bL, bL.GetCustomer(customer.Id), menuWindow, 1).Show();
         }
     }
 }

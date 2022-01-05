@@ -27,6 +27,10 @@ namespace DO
         /// Latitude
         /// </summary>
         public double Latitude { get; set; }
+        ///<summary>
+        /// Field that tells you if the item has been removed or not
+        /// </summary>
+        public bool IsRemoved { get; set; }
         public override string ToString()
         {
             string str = "Station ID:" + Id + "\nStation name:" + Name + "\nNumber of available slots:" + NumOfAvailableChargingSlots

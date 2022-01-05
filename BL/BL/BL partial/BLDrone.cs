@@ -42,6 +42,23 @@ namespace BL
                 throw new ItemAlreadyExistsException("Trying to add an existing drone", ex);
             }
         }
+
+        public void RemoveDrone(Drone drone)
+        {
+            try
+            {
+                DO.Drone droneDO = new();
+                object obj = droneDO;//boxing and unBoxing
+                drone.CopyPropertiesTo(obj);
+                droneDO = (DO.Drone)obj;
+                dal.Remove(droneDO);
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+
+        }
         public void UpdateDrone(Drone drone)
         {
             if (drone.Model == null || drone.Model == "")

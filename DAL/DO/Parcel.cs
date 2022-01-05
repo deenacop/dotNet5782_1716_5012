@@ -47,7 +47,10 @@ namespace DO
         /// time of arrival at the destination
         /// </summary>
         public DateTime? Delivered { get; set; }
-
+        ///<summary>
+        /// Field that tells you if the item has been removed or not
+        /// </summary>
+        public bool IsRemoved { get; set; }
         public override string ToString()
         {
             string str = "Parcel ID:" + Id + "\nParcel sender:" + Sender + "\nParcel targetid:" + Targetid +

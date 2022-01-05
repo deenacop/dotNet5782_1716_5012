@@ -33,6 +33,23 @@ namespace BL
             }
         }
 
+        public void RemoveCustomer(Customer customer)
+        {
+            try
+            {
+                DO.Customer customerDO = new();
+                object obj = customerDO;//boxing and unBoxing
+                customer.CopyPropertiesTo(obj);
+                customerDO = (DO.Customer)obj;
+                dal.Remove(customerDO);
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+
+        }
+
         public void UpdateCustomer(Customer customer)
         {
             if (customer.Name == null || customer.Name == "")

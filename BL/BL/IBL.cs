@@ -47,7 +47,35 @@ namespace BlApi
         /// </summary>
         /// <param name="user">a user</param>
         /// <exception cref="BO.ItemAlreadyExistsException"></exception>
-        public void AddUser(User user);
+        void AddUser(User user);
+        #endregion
+
+        #region Remove
+
+        /// <summary>
+        /// Removes the drone from the list
+        /// </summary>
+        /// <param name="drone">the drone that needs to be removed</param>
+        void RemoveDrone(Drone drone);
+
+        /// <summary>
+        /// Removes the parcel from the list
+        /// </summary>
+        /// <param name="parcel">the parcel that needs to be removed</param>
+        void RemoveParcel(Parcel parcel);
+
+        /// <summary>
+        /// Removes the customer from the list
+        /// </summary>
+        /// <param name="customer">the customer that needs to be removed</param>
+        void RemoveCustomer(Customer customer);
+
+        /// <summary>
+        /// Removes the baseStation from the list
+        /// </summary>
+        /// <param name="baseStation">the baseStation that needs to be removed</param>
+        void RemoveStation(BaseStation baseStation);
+
         #endregion
 
         #region drone operations

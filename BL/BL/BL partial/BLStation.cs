@@ -33,6 +33,22 @@ namespace BL
             }
         }
 
+        public void RemoveStation(BaseStation baseStation)
+        {
+            try
+            {
+                DO.Station stationlDO = new();
+                object obj = stationlDO;//boxing and unBoxing
+                baseStation.CopyPropertiesTo(obj);
+                stationlDO = (DO.Station)obj;
+                dal.Remove(stationlDO);
+            }
+            catch (Exception ex)
+            {
+                throw new ItemNotExistException(ex.Message);
+            }
+        }
+
         public void UpdateStation(BaseStation baseStation)
         {
             if (baseStation.Name == null || baseStation.Name == "")

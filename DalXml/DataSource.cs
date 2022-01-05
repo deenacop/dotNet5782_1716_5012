@@ -214,18 +214,18 @@ namespace Dal
             });
             #endregion
 
-            //XMLTools.SaveListToXMLSerializer(Drones, DroneXml);
-            //XMLTools.SaveListToXMLSerializer(Parcels, ParcelXml);
-            //XMLTools.SaveListToXMLSerializer(Stations, StationXml);
-            //XMLTools.SaveListToXMLSerializer(DroneCharges, DroneChargeXml);
-            //XMLTools.SaveListToXMLSerializer(Customers, CustomerXml);
+            XMLTools.SaveListToXMLSerializer(Drones, DroneXml);
+            XMLTools.SaveListToXMLSerializer(Parcels, ParcelXml);
+            XMLTools.SaveListToXMLSerializer(Stations, StationXml);
+            XMLTools.SaveListToXMLSerializer(DroneCharges, DroneChargeXml);
+            XMLTools.SaveListToXMLSerializer(Customers, CustomerXml);
 
         }
-        //private static string DroneXml = @"DroneXml.xml";
-        //private static string ParcelXml = @"ParcelXml.xml";
-        //private static string StationXml = @"StationXml.xml";
-        //private static string DroneChargeXml = @"DroneChargeXml.xml";
-        //private static string CustomerXml = @"CustomerXml.xml";
+        private static string DroneXml = @"DroneXml.xml";
+        private static string ParcelXml = @"ParcelXml.xml";
+        private static string StationXml = @"StationXml.xml";
+        private static string DroneChargeXml = @"DroneChargeXml.xml";
+        private static string CustomerXml = @"CustomerXml.xml";
     }
 }
 

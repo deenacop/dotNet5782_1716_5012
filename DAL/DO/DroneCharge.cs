@@ -13,7 +13,10 @@ namespace DO
 
         public DateTime? FinishedRecharging { get; set; }
 
-
+        ///<summary>
+        /// Field that tells you if the item has been removed or not
+        /// </summary>
+        public bool IsRemoved { get; set; }
         public override string ToString()
         {
             string str = "ID of the base station in drone charge:" + BaseStationID + "\nID of the drone in drone charge:" + Id + "\n";

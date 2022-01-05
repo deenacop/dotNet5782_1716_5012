@@ -11,9 +11,9 @@ namespace Dal
         #region singelton
         internal static DalObject instance { get { return Instance.Value; } }
         private static readonly Lazy<DalObject> Instance = new Lazy<DalObject>(() => new DalObject()); //Lazy initialization of an object means that its creation is deferred until it is first used.
-        static DalObject() {  }
+        static DalObject() { }
         private DalObject() { DataSource.Initialize(); }//ctor
-     
+
         #endregion
 
         #region Add
@@ -22,6 +22,7 @@ namespace Dal
             //checks if the drone exists and if not throws an exception
             if (DataSource.Drones.Exists(i => i.Id == drone.Id))
                 throw new AlreadyExistedItemException("The drone already exists");
+            drone.IsRemoved = false;
             DataSource.Drones.Add(drone);
         }
 
@@ -30,13 +31,17 @@ namespace Dal
             //checks if the station exists and if not throws an exception
             if (DataSource.Stations.Exists(i => i.Id == station.Id))
                 throw new AlreadyExistedItemException("The station already exists");
+            station.IsRemoved = false;
             DataSource.Stations.Add(station);
         }
 
-        public void Add(Parcel parcel)
-        {
+        public int Add(Parcel parcel)
+        {//the parcel is struct and thats why, when we update the parcel's id it doesnt send it to the BL because its not by ref.
+            // so we sent to the BL the id, that the parcel of BO also will have the id.
             parcel.Id = DataSource.Config.RunnerIDNumParcels++;
+            parcel.IsRemoved = false;
             DataSource.Parcels.Add(parcel);
+            return parcel.Id;
         }
 
         public void Add(Customer customer)
@@ -44,6 +49,7 @@ namespace Dal
             //checks if the customer exists and if not throws an exception
             if (DataSource.Customers.Exists(i => i.Id == customer.Id))
                 throw new AlreadyExistedItemException("The customer already exists");
+            customer.IsRemoved = false;
             DataSource.Customers.Add(customer);
         }
         public void Add(User user)
@@ -54,6 +60,50 @@ namespace Dal
         }
         #endregion
 
+        #region Remove
+        public void Remove(Drone drone)
+        {
+            //checks if the drone exists and if not throws an exception
+            int index = DataSource.Drones.FindIndex(item => item.Id == drone.Id);
+            if (index == -1)//not exist
+                throw new ItemNotExistException("Drone does not exist");
+            drone.IsRemoved = true;
+            DataSource.Drones[index] = drone;
+        }
+
+
+        public void Remove(Station station)
+        {
+            //checks if the station exists and if not throws an exception
+            int index = DataSource.Stations.FindIndex(item => item.Id == station.Id);
+            if (index == -1)//not exist
+                throw new ItemNotExistException("Station does not exist");
+            station.IsRemoved = true;
+            DataSource.Stations[index] = station;
+        }
+
+        public void Remove(Parcel parcel)
+        {
+            //checks if the parcel exists and if not throws an exception
+            int index = DataSource.Parcels.FindIndex(item => item.Id == parcel.Id);
+            if (index == -1)//not exist
+                throw new ItemNotExistException("parcel does not exist");
+            parcel.IsRemoved = true;
+            DataSource.Parcels[index] = parcel;
+        }
+
+        public void Remove(Customer customer)
+        {
+            //checks if the customer exists and if not throws an exception
+            int index = DataSource.Customers.FindIndex(item => item.Id == customer.Id);
+            if (index == -1)//not exist
+                throw new ItemNotExistException("customer does not exist");
+            customer.IsRemoved = true;
+            DataSource.Customers[index] = customer;
+        }
+        
+        #endregion
+
         #region Drone operations
         public void AssignParcelToDrone(int parcelID, int droneID)
         {
@@ -62,7 +112,7 @@ namespace Dal
                 throw new ItemNotExistException("The drone does not exists");
             //finds the wanted parcel
             int index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
-            if (index ==-1)//not found
+            if (index == -1)//not found
                 throw new ItemNotExistException("The station does not exists");
             //updates the parcel
             Parcel parcel = DataSource.Parcels[index];
@@ -126,7 +176,7 @@ namespace Dal
             if (!DataSource.Drones.Exists(i => i.Id == droneID))
                 throw new ItemNotExistException("The drone does not exists");
             int index = DataSource.Stations.FindIndex(i => i.Id == baseStationID);
-            if (index==-1)
+            if (index == -1)
                 throw new ItemNotExistException("The station does not exists");
             Station station = DataSource.Stations[index];
             station.NumOfAvailableChargingSlots++;
@@ -173,14 +223,14 @@ namespace Dal
                 DataSource.Customers[index] = tmp;
             }
         }
-        public void updateUser(string mail,string password)
+        public void updateUser(string mail, string password)
         {
             int index = DataSource.Users.FindIndex(i => i.EmailAddress == mail);
-            if(index == -1)//not exist
+            if (index == -1)//not exist
                 throw new ItemNotExistException("The user does not exsit");
             User tmp = DataSource.Users[index];
             tmp.Password = password;
-            DataSource.Users[index]=tmp;
+            DataSource.Users[index] = tmp;
         }
 
 

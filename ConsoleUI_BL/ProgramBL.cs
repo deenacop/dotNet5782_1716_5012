@@ -171,6 +171,7 @@ namespace ConsoleUI_BL
                                           
                                             tmp.Model = model;
                                             bl.UpdateDrone(tmp);
+                                            bl.RemoveDrone(tmp);
                                             break;
                                         }
 
@@ -191,6 +192,7 @@ namespace ConsoleUI_BL
                                             if (ansNum != 0)
                                                 tmp.NumOfAvailableChargingSlots = ansNum;
                                             bl.UpdateStation(tmp);
+                                            bl.RemoveStation(tmp);
                                             break;
                                         }
 
@@ -212,6 +214,7 @@ namespace ConsoleUI_BL
                                             if (ansPhone != null)
                                                 tmp.PhoneNumber = ansPhone;
                                             bl.UpdateCustomer(tmp);
+                                            bl.RemoveCustomer(tmp);
                                             break;
                                         }
                                     case (int)UpdateOptions.SendDroneToCharge:
