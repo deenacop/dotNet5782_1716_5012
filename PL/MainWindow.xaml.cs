@@ -71,7 +71,7 @@ namespace PL
                 if (tmp.IsManager == true)
                     new MenuWindow(bl).Show();
                 else
-                    new MenueUserWindow().Show();
+                    new UserMainWindow(bl).Show();
 
             }
             catch (Exception)
