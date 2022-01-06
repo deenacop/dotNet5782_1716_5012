@@ -61,6 +61,7 @@ namespace PL
             Index = _Index;
             if (_Index == 0)
             {
+                Station.Location = new();
                 sizeW = 340; sizeH = 370;
             }
             else
@@ -70,11 +71,6 @@ namespace PL
             DataContext = this;
             InitializeComponent();
             this.stationListWindow = _stationListWindow;
-            //show the update grid:
-            //UpdateGrid.Visibility = Visibility.Visible;
-           
-            
-
         }
         /// <summary>
         /// ctor for add
@@ -83,7 +79,6 @@ namespace PL
         /// <param name="droneListWindow">access to the window</param>
         public StationWindow(BlApi.IBL bL, MenuWindow stationListWindow) : this(bL, new(), stationListWindow, 0)//sends to the other ctor
         {
-            Station.Location = new();
             Station.DronesInCharging = new();
             txtId.IsEnabled = true;
             //show the add grid

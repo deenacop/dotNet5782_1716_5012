@@ -22,7 +22,7 @@ namespace PL
     public partial class CustomerWindow : Window
     {
         BlApi.IBL bl;
-        public Customer Customer { get; set; }//customer for binding
+        public Customer Customer { get; set; } = new();//customer for binding
         private bool _close { get; set; } = false;//for closing the window
 
         private MenuWindow customerListWindow;//brings the menu window of the customer list
@@ -54,10 +54,10 @@ namespace PL
         {
             bl = bL;
             Customer = customer;
-
             Index = _Index;
             if (_Index == 0)
             {
+                Customer.Location = new();
                 sizeW = 340; sizeH = 370;
             }
             else
@@ -76,16 +76,10 @@ namespace PL
         public CustomerWindow(BlApi.IBL bL, MenuWindow customerListWindow) : this(bL, new(), customerListWindow, 0)//sends to the other ctor
         {
             bl = bL;
-            Customer = new();
-            Customer.Location = new();
             txtId.IsEnabled = true;
             AddGrid.Visibility = Visibility.Visible;
             UpdateGrid.Visibility = Visibility.Hidden;
-
         }
-
-
-
         /// <summary>
         /// Cancel button - closes a window
         /// </summary>
@@ -109,7 +103,6 @@ namespace PL
                 bl.UpdateCustomer(Customer);
                 //stationListWindow.StationListView.Items.Refresh();
                 MessageBox.Show("The customer has been updated successfully :)\n" + Customer.ToString());
-                
                 _close = true;
                 Close();
             }
@@ -118,8 +111,6 @@ namespace PL
                 MessageBox.Show("Failed to update the customer: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
-
-
         /// <summary>
         /// add butten
         /// </summary>
@@ -136,13 +127,11 @@ namespace PL
                 }
                 else
                 {
-
                     //sending for add
                     bl.AddCustomer(Customer);
                     customerListWindow.customerToLists.Add(bl.GetListCustomer().Last());
                     //success
                     MessageBox.Show("The customer has been added successfully :)\n" + Customer.ToString());
-
                     _close = true;
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
                 }
@@ -152,8 +141,6 @@ namespace PL
                 MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
-
-
         /// <summary>
         /// prevents from the user to enter letters in the id box
         /// </summary>
@@ -164,7 +151,6 @@ namespace PL
             System.Text.RegularExpressions.Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
         /// <summary>
         /// The function is prevent force closing
         /// </summary>
@@ -192,7 +178,11 @@ namespace PL
             else
                 MessageBox.Show("The cutomer didn't receive any parcels!");
         }
-
+        /// <summary>
+        /// remove button for removing a customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
             try
