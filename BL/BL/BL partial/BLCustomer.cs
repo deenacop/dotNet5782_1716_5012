@@ -128,7 +128,7 @@ namespace BL
 
         public IEnumerable<CustomerToList> GetListCustomer(Predicate<CustomerToList> predicate = null)
         {
-            IEnumerable<DO.Customer> customerDO = dal.GetListCustomer();
+            IEnumerable<DO.Customer> customerDO = dal.GetListCustomer(item=>!item.IsRemoved);
             List<CustomerToList> customerToLists = new();
             foreach (DO.Customer currentCustomer in customerDO)
             {

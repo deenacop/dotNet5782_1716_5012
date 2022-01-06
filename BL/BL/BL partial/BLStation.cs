@@ -113,7 +113,7 @@ namespace BL
 
         public IEnumerable<BaseStationToList> GetBaseStationList(Predicate<BaseStationToList> predicate = null)
         {
-            IEnumerable<DO.Station> stations = dal.GetListStation();
+            IEnumerable<DO.Station> stations = dal.GetListStation(i=>!i.IsRemoved);
             List<BaseStationToList> stationToLists = new();
             foreach (DO.Station currentStation in stations)
             {

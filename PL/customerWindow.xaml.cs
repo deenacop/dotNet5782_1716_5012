@@ -102,14 +102,14 @@ namespace PL
             {
                 bl.UpdateCustomer(Customer);
                 //stationListWindow.StationListView.Items.Refresh();
-                MessageBox.Show("The station has been updated successfully :)\n" + Customer.ToString());
+                MessageBox.Show("The customer has been updated successfully :)\n" + Customer.ToString());
                 
                 _close = true;
                 Close();
             }
             catch (Exception ex)//faild
             {
-                MessageBox.Show("Failed to update the station: " + ex.GetType().Name + "\n" + ex.Message);
+                MessageBox.Show("Failed to update the customer: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
 
@@ -186,7 +186,23 @@ namespace PL
             else
                 MessageBox.Show("The cutomer didn't receive any parcels!");
         }
-        
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            //try
+            //{
+            //    bl.RemoveCustomer(Customer);
+            //    //stationListWindow.StationListView.Items.Refresh();
+            //    MessageBox.Show("The customer has been removed successfully :)\n" + Customer.ToString());
+
+            //    _close = true;
+            //    Close();
+            //}
+            //catch (Exception ex)//faild
+            //{
+            //    MessageBox.Show("Failed to update the customer: " + ex.GetType().Name + "\n" + ex.Message);
+            //}
+        }
     }
 
 

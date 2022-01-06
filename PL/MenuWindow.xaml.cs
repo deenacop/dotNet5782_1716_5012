@@ -142,7 +142,7 @@ namespace PL
             stationLists.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
-            
+            //btnRemove.Visibility = Visibility.Visible;
         }
 
 
@@ -208,7 +208,7 @@ namespace PL
         {
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
             if (drone != null)
-                new DroneWindow(bL, bL.GetDrone(drone.Id), this, DroneListView.SelectedIndex).Show();
+                new DroneWindow(bL, bL.GetDrone(drone.Id), this, 1).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -232,6 +232,7 @@ namespace PL
             stationLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
+           // btnRemove.Visibility = Visibility.Visible;
             customerToLists.CollectionChanged += CustomerToLists_CollectionChanged;
 
         }
@@ -267,6 +268,7 @@ namespace PL
             customerList.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
+           // btnRemove.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -347,6 +349,7 @@ namespace PL
             customerList.Visibility = Visibility.Collapsed;
             stationLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
+            //btnRemove.Visibility = Visibility.Visible;
         }
 
         private void StationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -384,25 +387,49 @@ namespace PL
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, RoutedEventArgs e)
-        {//Sends to the add window 
+        {//Sends to the remove window 
             //check which grid is currently open
             if (menuListView.SelectedItem == drone)
             {
-                new DroneWindow(bL,this).Show();
+                new DroneWindow(bL, this).Show();
             }
             if (menuListView.SelectedItem == customer)
             {
-                new CustomerWindow(bL,this).Show();
+                new CustomerWindow(bL, this).Show();
             }
             if (menuListView.SelectedItem == parcel)
             {
-                new ParcelWindow(bL,this).Show();
+                new ParcelWindow(bL, this).Show();
             }
             if (menuListView.SelectedItem == station)
             {
-                new StationWindow(bL,this).Show();
+                new StationWindow(bL, this).Show();
             }
         }
+
+        
+
+        //private void btnRemove_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //Sends to the remove window 
+        //    //check which grid is currently open
+        //    if (menuListView.SelectedItem == drone)
+        //    {
+        //        new DroneWindow(bL, this).Show();
+        //    }
+        //    if (menuListView.SelectedItem == customer)
+        //    {
+        //        new CustomerWindow(bL, this).Show();
+        //    }
+        //    if (menuListView.SelectedItem == parcel)
+        //    {
+        //        new ParcelWindow(bL, this).Show();
+        //    }
+        //    if (menuListView.SelectedItem == station)
+        //    {
+        //        new StationWindow(bL, this).Show();
+        //    }
+        //}
     }
 }
 

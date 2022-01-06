@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UserMainWindow" Height="450" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
+        Title="UserMainWindow" Height="450" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen" DataContext="{Binding ParcelByCustomer}">
     <Grid>
         <TabControl  TabStripPlacement="Bottom">
             <TabItem Header="HOME" Height="50" Width="200" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" >
@@ -16,14 +16,14 @@
 
                     </Grid.RowDefinitions>
                     <Grid  Background="#FFCAA5A5" >
-                     <Label Content="contact details: wingsdronedeliverysystem@gmail.com" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF0F3A63"/>
+                        <Label Content="contact details: wingsdronedeliverysystem@gmail.com" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF0F3A63"/>
                     </Grid>
-                        <Grid Grid.Row="1">
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\UserMenu.jpg" Grid.Column="1" Margin="9,0,-9,0"/>
+                        <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\imagee\UserMenu.jpg" Grid.Column="1" Margin="9,0,-9,0"/>
                         <Label Content="WELCOME TO WINGS&#xA; future is alredy here" Margin="94,78,288,91" FontFamily="Aharoni" FontSize="38" Grid.ColumnSpan="3" Foreground="#FF0F3A63"/>
                         <Expander Margin="101,183,392,-29" Content="Drones offer a more cost-effective way to deliver,&#xA;by reducing shipping times and reducing operating costs.&#xA;Through our constant focus on customers, employees and safety,&#xA;we create new and innovative logistics platforms for companies and government agencies."
                       FontSize="9" Header="Drones supply is a disruptive technology&#xA; that redefines the traditional logistics industry.&#xA;&#xA;read more" Foreground="#FF0F3A63" Grid.ColumnSpan="3"/>
@@ -82,7 +82,8 @@
                     </Grid.ColumnDefinitions>
                     <CheckBox x:Name="SeeToMe" Content="check to see the parcel that in the way to you" Foreground="WhiteSmoke" FontSize="16" Margin="17,75,10,250" />
                     <CheckBox x:Name="SeefromMe" Content="check to see the parcel that you sent" Foreground="WhiteSmoke" FontSize="16" Margin="17,25,30,306" />
-                    <ListView x:Name="ParcelByCustomerView" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="28" Width="370" Margin="17,103,0,0">
+                    <ListView x:Name="ParcelByCustomerView" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="128" Width="640"  Grid.ColumnSpan="2" Margin="77,96,0,0">
+
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -100,17 +101,17 @@
                         </ListView.Style>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="40"    ></GridViewColumn>
-                                <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="40"  ></GridViewColumn>
-                                <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding  Priority}" Width="50"></GridViewColumn>
-                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding  Status}" Width="50"></GridViewColumn>
+                                <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="60"    ></GridViewColumn>
+                                <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="70"  ></GridViewColumn>
+                                <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding  Priority}" Width="70"></GridViewColumn>
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding  Status}" Width="70"></GridViewColumn>
                                 <GridViewColumn Header="Id of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Id}" Width="170"></GridViewColumn>
-                                <GridViewColumn Header="Name of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Name}" Width="170"></GridViewColumn>
+                                <GridViewColumn Header="Name of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Name}" Width="200"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
 
-                    <ListView x:Name="ParcelByCustomerView1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="28" Width="370" Margin="17,103,0,0">
+                    <ListView x:Name="ParcelByCustomerView1"  Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="104" Width="640" Margin="76,236,0,0">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -128,12 +129,12 @@
                         </ListView.Style>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="40"    ></GridViewColumn>
-                                <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="40"  ></GridViewColumn>
-                                <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding  Priority}" Width="50"></GridViewColumn>
-                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding  Status}" Width="50"></GridViewColumn>
+                                <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="60"    ></GridViewColumn>
+                                <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="70"  ></GridViewColumn>
+                                <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding  Priority}" Width="70"></GridViewColumn>
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding  Status}" Width="70"></GridViewColumn>
                                 <GridViewColumn Header="Id of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Id}" Width="170"></GridViewColumn>
-                                <GridViewColumn Header="Name of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Name}" Width="170"></GridViewColumn>
+                                <GridViewColumn Header="Name of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Name}" Width="200"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>

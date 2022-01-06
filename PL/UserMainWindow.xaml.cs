@@ -22,7 +22,12 @@ namespace PL
     {
         BlApi.IBL bL;
         public Parcel addParcel { get; set; }
+
+        public Customer Customer { get; set; }//customer for binding
+
         User user;
+        List<ParcelByCustomer> ParcelListTo;
+        List<ParcelByCustomer> ParcelListFrom;
         private bool _close { get; set; } = false;//for closing the window
 
         public UserMainWindow(BlApi.IBL bl, User User)
@@ -37,6 +42,11 @@ namespace PL
             txtReciver.ItemsSource = bl.GetListCustomer().Select(i => i.Id);
             comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.ParcelStatus));
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+
+            ParcelListTo = bL.GetCustomer(User.Id).ToCustomer;
+            ParcelListFrom=bL.GetCustomer(User.Id).FromCustomer;
+            ParcelByCustomerView.ItemsSource = ParcelListFrom;
+            ParcelByCustomerView1.ItemsSource = ParcelListTo;
         }
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)

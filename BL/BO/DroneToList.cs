@@ -35,6 +35,10 @@ namespace BO
         /// The number of the parcel that is transfered
         /// </summary>
         public int ParcelId { get; set; }
+        /// <summary>
+        /// Field that tells you if the item has been removed or not
+        /// </summary>
+        public bool IsRemoved { get; set; }
         public override string ToString()
         {
             string str = "ID: " + Id + "\nmodel: " + Model + "\nWeight: " + Weight + "\nbattery: " +

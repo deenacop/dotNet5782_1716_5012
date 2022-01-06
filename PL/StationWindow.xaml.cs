@@ -200,5 +200,22 @@ namespace PL
             else
                 MessageBox.Show("No drone are charging in this station ");
         }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            //try
+            //{
+            //    bl.RemoveStation(Station);
+            //    //stationListWindow.StationListView.Items.Refresh();
+            //    MessageBox.Show("The station has been removed successfully :)\n" + Station.ToString());
+            //    stationListWindow.SelectionAvailablity();
+            //    _close = true;
+            //    Close();
+            //}
+            //catch (Exception ex)//faild
+            //{
+            //    MessageBox.Show("Failed to remove the station: " + ex.GetType().Name + "\n" + ex.Message);
+            //}
+        }
     }
 }

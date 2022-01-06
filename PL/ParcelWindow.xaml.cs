@@ -23,8 +23,9 @@ namespace PL
         BlApi.IBL bl;
         public Parcel Parcel { get; set; }//drone for binding
         private bool _close { get; set; } = false;//for closing the window
+        
         FilterByPriorityAndStatus PriorityAndStatus;
-        private MenuWindow menuWindow;
+        private MenuWindow parcelListWindow;
         private int Index;
         public int sizeH { get; set; }
         public int sizeW { get; set; }
@@ -44,7 +45,7 @@ namespace PL
             }
             DataContext = this;
             InitializeComponent();
-            this.menuWindow = _menuWindow;
+            this.parcelListWindow = _menuWindow;
             //show the update grid:
         }
         /// <summary>
@@ -90,12 +91,12 @@ namespace PL
                     bl.AddParcel(Parcel);
                     PriorityAndStatus.Priority = BO.Priorities.Normal;
                     PriorityAndStatus.Status = BO.ParcelStatus.Defined;
-                    if (menuWindow.parcelToList.ContainsKey(PriorityAndStatus))
-                        menuWindow.parcelToList[PriorityAndStatus].Add(bl.GetListParcel().Last());
+                    if (parcelListWindow.parcelToList.ContainsKey(PriorityAndStatus))
+                        parcelListWindow.parcelToList[PriorityAndStatus].Add(bl.GetListParcel().Last());
                     else
-                        menuWindow.parcelToList.Add(PriorityAndStatus, bl.GetListParcel().Where(i => i.Id == bl.GetListParcel().Last().Id).ToList());
+                        parcelListWindow.parcelToList.Add(PriorityAndStatus, bl.GetListParcel().Where(i => i.Id == bl.GetListParcel().Last().Id).ToList());
 
-                    menuWindow.SelectionStatusAndPriority();
+                    parcelListWindow.SelectionStatusAndPriority();
                     //success
                     MessageBox.Show("The parcel has been added successfully :)\n" + Parcel.ToString());
 
@@ -146,7 +147,7 @@ namespace PL
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(Parcel.MyDrone.Id!=0)
-                 new DroneInParcelWindow(Parcel.MyDrone,bl,menuWindow).Show();
+                 new DroneInParcelWindow(Parcel.MyDrone,bl,parcelListWindow).Show();
             else if(Parcel.Delivered==null)
                 MessageBox.Show("The parcel has not been associated yet - there are no details about the drone");
             else
@@ -162,7 +163,7 @@ namespace PL
         /// <param name="e"></param>
         private void Image_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            new CustomerInParcelWindow(Parcel.SenderCustomer,bl,menuWindow).Show();
+            new CustomerInParcelWindow(Parcel.SenderCustomer,bl,parcelListWindow).Show();
         }
         /// <summary>
         /// a click event- see targetid details 
@@ -171,7 +172,23 @@ namespace PL
         /// <param name="e"></param>
         private void Image_MouseDown_2(object sender, MouseButtonEventArgs e)
         {
-            new CustomerInParcelWindow(Parcel.TargetidCustomer, bl, menuWindow).Show();
+            new CustomerInParcelWindow(Parcel.TargetidCustomer, bl, parcelListWindow).Show();
+        }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.RemoveParcel(Parcel);
+                parcelListWindow.ParcelListView.Items.Refresh();
+                MessageBox.Show("The parcel has been removed successfully :)\n" + Parcel.ToString());
+                _close = true;
+                Close();
+            }
+            catch (Exception ex)//faild
+            {
+                MessageBox.Show("Failed to remove the parcel: " + ex.GetType().Name + "\n" + ex.Message);
+            }
         }
     }
 }

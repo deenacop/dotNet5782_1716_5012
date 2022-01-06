@@ -50,7 +50,10 @@ namespace BL
                 object obj = parcelDO;//boxing and unBoxing
                 parcel.CopyPropertiesTo(obj);
                 parcelDO = (DO.Parcel)obj;
-                dal.Remove(parcelDO);
+                if(parcel.Scheduled==null)
+                    dal.Remove(parcelDO);
+                else
+                    throw new ItemHasBeenAssociated("The parcel has been associated already!");
             }
             catch (Exception ex)
             {
@@ -91,7 +94,7 @@ namespace BL
 
         public IEnumerable<ParcelToList> GetListParcel(Predicate<ParcelToList> predicate = null)
         {
-            IEnumerable<DO.Parcel> parcelsDO = dal.GetListParcel();
+            IEnumerable<DO.Parcel> parcelsDO = dal.GetListParcel(i=>!i.IsRemoved);
             List<ParcelToList> listParcelToList = new();
             foreach (DO.Parcel currentParcel in parcelsDO)
             {

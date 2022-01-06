@@ -13,7 +13,7 @@ namespace PL
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    { 
         BlApi.IBL bl;
         /// <summary>
         /// ctor for the window

@@ -110,12 +110,13 @@ namespace Dal
         public void AssignParcelToDrone(int parcelID, int droneID)
         {
             //checks if the drone exists and if not throws an exception
-            if (!DataSource.Drones.Exists(i => i.Id == droneID))
+            int index = DataSource.Drones.FindIndex(i => i.Id == droneID);
+            if(index == -1 || DataSource.Drones[index].IsRemoved)//not found
                 throw new ItemNotExistException("The drone does not exists");
             //finds the wanted parcel
-            int index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
-            if (index == -1)//not found
-                throw new ItemNotExistException("The station does not exists");
+            index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
+            if (index == -1|| DataSource.Parcels[index].IsRemoved)//not found
+                throw new ItemNotExistException("The parcel does not exists");
             //updates the parcel
             Parcel parcel = DataSource.Parcels[index];
             parcel.MyDroneID = droneID;
@@ -126,11 +127,12 @@ namespace Dal
         public void CollectionOfParcelByDrone(int parcelID, int droneID)
         {
             //checks if the drone exists and if not throws an exception
-            if (!DataSource.Drones.Exists(i => i.Id == droneID))
+            int index = DataSource.Drones.FindIndex(i => i.Id == droneID);
+            if (index == -1 || DataSource.Drones[index].IsRemoved)//not found
                 throw new ItemNotExistException("The drone does not exists");
             //finds the wanted parcel
-            int index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
-            if (index < 0)//not found
+            index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
+            if (index == -1 || DataSource.Parcels[index].IsRemoved)//not found
                 throw new ItemNotExistException("The parcel does not exists");
             //updates the parcel
             Parcel tmp = DataSource.Parcels[index];
@@ -142,7 +144,7 @@ namespace Dal
         public void DeliveryParcelToCustomer(int parcelID)
         {
             int index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);//finds the parcel
-            if (index < 0)//not found
+            if (index == -1 || DataSource.Parcels[index].IsRemoved)//not found
                 throw new ItemNotExistException("The parcel does not exists");
             Parcel tmp = DataSource.Parcels[index];
             tmp.MyDroneID = 0;
@@ -153,11 +155,12 @@ namespace Dal
         public void SendingDroneToChargingBaseStation(int droneID, int stationID)
         {
             //checks if the drone exists and if not throws an exception
-            if (!DataSource.Drones.Exists(i => i.Id == droneID))
+            int index = DataSource.Drones.FindIndex(i => i.Id == droneID);
+            if (index == -1 || DataSource.Drones[index].IsRemoved)//not found
                 throw new ItemNotExistException("The drone does not exists");
             //find the station
-            int index = DataSource.Stations.FindIndex(i => i.Id == stationID);
-            if (index < 0)
+            index = DataSource.Stations.FindIndex(i => i.Id == stationID);
+            if (index == -1 || DataSource.Stations[index].IsRemoved)//not found
                 throw new ItemNotExistException("The station does not exists");
             //creates a new varible of drone charge
             DroneCharge ChargingDroneBattery = new();
@@ -175,10 +178,11 @@ namespace Dal
         public void ReleasingDroneFromChargingBaseStation(int droneID, int baseStationID)
         {
             //checks if the drone and station exists and if not throws an exception
-            if (!DataSource.Drones.Exists(i => i.Id == droneID))
+            int index = DataSource.Drones.FindIndex(i => i.Id == droneID);
+            if (index == -1 || DataSource.Drones[index].IsRemoved)//not found
                 throw new ItemNotExistException("The drone does not exists");
-            int index = DataSource.Stations.FindIndex(i => i.Id == baseStationID);
-            if (index == -1)
+            index = DataSource.Stations.FindIndex(i => i.Id == baseStationID);
+            if (index == -1 || DataSource.Stations[index].IsRemoved)//not found
                 throw new ItemNotExistException("The station does not exists");
             Station station = DataSource.Stations[index];
             station.NumOfAvailableChargingSlots++;
@@ -196,14 +200,14 @@ namespace Dal
         public void UpdateDrone(Drone drone)
         {
             int index = DataSource.Drones.FindIndex(item => item.Id == drone.Id);
-            if (index == -1)//not exist
+            if (index == -1|| drone.IsRemoved)//not exist
                 throw new ItemNotExistException("Drone does not exist");
             DataSource.Drones[index] = drone;
         }
         public void UpdateStation(Station station)
         {
             int index = DataSource.Stations.FindIndex(i => i.Id == station.Id);
-            if (index == -1)//not exist
+            if (index == -1||station.IsRemoved)//not exist
                 throw new ItemNotExistException("The station does not exist");
             DataSource.Stations[index] = station;
 
@@ -211,7 +215,7 @@ namespace Dal
         public void UpdateCustomer(int ID, string name = null, string phone = null)
         {
             int index = DataSource.Customers.FindIndex(item => item.Id == ID);
-            if (index == -1)//not exist
+            if (index == -1|| DataSource.Customers[index].IsRemoved)//not exist
                 throw new ItemNotExistException("The customer does not exsit");
             Customer tmp = DataSource.Customers[index];
             if (name != null)
@@ -248,28 +252,33 @@ namespace Dal
         }
         public Drone GetDrone(int droneID)
         {
-            if (!DataSource.Drones.Exists(i => i.Id == droneID))
+            int index = DataSource.Drones.FindIndex(i => i.Id == droneID);
+            if (index == -1 || DataSource.Drones[index].IsRemoved)//not exist
                 throw new ItemNotExistException("The drone does not exists");
             return DataSource.Drones.Find(i => i.Id == droneID);
         }
 
         public Station GetStation(int stationID)
         {
-            if (!DataSource.Stations.Exists(i => i.Id == stationID))
+            int index = DataSource.Stations.FindIndex(i => i.Id == stationID);
+            if (index == -1 || DataSource.Stations[index].IsRemoved)//not exist
                 throw new ItemNotExistException("The station does not exists");
             return DataSource.Stations.Find(i => i.Id == stationID);
         }
 
         public Customer GetCustomer(int customerID)
         {
-            if (!DataSource.Customers.Exists(i => i.Id == customerID))
+
+            int index = DataSource.Customers.FindIndex(i => i.Id == customerID);
+            if (index == -1 || DataSource.Customers[index].IsRemoved)//not exist
                 throw new ItemNotExistException("The customer does not exists");
             return DataSource.Customers.Find(i => i.Id == customerID);
         }
 
         public Parcel GetParcel(int parcelID)
         {
-            if (!DataSource.Parcels.Exists(i => i.Id == parcelID))
+            int index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
+            if (index == -1 || DataSource.Parcels[index].IsRemoved)//not exist
                 throw new ItemNotExistException("The parcel does not exists");
             return DataSource.Parcels.Find(i => i.Id == parcelID);
         }
@@ -284,8 +293,9 @@ namespace Dal
         #region Lists of items
         public IEnumerable<Drone> GetListDrone(Predicate<Drone> predicate = null)
         {
-            return from item in DataSource.Drones
-                   where (predicate == null ? true : predicate(item))
+            return from item in DataSource.Drones 
+                   where predicate == null ? true : predicate(item) 
+                   where !item.IsRemoved
                    select item;
         }
 
@@ -295,7 +305,8 @@ namespace Dal
             //foreach (Customer currentCostomer in DataSource.Customers) { ListOfCustomers.Add(currentCostomer); }
             //return ListOfCustomers.FindAll(i => predicate == null ? true : predicate(i));
             return from item in DataSource.Customers
-                   where (predicate == null ? true : predicate(item))
+                   where predicate == null ? true : predicate(item)
+                   where !item.IsRemoved
                    select item;
 
         }
@@ -303,7 +314,8 @@ namespace Dal
         public IEnumerable<Station> GetListStation(Predicate<Station> predicate = null)
         {
             return from item in DataSource.Stations
-                   where (predicate == null ? true : predicate(item))
+                   where predicate == null ? true : predicate(item)
+                   where !item.IsRemoved
                    select item;
         }
 
@@ -313,7 +325,8 @@ namespace Dal
             //foreach (Parcel currentParcel in DataSource.Parcels) { ListOfParcel.Add(currentParcel); }
             //return ListOfParcel.FindAll(i => predicate == null ? true : predicate(i));
             return from item in DataSource.Parcels
-                   where (predicate == null ? true : predicate(item))
+                   where predicate == null ? true : predicate(item)
+                   where !item.IsRemoved
                    select item;
         }
 
@@ -323,7 +336,8 @@ namespace Dal
             //foreach (DroneCharge currentDrone in DataSource.DroneCharges) { droneCharging.Add(currentDrone); }
             //return droneCharging.FindAll(i => predicate == null ? true : predicate(i)); 
             return from item in DataSource.DroneCharges
-                   where (predicate == null ? true : predicate(item))
+                   where predicate == null ? true : predicate(item)
+                   
                    select item;
         }
         public IEnumerable<User> GetListUsers(Predicate<User> predicate = null)

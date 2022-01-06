@@ -19,7 +19,7 @@ namespace BL
             {
                 DroneToList listDrone = new();
                 DO.Station wantedStation = dal.GetStation(stationID);
-                
+                drone.IsRemoved = false;
                 drone.Location = new() { Longitude = wantedStation.Longitude, Latitude = wantedStation.Latitude };
                 drone.Battery = rand.Next(20, 41);
                 drone.Status = DroneStatus.Maintenance;//By adding a drone it is initialized to a maintenance mode
@@ -45,13 +45,18 @@ namespace BL
 
         public void RemoveDrone(Drone drone)
         {
+            DroneToList listDrone = DroneListBL.FirstOrDefault(d => d.Id == drone.Id);
+            //int index = DroneListBL.FindIndex(i => i.Id == drone.Id);
             try
             {
                 DO.Drone droneDO = new();
                 object obj = droneDO;//boxing and unBoxing
+                drone.IsRemoved = true;//remove
+                drone.CopyPropertiesTo(listDrone);//updates also the list
                 drone.CopyPropertiesTo(obj);
                 droneDO = (DO.Drone)obj;
                 dal.Remove(droneDO);
+                
             }
             catch (Exception ex)
             {
@@ -300,7 +305,7 @@ namespace BL
        
         public IEnumerable<DroneToList> GetDroneList(Predicate<DroneToList> predicate = null)
         {
-            return DroneListBL.FindAll(i => predicate == null ? true : predicate(i));
+            return DroneListBL.FindAll(i =>!i.IsRemoved);
         }
     }
 }
