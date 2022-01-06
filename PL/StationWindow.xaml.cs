@@ -176,9 +176,8 @@ namespace PL
             try
             {
                 bl.UpdateStation(Station);
-                //stationListWindow.StationListView.Items.Refresh();
+                stationListWindow.StationListView.Items.Refresh();
                 MessageBox.Show("The station has been updated successfully :)\n" + Station.ToString());
-                stationListWindow.SelectionAvailablity();
                 _close = true;
                 Close();
             }
