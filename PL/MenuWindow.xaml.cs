@@ -195,6 +195,8 @@ namespace PL
             if (weight != WeightCategories.All && status != DroneStatus.All)
                 DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Status == (BO.DroneStatus)status && i.Key.Weight == (BO.WeightCategories)weight).SelectMany(i => i.Value);
         }
+
+       
         /// <summary>
         /// Filter by wieght
         /// </summary>
@@ -365,7 +367,11 @@ namespace PL
         internal void SelectionAvailablity()
         {
             AvailablityStation availablity = (AvailablityStation)comboAvailableSlostSelector.SelectedItem;
-            StationListView.ItemsSource = null;
+            if (comboAvailableSlostSelector.SelectedIndex == -1)
+            {
+                comboAvailableSlostSelector.SelectedIndex = 2;
+            }
+            
             if (availablity == AvailablityStation.All)
                 StationListView.ItemsSource = from item in stationToLists.Values.SelectMany(i => i)
                                               orderby (item.NumOfAvailableChargingSlots)
@@ -409,27 +415,7 @@ namespace PL
 
         
 
-        //private void btnRemove_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //Sends to the remove window 
-        //    //check which grid is currently open
-        //    if (menuListView.SelectedItem == drone)
-        //    {
-        //        new DroneWindow(bL, this).Show();
-        //    }
-        //    if (menuListView.SelectedItem == customer)
-        //    {
-        //        new CustomerWindow(bL, this).Show();
-        //    }
-        //    if (menuListView.SelectedItem == parcel)
-        //    {
-        //        new ParcelWindow(bL, this).Show();
-        //    }
-        //    if (menuListView.SelectedItem == station)
-        //    {
-        //        new StationWindow(bL, this).Show();
-        //    }
-        //}
+       
     }
 }
 
