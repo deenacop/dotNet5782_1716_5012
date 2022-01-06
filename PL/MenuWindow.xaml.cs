@@ -208,7 +208,7 @@ namespace PL
         {
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
             if (drone != null)
-                new DroneWindow(bL, bL.GetDrone(drone.Id), this, DroneListView.SelectedIndex).Show();
+                new DroneWindow(bL, bL.GetDrone(drone.Id), this,1).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -239,7 +239,7 @@ namespace PL
         {
             CustomerToList customer = (CustomerToList)CustomerListView.SelectedItem;
             if (customer != null)
-                new CustomerWindow(bL, bL.GetCustomer(customer.Id), this, CustomerListView.SelectedIndex).Show();
+                new CustomerWindow(bL, bL.GetCustomer(customer.Id), this, 1).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
 

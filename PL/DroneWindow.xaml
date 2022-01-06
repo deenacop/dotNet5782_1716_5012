@@ -39,11 +39,6 @@
 
                 <Grid x:Name="top" Grid.Row="0" Grid.ColumnSpan="2" >
                     <Grid  Background="#FF0F4E7A">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="8*"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\menu!.png" MouseDown="MenuItem_Click"/>
                         <Menu x:Name="droneOptions" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF0F4E7A"  MouseDown="MenuItem_Click">
                             <MenuItem  Width="22" Height="20" HorizontalAlignment="Left"
                                    >
@@ -55,10 +50,9 @@
                                 <Separator />
                             </MenuItem>
                         </Menu>
-                        
                     </Grid>
 
-              
+
                 </Grid>
 
 
@@ -84,7 +78,7 @@
                 <TextBlock x:Name="TXTLocation1" TextWrapping="Wrap" Foreground="#FF0F4E7A" Grid.Column="1" Grid.Row="7" FontSize="13" VerticalAlignment="Center"  FontWeight="Bold"
                              Text="{Binding Location}" HorizontalAlignment="Center" Width="120" />
                 <Label x:Name="listOfDrones" Content="click to see the drone's parcel &#xA; that is in transfer" Foreground="#FF0F4E7A" Grid.Column="1" Grid.Row="8" FontSize="8" FontWeight="Bold" Margin="28,3,30,2" />
-                <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\eye_64px.png" Grid.Row="8" Height="20" Margin="163,5,124,10" Grid.ColumnSpan="2" MouseDown="Image_MouseDown"/>
+                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\eye_64px.png" Grid.Row="8" Height="20" Margin="163,5,124,10" Grid.ColumnSpan="2" MouseDown="Image_MouseDown"/>
                 <Button x:Name="btnCancel" Grid.Column="0"  Grid.Row="9" Height="20" Width="100" HorizontalAlignment="Center" Background="#FF0F4E7A"
                     Click="btnCancel_Click"  >
                     <TextBlock Text="cancel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold" Foreground="White">
@@ -96,7 +90,7 @@
                     <TextBlock  Text="Update" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold" Foreground="White">
                     </TextBlock>
                 </Button>
-                
+
             </Grid>
         </Grid>
         <Grid x:Name="AddGrid" Background="#FF0F4E7A" DataContext="{Binding Drone}" Grid.Column="1" Height="340" Visibility="Hidden"  >

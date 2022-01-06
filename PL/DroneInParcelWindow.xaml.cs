@@ -39,7 +39,7 @@ namespace PL
         /// <param name="e"></param>
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            new DroneWindow(bL, bL.GetDrone(Drone.Id), 1).Show();
+            new DroneWindow(bL, bL.GetDrone(Drone.Id)).Show();
         }
     }
 }

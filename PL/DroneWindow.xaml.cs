@@ -41,28 +41,6 @@ namespace PL
         /// </summary>
         /// <param name="sender">update butten</param>
         /// <param name="e"> event</param>
-        public DroneWindow(IBL bL, Drone drone, int _Index)
-        {
-            bl = bL;
-            Drone = drone;
-            Index = _Index;
-            if (_Index == 0)
-            {
-                sizeW = 340; sizeH = 370;
-            }
-            else
-            {
-                sizeH = 400; sizeW = 500;
-            }
-            DataContext = this;
-            InitializeComponent();
-            comboWeight.SelectedItem = drone.Weight;
-            comboWeight.IsEnabled = false;
-            TXTModel.IsEnabled = false;
-            btnUpdate.Visibility = Visibility.Hidden;
-
-        }
-
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -197,7 +175,7 @@ namespace PL
         {
             if (Drone.Status == BO.DroneStatus.Delivery)//if there is a parcel
             {
-                new ParcelInTransferWindow(Drone.Parcel,bl, droneListWindow).Show();
+                new ParcelInTransferWindow(Drone.Parcel, bl, droneListWindow).Show();
             }
             else//if there is no parcel a message will be displayed to the user
             {
@@ -205,7 +183,6 @@ namespace PL
 
             }
         }
-        #endregion
         /// <summary>
         /// ctor for update
         /// </summary>
@@ -230,11 +207,12 @@ namespace PL
             DataContext = this;
             InitializeComponent();
             this.droneListWindow = _droneListWindow;
-            
             comboWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
 
         }
+        #endregion
+        #region add
         /// <summary>
         /// ctor for add
         /// </summary>
@@ -267,7 +245,6 @@ namespace PL
                 }
                 else
                 {
-
                     //sending for add
                     bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
                     weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;
@@ -314,8 +291,6 @@ namespace PL
             }
         }
 
-
-
         /// <summary>
         /// prevents from the user to enter letters in the id box
         /// </summary>
@@ -326,6 +301,7 @@ namespace PL
             System.Text.RegularExpressions.Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+        #endregion
         /// <summary>
         /// open the menu
         /// </summary>
@@ -333,6 +309,7 @@ namespace PL
         /// <param name="e">event</param>
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+
         }
 
         /// <summary>
@@ -346,17 +323,18 @@ namespace PL
             Close();
         }
 
-        /// <summary>
-        /// Cancel button - closes a window
-        /// </summary>
-        /// <param name="sender">cancel butten</param>
-        /// <param name="e">event</param>
-        private void btnCancel_Click_1(object sender, RoutedEventArgs e)
+        public DroneWindow(IBL bL, Drone drone)
         {
-            _close = true;
-            Close();
-        }
+            bl = bL;
+            Drone = drone;
+            sizeH = 400; sizeW = 500;
+            DataContext = this;
+            InitializeComponent();
+            comboWeight.SelectedItem = drone.Weight;
+            comboWeight.IsEnabled = false;
+            TXTModel.IsEnabled = false;
+            btnUpdate.Visibility = Visibility.Hidden;
 
-        
+        }
     }
 }

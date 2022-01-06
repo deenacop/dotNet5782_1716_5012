@@ -27,6 +27,6 @@
         <Label Content="{Binding Path=Battery}" Foreground="White" FontSize="10" FontFamily="Ubuntu" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="2"  Grid.Column="1" HorizontalAlignment="Left" />
         <Label Content="{Binding Path=Location}" Foreground="White" FontSize="10" FontFamily="Ubuntu" FontWeight="Bold"  HorizontalContentAlignment="Left" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="35"  Width="100"  />
         <Label Content="click to see more&#xA; drone details" Foreground="White" Grid.Row="4" FontSize="6" FontWeight="Bold" Margin="45,7,82,-2" Grid.ColumnSpan="2" />
-        <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\eye_64px.png" Grid.Row="4" Height="20" Margin="17,9,50,15" MouseDown="Image_MouseDown"/>
+        <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\eye_64px.png" Grid.Row="4" Height="20" Margin="17,9,50,15" MouseDown="Image_MouseDown"/>
     </Grid>
 </Window>
