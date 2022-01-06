@@ -25,8 +25,8 @@
                         </Grid.ColumnDefinitions>
                         <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\imagee\UserMenu.jpg" Grid.Column="1" Margin="9,0,-9,0"/>
                         <Label Content="WELCOME TO WINGS&#xA; future is alredy here" Margin="94,78,288,91" FontFamily="Aharoni" FontSize="38" Grid.ColumnSpan="3" Foreground="#FF0F3A63"/>
-                        <Expander Margin="101,183,392,-29" Content="Drones offer a more cost-effective way to deliver,&#xA;by reducing shipping times and reducing operating costs.&#xA;Through our constant focus on customers, employees and safety,&#xA;we create new and innovative logistics platforms for companies and government agencies."
-                      FontSize="9" Header="Drones supply is a disruptive technology&#xA; that redefines the traditional logistics industry.&#xA;&#xA;read more" Foreground="#FF0F3A63" Grid.ColumnSpan="3"/>
+                        <Expander Margin="101,181,10,10" Content="Drones offer a more cost-effective way to deliver,&#xA;by reducing shipping times and reducing operating costs.&#xA;Through our constant focus on customers, employees and safety&#xA;we create new and innovative logistics platforms for companies&#xA;and government agencies."
+                      FontSize="9" Header="Drones supply is a disruptive technology&#xA; that redefines the traditional logistics industry.&#xA;&#xA;read more" Foreground="#FF0F3A63"/>
                     </Grid>
                 </Grid>
                 <!--<Grid Grid.Row="2">-->

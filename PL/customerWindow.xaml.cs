@@ -24,13 +24,24 @@ namespace PL
         BlApi.IBL bl;
         public Customer Customer { get; set; }//customer for binding
         private bool _close { get; set; } = false;//for closing the window
-        
+
         private MenuWindow customerListWindow;//brings the menu window of the customer list
-        
+
         private int Index;
         public int sizeH { get; set; }
         public int sizeW { get; set; }
 
+        public CustomerWindow(BlApi.IBL bL, Customer customer)
+        {
+            bl = bL;
+            Customer = customer;
+            sizeH = 400; sizeW = 500;
+            DataContext = this;
+            InitializeComponent();
+            TXTPhone.IsEnabled = false;
+            TXTName.IsEnabled = false;
+            btnUpdate.Visibility = Visibility.Hidden;
+        }
 
         /// <summary>
         /// ctor for update
@@ -56,11 +67,6 @@ namespace PL
             DataContext = this;
             InitializeComponent();
             this.customerListWindow = _customerListWindow;
-            //show the update grid:
-            //UpdateGrid.Visibility = Visibility.Visible;
-
-
-
         }
         /// <summary>
         /// ctor for add
@@ -75,10 +81,10 @@ namespace PL
             txtId.IsEnabled = true;
             AddGrid.Visibility = Visibility.Visible;
             UpdateGrid.Visibility = Visibility.Hidden;
-       
+
         }
 
-     
+
 
         /// <summary>
         /// Cancel button - closes a window
@@ -147,7 +153,7 @@ namespace PL
             }
         }
 
-       
+
         /// <summary>
         /// prevents from the user to enter letters in the id box
         /// </summary>
@@ -174,7 +180,7 @@ namespace PL
         }
         private void Image_MouseDown_sent(object sender, MouseButtonEventArgs e)
         {
-            if (Customer.FromCustomer.Count !=0)
+            if (Customer.FromCustomer.Count != 0)
                 new ParcelByCustomerWindow(Customer.FromCustomer, bl, customerListWindow).Show();
             else
                 MessageBox.Show("The cutomer didn't send any parcels!");

@@ -40,7 +40,7 @@ namespace PL
             InitializeComponent();
             DataContext = this;
             txtReciver.ItemsSource = bl.GetListCustomer().Select(i => i.Id);
-            comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.ParcelStatus));
+            comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
 
             ParcelListTo = bL.GetCustomer(User.Id).ToCustomer;
@@ -68,17 +68,14 @@ namespace PL
             }
             else
             {
-                addParcel.SenderCustomer.Id = user.Id;
-                //sending for add
-                bL.AddParcel(addParcel);
-               // menuWindow.parcelToList[PriorityAndStatus].Add(bl.GetListParcel().Last());
-                //success
-                MessageBox.Show("The parcel has been added successfully :)\n" + addParcel.ToString());
-
-                _close = true;
-                try { DialogResult = true; }
-                catch (InvalidOperationException) { Close(); }
-
+                try
+                {
+                    addParcel.SenderCustomer.Id = user.Id;
+                    //sending for add
+                    bL.AddParcel(addParcel);                  
+                    //success
+                    MessageBox.Show("The parcel has been added successfully :)\n" + addParcel.ToString());
+                }  
                 catch (Exception ex)//failed
                 {
                     MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message);

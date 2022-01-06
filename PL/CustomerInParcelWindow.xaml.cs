@@ -34,7 +34,7 @@ namespace PL
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            new CustomerWindow(bL, bL.GetCustomer(customer.Id), menuWindow, 1).Show();
+            new CustomerWindow(bL, bL.GetCustomer(customer.Id)).Show();
         }
     }
 }
