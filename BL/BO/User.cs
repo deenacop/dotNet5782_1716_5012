@@ -40,6 +40,11 @@ namespace BO
         /// location of the user
         /// </summary>
         public Location Location { get; set; }
+
+        ///<summary>
+        /// Field that tells you if the item has been removed or not
+        /// </summary>
+        public bool IsRemoved { get; set; }
         public override string ToString()
         {
             string str = "User id" + Id + "\nUser name:" + Name + "\nUser mail address:" + EmailAddress + "\nUser phone number" + PhoneNumber + "\nIs the user a manager?" + IsManager + "\n"

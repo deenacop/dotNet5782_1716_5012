@@ -180,7 +180,8 @@ namespace PL
             try
             {
                 bl.RemoveParcel(Parcel);
-                parcelListWindow.ParcelListView.Items.Refresh();
+                //parcelListWindow.ParcelListView.Items.Refresh();
+                parcelListWindow.SelectionStatusAndPriority();
                 MessageBox.Show("The parcel has been removed successfully :)\n" + Parcel.ToString());
                 _close = true;
                 Close();

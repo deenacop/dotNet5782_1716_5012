@@ -20,7 +20,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid x:Name="AddGrid" Background="#FF0F4E7A" DataContext="{Binding BaseStation}"  Height="340" Visibility="Hidden"   >
             <Grid.ColumnDefinitions>
@@ -110,8 +110,8 @@
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1"   Background="#FF0F4E7A"   >
-                <Button x:Name="btnRemove" Visibility="Visible" Background="White"  Style="{DynamicResource btnB}"  ToolTip="to remove a drone"   VerticalAlignment="Top"  RenderTransformOrigin="0.5,0.5"  Click="btnRemove_Click" Height="40" Width="40" Margin="43,310,42,0" >
+            <Grid   Background="#FF0F4E7A" Grid.Column="1"  >
+                <Button x:Name="btnRemove" Visibility="Visible" Background="White"  Style="{DynamicResource btnB}"  ToolTip="to remove a parcel" HorizontalAlignment="Center"  VerticalAlignment="Top"  RenderTransformOrigin="0.5,0.5"  Click="btnRemove_Click" Height="40" Width="40" Margin="0,298,0,0"    >
                     <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\garbage.png" Height="50" Width="35"/>
                 </Button>
             </Grid>
@@ -124,7 +124,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    
+
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="1.5*"/>
                     <RowDefinition Height="1.5*"/>
@@ -134,7 +134,7 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
-                
+
 
                 <Label Grid.Row="0" Grid.ColumnSpan="2"  FontSize="15" HorizontalAlignment="Center" Content="Station Details:" Foreground="#FF0F4E7A"  FontWeight="ExtraBold" VerticalAlignment="Center"/>
                 <Label Grid.Row="1"  FontSize="13" Content="Id:"  Foreground="#FF0F4E7A" FontWeight="ExtraBold" HorizontalContentAlignment="Center"/>
@@ -164,7 +164,7 @@
                     <TextBlock Text="Update" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="10" FontWeight="Bold" Foreground="White">
                     </TextBlock>
                 </Button>
-                
+
             </Grid>
         </Grid>
 

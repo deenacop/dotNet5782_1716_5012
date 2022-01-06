@@ -41,6 +41,8 @@ namespace BL
                 object obj = stationlDO;//boxing and unBoxing
                 baseStation.CopyPropertiesTo(obj);
                 stationlDO = (DO.Station)obj;
+                stationlDO.Latitude = baseStation.Location.Latitude;
+                stationlDO.Longitude = baseStation.Location.Longitude;
                 dal.Remove(stationlDO);
             }
             catch (Exception ex)

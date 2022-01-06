@@ -53,7 +53,7 @@ namespace BL
                 if(parcel.Scheduled==null)
                     dal.Remove(parcelDO);
                 else
-                    throw new ItemHasBeenAssociated("The parcel has been associated already!");
+                    throw new ItemCouldNotBeRemoved("The parcel has been associated already!");
             }
             catch (Exception ex)
             {

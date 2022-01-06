@@ -195,19 +195,19 @@ namespace PL
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    bl.RemoveCustomer(Customer);
-            //    //stationListWindow.StationListView.Items.Refresh();
-            //    MessageBox.Show("The customer has been removed successfully :)\n" + Customer.ToString());
+            try
+            {
+                bl.RemoveCustomer(Customer);
+                //stationListWindow.StationListView.Items.Refresh();
+                MessageBox.Show("The customer has been removed successfully :)\n" + Customer.ToString());
 
-            //    _close = true;
-            //    Close();
-            //}
-            //catch (Exception ex)//faild
-            //{
-            //    MessageBox.Show("Failed to update the customer: " + ex.GetType().Name + "\n" + ex.Message);
-            //}
+                _close = true;
+                Close();
+            }
+            catch (Exception ex)//faild
+            {
+                MessageBox.Show("Failed to update the customer: " + ex.GetType().Name + "\n" + ex.Message);
+            }
         }
     }
 

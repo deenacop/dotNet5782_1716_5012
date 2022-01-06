@@ -94,14 +94,16 @@ namespace BO
             return Message;
         }
     }
-    public class ItemHasBeenAssociated : Exception
+    public class ItemCouldNotBeRemoved : Exception
     {
-        public ItemHasBeenAssociated() : base() { }
-        public ItemHasBeenAssociated(string message) : base(message) { }
-        public ItemHasBeenAssociated(string message, Exception inner) : base(message, inner) { }
+        public ItemCouldNotBeRemoved() : base() { }
+        public ItemCouldNotBeRemoved(string message) : base(message) { }
+        public ItemCouldNotBeRemoved(string message, Exception inner) : base(message, inner) { }
         public override string ToString()
         {
             return Message;
         }
     }
+
+    
 }

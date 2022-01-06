@@ -203,19 +203,19 @@ namespace PL
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    bl.RemoveStation(Station);
-            //    //stationListWindow.StationListView.Items.Refresh();
-            //    MessageBox.Show("The station has been removed successfully :)\n" + Station.ToString());
-            //    stationListWindow.SelectionAvailablity();
-            //    _close = true;
-            //    Close();
-            //}
-            //catch (Exception ex)//faild
-            //{
-            //    MessageBox.Show("Failed to remove the station: " + ex.GetType().Name + "\n" + ex.Message);
-            //}
+            try
+            {
+                bl.RemoveStation(Station);
+                //stationListWindow.StationListView.Items.Refresh();
+                MessageBox.Show("The station has been removed successfully :)\n" + Station.ToString());
+                stationListWindow.SelectionAvailablity();
+                _close = true;
+                Close();
+            }
+            catch (Exception ex)//faild
+            {
+                MessageBox.Show("Failed to remove the station: " + ex.GetType().Name + "\n" + ex.Message);
+            }
         }
     }
 }

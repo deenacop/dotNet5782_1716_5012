@@ -344,18 +344,18 @@ namespace PL
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    bl.RemoveDrone(Drone);
-            //    droneListWindow.DroneListView.Items.Refresh();
-            //    MessageBox.Show("The drone has been removed successfully :)\n" + Drone.ToString());
-            //    _close = true;
-            //    Close();
-            //}
-            //catch (Exception ex)//faild
-            //{
-            //    MessageBox.Show("Failed to remove the drone: " + ex.GetType().Name + "\n" + ex.Message);
-            //}
+            try
+            {
+                bl.RemoveDrone(Drone);
+                droneListWindow.DroneListView.Items.Refresh();
+                MessageBox.Show("The drone has been removed successfully :)\n" + Drone.ToString());
+                _close = true;
+                Close();
+            }
+            catch (Exception ex)//faild
+            {
+                MessageBox.Show("Failed to remove the drone: " + ex.GetType().Name + "\n" + ex.Message);
+            }
         }
     }
 }

@@ -55,10 +55,43 @@ namespace BL
                 drone.CopyPropertiesTo(listDrone);//updates also the list
                 drone.CopyPropertiesTo(obj);
                 droneDO = (DO.Drone)obj;
-                dal.Remove(droneDO);
-                
+                if(drone.Status==DroneStatus.Available)
+                    dal.Remove(droneDO);
+                if (drone.Status == DroneStatus.Maintenance)
+                {
+                    //Finds the wanted station:
+                    int baseStationId = dal.GetListStation().First(i => i.Latitude == drone.Location.Latitude && i.Longitude == drone.Location.Longitude).Id;
+                    DO.DroneCharge droneCharge = dal.GetDroneCharge(drone.Id, baseStationId).Item1;
+                    //Calculate the time the drone was in charge
+                    TimeSpan diff = DateTime.Now - (DateTime)droneCharge.EnterToChargBase;
+                    int minuteInCharge = (int)diff.TotalSeconds / 60;
+                    DroneToList droneList = DroneListBL.FirstOrDefault(d => d.Id == drone.Id);
+                    if (droneList == null)
+                        throw new ItemNotExistException("Drone does not exist");
+                    try
+                    {//Finds the station that has the wanted location
+                        DO.Station station = dal.GetListStation(item => item.Latitude == droneList.Location.Latitude
+                             && item.Longitude == droneList.Location.Longitude).First();
+                        //update
+                        dal.ReleasingDroneFromChargingBaseStation(droneList.Id, station.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ItemNotExistException(ex.Message);
+                    }
+                    //update the drone
+                    droneList.Battery += (int)(minuteInCharge * droneLoadingRate);
+                    if (droneList.Battery > 100)//cant be more than 100
+                        droneList.Battery = 100;
+                    droneList.Status = DroneStatus.Available;
+                    int index = DroneListBL.FindIndex(item => item.Id == droneList.Id);
+                    DroneListBL[index] = droneList;
+                    dal.Remove(droneDO);
+                }
+                if (drone.Status == DroneStatus.Delivery)
+                    throw new ItemCouldNotBeRemoved("The drone is in delivery mode and could not be removed!");
             }
-            catch (Exception ex)
+            catch (ItemNotExistException ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
@@ -96,7 +129,7 @@ namespace BL
             if (listDrone.Status != DroneStatus.Available)//if the drone does not exist or the drone is not available
                 throw new ItemNotExistException("Drone is not available");
             List<BaseStation> BaseStationListBL = new();
-            IEnumerable<DO.Station> StationListDL = dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0);//Receive the drone list from the data layer.
+            IEnumerable<DO.Station> StationListDL = dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0 && !i.IsRemoved);//Receive the drone list from the data layer.
             StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from DalApi to BL
             //Set the locations:
             IEnumerable<int> counter = Enumerable.Range(0, StationListDL.Count());

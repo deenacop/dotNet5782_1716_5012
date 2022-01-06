@@ -41,6 +41,8 @@ namespace BL
                 object obj = customerDO;//boxing and unBoxing
                 customer.CopyPropertiesTo(obj);
                 customerDO = (DO.Customer)obj;
+                customerDO.Latitude = customer.Location.Latitude;
+                customerDO.Longitude = customer.Location.Longitude;
                 dal.Remove(customerDO);
             }
             catch (Exception ex)

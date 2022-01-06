@@ -66,7 +66,8 @@ namespace DO
                 Name = user.Name,
                 PhoneNumber = user.PhoneNumber,
                 Longitude = user.Longitude,
-                Latitude = user.Latitude
+                Latitude = user.Latitude,
+                IsRemoved=user.IsRemoved
             };
         }
     }
