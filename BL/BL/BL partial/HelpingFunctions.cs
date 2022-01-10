@@ -40,7 +40,7 @@ namespace BL
         /// <returns>Item 1:location/Item 2:distance/Item 3:StationID</returns>
         private static (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
         {
-            List<double> locations = new ();//Creates a list of locations
+            List<double> locations = new();//Creates a list of locations
             foreach (BaseStation currentStation in BaseStationListBL)
             {
                 locations.Add(DistanceCalculation(location, currentStation.Location));
@@ -67,7 +67,7 @@ namespace BL
         /// <returns>true or false</returns>
         bool BatteryCheckingForDroneAndParcel(DO.Parcel parcel, Drone drone)
         {
-            int minBattery=0;
+            int minBattery = 0;
             double distance = DistanceCalculation(drone.Location, GetCustomer(parcel.Sender).Location);
             minBattery = (int)distance * (int)vacant;
             distance = DistanceCalculation(GetCustomer(parcel.Sender).Location, GetCustomer(parcel.Targetid).Location);
@@ -100,6 +100,45 @@ namespace BL
             if (minBattery <= drone.Battery)
                 return true;
             return false;
+        }
+        /// <summary>
+        /// A function that helps arrange a single customer (Get customer function).
+        ///The function arranges the parcel received / sent by the customer
+        ///The function is called from a query
+        /// </summary>
+        /// <param name="item">a parcel(DO.Parcel)</param>
+        /// <param name="customerBO">the customer we want to set</param>
+        /// <returns>the parcel(ParcelByCustomer)</returns>
+        ParcelByCustomer HelpMethod(DO.Parcel item, Customer customerBO)
+        {
+            ParcelByCustomer parcelBy = new();
+            item.CopyPropertiesTo(parcelBy);
+            if (item.Delivered == null)//item is already delivered
+                parcelBy.Status = ParcelStatus.Delivered;
+            else if (item.PickUp != null)//not delivere but already picked up
+                parcelBy.Status = ParcelStatus.PickedUp;
+            else if (item.Scheduled != null)//not delivere and not picked up but already assign
+                parcelBy.Status = ParcelStatus.Associated;
+            else//not delivere and not picked up and not assign
+                parcelBy.Status = ParcelStatus.Defined;
+            //check if the other side is the targetid or the sender
+            if (item.Targetid == customerBO.Id)
+            {
+                parcelBy.SecondSideOfParcelCustomer = new()
+                {
+                    Id = item.Sender,
+                    Name = dal.GetCustomer(item.Sender).Name
+                };
+            }
+            else
+            {
+                parcelBy.SecondSideOfParcelCustomer = new()
+                {
+                    Id = item.Targetid,
+                    Name = dal.GetCustomer(item.Targetid).Name
+                };
+            }
+            return parcelBy;
         }
     }
 }

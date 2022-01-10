@@ -361,7 +361,7 @@ namespace Dal
                                      PhoneNumber = cus.Element("PhoneNumber").Value,
                                      Longitude = double.Parse(cus.Element("Longitude").Value),
                                      Latitude = double.Parse(cus.Element("Latitude").Value)
-                                    
+
                                  }
                         ).FirstOrDefault();
             if (customer.Id != 0)

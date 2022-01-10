@@ -37,6 +37,9 @@ namespace BL
         {
             try
             {
+                CustomerToList customer1 = GetListCustomer().FirstOrDefault(i => i.Id == customer.Id);
+                if (customer1 == null)
+                    throw new ItemNotExistException("The customer does not exit");
                 DO.Customer customerDO = new();
                 object obj = customerDO;//boxing and unBoxing
                 customer.CopyPropertiesTo(obj);
@@ -49,13 +52,12 @@ namespace BL
             {
                 throw new ItemNotExistException(ex.Message);
             }
-
         }
 
         public void UpdateCustomer(Customer customer)
         {
             if (customer.Name == null || customer.Name == "")
-               throw new WrongInputException("Missing drone model");
+                throw new WrongInputException("Missing customer name");
             if (customer.PhoneNumber == null || customer.PhoneNumber == "")
                 throw new WrongInputException("Missing phone number");
             CustomerToList Listcustomer = GetListCustomer().FirstOrDefault(i => i.Id == customer.Id);
@@ -76,9 +78,9 @@ namespace BL
             Customer customerBO = new();
             try
             {
-                customerDO = dal.GetCustomer(ID);//ask th wanted customer
+                customerDO = dal.GetCustomer(ID);//ask the wanted customer
                 customerDO.CopyPropertiesTo(customerBO);//convert
-                customerBO.Location = new()
+                customerBO.Location = new()//needs to be initialized by hand
                 {
                     Longitude = customerDO.Longitude,
                     Latitude = customerDO.Latitude
@@ -88,50 +90,18 @@ namespace BL
             {
                 throw new ItemNotExistException(ex.Message);
             }
-            //Set the lists of parcels:
-            ParcelByCustomer sendParcel = new();
-            IEnumerable<DO.Parcel> SenderParcels = dal.GetListParcel(i => i.Sender == ID);//Returns the list of the parcels that the customer send
-            IEnumerable<DO.Parcel> ReceiverParcels = dal.GetListParcel(i => i.Targetid == ID);//Returns the list of the parcels that the customer received
-            foreach (DO.Parcel currentParcel in SenderParcels)
-            {
-                currentParcel.CopyPropertiesTo(sendParcel);
-                //set the "SecondSideOfParcelCustomer" property in the parcel:
-                sendParcel.SecondSideOfParcelCustomer = new();
-                sendParcel.SecondSideOfParcelCustomer.Id = currentParcel.Targetid;//second side is targetid
-                sendParcel.SecondSideOfParcelCustomer.Name = dal.GetCustomer(currentParcel.Targetid).Name;
-                //set the status of the parcel:
-                if (currentParcel.Scheduled == null)//not schedule yet
-                    sendParcel.Status = ParcelStatus.Defined;
-                else if (currentParcel.PickUp == null)//scheduled but has not been picked up
-                    sendParcel.Status = ParcelStatus.Associated;
-                else if (currentParcel.Delivered == null) //scheduled and picked up  but has not been delivered
-                    sendParcel.Status = ParcelStatus.PickedUp;
-                else sendParcel.Status = ParcelStatus.Delivered;
-                //add the parcel to the list
-                customerBO.FromCustomer = new List<ParcelByCustomer>(); ;
-                customerBO.FromCustomer.ToList().Add(sendParcel);
-            }
-
-            ParcelByCustomer receiveParcel = new();
-            foreach (DO.Parcel currentParcel in ReceiverParcels)
-            {
-                currentParcel.CopyPropertiesTo(receiveParcel);
-                //set the "SecondSideOfParcelCustomer" property in the parcel:
-                receiveParcel.SecondSideOfParcelCustomer = new();
-                receiveParcel.SecondSideOfParcelCustomer.Id = currentParcel.Sender;//second side is targetid
-                receiveParcel.SecondSideOfParcelCustomer.Name = dal.GetCustomer(currentParcel.Sender).Name;
-                receiveParcel.Status =ParcelStatus.Delivered;//the status is delivered (cause its by the targetid..)
-                //add the parcel to the list
-                customerBO.ToCustomer = new List<ParcelByCustomer>();
-                customerBO.ToCustomer.ToList().Add(receiveParcel);
-            }
+            customerBO.FromCustomer = (from item in dal.GetListParcel(i => i.Sender == ID)
+                                       select HelpMethod(item, customerBO));
+            customerBO.ToCustomer = (from item in dal.GetListParcel(i => i.Targetid == ID)
+                                     select HelpMethod(item, customerBO));
             return customerBO;
         }
 
         public IEnumerable<CustomerToList> GetListCustomer(Predicate<CustomerToList> predicate = null)
         {
-            IEnumerable<DO.Customer> customerDO = dal.GetListCustomer(item=>!item.IsRemoved);
+            IEnumerable<DO.Customer> customerDO = dal.GetListCustomer(item => !item.IsRemoved);
             List<CustomerToList> customerToLists = new();
+
             foreach (DO.Customer currentCustomer in customerDO)
             {
                 CustomerToList customerList = new();
@@ -140,7 +110,7 @@ namespace BL
                 IEnumerable<DO.Parcel> parcelsSendAndDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered != null);
                 customerList.NumberParcelSentAndDelivered = parcelsSendAndDelivered.Count();
                 //brings all the parcels that were send by the current customer and werent delivered
-                IEnumerable<DO.Parcel> parcelsSendAndNOTDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered == null && i.PickUp!= null);
+                IEnumerable<DO.Parcel> parcelsSendAndNOTDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered == null && i.PickUp != null);
                 customerList.NumberParcelSentAndNOTDelivered = parcelsSendAndNOTDelivered.Count();
                 //brings all the parcels that were received by the current customer and were delivered
                 IEnumerable<DO.Parcel> parcelsReceived = dal.GetListParcel(i => i.Targetid == currentCustomer.Id && i.Delivered != null);

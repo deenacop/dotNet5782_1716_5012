@@ -7,22 +7,14 @@ using System.Xml.Serialization;
 
 namespace Dal
 {
-
     public class XMLTools
     {
-        // static string dir = @"xml\";
-        //static XMLTools()
-        //{
-        //    if (!Directory.Exists(dir))
-        //        Directory.CreateDirectory(dir);
-        //}
-
         #region SaveLoadWithXElement
         public static void SaveListToXMLElement(XElement rootElem, string filePath)
         {
             try
             {
-                rootElem.Save(/*dir + */filePath);
+                rootElem.Save(filePath);
             }
             catch (Exception ex)
             {
@@ -40,8 +32,8 @@ namespace Dal
                 }
                 else
                 {
-                    XElement rootElem = new XElement(/*dir + */filePath);
-                    rootElem.Save(/*dir + */filePath);
+                    XElement rootElem = new XElement(filePath);
+                    rootElem.Save(filePath);
                     return rootElem;
                 }
             }
@@ -72,11 +64,11 @@ namespace Dal
         {
             try
             {
-                if (File.Exists(/*dir + */filePath))
+                if (File.Exists(filePath))
                 {
                     List<T> list;
                     XmlSerializer x = new XmlSerializer(typeof(List<T>));
-                    FileStream file = new FileStream(/*dir + */filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+                    FileStream file = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
                     list = (List<T>)x.Deserialize(file);
                     file.Close();
                     return list;

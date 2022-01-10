@@ -9,6 +9,8 @@ namespace DO
 {
     /// <summary>
     /// A new class for a user 
+    /// Our program is based on the fact that every user is also a customer.
+    ///We separated them into 2 personalities for convenience.
     /// </summary>
     public class User
     {
