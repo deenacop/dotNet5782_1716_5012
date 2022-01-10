@@ -117,7 +117,7 @@
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                             </Style>
                         </ListView.ItemContainerStyle>
-                        <ListView.Style>
+                        <ListView.Style >
                             <Style TargetType="ListView">
                                 <Setter Property="Visibility" Value="Hidden"/>
                                 <Style.Triggers>
