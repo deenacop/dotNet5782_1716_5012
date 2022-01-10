@@ -26,8 +26,8 @@ namespace PL
         public Customer Customer { get; set; }//customer for binding
 
         User user;
-        List<ParcelByCustomer> ParcelListTo;
-        List<ParcelByCustomer> ParcelListFrom;
+        IEnumerable<ParcelByCustomer> ParcelListTo;
+        IEnumerable<ParcelByCustomer> ParcelListFrom;
         private bool _close { get; set; } = false;//for closing the window
 
         public UserMainWindow(BlApi.IBL bl, User User)

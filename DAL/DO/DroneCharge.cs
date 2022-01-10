@@ -7,12 +7,22 @@ namespace DO
     /// </summary>
     public struct DroneCharge
     {
+        /// <summary>
+        /// ID of the station 
+        /// </summary>
         public int BaseStationID { get; set; }
+        /// <summary>
+        /// ID of the drone
+        /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// Entery time
+        /// </summary>
         public DateTime? EnterToChargBase { get; set; }
-
+        /// <summary>
+        /// Departure time
+        /// </summary>
         public DateTime? FinishedRecharging { get; set; }
-
         ///<summary>
         /// Field that tells you if the item has been removed or not
         /// </summary>

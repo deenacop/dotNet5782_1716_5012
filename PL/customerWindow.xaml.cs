@@ -166,14 +166,14 @@ namespace PL
         }
         private void Image_MouseDown_sent(object sender, MouseButtonEventArgs e)
         {
-            if (Customer.FromCustomer.Count != 0)
+            if (Customer.FromCustomer!=null)
                 new ParcelByCustomerWindow(Customer.FromCustomer, bl, customerListWindow).Show();
             else
                 MessageBox.Show("The cutomer didn't send any parcels!");
         }
         private void Image_MouseDown_received(object sender, MouseButtonEventArgs e)
         {
-            if (Customer.ToCustomer.Count != 0)
+            if (Customer.ToCustomer!=null)
                 new ParcelByCustomerWindow(Customer.ToCustomer, bl, customerListWindow).Show();
             else
                 MessageBox.Show("The cutomer didn't receive any parcels!");

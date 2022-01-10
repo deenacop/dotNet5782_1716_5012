@@ -55,7 +55,7 @@ namespace Dal
                     IsRemoved = false,
                     Latitude = rand.NextDouble() + 31,
                     Longitude = rand.NextDouble() + 35
-                }) ;
+                });
                 for (int j = 0; j < i; j++)//Checks that the ID number is unique to each station.
                 {
                     if (Stations[j].Id == Stations[i].Id)
@@ -99,7 +99,7 @@ namespace Dal
             #endregion
 
             #region customer
-            string[] nameArr = { "Shira Segal" , "Deena Copperman" , "Benjamin Netanyahu" , "Yishai Ribu" ,
+            string[] nameArr = { "Shira Segal" , "Deena Copperman" , "Naama Segal" , "Yishai Ribu" ,
                                      "Yossi Cohen","Moshe Leon","Mordechai Glecer","huda Seor","Yigal Eyal","Lior Ackerman"};
 
             string[] phoneArr = { "0548482282" , "0504188440", "0548324567" , "0547687689", "0525678997",
@@ -114,7 +114,7 @@ namespace Dal
                     Longitude = rand.NextDouble() + 35,
                     Name = nameArr[i],
                     PhoneNumber = phoneArr[i],
-                    IsRemoved=false
+                    IsRemoved = false
 
                 });
                 for (int j = 0; j < i; j++)//Checks that the ID number is unique to each customer.
@@ -188,39 +188,42 @@ namespace Dal
             #endregion
 
             #region User
-            Users.Insert(0, new()
+            //Our program is based on the fact that every user is also a customer.
+            //We separated them into 2 personalities for convenience.
+            //We will initialize the list of users based on the list of customers we have already initialized
+            string[] emailArr = { "103shira@gmail.com", "deenacop@gmail.com", "1654naama@gmail.com", "1try@gmail.com", "2try@gmail.com", "3try@gmail.com", "4try@gmail.com", "5try@gmail.com", "6try@gmail.com", "7try@gmail.com" };
+            string[] passwordArr = { "shira1234", "deena1234", "naama1234", "try1", "try2", "try3", "try4", "try5", "try6", "try7" };
+            //2 manager
+            for (int i = 0; i < 3; i++)
             {
-                Id = 768594756,
-                Name = "shira segal",
-                PhoneNumber = "0549764329",
-                Password = "shira1234",
-                EmailAddress = "103shira@gmail.com",
-                IsManager = true,
-                Latitude = 31.4,
-                Longitude = 35.5
-            });
-            Users.Insert(1, new()
+                Users.Insert(i, new()
+                {
+                    Id = Customers[i].Id,
+                    Name = Customers[i].Name,
+                    PhoneNumber = Customers[i].PhoneNumber,
+                    Password = passwordArr[i],
+                    EmailAddress = emailArr[i],
+                    IsManager = true,
+                    Latitude = Customers[i].Latitude,
+                    Longitude = Customers[i].Longitude
+                });
+            }
+            //7 users
+            for (int i = 3; i < 10; i++)
             {
-                Id = 123456789,
-                Name = "deena cooperman",
-                PhoneNumber = "0547628751",
-                Password = "deena1234",
-                EmailAddress = "deenacop@gmail.com",
-                IsManager = true,
-                Latitude = 31.2,
-                Longitude = 35.2
-            });
-            Users.Insert(2, new()
-            {
-                Id = 345678912,
-                Name = "naama segal",
-                PhoneNumber = "0547627751",
-                Password = "naama1234",
-                EmailAddress = "1654naama@gmail.com",
-                IsManager = false,
-                Longitude = 35.6,
-                Latitude = 31.3
-            });
+                Users.Insert(i, new()
+                {
+                    Id = Customers[i].Id,
+                    Name = Customers[i].Name,
+                    PhoneNumber = Customers[i].PhoneNumber,
+                    Password = passwordArr[i],
+                    EmailAddress = emailArr[i],
+                    IsManager = false,
+                    Latitude = Customers[i].Latitude,
+                    Longitude = Customers[i].Longitude
+                });
+            }
+            //////neeeddd ttoo beee deleteddd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             Users.Insert(2, new()
             {
                 Id = 567891234,
@@ -232,34 +235,7 @@ namespace Dal
                 Longitude = 35.8,
                 Latitude = 31.4
             });
-            //My program is based on the fact that every new user is automatically registered in the system as a customer as well.
-            //Because in the data layer I initialize by hand (in order to run), I now add each of the users I entered by hand to the user list,
-            //also to the customer list at the same time.
-            Customers.Insert(10, new()
-            {
-                Id = 768594756,
-                Name = "shira segal",
-                PhoneNumber = "0549764329",
-                Latitude = 31.4,
-                Longitude = 35.5
-            });
-            Customers.Insert(11, new()
-            {
-                Id = 123456789,
-                Name = "deena cooperman",
-                PhoneNumber = "0547628751",
-                Latitude = 31.2,
-                Longitude = 35.2
-            });
-            Customers.Insert(12, new()
-            {
-                Id = 345678912,
-                Name = "naama segal",
-                PhoneNumber = "0547627751",
-                Longitude = 35.6,
-                Latitude = 31.3
-            });
-            Customers.Insert(13, new()
+            Customers.Insert(10 ,new()
             {
                 Id = 567891234,
                 Name = "try",

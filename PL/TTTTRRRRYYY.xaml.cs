@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace PL
 {
-    public class User : ValidationRule, IDataErrorInfo, INotifyPropertyChanged
+    public class trrryyy : ValidationRule, IDataErrorInfo, INotifyPropertyChanged
     {
         public int MinimumCharacters { get; set; }
 
