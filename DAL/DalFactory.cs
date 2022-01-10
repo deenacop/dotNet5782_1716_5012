@@ -80,7 +80,7 @@ namespace DalApi
             try
             {
                 // If the instance property is not initialized (i.e. it does not hold a real instance reference)...
-                IDal dal = (IDal)type.GetProperty("instance", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+                IDal dal = (IDal)type.GetProperty("Instance", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
                 // If the instance property is not initialized (i.e. it does not hold a real instance reference)...
                 if (dal == null)
                 {

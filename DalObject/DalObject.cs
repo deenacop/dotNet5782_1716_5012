@@ -9,8 +9,10 @@ namespace Dal
     internal sealed class DalObject : DalApi.IDal
     {
         #region singelton
-        internal static DalObject instance { get { return Instance.Value; } }
-        private static readonly Lazy<DalObject> Instance = new Lazy<DalObject>(() => new DalObject()); //Lazy initialization of an object means that its creation is deferred until it is first used.
+
+        private static readonly Lazy<DalObject> instance = new Lazy<DalObject>(() => new DalObject()); //Lazy initialization of an object means that its creation is deferred until it is first used.
+
+        internal static DalObject Instance { get { return instance.Value; } }
         static DalObject() { }
         private DalObject() { DataSource.Initialize(); }//ctor
 
@@ -197,12 +199,16 @@ namespace Dal
                 station.NumOfAvailableChargingSlots++;
                 DataSource.Stations[index] = station;
             }
-            DroneCharge drone = GetDroneCharge(droneID, baseStationID).Item1;
-            index = GetDroneCharge(droneID, baseStationID).Item2;//get the specific index of the wanted dronecharge
+            int indexDC = DataSource.DroneCharges.FindIndex(indexOfDroneCharges => indexOfDroneCharges.Id == droneID);//finds index where drone is
+            if (indexDC == -1)//checks if drone exists
+                throw new ItemNotExistException("The drone does not exist.\n");
+            DroneCharge drone = DataSource.DroneCharges[indexDC];
             drone.FinishedRecharging = DateTime.Now; ;//delete the drone from the list of the drone charge
-            DataSource.DroneCharges[index] = drone;
+            DataSource.DroneCharges[indexDC] = drone;
 
         }
+
+        
         #endregion
 
         #region Updates
@@ -253,13 +259,15 @@ namespace Dal
         #endregion
 
         #region Get item
-        public (DroneCharge, int) GetDroneCharge(int droneID, int baseStationId)
+        public DroneCharge GetDroneCharge(int droneID, int baseStationId)
         {
             int index = DataSource.DroneCharges.FindIndex(i => i.Id == droneID && i.BaseStationID == baseStationId);//finds the drone charge
             if (index < 0)//not found
                 throw new ItemNotExistException("the drone does not exist in the wanted base station");
-            return (DataSource.DroneCharges[index], index);
+            return DataSource.DroneCharges[index];
         }
+
+       
         public Drone GetDrone(int droneID)
         {
             int index = DataSource.Drones.FindIndex(i => i.Id == droneID);

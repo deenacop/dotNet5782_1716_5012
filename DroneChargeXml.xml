@@ -1,2 +1,52 @@
 <?xml version="1.0"?>
-<ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DroneCharge>
+    <BaseStationID>5839</BaseStationID>
+    <Id>903</Id>
+    <EnterToChargBase>2022-01-09T23:21:58.2124791+02:00</EnterToChargBase>
+    <FinishedRecharging xsi:nil="true" />
+    <IsRemoved>false</IsRemoved>
+  </DroneCharge>
+  <DroneCharge>
+    <BaseStationID>1645</BaseStationID>
+    <Id>867</Id>
+    <EnterToChargBase>2022-01-09T23:21:58.4759309+02:00</EnterToChargBase>
+    <FinishedRecharging xsi:nil="true" />
+    <IsRemoved>false</IsRemoved>
+  </DroneCharge>
+  <DroneCharge>
+    <BaseStationID>1645</BaseStationID>
+    <Id>879</Id>
+    <EnterToChargBase>2022-01-09T23:21:58.5848161+02:00</EnterToChargBase>
+    <FinishedRecharging xsi:nil="true" />
+    <IsRemoved>false</IsRemoved>
+  </DroneCharge>
+  <DroneCharge>
+    <BaseStationID>5839</BaseStationID>
+    <Id>777</Id>
+    <EnterToChargBase>2022-01-09T23:21:58.6946362+02:00</EnterToChargBase>
+    <FinishedRecharging xsi:nil="true" />
+    <IsRemoved>false</IsRemoved>
+  </DroneCharge>
+  <DroneCharge>
+    <BaseStationID>5839</BaseStationID>
+    <Id>713</Id>
+    <EnterToChargBase>2022-01-09T23:21:59.0161677+02:00</EnterToChargBase>
+    <FinishedRecharging xsi:nil="true" />
+    <IsRemoved>false</IsRemoved>
+  </DroneCharge>
+  <DroneCharge>
+    <BaseStationID>1645</BaseStationID>
+    <Id>138</Id>
+    <EnterToChargBase>2022-01-09T23:38:30.4675587+02:00</EnterToChargBase>
+    <FinishedRecharging xsi:nil="true" />
+    <IsRemoved>false</IsRemoved>
+  </DroneCharge>
+  <DroneCharge>
+    <BaseStationID>5839</BaseStationID>
+    <Id>814</Id>
+    <EnterToChargBase>2022-01-09T23:41:48.7824034+02:00</EnterToChargBase>
+    <FinishedRecharging xsi:nil="true" />
+    <IsRemoved>false</IsRemoved>
+  </DroneCharge>
+</ArrayOfDroneCharge>

@@ -165,7 +165,7 @@ namespace DalApi
         /// <param name="baseStationId">The requested station</param>
         /// <returns>wanted droneCharge, the index that the drone is in</returns>
         /// <exception cref="IDAL.DO.ItemNotExistException"></exception>
-        public (DroneCharge, int) GetDroneCharge(int droneID, int baseStationId);
+        public DroneCharge GetDroneCharge(int droneID, int baseStationId);
 
         /// <summary>
         /// Return the wanted station

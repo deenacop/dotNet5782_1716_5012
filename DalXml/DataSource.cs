@@ -41,6 +41,13 @@ namespace Dal
         /// </summary>
         public static void Initialize()
         {
+            XMLTools.SaveListToXMLSerializer(Drones, DroneXml);
+            XMLTools.SaveListToXMLSerializer(Parcels, ParcelXml);
+            XMLTools.SaveListToXMLSerializer(Stations, StationXml);
+            XMLTools.SaveListToXMLSerializer(DroneCharges, DroneChargeXml);
+            XMLTools.SaveListToXMLSerializer(Customers, CustomerXml);
+            XMLTools.SaveListToXMLSerializer(Users, UserXml);
+
             #region station
             string[] addresArr = { "Balfour street, Jerusalem", "4 David Remez Street, Jerusalem" };
 
@@ -214,11 +221,7 @@ namespace Dal
             });
             #endregion
 
-            XMLTools.SaveListToXMLSerializer(Drones, DroneXml);
-            XMLTools.SaveListToXMLSerializer(Parcels, ParcelXml);
-            XMLTools.SaveListToXMLSerializer(Stations, StationXml);
-            XMLTools.SaveListToXMLSerializer(DroneCharges, DroneChargeXml);
-            XMLTools.SaveListToXMLSerializer(Customers, CustomerXml);
+           
 
         }
         private static string DroneXml = @"DroneXml.xml";
@@ -226,6 +229,7 @@ namespace Dal
         private static string StationXml = @"StationXml.xml";
         private static string DroneChargeXml = @"DroneChargeXml.xml";
         private static string CustomerXml = @"CustomerXml.xml";
+        private static string UserXml = @"UserXml.xml";
     }
 }
 

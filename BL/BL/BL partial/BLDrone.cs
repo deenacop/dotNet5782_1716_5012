@@ -61,7 +61,7 @@ namespace BL
                 {
                     //Finds the wanted station:
                     int baseStationId = dal.GetListStation().First(i => i.Latitude == drone.Location.Latitude && i.Longitude == drone.Location.Longitude).Id;
-                    DO.DroneCharge droneCharge = dal.GetDroneCharge(drone.Id, baseStationId).Item1;
+                    DO.DroneCharge droneCharge = dal.GetDroneCharge(drone.Id, baseStationId);
                     //Calculate the time the drone was in charge
                     TimeSpan diff = DateTime.Now - (DateTime)droneCharge.EnterToChargBase;
                     int minuteInCharge = (int)diff.TotalSeconds / 60;
@@ -160,6 +160,7 @@ namespace BL
             listDrone.Battery -= (int)(distance * vacant);
             listDrone.Status = DroneStatus.Maintenance;
             listDrone.Location = MinDistanceLocation(BaseStationListBL, listDrone.Location).Item1;
+            listDrone.CopyPropertiesTo(drone);
             int index = DroneListBL.FindIndex(item => item.Id == listDrone.Id);//finds the drone with the wanted ID
             DroneListBL[index] = listDrone;
         }
@@ -168,7 +169,7 @@ namespace BL
         {
             //Finds the wanted station:
             int baseStationId = dal.GetListStation().First(i => i.Latitude == drone.Location.Latitude && i.Longitude == drone.Location.Longitude).Id;
-            DO.DroneCharge droneCharge = dal.GetDroneCharge(drone.Id, baseStationId).Item1;
+            DO.DroneCharge droneCharge = dal.GetDroneCharge(drone.Id, baseStationId);
             //Calculate the time the drone was in charge
             TimeSpan diff = DateTime.Now - (DateTime)droneCharge.EnterToChargBase;
             int minuteInCharge = (int)diff.TotalSeconds / 60;
@@ -194,6 +195,7 @@ namespace BL
             if (listDrone.Battery > 100)//cant be more than 100
                 listDrone.Battery = 100;
             listDrone.Status = DroneStatus.Available;
+            listDrone.CopyPropertiesTo(drone);
             int index = DroneListBL.FindIndex(item => item.Id == listDrone.Id);
             DroneListBL[index] = listDrone;
         }
@@ -214,6 +216,7 @@ namespace BL
                 if (BatteryCheckingForDroneAndParcel(currentParcel, drone))
                 {
                     DroneListBL[index].Status = DroneStatus.Delivery;
+                    DroneListBL[index].CopyPropertiesTo(drone);
                     dal.AssignParcelToDrone(currentParcel.Id, drone.Id);
                     return;
                 }
@@ -233,6 +236,7 @@ namespace BL
             double distance = DistanceCalculation(drone.Location, GetCustomer(parcel.SenderCustomer.Id).Location);
             DroneListBL[index].Battery -= (int)(distance * vacant);//update the battery
             DroneListBL[index].Location = GetCustomer(parcel.SenderCustomer.Id).Location;
+            DroneListBL[index].CopyPropertiesTo(drone);
             dal.CollectionOfParcelByDrone(parcel.Id, drone.Id);//send to the function
         }
 
@@ -258,6 +262,7 @@ namespace BL
                 }
                 DroneListBL[index].Location = GetCustomer(parcel.TargetidCustomer.Id).Location;
                 DroneListBL[index].Status = DroneStatus.Available;
+                DroneListBL[index].CopyPropertiesTo(drone);
                 dal.DeliveryParcelToCustomer(parcel.Id);
             }
             else throw new WorngStatusException("The parcel couldnt be delivered");
@@ -269,7 +274,7 @@ namespace BL
             DroneInCharging droneInChargingBO = new();
             try
             {
-                DO.DroneCharge droneCharge = dal.GetDroneCharge(id, stationId).Item1;
+                DO.DroneCharge droneCharge = dal.GetDroneCharge(id, stationId);
 
                 droneCharge.CopyPropertiesTo(droneInChargingBO);
                 droneInChargingBO.Battery=DroneListBL.Find(i => i.Id == id).Battery;

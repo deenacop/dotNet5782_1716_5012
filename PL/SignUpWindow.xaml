@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="SignUpWindow" Height="370" Width="200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="SignUpWindow" Height="470" Width="250" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="RoundedButtonStyle" TargetType="{x:Type Label}">
             <Setter Property="Template">
@@ -19,8 +19,8 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Background="#FFD6D6D6" Opacity="1" Width="200" DataContext="{Binding user}">
-        <Grid.RowDefinitions>
+    <Grid Background="#FFD6D6D6" Opacity="1" Width="250" DataContext="{Binding user}">
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="57*"/>
             <RowDefinition Height="34*"/>
             <RowDefinition Height="34*"/>
@@ -31,10 +31,11 @@
             <RowDefinition Height="34*"/>
             <RowDefinition Height="34*"/>
             <RowDefinition Height="40*"/>
-        </Grid.RowDefinitions>
-        <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" Text="Create Account" Foreground="#FF0F4E7A" FontWeight="Bold" />
+        </Grid.RowDefinitions>-->
+        <!--<TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" Text="Create Account" Foreground="#FF0F4E7A" FontWeight="Bold" />
         <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="120" Height="37" Style="{DynamicResource RoundedButtonStyle}" >
             <TextBox BorderBrush="{x:Null}" Width="132" Height="24" Background="{x:Null}" Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" Text="{Binding Name, Mode=TwoWay}"  />
+            
         </Label>
 
         <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Width="120" Height="37" Style="{DynamicResource RoundedButtonStyle}" >
@@ -54,8 +55,45 @@
         </Label>
         <Label  HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="8" Width="120" Height="37" Style="{DynamicResource RoundedButtonStyle}" >
             <TextBox BorderBrush="{x:Null}" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" Text="{Binding Location.Latitude, Mode=TwoWay}" />
+           
         </Label>
         <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="9" Width="70" Height="25" HorizontalContentAlignment="Center" Background="#FF0F4E7A" Content="SIGN UP" FontFamily="Franklin Gothic Demi" FontSize="10" Foreground="White" MouseDown="save_Click">
-        </Label>
+        </Label>-->
+        <StackPanel Margin="6">
+            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17" Text="Create Account" Foreground="#FF0F4E7A" FontWeight="Bold" />
+            <Label Content="_Name:" Target="{Binding ElementName=txtName}" />
+            <TextBox Name="txtName" Text="{Binding Name, Mode=TwoWay}"  BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="20" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" />
+            <Label Content="_Mail:" Target="{Binding ElementName=txtMail}"  />
+            <TextBox Name="txtMail" Text="{Binding EmailAddress, Mode=TwoWay}" BorderBrush="#FF0F4E7A" BorderThickness="2"  Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi"/>
+            <Label Content="_Id:" Target="{Binding ElementName=txtMail}" />
+            <TextBox Name="txtId" Text="{Binding Id, Mode=TwoWay}"  BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi"/>
+            <Label Content="_Phone Number:" Target="{Binding ElementName=txtMail}"  />
+            <TextBox Name="txtPhoneNumber" Text="{Binding PhoneNumber, Mode=TwoWay}" BorderBrush="#FF0F4E7A" BorderThickness="2"  Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" />
+            <Label Content="_Password:" Target="{Binding ElementName=txtMail}" />
+            <TextBox Name="txtPassword" Text="{Binding Password, Mode=TwoWay}"  BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi"/>
+            <Label Content="_Longitude:" Target="{Binding ElementName=txtMail}" />
+            <TextBox Name="txtLongitude" Text="{Binding Location.Longitude, Mode=TwoWay}"  BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" />
+            <Label Content="_Latitude:" Target="{Binding ElementName=txtMail}" />
+            <TextBox Name="txtLatitude" Text="{Binding Location.Latitude, Mode=TwoWay}"   BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" />
+            <Label Content=""  />
+
+            <Label  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="9" Width="70" Height="25" HorizontalContentAlignment="Center" Background="#FF0F4E7A" Content="SIGN UP" FontFamily="Franklin Gothic Demi" FontSize="10" Foreground="White" MouseDown="save_Click"/>
+
+        </StackPanel>
+        <!--<DockPanel>
+        <WrapPanel DockPanel.Dock="Top">
+            <Button Name="btnGetText" Click="btnGetText_Click">Get text</Button>
+            <Button Name="btnSetText" Click="btnSetText_Click">Set text</Button>
+            <Button Name="btnGetSelectedText" Click="btnGetSelectedText_Click">Get sel. text</Button>
+            <Button Name="btnSetSelectedText" Click="btnSetSelectedText_Click">Replace sel. text</Button>
+        </WrapPanel>
+        <TextBox DockPanel.Dock="Bottom" Name="txtStatus" />
+        <RichTextBox Name="rtbEditor" SelectionChanged="rtbEditor_SelectionChanged">
+            <FlowDocument>
+                <Paragraph FontSize="36">Hello, world!</Paragraph>
+                <Paragraph FontStyle="Italic" TextAlignment="Left" FontSize="14" Foreground="Gray">Thanks to the RichTextBox control, this FlowDocument is completely editable!</Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+    </DockPanel>-->
     </Grid>
 </Window>

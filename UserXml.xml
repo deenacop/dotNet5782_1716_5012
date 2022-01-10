@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <User>
+    <Id>123456789</Id>
+    <Name>de</Name>
+    <PhoneNumber>092873</PhoneNumber>
+    <Password>lord1234</Password>
+    <EmailAddress>lordmord2000@gmail.com</EmailAddress>
+    <IsManager>false</IsManager>
+    <Longitude>35.2</Longitude>
+    <Latitude>31.3</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </User>
+</ArrayOfUser>

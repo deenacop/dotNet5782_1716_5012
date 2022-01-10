@@ -19,7 +19,9 @@ namespace BL
 
         private static readonly IDal dal = DalFactory.GetDal();//instance of IDal
         private static readonly Lazy<BL> instance = new Lazy<BL>(() => new BL()); //Lazy initialization of an object means that its creation is deferred until it is first used.
+
         internal static BL Instance { get { return instance.Value; } }// The internal Instance property to use
+        
 
         List<DroneToList> DroneListBL;//The list of drones that we will maintain throughout the project
 
