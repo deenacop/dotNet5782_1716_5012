@@ -166,7 +166,7 @@ namespace Dal
                 throw new ItemNotExistException("The drone does not exists");
             //finds the wanted parcel
             int index = parcels.FindIndex(i => i.Id == parcelID);
-            if (index == -1 || parcels[index].IsRemoved)//not found
+            if (index == -1 )//not found
                 throw new ItemNotExistException("The station does not exists");
             //updates the parcel
             Parcel parcel = parcels[index];
@@ -185,7 +185,7 @@ namespace Dal
                 throw new ItemNotExistException("The drone does not exists");
             //finds the wanted parcel
             int index = parcels.FindIndex(i => i.Id == parcelID);
-            if (index == -1 || parcels[index].IsRemoved)//not found
+            if (index == -1 )//not found
                 throw new ItemNotExistException("The parcel does not exists");
             //updates the parcel
             Parcel tmp = parcels[index];
@@ -199,7 +199,7 @@ namespace Dal
         {
             List<Parcel> parcels = XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelXml);
             int index = parcels.FindIndex(i => i.Id == parcelID);//finds the parcel
-            if (index == -1 || parcels[index].IsRemoved)//not found
+            if (index == -1 )//not found
                 throw new ItemNotExistException("The parcel does not exists");
             Parcel tmp = parcels[index];
             tmp.MyDroneID = 0;

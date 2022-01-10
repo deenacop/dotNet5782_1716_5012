@@ -124,7 +124,8 @@ namespace BL
                 tmp = GetBaseStation(currentStation.Id);
                 tmp.CopyPropertiesTo(tmpToLst);
                 //find the amount of *busy* slots
-                tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.FindAll(i => i.FinishedRecharging == null).Count;//if "FinishedRecharging" is NULL this means that the drone's charge hasnt ended and the position is still occupied 
+                tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.ToString().Length;//if "FinishedRecharging" is NULL this means that the drone's charge hasnt ended and the position is still occupied 
+
                 stationToLists.Add(tmpToLst);
             }
             return stationToLists.FindAll(i => predicate == null ? true : predicate(i));

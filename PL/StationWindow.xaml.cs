@@ -79,7 +79,7 @@ namespace PL
         /// <param name="droneListWindow">access to the window</param>
         public StationWindow(BlApi.IBL bL, MenuWindow stationListWindow) : this(bL, new(), stationListWindow, 0)//sends to the other ctor
         {
-            Station.DronesInCharging = new();
+            //Station.DronesInCharging = new();
             txtId.IsEnabled = true;
             //show the add grid
             AddGrid.Visibility = Visibility.Visible;
@@ -189,8 +189,8 @@ namespace PL
 
         private void Image_MouseDown(object sender, RoutedEventArgs e)
         {
-            if(Station.DronesInCharging.Count!=0)
-                new DroneInChargingWindow(bl, Station.DronesInCharging).Show();
+            if(Station.DronesInCharging.ToList().Count!=0)
+                new DroneInChargingWindow(bl, Station.DronesInCharging.ToList()).Show();
             else
                 MessageBox.Show("No drone are charging in this station ");
         }

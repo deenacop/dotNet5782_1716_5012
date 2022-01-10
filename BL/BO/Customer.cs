@@ -27,18 +27,18 @@ namespace BO
         /// <summary>
         /// List of parcel sent by the customer 
         /// </summary>
-        public List<ParcelByCustomer> FromCustomer { get; set; } = new();
+        public IEnumerable<ParcelByCustomer> FromCustomer { get; set; } = new List<ParcelByCustomer>();
         /// <summary>
         /// List of packages received by the customer
         /// </summary>
-        public List<ParcelByCustomer> ToCustomer { get; set; } = new();
+        public IEnumerable<ParcelByCustomer> ToCustomer { get; set; } = new List<ParcelByCustomer>();
         public override string ToString()
         {
             string str = "ID:" + Id + "\nName:" + Name + "\nPhone number:" +
                 PhoneNumber + "\nLocation:\n" + Location+"\n" ;
-            if (FromCustomer.Capacity > 0)
+            if (FromCustomer ==null)
                 str+="All the parcels that were send from the customer:\n" + String.Join(" ", FromCustomer);
-            if(ToCustomer.Capacity>0)
+            if(ToCustomer == null)
                 str+= "All the parcels that the customer got:\n" + String.Join(" ", ToCustomer);
             return str;
         }

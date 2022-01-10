@@ -108,8 +108,8 @@ namespace BL
                     sendParcel.Status = ParcelStatus.PickedUp;
                 else sendParcel.Status = ParcelStatus.Delivered;
                 //add the parcel to the list
-                customerBO.FromCustomer = new();
-                customerBO.FromCustomer.Add(sendParcel);
+                customerBO.FromCustomer = new List<ParcelByCustomer>(); ;
+                customerBO.FromCustomer.ToList().Add(sendParcel);
             }
 
             ParcelByCustomer receiveParcel = new();
@@ -122,8 +122,8 @@ namespace BL
                 receiveParcel.SecondSideOfParcelCustomer.Name = dal.GetCustomer(currentParcel.Sender).Name;
                 receiveParcel.Status =ParcelStatus.Delivered;//the status is delivered (cause its by the targetid..)
                 //add the parcel to the list
-                customerBO.ToCustomer = new();
-                customerBO.ToCustomer.Add(receiveParcel);
+                customerBO.ToCustomer = new List<ParcelByCustomer>();
+                customerBO.ToCustomer.ToList().Add(receiveParcel);
             }
             return customerBO;
         }
