@@ -125,11 +125,11 @@ namespace Dal
         {
             //checks if the drone exists and if not throws an exception
             int index = DataSource.Drones.FindIndex(i => i.Id == droneID);
-            if (index == -1 || DataSource.Drones[index].IsRemoved)//not found
+            if (index == -1|| DataSource.Drones[index].IsRemoved)//not found
                 throw new ItemNotExistException("The drone does not exists");
             //finds the wanted parcel
             index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
-            if (index == -1 || DataSource.Parcels[index].IsRemoved)//not found
+            if (index == -1 )//not found
                 throw new ItemNotExistException("The parcel does not exists");
             //updates the parcel
             Parcel parcel = DataSource.Parcels[index];
@@ -142,11 +142,11 @@ namespace Dal
         {
             //checks if the drone exists and if not throws an exception
             int index = DataSource.Drones.FindIndex(i => i.Id == droneID);
-            if (index == -1 || DataSource.Drones[index].IsRemoved)//not found
+            if (index == -1 )//not found
                 throw new ItemNotExistException("The drone does not exists");
             //finds the wanted parcel
             index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
-            if (index == -1 || DataSource.Parcels[index].IsRemoved)//not found
+            if (index == -1 )//not found
                 throw new ItemNotExistException("The parcel does not exists");
             //updates the parcel
             Parcel tmp = DataSource.Parcels[index];
@@ -158,7 +158,7 @@ namespace Dal
         public void DeliveryParcelToCustomer(int parcelID)
         {
             int index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);//finds the parcel
-            if (index == -1 || DataSource.Parcels[index].IsRemoved)//not found
+            if (index == -1 )//not found
                 throw new ItemNotExistException("The parcel does not exists");
             Parcel tmp = DataSource.Parcels[index];
             tmp.MyDroneID = 0;
