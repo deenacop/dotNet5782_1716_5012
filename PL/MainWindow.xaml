@@ -8,17 +8,7 @@
         mc:Ignorable="d"
         Title="entery"  Height="300" Width="550"  
          ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Bahnschrift SemiBold" >
-    <!--<Window.Resources>
-        <ControlTemplate  x:Key="errorTemplate">
-            <Border BorderBrush="Red" BorderThickness="2">
-                <Grid>
-                    <AdornedElementPlaceholder/>
-                    <TextBlock Text="{Binding ErrorContent}" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,25,0"/>
-                </Grid>
-            </Border>
-            
-        </ControlTemplate>
-    </Window.Resources>-->
+
     <Grid Height="300" Width="550">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
