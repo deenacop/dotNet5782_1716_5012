@@ -35,7 +35,6 @@ namespace BO
         /// location of the drone
         /// </summary>
         public Location Location { get; set; }
-
         /// <summary>
         /// Field that tells you if the item has been removed or not
         /// </summary>
