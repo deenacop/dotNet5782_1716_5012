@@ -40,7 +40,6 @@ namespace BO
         /// location of the user
         /// </summary>
         public Location Location { get; set; }
-
         ///<summary>
         /// Field that tells you if the item has been removed or not
         /// </summary>
