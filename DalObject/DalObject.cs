@@ -215,6 +215,7 @@ namespace Dal
                 throw new ItemNotExistException("The drone does not exist.\n");
             DroneCharge drone = DataSource.DroneCharges[indexDC];
             drone.FinishedRecharging = DateTime.Now; ;//delete the drone from the list of the drone charge
+            drone.IsRemoved = true;
             DataSource.DroneCharges[indexDC] = drone;
 
         }

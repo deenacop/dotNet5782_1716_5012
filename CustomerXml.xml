@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Customer>
-    <Id>317133420</Id>
+    <Id>213085012</Id>
     <Name>Shira Segal</Name>
     <PhoneNumber>0548482282</PhoneNumber>
     <Longitude>35.4004878850656</Longitude>
@@ -9,7 +9,7 @@
     <IsRemoved>false</IsRemoved>
   </Customer>
   <Customer>
-    <Id>423684685</Id>
+    <Id>324281716</Id>
     <Name>Deena Copperman</Name>
     <PhoneNumber>0504188440</PhoneNumber>
     <Longitude>35.118672928828126</Longitude>
@@ -49,7 +49,7 @@
     <IsRemoved>false</IsRemoved>
   </Customer>
   <Customer>
-    <Id>494152658</Id>
+    <Id>315296681</Id>
     <Name>Mordechai Glecer</Name>
     <PhoneNumber>0527689646</PhoneNumber>
     <Longitude>35.0367638860069</Longitude>
@@ -79,13 +79,5 @@
     <Longitude>35.09817567658526</Longitude>
     <Latitude>31.711170818522188</Latitude>
     <IsRemoved>false</IsRemoved>
-  </Customer>
-  <Customer>
-    <Id>123456788</Id>
-    <Name>as</Name>
-    <Phone>123</Phone>
-    <Latitude>false</Latitude>
-    <Longitude>35</Longitude>
-    <Latitude>31</Latitude>
   </Customer>
 </ArrayOfCustomer>

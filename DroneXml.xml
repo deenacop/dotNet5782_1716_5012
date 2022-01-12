@@ -25,12 +25,6 @@
     <IsRemoved>false</IsRemoved>
   </Drone>
   <Drone>
-    <Id>584</Id>
-    <Model>3D Robotics Solo</Model>
-    <Weight>Light</Weight>
-    <IsRemoved>false</IsRemoved>
-  </Drone>
-  <Drone>
     <Id>554</Id>
     <Model>3D Robotics Solo</Model>
     <Weight>Light</Weight>

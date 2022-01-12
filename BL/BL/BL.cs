@@ -42,12 +42,11 @@ namespace BL
             #region Brings some of the lists that are needed from IDAL
 
             DronesBL = new List<DroneToList>();
-            IEnumerable<DO.Drone> DroneListDL = dal.GetListDrone();//Receive the drone list from the data layer.
-            DroneListDL.CopyPropertiesToIEnumerable(DronesBL);//convret from DalApi to BL
+            dal.GetListDrone().CopyPropertiesToIEnumerable(DronesBL);//convret from DalApi to BL
 
             List<ParcelToList> ParcelListBL = new();
             IEnumerable<DO.Parcel> ParcelListDL = dal.GetListParcel(i => i.MyDroneID != 0);//Receive the parcel list of parcels that are assign to drone (from the data layer).
-            ParcelListDL.CopyPropertiesToIEnumerable(ParcelListBL);//convret from DalApi to BL
+            dal.GetListParcel(i => i.MyDroneID != 0).CopyPropertiesToIEnumerable(ParcelListBL);//convret from DalApi to BL
 
             List<BaseStation> BaseStationListBL = new();
             IEnumerable<DO.Station> StationListDL = dal.GetListStation();//Receive the station list from the data layer.
@@ -73,6 +72,7 @@ namespace BL
                                                 //if !=-1 else: move to the catch block
                     #region DELIVERY MODE
                     currentDrone.Status = DroneStatus.Delivery;//in delivery mode (מבצע משלוח)
+                    currentDrone.ParcelId = parcelDO.Id;
 
                     DO.Customer senderCustomer = dal.GetCustomer(parcelDO.Sender); //gets the sender customer (for setting the location)
 
@@ -88,10 +88,7 @@ namespace BL
                         currentDrone.Location = MinDistanceLocation(BaseStationListBL, locationOfSender).Item1;
                     }
                     else
-                    {
                         currentDrone.Location = locationOfSender;
-                        currentDrone.ParcelId = parcelDO.Id;
-                    }
 
                     //Battery status (מצב סוללה):
                     DO.Customer receiverCustomer = dal.GetCustomer(parcelDO.Targetid); //Found the customer that is the custumer that is targetid one (for setting the battery)
@@ -114,9 +111,7 @@ namespace BL
                 //If the drone is not currently shipping(אם הרחפן לא מבצע משלוח):
                 catch (InvalidOperationException)
                 {
-                    IEnumerable<DO.Parcel> deliveredParcel = dal.GetListParcel(i => i.Delivered != null);//Receive the parcel list of parcels that are in delivery mode (from the data layer).
-                    IEnumerable<DO.Station> availableStations = dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0);//Receive the station list of stations that have available slots (from the data layer).
-
+                    //IEnumerable<DO.Station> availableStations = dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0);//Receive the station list of stations that have available slots (from the data layer).
                     //currentDrone.Status = (DroneStatus)rand.Next(0, 2);
                     //if (currentDrone.Status == DroneStatus.Maintenance)
                     //DO.Station station = availableStations.Skip(rand.Next(0, availableStations.Count())).FirstOrDefault();//Randomly selects one of the available station
@@ -131,10 +126,10 @@ namespace BL
                     #region In maintenance mode
                     try
                     {
-                        DO.DroneCharge droneInCharging = dal.GetListDroneCharge(i => i.Id == currentDrone.Id).FirstOrDefault();
+                        DO.DroneCharge droneInCharging = dal.GetListDroneCharge(i => i.Id == currentDrone.Id).First();
                         //In maintenance(בתחזוקה):
                         currentDrone.Status = DroneStatus.Maintenance;
-                        DO.Station station = availableStations.Skip(rand.Next(0, availableStations.Count())).FirstOrDefault();//Randomly selects one of the available station
+                        DO.Station station = dal.GetStation(droneInCharging.BaseStationID);//finds the station that the drone is charged in
                         Location location1 = new()//set the location
                         {
                             Latitude = station.Latitude,
@@ -142,15 +137,21 @@ namespace BL
                         };
                         currentDrone.Location = location1;
                         currentDrone.Battery = rand.Next(0, 21);//Randomly selects a battery percentage between 0 and 20
+                        currentDrone.ParcelId = 0;
                     }
                     #endregion
                     #region Available mode
                     catch (InvalidOperationException)//AVAILABLE
                     {
-                        DO.Parcel parcel = deliveredParcel.Skip(rand.Next(0, deliveredParcel.Count())).First();//Randomly selects one of the delivered parcel
-                                                                                                               //After finding a parcel that was sent, asks to receive the location of the
-                                                                                                               //customer to whom the parcel was sent (in order to enter a logical location for the drone)
                         currentDrone.Status = DroneStatus.Available;
+                        currentDrone.ParcelId = 0;
+                        IEnumerable<DO.Parcel> deliveredParcel = dal.GetListParcel(i => i.Delivered != null);//Receive the parcel list of parcels that are in delivery mode (from the data layer)
+
+                        //Randomly selects one of the delivered parcel
+                        //After finding a parcel that was sent, asks to receive the location of the
+                        //customer to whom the parcel was sent (in order to enter a logical location for the drone)
+                        DO.Parcel parcel = deliveredParcel.Skip(rand.Next(0, deliveredParcel.Count())).First();
+                        //for finds the location
                         DO.Customer targetid = dal.GetCustomer(parcel.Targetid);
                         Location location2 = new()//set the location
                         {
@@ -158,13 +159,10 @@ namespace BL
                             Longitude = targetid.Longitude
                         };
                         currentDrone.Location = location2;
-                        //finds the closest station from the targeted
+                        //finds the closest station from the targetid to be sure that we will not set an unlogical battery
                         double minDistance = MinDistanceLocation(BaseStationListBL, currentDrone.Location).Item2;
                         //the minimum battery the drones needs
-                        int minBatteryDrone = 0;
-                        minBatteryDrone = setBattery(minBatteryDrone, minDistance, currentDrone.Weight);
-                        //if (minBatteryDrone == 0)
-                        //    currentDrone.Battery = 30;
+                        int minBatteryDrone = setBattery(0, minDistance, currentDrone.Weight);
                         currentDrone.Battery = rand.Next(minBatteryDrone, 101);//between minimum to maximum(=>100)
                     }
                     #endregion

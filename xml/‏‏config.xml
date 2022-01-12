@@ -3,7 +3,7 @@
 	<!--<dal>list</dal>-->
 	<dal>dalXml</dal>
 	<dal-packages>
-		<list namespace="Dal" class="DalObject">DalObject</list>
-		<!--<dalXml namespace="Dal" class="DalXml">DalXml</dalXml>-->
+		<!--<list namespace="Dal" class="DalObject">DalObject</list>-->
+		<dalXml namespace="Dal" class="DalXml">DalXml</dalXml>
 	</dal-packages>
 </config>
