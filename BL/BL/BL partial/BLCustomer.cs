@@ -16,6 +16,8 @@ namespace BL
             if (customer.Location.Latitude < 31 || customer.Location.Latitude > 32
              || customer.Location.Longitude < 35 || customer.Location.Longitude > 36)//Checking that the location is in the allowed range (Jerusalem area)
                 throw new UnlogicalLocationException("The location is unlogical");
+            customer.FromCustomer = new List<ParcelByCustomer>();
+            customer.ToCustomer = new List<ParcelByCustomer>();
             try
             {
                 DO.Customer customerDO = new();

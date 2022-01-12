@@ -11,7 +11,7 @@
   <Station>
     <Id>1645</Id>
     <Name>4 David Remez Street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>31</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>30</NumOfAvailableChargingSlots>
     <Longitude>35.86691501870142</Longitude>
     <Latitude>31.88915404206568</Latitude>
     <IsRemoved>false</IsRemoved>
@@ -35,7 +35,7 @@
   <Station>
     <Id>4566</Id>
     <Name>street</Name>
-    <NumOfAvailableChargingSlots>23</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>21</NumOfAvailableChargingSlots>
     <Longitude>35.8</Longitude>
     <Latitude>31.8</Latitude>
     <IsRemoved>true</IsRemoved>
@@ -62,6 +62,14 @@
     <NumOfAvailableChargingSlots>23</NumOfAvailableChargingSlots>
     <Longitude>35.4</Longitude>
     <Latitude>31.1</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </Station>
+  <Station>
+    <Id>4675</Id>
+    <Name>dfg</Name>
+    <NumOfAvailableChargingSlots>23</NumOfAvailableChargingSlots>
+    <Longitude>35.8</Longitude>
+    <Latitude>31.5</Latitude>
     <IsRemoved>false</IsRemoved>
   </Station>
 </ArrayOfStation>

@@ -18,8 +18,8 @@ namespace BL
                 throw new UnlogicalLocationException("the location is unlogical");
             if (station.NumOfAvailableChargingSlots < 0)
                 throw new NegetiveException("There may not be a number of negative charging positions");
-           // List<DroneInCharging> droneInChargings = new();
-           // station.DronesInCharging = droneInChargings;
+            
+            station.DronesInCharging =new List<DroneInCharging>(); 
             try
             {
                 DO.Station tmpStation = new();
