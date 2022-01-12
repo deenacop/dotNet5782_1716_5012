@@ -85,7 +85,6 @@ namespace ConsoleUI_BL
 
                                     case (int)AddOptions.Station:
                                         BaseStation newStation = new();
-                                       newStation.DronesInCharging = new List<DroneInCharging>();
                                         newStation.Location = new();
                                         Console.WriteLine("Enter the station ID (4 digits)");
                                         int.TryParse(Console.ReadLine(), out ID);
@@ -130,8 +129,6 @@ namespace ConsoleUI_BL
                                     case (int)AddOptions.Customer:
                                         Customer newCustomer = new();
                                         newCustomer.Location = new();
-                                        newCustomer.FromCustomer=new List<ParcelByCustomer>() ;
-                                        newCustomer.ToCustomer = new List<ParcelByCustomer>();
                                         Console.WriteLine("Enter the customer ID (9 digits)");
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newCustomer.Id = ID;
