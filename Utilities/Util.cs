@@ -46,11 +46,6 @@ namespace Utilities
             slon = lonDegrees + "°" + lonMinutes + "’" + Math.Round(lonSecondsWithFraction) + "’’" + lonDirection;
            slat = latDegrees + "°" + latMinutes + "’" + Math.Round(latSecondsWithFraction) + "’’" + latdirection;
             return slon +" \n" + slat;
-
-
-
         }
-        
-
     }
 }

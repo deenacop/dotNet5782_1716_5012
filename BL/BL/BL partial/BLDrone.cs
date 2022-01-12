@@ -60,7 +60,7 @@ namespace BL
                 drone.CopyPropertiesTo(obj);
                 droneDO = (DO.Drone)obj;
                 if(drone.Status==DroneStatus.Available)
-                    dal.Remove(droneDO);
+                    dal.RemoveDrone(droneDO.Id);
                 if (drone.Status == DroneStatus.Maintenance)
                 {
                     //Finds the wanted station:
@@ -88,8 +88,8 @@ namespace BL
                     if (droneList.Battery > 100)//cant be more than 100
                         droneList.Battery = 100;
                     droneList.Status = DroneStatus.Available;
-                    int index = DroneListBL.FindIndex(item => item.Id == droneList.Id);
-                    DroneListBL[index] = droneList;
+                    int index = DronesBL.FindIndex(item => item.Id == droneList.Id);
+                    DronesBL[index] = droneList;
                     dal.RemoveDrone(droneDO.Id);
                 }
                 if (drone.Status == DroneStatus.Delivery)

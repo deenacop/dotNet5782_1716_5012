@@ -3,7 +3,7 @@
   <Station>
     <Id>5839</Id>
     <Name>Balfour street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>4950</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>4947</NumOfAvailableChargingSlots>
     <Longitude>35.738330082846026</Longitude>
     <Latitude>31.51242946158742</Latitude>
     <IsRemoved>true</IsRemoved>
@@ -11,7 +11,7 @@
   <Station>
     <Id>1645</Id>
     <Name>4 David Remez Street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>34</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>31</NumOfAvailableChargingSlots>
     <Longitude>35.86691501870142</Longitude>
     <Latitude>31.88915404206568</Latitude>
     <IsRemoved>false</IsRemoved>
@@ -19,7 +19,7 @@
   <Station>
     <Id>2345</Id>
     <Name>lord</Name>
-    <NumOfAvailableChargingSlots>18</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>15</NumOfAvailableChargingSlots>
     <Longitude>35.8</Longitude>
     <Latitude>31.5</Latitude>
     <IsRemoved>true</IsRemoved>
@@ -27,7 +27,7 @@
   <Station>
     <Id>6789</Id>
     <Name>gh</Name>
-    <NumOfAvailableChargingSlots>5</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>4</NumOfAvailableChargingSlots>
     <Longitude>35.5</Longitude>
     <Latitude>31.2</Latitude>
     <IsRemoved>true</IsRemoved>
@@ -43,8 +43,24 @@
   <Station>
     <Id>2468</Id>
     <Name>har nof</Name>
-    <NumOfAvailableChargingSlots>12</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>9</NumOfAvailableChargingSlots>
     <Longitude>35.9</Longitude>
+    <Latitude>31.1</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </Station>
+  <Station>
+    <Id>1234</Id>
+    <Name>aaa</Name>
+    <NumOfAvailableChargingSlots>10</NumOfAvailableChargingSlots>
+    <Longitude>35.6</Longitude>
+    <Latitude>31.2</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </Station>
+  <Station>
+    <Id>1212</Id>
+    <Name>a</Name>
+    <NumOfAvailableChargingSlots>23</NumOfAvailableChargingSlots>
+    <Longitude>35.4</Longitude>
     <Latitude>31.1</Latitude>
     <IsRemoved>false</IsRemoved>
   </Station>
