@@ -87,25 +87,6 @@
         </Grid>
 
         <Grid x:Name="droneLists" Height="270" Width="550"  Visibility="Hidden" Margin="172,85,28,95">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="145*"/>
-                <ColumnDefinition Width="362*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="153*"/>
-            </Grid.RowDefinitions>
-            <Grid Height="auto" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"  >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="232*"/>
-                    <ColumnDefinition Width="49*"/>
-                    <ColumnDefinition Width="281*"/>
-                </Grid.ColumnDefinitions>
-                <ComboBox Name="ComboStatusSelector" SelectionChanged="StatusSelector_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" ToolTip="choose a status" Grid.ColumnSpan="2"/>
-                <ComboBox  Name="ComboWeightSelector" SelectionChanged="WieghtSelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="2"  ToolTip="choose the weight" BorderBrush="#FF140303"/>
-            </Grid>
-
             <ListView x:Name="DroneListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  MouseDoubleClick="DroneListView_MouseDoubleClick"  Grid.Row="2" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.ColumnSpan="2"  >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -123,10 +104,34 @@
 
                     </GridView>
                 </ListView.View>
+
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Expander IsExpanded="True">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="#FF0F4E7A" FontSize="15" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="{Binding ItemCount}" FontSize="10" Foreground="#FF0F4E7A" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text=" item(s)" FontSize="10" Foreground="#FF0F4E7A" VerticalAlignment="Bottom" />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
             </ListView>
-
         </Grid>
-
+        
         <Grid x:Name="customerList" Height="270" Width="540"  Visibility="Hidden" Margin="172,85,28,95" >
             <ListView x:Name="CustomerListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="CustomerListView_MouseDoubleClick"   Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}"   >
                 <ListView.ItemContainerStyle>
@@ -147,18 +152,6 @@
         </Grid>
 
         <Grid x:Name="parcelLists" Height="270" Width="600"  Visibility="Hidden" Margin="172,85,28,95">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="13*"/>
-                <RowDefinition Height="153*"/>
-            </Grid.RowDefinitions>
-            <Grid Height="auto" Grid.Row="0" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <ComboBox Name="comboStatusSelector" SelectionChanged="comboStatusSelector_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0" ToolTip="choose a status" />
-                <ComboBox  Name="comboPrioritySelector" SelectionChanged="comboPrioritySelector_SelectionChanged"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0" Grid.Column="1"  ToolTip="choose the weight" BorderBrush="#FF140303"/>
-            </Grid>
             <ListView x:Name="ParcelListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="ParcelListView_MouseDoubleClick"  Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.Row="1"   >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -176,6 +169,31 @@
                         <GridViewColumn Header="priority" DisplayMemberBinding="{Binding Priority}" Width="100"></GridViewColumn>
                     </GridView>
                 </ListView.View>
+
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Expander IsExpanded="True">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="#FF0F4E7A" FontSize="15" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="{Binding ItemCount}" FontSize="10" Foreground="#FF0F4E7A" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text=" item(s)" FontSize="10" Foreground="#FF0F4E7A" VerticalAlignment="Bottom" />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
             </ListView>
         </Grid>
 

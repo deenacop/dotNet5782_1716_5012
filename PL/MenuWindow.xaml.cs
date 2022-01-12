@@ -59,11 +59,12 @@ namespace PL
     /// </summary>
     public partial class MenuWindow : Window
     {
-        public Dictionary<FilterByWeightAndStatus, List<DroneToList>> droneToLists;//a dictionary to present the list of drones
-        //public Dictionary<int, List<BaseStationToList>> sortedStationToLists;//a dictionary to present the sorted list of stations
-        public Dictionary<FilterByPriorityAndStatus, List<ParcelToList>> parcelToList;//a dictionary to present the list of parcels
+        //public Dictionary<FilterByWeightAndStatus, List<DroneToList>> droneToLists;//a dictionary to present the list of drones
+        //public Dictionary<FilterByPriorityAndStatus, List<ParcelToList>> parcelToList;//a dictionary to present the list of parcels
         public ObservableCollection<CustomerToList> customerToLists;//an ObservableCollection to present the list of customers
-        public IEnumerable<BaseStationToList> stationToLists { get; set; }//a dictionary to present the list of stations
+        public IEnumerable<BaseStationToList> stationToLists { get; set; }//a list to present the list of stations
+        public IEnumerable<DroneToList> droneToLists { get; set; }//a list to present the list of drones
+        public IEnumerable<ParcelToList> parcelToList { get; set; }//a list to present the list of parcels
         DispatcherTimer timer;//
         BlApi.IBL bL;
         double panelWidth;
@@ -126,16 +127,12 @@ namespace PL
         #region drone item selected
         private void drone_Selected(object sender, RoutedEventArgs e)
         {
-            droneToLists = new Dictionary<FilterByWeightAndStatus, List<DroneToList>>();
-            InitDrones();//Sends to a function that will populate the dictionary
-            //for the options in the combo text
-            DroneListView.ItemsSource = droneToLists.Values.SelectMany(i => i);
-
-            ComboStatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatus));
-            //for the options in the combo text
-            ComboWeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            //Default - all
-            ComboStatusSelector.SelectedIndex = 3;
+            droneToLists = bL.GetDroneList().OrderBy(i => i.Id);//we want the items be sorted by ID
+            DroneListView.ItemsSource = droneToLists;
+            //grouping by status
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
             droneGif.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Collapsed;
@@ -143,68 +140,6 @@ namespace PL
             droneLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
             //btnRemove.Visibility = Visibility.Visible;
-        }
-
-
-
-        /// <summary>
-        /// populate the ObservableCollection
-        /// </summary>
-        private void InitDrones()
-        {//The function executes a query,
-         //the query divides into groups according to the key.
-         //Recall that the key consists of a class that has weight and status.
-         //After creating a group, it converts it to a dictionary with a key and a list (its value)
-            droneToLists = (from item in bL.GetDroneList()
-                            group item by new FilterByWeightAndStatus()
-                            {
-                                Weight = item.Weight,
-                                Status = item.Status
-                            }).ToDictionary(i => i.Key, i => i.ToList());
-        }
-        /// <summary>
-        /// Filter by status
-        /// </summary>
-        /// <param name="sender">wanded item from the combo box</param>
-        /// <param name="e">event</param>
-        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SelectionStatusAndWeight();
-        }
-        /// <summary>
-        /// Filter according to the two filters. Weight and status
-        /// </summary>
-        internal void SelectionStatusAndWeight()
-        {
-            DroneStatus status = (DroneStatus)ComboStatusSelector.SelectedItem;
-            //Sent before the second is updated anג its null
-            if (ComboWeightSelector.SelectedIndex == -1)
-            {
-                ComboWeightSelector.SelectedIndex = 3;
-            }
-            WeightCategories weight = (WeightCategories)ComboWeightSelector.SelectedItem;
-            DroneListView.ItemsSource = null;
-            if (status == DroneStatus.All && weight == WeightCategories.All)
-                DroneListView.ItemsSource = from item in droneToLists.Values.SelectMany(i => i)
-                                            orderby (item.Weight, item.Status)
-                                            select item;
-            if (weight == WeightCategories.All && status != DroneStatus.All)
-                DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Status == (BO.DroneStatus)status).SelectMany(i => i.Value);
-            if (weight != WeightCategories.All && status == DroneStatus.All)
-                DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Weight == (BO.WeightCategories)weight).SelectMany(i => i.Value);
-            if (weight != WeightCategories.All && status != DroneStatus.All)
-                DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Status == (BO.DroneStatus)status && i.Key.Weight == (BO.WeightCategories)weight).SelectMany(i => i.Value);
-        }
-
-
-        /// <summary>
-        /// Filter by wieght
-        /// </summary>
-        /// <param name="sender">wanded item from the combo box</param>
-        /// <param name="e">event</param>
-        private void WieghtSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SelectionStatusAndWeight();
         }
         private void DroneListViewSelectedItem()
         {
@@ -255,15 +190,12 @@ namespace PL
         #region parcel item selected
         private void parcel_Selected(object sender, RoutedEventArgs e)
         {
-            parcelToList = new Dictionary<FilterByPriorityAndStatus, List<ParcelToList>>();
-            InitParcels();//Sends to a function that will populate the dictionary
-            ParcelListView.ItemsSource = parcelToList.Values.SelectMany(i => i);
-            //for the options in the combo text
-            comboStatusSelector.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
-            //for the options in the combo text
-            comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            //Default - all
-            comboStatusSelector.SelectedIndex = 4;
+            parcelToList = bL.GetListParcel().OrderBy(i => i.Id);//we want that all the items will be sorted by ID
+            ParcelListView.ItemsSource = parcelToList;
+            //grouping by status
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
             droneGif.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Collapsed;
             stationLists.Visibility = Visibility.Collapsed;
@@ -272,60 +204,6 @@ namespace PL
             btnAdd.Visibility = Visibility.Visible;
             // btnRemove.Visibility = Visibility.Visible;
         }
-
-        /// <summary>
-        /// populate the ObservableCollection
-        /// </summary>
-        private void InitParcels()
-        {//The function executes a query,
-         //the query divides into groups according to the key.
-         //Recall that the key consists of a class that has weight and status.
-         //After creating a group, it converts it to a dictionary with a key and a list (its value)
-            parcelToList = (from item in bL.GetListParcel()
-                            group item by new FilterByPriorityAndStatus()
-                            {
-                                Priority = item.Priority,
-                                Status = item.Status
-                            }).ToDictionary(i => i.Key, i => i.ToList());
-        }
-        /// <summary>
-        /// Filter according to the two filters. Weight and status
-        /// </summary>
-        internal void SelectionStatusAndPriority()
-        {
-            ParcelStatus status = (ParcelStatus)comboStatusSelector.SelectedItem;
-            //Sent before the second is updated anג its null
-            if (comboPrioritySelector.SelectedIndex == -1)
-            {
-                comboPrioritySelector.SelectedIndex = 3;
-            }
-            Priorities priority = (Priorities)comboPrioritySelector.SelectedItem;
-            DroneListView.ItemsSource = null;
-            if (priority == Priorities.All && status == ParcelStatus.All)
-                ParcelListView.ItemsSource = parcelToList.Values.SelectMany(i => i);
-            if (priority == Priorities.All && status != ParcelStatus.All)
-                ParcelListView.ItemsSource = parcelToList.Where(i => i.Key.Status == (BO.ParcelStatus)status).SelectMany(i => i.Value);
-            if (priority != Priorities.All && status == ParcelStatus.All)
-                ParcelListView.ItemsSource = parcelToList.Where(i => i.Key.Priority == (BO.Priorities)priority).SelectMany(i => i.Value);
-            if (priority != Priorities.All && status != ParcelStatus.All)
-                ParcelListView.ItemsSource = parcelToList.Where(i => i.Key.Status == (BO.ParcelStatus)status && i.Key.Priority == (BO.Priorities)priority).SelectMany(i => i.Value);
-        }
-        /// <summary>
-        /// Filter by wieght
-        /// </summary>
-        /// <param name="sender">wanded item from the combo box</param>
-        /// <param name="e">event</param>
-        private void comboStatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SelectionStatusAndPriority();
-
-        }
-
-        private void comboPrioritySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SelectionStatusAndPriority();
-        }
-
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ParcelToList parcel = (ParcelToList)ParcelListView.SelectedItem;

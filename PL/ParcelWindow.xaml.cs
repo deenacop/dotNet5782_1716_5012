@@ -91,12 +91,6 @@ namespace PL
                     bl.AddParcel(Parcel);
                     PriorityAndStatus.Priority = BO.Priorities.Normal;
                     PriorityAndStatus.Status = BO.ParcelStatus.Defined;
-                    if (parcelListWindow.parcelToList.ContainsKey(PriorityAndStatus))
-                        parcelListWindow.parcelToList[PriorityAndStatus].Add(bl.GetListParcel().Last());
-                    else
-                        parcelListWindow.parcelToList.Add(PriorityAndStatus, bl.GetListParcel().Where(i => i.Id == bl.GetListParcel().Last().Id).ToList());
-
-                    parcelListWindow.SelectionStatusAndPriority();
                     //success
                     MessageBox.Show("The parcel has been added successfully :)\n" + Parcel.ToString());
 
@@ -181,7 +175,6 @@ namespace PL
             {
                 bl.RemoveParcel(Parcel);
                 //parcelListWindow.ParcelListView.Items.Refresh();
-                parcelListWindow.SelectionStatusAndPriority();
                 MessageBox.Show("The parcel has been removed successfully :)\n" + Parcel.ToString());
                 _close = true;
                 Close();

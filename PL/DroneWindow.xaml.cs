@@ -247,14 +247,7 @@ namespace PL
                 {
                     //sending for add
                     bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
-                    weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;
-                    weightAndStatus.Status = Drone.Status;
-                    if (droneListWindow.droneToLists.ContainsKey(weightAndStatus))
-                        droneListWindow.droneToLists[weightAndStatus].Add(bl.GetDroneList().First(i => i.Id == Drone.Id));
-                    else
-                        droneListWindow.droneToLists.Add(weightAndStatus, bl.GetDroneList().Where(i => i.Id == Drone.Id).ToList());
-
-                    droneListWindow.SelectionStatusAndWeight();
+                    weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;                   
                     //success
                     MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
 
