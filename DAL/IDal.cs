@@ -48,7 +48,8 @@ namespace DalApi
         /// </summary>
         /// <param name="drone">The new drone that will be removeed to the list of drones</param>
         ///<exception cref="DalObject.AlreadyExistedItemException"></exception>
-        public void Remove(Drone drone);
+        public void RemoveDrone(int id);
+
 
         /// <summary>
         /// Remove a station
@@ -56,26 +57,23 @@ namespace DalApi
         /// <param name="station">The new station that will be removeed to the list of stations</param>
         ///<exception cref="DalObject.AlreadyExistedItemException"></exception>
         ///
-        public void Remove(Station station);
+        public void RemoveStation(int id);
 
         /// <summary>
         /// Remove a new parcel
         /// </summary>
         /// <param name="parcel">The new parcel that will be removeed to the list of parcels</param>
-        public void Remove(Parcel parcel);
+        public void RemoveParcel(int id);
 
         /// <summary>
         /// Remove a customer
         /// </summary>
         /// <param name="customer">The new Customer that will be removeed to the list of customer</param>
         /// <exception cref="DalObject.AlreadyExistedItemException>"
-        public void Remove(Customer customer);
-        ///// <summary>
-        ///// Remove a user
-        ///// </summary>
-        ///// <param name="user">a user</param>
-        ///// <exception cref="DO.AlreadyExistedItemException"></exception>
-        //public void Remove(User user);
+        public void RemoveCustomer(int id);
+        
+       
+
         #endregion
 
         #region Drone operations

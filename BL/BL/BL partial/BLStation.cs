@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using DalApi;
-
+using System.Linq;
 
 namespace BL
 {
@@ -17,11 +17,14 @@ namespace BL
                 throw new UnlogicalLocationException("the location is unlogical");
             if (station.NumOfAvailableChargingSlots < 0)
                 throw new NegetiveException("There may not be a number of negative charging positions");
+            List<DroneInCharging> droneInChargings = new();
+            station.DronesInCharging = droneInChargings;
             try
             {
                 DO.Station tmpStation = new();
                 object obj = tmpStation;//Boxing and unBoxing
                 station.CopyPropertiesTo(obj);
+                
                 tmpStation = (DO.Station)obj;
                 tmpStation.Longitude = station.Location.Longitude;
                 tmpStation.Latitude = station.Location.Latitude;
@@ -43,7 +46,7 @@ namespace BL
                 stationlDO = (DO.Station)obj;
                 stationlDO.Latitude = baseStation.Location.Latitude;
                 stationlDO.Longitude = baseStation.Location.Longitude;
-                dal.Remove(stationlDO);
+                dal.RemoveStation(stationlDO.Id);
             }
             catch (Exception ex)
             {
@@ -54,7 +57,7 @@ namespace BL
         public void UpdateStation(BaseStation baseStation)
         {
             if (baseStation.Name == null || baseStation.Name == "")
-                throw new WrongInputException("Missing station model");
+                throw new WrongInputException("Missing station name");
             BaseStationToList stationList = new();
             baseStation.CopyPropertiesTo(stationList);
             object obj = new DO.Station();//Boxing and unBoxing
@@ -63,7 +66,6 @@ namespace BL
             tmp.Latitude = baseStation.Location.Latitude;
             tmp.Longitude = baseStation.Location.Longitude;
             obj = tmp;
-
             try
             {
                 dal.UpdateStation((DO.Station)obj);//calls the function from DALOBJECT
@@ -92,18 +94,27 @@ namespace BL
                 List<DroneInCharging> DroneChargingBL = new();
                 IEnumerable<DO.DroneCharge> DroneChargeingListDL = dal.GetListDroneCharge(i=>i.BaseStationID==stationID);//Receive the drone list from the data layer.
                 DroneChargeingListDL.CopyPropertiesToIEnumerable(DroneChargingBL);//convret from DalApi to BL
-
-                foreach (DroneInCharging currentDronCharge in DroneChargingBL)//running on all the drone charge of BL
+                foreach (var (currentDronCharge, currentDrone) in from DroneInCharging currentDronCharge in DroneChargingBL//running on all the drone charge of BL
+                                                                  from DroneToList currentDrone in DroneListBL//running on all the drones
+                                                                  where currentDronCharge.Id == currentDrone.Id && currentDronCharge.FinishedRecharging == null
+                                                                  select (currentDronCharge, currentDrone))
                 {
-                    foreach (DroneToList currentDrone in DroneListBL)//running on all the drones
-                    {
-                        if (currentDronCharge.Id == currentDrone.Id && currentDronCharge.FinishedRecharging == null)
-                        {
-                            currentDronCharge.Battery = currentDrone.Battery;
-                            break;
-                        }
-                    }
+                    currentDronCharge.Battery = currentDrone.Battery;
+                    break;
                 }
+
+                //foreach (DroneInCharging currentDronCharge in DroneChargingBL)//running on all the drone charge of BL
+                //{
+                //    foreach (DroneToList currentDrone in DroneListBL)//running on all the drones
+                //    {
+                //        if (currentDronCharge.Id == currentDrone.Id && currentDronCharge.FinishedRecharging == null)
+                //        {
+                //            currentDronCharge.Battery = currentDrone.Battery;
+                //            break;
+                //        }
+                //    }
+                //}
+
                 baseStation.DronesInCharging = DroneChargingBL;
                 return baseStation;
             }
@@ -117,18 +128,32 @@ namespace BL
         {
             IEnumerable<DO.Station> stations = dal.GetListStation(i=>!i.IsRemoved);
             List<BaseStationToList> stationToLists = new();
-            foreach (DO.Station currentStation in stations)
-            {
-                BaseStation tmp = new();
-                BaseStationToList tmpToLst = new();
-                tmp = GetBaseStation(currentStation.Id);
+            foreach (var (currentStation, tmp, tmpToLst) in from DO.Station currentStation in stations
+                                                            let tmp = GetBaseStation(currentStation.Id)
+                                                            let tmpToLst = new BaseStationToList()
+                                                            select (currentStation, tmp, tmpToLst))
+            {  
                 tmp.CopyPropertiesTo(tmpToLst);
                 //find the amount of *busy* slots
-                tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.ToString().Length;//if "FinishedRecharging" is NULL this means that the drone's charge hasnt ended and the position is still occupied 
-
+                tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.Where(i=>i.FinishedRecharging==null).ToList().Count;//if "FinishedRecharging" is NULL this means that the drone's charge hasnt ended and the position is still occupied 
                 stationToLists.Add(tmpToLst);
             }
             return stationToLists.FindAll(i => predicate == null ? true : predicate(i));
+
+
+
+            //foreach (DO.Station currentStation in stations)
+            //{
+            //    BaseStation tmp = new();
+            //    BaseStationToList tmpToLst = new();
+            //    tmp = GetBaseStation(currentStation.Id);
+            //    tmp.CopyPropertiesTo(tmpToLst);
+            //    //find the amount of *busy* slots
+            //    tmpToLst.NumOfBusyChargingSlots = tmp.DronesInCharging.ToString().Length;//if "FinishedRecharging" is NULL this means that the drone's charge hasnt ended and the position is still occupied 
+
+            //    stationToLists.Add(tmpToLst);
+            //}
+
         }
     }
 }

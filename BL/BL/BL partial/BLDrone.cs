@@ -56,7 +56,7 @@ namespace BL
                 drone.CopyPropertiesTo(obj);
                 droneDO = (DO.Drone)obj;
                 if(drone.Status==DroneStatus.Available)
-                    dal.Remove(droneDO);
+                    dal.RemoveDrone(droneDO.Id);
                 if (drone.Status == DroneStatus.Maintenance)
                 {
                     //Finds the wanted station:
@@ -86,7 +86,7 @@ namespace BL
                     droneList.Status = DroneStatus.Available;
                     int index = DroneListBL.FindIndex(item => item.Id == droneList.Id);
                     DroneListBL[index] = droneList;
-                    dal.Remove(droneDO);
+                    dal.RemoveDrone(droneDO.Id);
                 }
                 if (drone.Status == DroneStatus.Delivery)
                     throw new ItemCouldNotBeRemoved("The drone is in delivery mode and could not be removed!");

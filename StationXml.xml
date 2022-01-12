@@ -3,17 +3,49 @@
   <Station>
     <Id>5839</Id>
     <Name>Balfour street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>0</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>4950</NumOfAvailableChargingSlots>
     <Longitude>35.738330082846026</Longitude>
     <Latitude>31.51242946158742</Latitude>
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Station>
   <Station>
     <Id>1645</Id>
     <Name>4 David Remez Street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>0</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>34</NumOfAvailableChargingSlots>
     <Longitude>35.86691501870142</Longitude>
     <Latitude>31.88915404206568</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </Station>
+  <Station>
+    <Id>2345</Id>
+    <Name>lord</Name>
+    <NumOfAvailableChargingSlots>18</NumOfAvailableChargingSlots>
+    <Longitude>35.8</Longitude>
+    <Latitude>31.5</Latitude>
+    <IsRemoved>true</IsRemoved>
+  </Station>
+  <Station>
+    <Id>6789</Id>
+    <Name>gh</Name>
+    <NumOfAvailableChargingSlots>5</NumOfAvailableChargingSlots>
+    <Longitude>35.5</Longitude>
+    <Latitude>31.2</Latitude>
+    <IsRemoved>true</IsRemoved>
+  </Station>
+  <Station>
+    <Id>4566</Id>
+    <Name>street</Name>
+    <NumOfAvailableChargingSlots>23</NumOfAvailableChargingSlots>
+    <Longitude>35.8</Longitude>
+    <Latitude>31.8</Latitude>
+    <IsRemoved>true</IsRemoved>
+  </Station>
+  <Station>
+    <Id>2468</Id>
+    <Name>har nof</Name>
+    <NumOfAvailableChargingSlots>12</NumOfAvailableChargingSlots>
+    <Longitude>35.9</Longitude>
+    <Latitude>31.1</Latitude>
     <IsRemoved>false</IsRemoved>
   </Station>
 </ArrayOfStation>

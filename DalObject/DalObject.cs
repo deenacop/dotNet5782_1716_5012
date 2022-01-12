@@ -71,49 +71,53 @@ namespace Dal
         #endregion
 
         #region Remove
-        public void Remove(Drone drone)
+        public void RemoveDrone(int id)
         {
             //checks if the drone exists and if not throws an exception
-            int index = DataSource.Drones.FindIndex(item => item.Id == drone.Id);
+            int index = DataSource.Drones.FindIndex(item => item.Id == id);
             if (index == -1)//not exist
                 throw new ItemNotExistException("Drone does not exist");
+            Drone drone = DataSource.Drones[index];
             drone.IsRemoved = true;
             DataSource.Drones[index] = drone;
         }
 
 
-        public void Remove(Station station)
+        public void RemoveStation(int id)
         {
             //checks if the station exists and if not throws an exception
-            int index = DataSource.Stations.FindIndex(item => item.Id == station.Id);
+            int index = DataSource.Stations.FindIndex(item => item.Id == id);
             if (index == -1)//not exist
                 throw new ItemNotExistException("Station does not exist");
+            Station station = DataSource.Stations[index];
             station.IsRemoved = true;
             DataSource.Stations[index] = station;
         }
 
-        public void Remove(Parcel parcel)
+        public void RemoveParcel(int id)
         {
             //checks if the parcel exists and if not throws an exception
-            int index = DataSource.Parcels.FindIndex(item => item.Id == parcel.Id);
+            int index = DataSource.Parcels.FindIndex(item => item.Id == id);
             if (index == -1)//not exist
                 throw new ItemNotExistException("parcel does not exist");
+            Parcel parcel = DataSource.Parcels[index];
             parcel.IsRemoved = true;
             DataSource.Parcels[index] = parcel;
         }
 
-        public void Remove(Customer customer)
+        public void RemoveCustomer(int id)
         {
             //checks if the customer exists and if not throws an exception
-            int index = DataSource.Customers.FindIndex(item => item.Id == customer.Id);
+            int index = DataSource.Customers.FindIndex(item => item.Id == id);
             if (index == -1)//not exist
                 throw new ItemNotExistException("customer does not exist");
+            Customer customer = DataSource.Customers[index];
             customer.IsRemoved = true;
             DataSource.Customers[index] = customer;
             //Because our program is based on the fact that every user must also be a customer. 
             //If we delete a customer, we must make sure he was not a user in the first place. 
             //And if he was also a user - delete it completely from the list
-            index = DataSource.Users.FindIndex(i => i.Id == customer.Id);
+            index = DataSource.Users.FindIndex(i => i.Id == id);
             if (index != -1)
                 DataSource.Users[index].IsRemoved = true;
         }

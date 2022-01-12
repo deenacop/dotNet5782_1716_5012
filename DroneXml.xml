@@ -3,56 +3,67 @@
   <Drone>
     <Id>746</Id>
     <Model>3D Robotics Solo</Model>
+    <IsRemoved>false</IsRemoved>
     <Weight>Light</Weight>
   </Drone>
   <Drone>
     <Id>138</Id>
     <Model>Yuneec H520</Model>
+    <IsRemoved>false</IsRemoved>
     <Weight>Heavy</Weight>
   </Drone>
   <Drone>
     <Id>903</Id>
     <Model>3D Robotics Solo</Model>
-    <Weight>Heavy</Weight>
+    <IsRemoved>false</IsRemoved>
+    <Weight>Medium</Weight>
   </Drone>
   <Drone>
     <Id>584</Id>
     <Model>Flyability Elios Drone</Model>
+    <IsRemoved>false</IsRemoved>
     <Weight>Heavy</Weight>
   </Drone>
   <Drone>
     <Id>584</Id>
     <Model>3D Robotics Solo</Model>
+    <IsRemoved>false</IsRemoved>
     <Weight>Light</Weight>
   </Drone>
   <Drone>
     <Id>554</Id>
     <Model>3D Robotics Solo</Model>
+    <IsRemoved>false</IsRemoved>
     <Weight>Light</Weight>
   </Drone>
   <Drone>
     <Id>867</Id>
     <Model>Yuneec H520</Model>
+    <IsRemoved>false</IsRemoved>
     <Weight>Light</Weight>
   </Drone>
   <Drone>
     <Id>879</Id>
     <Model>Yuneec H520</Model>
+    <IsRemoved>false</IsRemoved>
     <Weight>Heavy</Weight>
   </Drone>
   <Drone>
     <Id>777</Id>
     <Model>DJI Mavic 2 Zoom</Model>
+    <IsRemoved>false</IsRemoved>
     <Weight>Heavy</Weight>
   </Drone>
   <Drone>
     <Id>814</Id>
     <Model>DJI Phantom 4</Model>
+    <IsRemoved>false</IsRemoved>
     <Weight>Medium</Weight>
   </Drone>
   <Drone>
     <Id>713</Id>
     <Model>Flyability Elios Drone</Model>
+    <IsRemoved>true</IsRemoved>
     <Weight>Heavy</Weight>
   </Drone>
 </ArrayOfDrone>

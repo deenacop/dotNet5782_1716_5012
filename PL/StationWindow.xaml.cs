@@ -108,12 +108,7 @@ namespace PL
 
                     //sending for add
                     bl.AddBaseStation(Station);
-                    bool key = Station.NumOfAvailableChargingSlots > 0 ? true : false;
-                    if (stationListWindow.stationToLists.ContainsKey(key))
-                        stationListWindow.stationToLists[key].Add(bl.GetBaseStationList().Last());
-                    else
-                        stationListWindow.stationToLists.Add(key, bl.GetBaseStationList().Where(i => i.Id == Station.Id).ToList());
-
+                    stationListWindow.stationToLists = bl.GetBaseStationList();
                     stationListWindow.SelectionAvailablity();
                     //success
                     MessageBox.Show("The drone has been added successfully :)\n" + Station.ToString());
@@ -176,7 +171,8 @@ namespace PL
             try
             {
                 bl.UpdateStation(Station);
-                stationListWindow.StationListView.Items.Refresh();
+                stationListWindow.stationToLists = bl.GetBaseStationList();
+                stationListWindow.SelectionAvailablity();
                 MessageBox.Show("The station has been updated successfully :)\n" + Station.ToString());
                 _close = true;
                 Close();
@@ -200,9 +196,9 @@ namespace PL
             try
             {
                 bl.RemoveStation(Station);
-                //stationListWindow.StationListView.Items.Refresh();
-                MessageBox.Show("The station has been removed successfully :)\n" + Station.ToString());
+                stationListWindow.stationToLists = bl.GetBaseStationList();
                 stationListWindow.SelectionAvailablity();
+                MessageBox.Show("The station has been removed successfully :)\n" + Station.ToString());
                 _close = true;
                 Close();
             }
