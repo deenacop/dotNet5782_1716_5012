@@ -69,9 +69,23 @@ namespace Dal
 
             #region drone
             string[] modelArr = { "Yuneec H520", "DJI Mavic 2 Zoom", "DJI Phantom 4", "3D Robotics Solo", "Flyability Elios Drone" };
-
-            //Initializing variables into 10 drones.
-            for (int i = 0; i < 10; i++)
+            //initialize 2 drones by hand cause we want to creat 2 drones for sure for sending to charge
+            Drones.Insert(0, new()
+            {
+                Id = 746,
+                Model=modelArr[0],
+                Weight= WeightCategories.Heavy,
+                IsRemoved = false
+            });
+            Drones.Insert(1, new()
+            {
+                Id = 138,
+                Model= modelArr[1],
+                Weight = WeightCategories.Heavy,
+                IsRemoved = false
+            });
+            //Initializing variables into more 8 drones.
+            for (int i = 2; i < 10; i++)
             {
                 int flag = rand.Next(0, 50);
                 Drone drone = new();
@@ -96,6 +110,7 @@ namespace Dal
                 }
                 Drones.Add(drone);
             }
+
             #endregion
 
             #region customer
@@ -223,6 +238,23 @@ namespace Dal
                     Longitude = Customers[i].Longitude
                 });
             }
+            #region DroneCharge
+            DroneCharges.Insert(0, new()
+            {
+                BaseStationID = Stations[0].Id,
+                Id = 746,
+                EnterToChargBase = new DateTime( 2022,1,9),
+                IsRemoved = false
+            });
+            DroneCharges.Insert(0, new()
+            {
+                BaseStationID = Stations[1].Id,
+                Id = 138,
+                EnterToChargBase = new DateTime(2022, 1,8 ),
+                IsRemoved = false
+            });
+            #endregion
+
             //////neeeddd ttoo beee deleteddd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             Users.Insert(2, new()
             {

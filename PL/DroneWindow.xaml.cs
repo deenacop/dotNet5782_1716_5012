@@ -362,14 +362,14 @@ namespace PL
 
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             try
             {
                 bl.RemoveDrone(Drone);
                 CollectionView view;
                 PropertyGroupDescription groupDescription;
                 droneListWindow.GroupingDrone(out view, out groupDescription);
-           
+                droneListWindow.droneToLists = bl.GetDroneList();
                 MessageBox.Show("The drone has been removed successfully :)\n" + Drone.ToString());
                 _close = true;
                 Close();

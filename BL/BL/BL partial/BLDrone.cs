@@ -53,10 +53,12 @@ namespace BL
             try
             {
                 DroneToList listDrone = DronesBL.First(d => d.Id == drone.Id);
+                drone.CopyPropertiesTo(listDrone);//updates also the list
                 DO.Drone droneDO = new();
                 object obj = droneDO;//boxing and unBoxing
-                
-                if(drone.Status==DroneStatus.Available)
+                drone.CopyPropertiesTo(obj);
+                droneDO = (DO.Drone)obj;
+                if (drone.Status==DroneStatus.Available)
                     dal.RemoveDrone(droneDO.Id);
                 if (drone.Status == DroneStatus.Maintenance)
                 {
@@ -92,18 +94,15 @@ namespace BL
                 if (drone.Status == DroneStatus.Delivery)
                     throw new ItemCouldNotBeRemoved("The drone is in delivery mode and could not be removed!");
 
-                drone.IsRemoved = true;//remove
-                drone.CopyPropertiesTo(listDrone);//updates also the list
-                drone.CopyPropertiesTo(obj);
-                droneDO = (DO.Drone)obj;
+                drone.IsRemoved = true; 
             }
             catch (ItemNotExistException ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException )
             {
-                throw new ItemCouldNotBeRemoved("The drone is in delivery mode and could not be removed!");
+                throw new ItemCouldNotBeRemoved("The drone does not exist");
             }
 
         }
@@ -170,6 +169,8 @@ namespace BL
 
         public void ReleasingDroneFromBaseStation(Drone drone)
         {
+            if (drone.IsRemoved == true)
+                throw new ItemCouldNotBeRemoved("drone have already been removed");
             DroneToList listDrone = DronesBL.FirstOrDefault(d => d.Id == drone.Id);
             if (listDrone == null)
                 throw new ItemNotExistException("Drone does not exist");
@@ -295,9 +296,7 @@ namespace BL
                 throw new ItemNotExistException("drone does not exist");
             }
         }
-        public IEnumerable<DroneToList> GetDroneList(Predicate<DroneToList> predicate = null)
-        {
-            return DronesBL.FindAll(i => !i.IsRemoved);
-        }
+        public IEnumerable<DroneToList> GetDroneList(Predicate<DroneToList> predicate = null)=>
+            DronesBL.FindAll(i =>!i.IsRemoved);
     }
 }

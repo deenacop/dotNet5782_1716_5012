@@ -204,7 +204,7 @@ namespace ConsoleUI_BL
                                             Console.WriteLine("if you want to change the phone number of the customer, enter the new phone number else continue");
                                             string ansPhone = Console.ReadLine();
                                             if (ansPhone == "")
-                                                ansName = null;
+                                                ansName = null;lordmord200
                                             Customer tmp = bl.GetCustomer(ID);
                                             if(ansName!=null)
                                                 tmp.Name = ansName;

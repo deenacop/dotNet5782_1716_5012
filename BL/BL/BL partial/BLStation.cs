@@ -90,7 +90,7 @@ namespace BL
                     Longitude = station.Longitude,
                     Latitude = station.Latitude 
                 };
-                baseStation.DronesInCharging = from item in dal.GetListDroneCharge(s => s.BaseStationID == stationID)
+                baseStation.DronesInCharging = from item in dal.GetListDroneCharge(s => s.BaseStationID == stationID )
                                                let tempD = DronesBL.FirstOrDefault(i => i.Id == item.Id)                                              
                                                select item.CopyPropertiesTo(new DroneInCharging()
                                                {
