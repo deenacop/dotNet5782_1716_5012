@@ -111,7 +111,7 @@ namespace Dal
             List<Drone> drones = XMLTools.LoadListFromXMLSerializer<Drone>(DroneXml);
             //checks if the drone exists and if not throws an exception
             int index = drones.FindIndex(i => i.Id == id);
-            if(index==-1)
+            if (index == -1)
                 throw new ItemNotExistException("The drone does not exists");
             Drone drone = drones[index];
             drone.IsRemoved = true;
@@ -126,7 +126,7 @@ namespace Dal
             List<Station> stations = XMLTools.LoadListFromXMLSerializer<Station>(StationXml);
             //checks if the station exists and if not throws an exception
             int index = stations.FindIndex(i => i.Id == id);
-            if(index==-1)
+            if (index == -1)
                 throw new AlreadyExistedItemException("The station already exists");
             Station station = stations[index];
             station.IsRemoved = true;
@@ -151,10 +151,10 @@ namespace Dal
             List<Customer> customers = XMLTools.LoadListFromXMLSerializer<Customer>(CustomerXml);
             //checks if the customer exists and if not throws an exception
             int index = customers.FindIndex(i => i.Id == id);
-            if(index==-1)
+            if (index == -1)
                 throw new AlreadyExistedItemException("The customer already exists");
             Customer customer = customers[index];
-            customer.IsRemoved=true;
+            customer.IsRemoved = true;
             customers[index] = customer;
             XMLTools.SaveListToXMLSerializer(customers, CustomerXml);
 
@@ -169,7 +169,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(users, UserXml);
         }
 
-        
+
         #endregion
 
 
@@ -234,16 +234,18 @@ namespace Dal
             if (index == -1)
                 throw new ItemNotExistException("The station does not exists");
             //creates a new varible of drone charge
-
-            DroneCharge ChargingDroneBattery = new();
-            ChargingDroneBattery.Id = droneID;
-            ChargingDroneBattery.BaseStationID = stationID;
-            ChargingDroneBattery.EnterToChargBase = DateTime.Now;
-            ChargingDroneBattery.FinishedRecharging = null;
-
+            DroneCharge ChargingDroneBattery = new()
+            {
+                Id = droneID,
+                BaseStationID = stationID,
+                EnterToChargBase = DateTime.Now,
+                FinishedRecharging = null,
+            };
             //adds
-            XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml).Add(ChargingDroneBattery);
+            List< DroneCharge> d=XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
+            d.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
+            XMLTools.SaveListToXMLSerializer(d, DroneChargeXml);
             Station tmp = stations[index];
             tmp.NumOfAvailableChargingSlots--;
             stations[index] = tmp;
@@ -363,7 +365,7 @@ namespace Dal
 
         public Customer GetCustomer(int customerID)
         {
-            Customer customer = (from cus in XMLTools.LoadListFromXMLElement(CustomerXml).Elements().Where(i=>i.Element("Id").Value == customerID.ToString())
+            Customer customer = (from cus in XMLTools.LoadListFromXMLElement(CustomerXml).Elements().Where(i => i.Element("Id").Value == customerID.ToString())
                                  select new Customer()
                                  {
                                      Id = int.Parse(cus.Element("Id").Value),
@@ -397,7 +399,7 @@ namespace Dal
         #endregion
 
         #region Lists of items
-        public IEnumerable<Drone> GetListDrone(Predicate<Drone> predicate = null)=>
+        public IEnumerable<Drone> GetListDrone(Predicate<Drone> predicate = null) =>
 
             XMLTools.LoadListFromXMLSerializer<Drone>(DroneXml).Where(item => predicate == null ? true : predicate(item));
 
@@ -424,12 +426,12 @@ namespace Dal
         public IEnumerable<Parcel> GetListParcel(Predicate<Parcel> predicate = null) =>
             XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelXml).Where(item => predicate == null ? true : predicate(item));
 
-        public IEnumerable<DroneCharge> GetListDroneCharge(Predicate<DroneCharge> predicate = null)=>
+        public IEnumerable<DroneCharge> GetListDroneCharge(Predicate<DroneCharge> predicate = null) =>
             XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml).Where(item => predicate == null ? true : predicate(item));
-        
-        public IEnumerable<User> GetListUsers(Predicate<User> predicate = null)=>
+
+        public IEnumerable<User> GetListUsers(Predicate<User> predicate = null) =>
             XMLTools.LoadListFromXMLSerializer<User>(UserXml).Where(item => predicate == null ? true : predicate(item));
-           
+
         #endregion
 
         public double[] ChargingDrone()
