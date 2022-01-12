@@ -189,13 +189,9 @@ namespace PL
 
         #region parcel item selected
         private void parcel_Selected(object sender, RoutedEventArgs e)
-        {
-            parcelToList = bL.GetListParcel().OrderBy(i => i.Id);//we want that all the items will be sorted by ID
-            ParcelListView.ItemsSource = parcelToList;
+        {        
             //grouping by status
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
-            view.GroupDescriptions.Add(groupDescription);
+            GroupingParcel();
             droneGif.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Collapsed;
             stationLists.Visibility = Visibility.Collapsed;
@@ -204,6 +200,16 @@ namespace PL
             btnAdd.Visibility = Visibility.Visible;
             // btnRemove.Visibility = Visibility.Visible;
         }
+
+        internal void GroupingParcel()
+        {
+            parcelToList = bL.GetListParcel().OrderBy(i => i.Id);//we want that all the items will be sorted by ID
+            ParcelListView.ItemsSource = parcelToList;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
+        }
+
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ParcelToList parcel = (ParcelToList)ParcelListView.SelectedItem;

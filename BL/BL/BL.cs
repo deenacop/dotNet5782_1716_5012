@@ -21,7 +21,7 @@ namespace BL
         private static readonly Lazy<BL> instance = new Lazy<BL>(() => new BL()); //Lazy initialization of an object means that its creation is deferred until it is first used.
 
         public static BL Instance { get { return instance.Value; } }// The internal Instance property to use
-        
+
 
         List<DroneToList> DronesBL;//The list of drones that we will maintain throughout the project
         //I chose to use the list and not IEnumerable, because IEnumerable mainly intended for viewing records and not for * maintaining * lists.
@@ -67,14 +67,14 @@ namespace BL
             foreach (DroneToList currentDrone in DronesBL)
             {
                 try
-                {           
+                {
                     DO.Parcel parcelDO = ParcelListDL.First(item => item.MyDroneID == currentDrone.Id
                      && item.Delivered == null);//Finds the parcel which is assigned to the current drone *and* the drone has been assigned .
                                                 //if !=-1 else: move to the catch block
                     #region DELIVERY MODE
                     currentDrone.Status = DroneStatus.Delivery;//in delivery mode (מבצע משלוח)
 
-                    DO.Customer senderCustomer = dal.GetCustomer(parcelDO.Sender); //gets the sender customer
+                    DO.Customer senderCustomer = dal.GetCustomer(parcelDO.Sender); //gets the sender customer (for setting the location)
 
                     Location locationOfSender = new()
                     {
@@ -94,7 +94,7 @@ namespace BL
                     }
 
                     //Battery status (מצב סוללה):
-                    DO.Customer receiverCustomer = dal.GetCustomer(parcelDO.Targetid); //Found the customer that is the custumer that is targetid one
+                    DO.Customer receiverCustomer = dal.GetCustomer(parcelDO.Targetid); //Found the customer that is the custumer that is targetid one (for setting the battery)
                     Location locationOfReceiver = new()
                     {
                         Latitude = receiverCustomer.Latitude,
@@ -116,10 +116,24 @@ namespace BL
                 {
                     IEnumerable<DO.Parcel> deliveredParcel = dal.GetListParcel(i => i.Delivered != null);//Receive the parcel list of parcels that are in delivery mode (from the data layer).
                     IEnumerable<DO.Station> availableStations = dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0);//Receive the station list of stations that have available slots (from the data layer).
-                    currentDrone.Status = (DroneStatus)rand.Next(0, 2);//available or maintenance(פנוי / תחזוקה)
+
+                    //currentDrone.Status = (DroneStatus)rand.Next(0, 2);
+                    //if (currentDrone.Status == DroneStatus.Maintenance)
+                    //DO.Station station = availableStations.Skip(rand.Next(0, availableStations.Count())).FirstOrDefault();//Randomly selects one of the available station
+                    //Location location1 = new()//set the location
+                    //{
+                    //    Latitude = station.Latitude,
+                    //    Longitude = station.Longitude
+                    //};
+                    //currentDrone.Location = location1;
+                    //currentDrone.Battery = rand.Next(0, 21);//Randomly selects a battery percentage between 0 and 20
+                    //dal.SendingDroneToChargingBaseStation(currentDrone.Id, station.Id);//Sends the drone for charging                                                                                                      //available or maintenance(פנוי / תחזוקה)
                     #region In maintenance mode
-                    if (currentDrone.Status == DroneStatus.Maintenance)
-                    {//In maintenance(בתחזוקה):
+                    try
+                    {
+                        DO.DroneCharge droneInCharging = dal.GetListDroneCharge(i => i.Id == currentDrone.Id).FirstOrDefault();
+                        //In maintenance(בתחזוקה):
+                        currentDrone.Status = DroneStatus.Maintenance;
                         DO.Station station = availableStations.Skip(rand.Next(0, availableStations.Count())).FirstOrDefault();//Randomly selects one of the available station
                         Location location1 = new()//set the location
                         {
@@ -128,15 +142,15 @@ namespace BL
                         };
                         currentDrone.Location = location1;
                         currentDrone.Battery = rand.Next(0, 21);//Randomly selects a battery percentage between 0 and 20
-                        dal.SendingDroneToChargingBaseStation(currentDrone.Id, station.Id);//Sends the drone for charging
                     }
                     #endregion
-
                     #region Available mode
-                    if (currentDrone.Status == DroneStatus.Available)
-                    {//Availabe (פנוי):
+                    catch (InvalidOperationException)//AVAILABLE
+                    {
                         DO.Parcel parcel = deliveredParcel.Skip(rand.Next(0, deliveredParcel.Count())).First();//Randomly selects one of the delivered parcel
-                        //After finding a parcel that was sent, asks to receive the location of the customer to whom the parcel was sent (in order to enter a logical location for the drone)
+                                                                                                               //After finding a parcel that was sent, asks to receive the location of the
+                                                                                                               //customer to whom the parcel was sent (in order to enter a logical location for the drone)
+                        currentDrone.Status = DroneStatus.Available;
                         DO.Customer targetid = dal.GetCustomer(parcel.Targetid);
                         Location location2 = new()//set the location
                         {
@@ -152,10 +166,30 @@ namespace BL
                         //if (minBatteryDrone == 0)
                         //    currentDrone.Battery = 30;
                         currentDrone.Battery = rand.Next(minBatteryDrone, 101);//between minimum to maximum(=>100)
-                        #endregion
                     }
+                    #endregion
+                    //if (currentDrone.Status == DroneStatus.Available)
+                    //{//Availabe (פנוי):
+                    //    DO.Parcel parcel = deliveredParcel.Skip(rand.Next(0, deliveredParcel.Count())).First();//Randomly selects one of the delivered parcel
+                    //    //After finding a parcel that was sent, asks to receive the location of the customer to whom the parcel was sent (in order to enter a logical location for the drone)
+                    //    DO.Customer targetid = dal.GetCustomer(parcel.Targetid);
+                    //    Location location2 = new()//set the location
+                    //    {
+                    //        Latitude = targetid.Latitude,
+                    //        Longitude = targetid.Longitude
+                    //    };
+                    //    currentDrone.Location = location2;
+                    //    //finds the closest station from the targeted
+                    //    double minDistance = MinDistanceLocation(BaseStationListBL, currentDrone.Location).Item2;
+                    //    //the minimum battery the drones needs
+                    //    int minBatteryDrone = 0;
+                    //    minBatteryDrone = setBattery(minBatteryDrone, minDistance, currentDrone.Weight);
+                    //    //if (minBatteryDrone == 0)
+                    //    //    currentDrone.Battery = 30;
+                    //    currentDrone.Battery = rand.Next(minBatteryDrone, 101);//between minimum to maximum(=>100)
                 }
             }
         }
     }
 }
+

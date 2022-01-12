@@ -23,19 +23,27 @@ namespace PL
         BlApi.IBL bl;
         public Parcel Parcel { get; set; }//drone for binding
         private bool _close { get; set; } = false;//for closing the window
-        
-        FilterByPriorityAndStatus PriorityAndStatus;
-        private MenuWindow parcelListWindow;
-        private int Index;
+        /// <summary>
+        /// an object of the manu window
+        /// </summary>
+        private MenuWindow menuWindow;
+        /// <summary>
+        /// a varibles that set the size of the window
+        /// </summary>
         public int sizeH { get; set; }
         public int sizeW { get; set; }
-        public ParcelWindow(BlApi.IBL bL, Parcel parcel, MenuWindow _menuWindow, int _Index)
+        /// <summary>
+        /// show the update grid
+        /// </summary>
+        /// <param name="bL"></param>
+        /// <param name="parcel"></param>
+        /// <param name="_menuWindow"></param>
+        /// <param name="flag"></param>
+        public ParcelWindow(BlApi.IBL bL, Parcel parcel, MenuWindow _menuWindow, int flag)
         {
             bl = bL;
             Parcel = parcel;         
-            PriorityAndStatus = new();
-            Index = _Index;
-            if (_Index == 0)
+            if (flag == 0)
             {
                 sizeW = 340; sizeH = 370;
             }
@@ -45,8 +53,7 @@ namespace PL
             }
             DataContext = this;
             InitializeComponent();
-            this.parcelListWindow = _menuWindow;
-            //show the update grid:
+            this.menuWindow = _menuWindow;
         }
         /// <summary>
         /// ctor for add
@@ -65,8 +72,6 @@ namespace PL
             AddGrid.Visibility = Visibility.Visible;
             UpdateGrid.Visibility = Visibility.Hidden;
         }
-
-
         /// <summary>
         /// add butten
         /// </summary>
@@ -89,8 +94,7 @@ namespace PL
                     Parcel.TargetidCustomer.Id = (int)txtReciver.SelectedItem;
                     //sending for add
                     bl.AddParcel(Parcel);
-                    PriorityAndStatus.Priority = BO.Priorities.Normal;
-                    PriorityAndStatus.Status = BO.ParcelStatus.Defined;
+                    menuWindow.GroupingParcel();
                     //success
                     MessageBox.Show("The parcel has been added successfully :)\n" + Parcel.ToString());
 
@@ -141,14 +145,11 @@ namespace PL
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(Parcel.MyDrone.Id!=0)
-                 new DroneInParcelWindow(Parcel.MyDrone,bl,parcelListWindow).Show();
+                 new DroneInParcelWindow(Parcel.MyDrone,bl,menuWindow).Show();
             else if(Parcel.Delivered==null)
                 MessageBox.Show("The parcel has not been associated yet - there are no details about the drone");
             else
                 MessageBox.Show("The parcel has been delivered - there are no details about the drone");
-
-
-
         }
         /// <summary>
         /// a click event- see sender details 
@@ -157,7 +158,7 @@ namespace PL
         /// <param name="e"></param>
         private void Image_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            new CustomerInParcelWindow(Parcel.SenderCustomer,bl,parcelListWindow).Show();
+            new CustomerInParcelWindow(Parcel.SenderCustomer,bl,menuWindow).Show();
         }
         /// <summary>
         /// a click event- see targetid details 
@@ -166,7 +167,7 @@ namespace PL
         /// <param name="e"></param>
         private void Image_MouseDown_2(object sender, MouseButtonEventArgs e)
         {
-            new CustomerInParcelWindow(Parcel.TargetidCustomer, bl, parcelListWindow).Show();
+            new CustomerInParcelWindow(Parcel.TargetidCustomer, bl, menuWindow).Show();
         }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
@@ -174,7 +175,7 @@ namespace PL
             try
             {
                 bl.RemoveParcel(Parcel);
-                //parcelListWindow.ParcelListView.Items.Refresh();
+                menuWindow.GroupingParcel();
                 MessageBox.Show("The parcel has been removed successfully :)\n" + Parcel.ToString());
                 _close = true;
                 Close();
