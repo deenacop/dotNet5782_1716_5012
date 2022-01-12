@@ -61,7 +61,7 @@
                         </Grid.ColumnDefinitions>
                         <Image VerticalAlignment="Center" HorizontalAlignment="Left" Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\menu!.png" MouseDown="MenuItem_Click" Grid.ColumnSpan="2" Margin="1,0,0,0" />
                         <Menu x:Name="droneOptions"  Background="{x:Null}"  MouseDown="MenuItem_Click" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                            <MenuItem Click="MenuItem_Click_1" Height="25" Width="24"
+                            <MenuItem Click="MenuItem_Click" Height="25" Width="24"
                                    >
                                 <MenuItem Name="MenuSend" FontSize="15" Header="_send drone to charge" IsCheckable="True" Click="btnSendDroneToCharge_Click" />
                                 <MenuItem Name="MenuRelease" FontSize="15" Header="_release drone from charge" IsCheckable="True" Click="btnReleasingDroneFromBaseStation_Click" />

@@ -3,73 +3,17 @@
   <Station>
     <Id>5839</Id>
     <Name>Balfour street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>4944</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>14</NumOfAvailableChargingSlots>
     <Longitude>35.738330082846026</Longitude>
     <Latitude>31.51242946158742</Latitude>
-    <IsRemoved>true</IsRemoved>
+    <IsRemoved>false</IsRemoved>
   </Station>
   <Station>
     <Id>1645</Id>
     <Name>4 David Remez Street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>28</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>4</NumOfAvailableChargingSlots>
     <Longitude>35.86691501870142</Longitude>
     <Latitude>31.88915404206568</Latitude>
-    <IsRemoved>false</IsRemoved>
-  </Station>
-  <Station>
-    <Id>2345</Id>
-    <Name>lord</Name>
-    <NumOfAvailableChargingSlots>15</NumOfAvailableChargingSlots>
-    <Longitude>35.8</Longitude>
-    <Latitude>31.5</Latitude>
-    <IsRemoved>true</IsRemoved>
-  </Station>
-  <Station>
-    <Id>6789</Id>
-    <Name>gh</Name>
-    <NumOfAvailableChargingSlots>2</NumOfAvailableChargingSlots>
-    <Longitude>35.5</Longitude>
-    <Latitude>31.2</Latitude>
-    <IsRemoved>true</IsRemoved>
-  </Station>
-  <Station>
-    <Id>4566</Id>
-    <Name>street</Name>
-    <NumOfAvailableChargingSlots>16</NumOfAvailableChargingSlots>
-    <Longitude>35.8</Longitude>
-    <Latitude>31.8</Latitude>
-    <IsRemoved>true</IsRemoved>
-  </Station>
-  <Station>
-    <Id>2468</Id>
-    <Name>har nof</Name>
-    <NumOfAvailableChargingSlots>8</NumOfAvailableChargingSlots>
-    <Longitude>35.9</Longitude>
-    <Latitude>31.1</Latitude>
-    <IsRemoved>false</IsRemoved>
-  </Station>
-  <Station>
-    <Id>1234</Id>
-    <Name>aaa</Name>
-    <NumOfAvailableChargingSlots>6</NumOfAvailableChargingSlots>
-    <Longitude>35.6</Longitude>
-    <Latitude>31.2</Latitude>
-    <IsRemoved>false</IsRemoved>
-  </Station>
-  <Station>
-    <Id>1212</Id>
-    <Name>a</Name>
-    <NumOfAvailableChargingSlots>22</NumOfAvailableChargingSlots>
-    <Longitude>35.4</Longitude>
-    <Latitude>31.1</Latitude>
-    <IsRemoved>false</IsRemoved>
-  </Station>
-  <Station>
-    <Id>4675</Id>
-    <Name>dfg</Name>
-    <NumOfAvailableChargingSlots>18</NumOfAvailableChargingSlots>
-    <Longitude>35.8</Longitude>
-    <Latitude>31.5</Latitude>
     <IsRemoved>false</IsRemoved>
   </Station>
 </ArrayOfStation>

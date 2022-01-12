@@ -55,10 +55,7 @@ namespace BL
                 DroneToList listDrone = DronesBL.First(d => d.Id == drone.Id);
                 DO.Drone droneDO = new();
                 object obj = droneDO;//boxing and unBoxing
-                drone.IsRemoved = true;//remove
-                drone.CopyPropertiesTo(listDrone);//updates also the list
-                drone.CopyPropertiesTo(obj);
-                droneDO = (DO.Drone)obj;
+                
                 if(drone.Status==DroneStatus.Available)
                     dal.RemoveDrone(droneDO.Id);
                 if (drone.Status == DroneStatus.Maintenance)
@@ -94,6 +91,11 @@ namespace BL
                 }
                 if (drone.Status == DroneStatus.Delivery)
                     throw new ItemCouldNotBeRemoved("The drone is in delivery mode and could not be removed!");
+
+                drone.IsRemoved = true;//remove
+                drone.CopyPropertiesTo(listDrone);//updates also the list
+                drone.CopyPropertiesTo(obj);
+                droneDO = (DO.Drone)obj;
             }
             catch (ItemNotExistException ex)
             {

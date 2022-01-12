@@ -6,11 +6,11 @@
     <Targetid>317133420</Targetid>
     <Weight>Heavy</Weight>
     <Priority>Urgent</Priority>
-    <MyDroneID>584</MyDroneID>
+    <MyDroneID>0</MyDroneID>
     <Requested>2021-07-09T09:27:14</Requested>
     <Scheduled>2021-07-09T13:31:38</Scheduled>
     <PickUp>2021-07-09T13:34:20</PickUp>
-    <Delivered xsi:nil="true" />
+    <Delivered>2022-01-12T16:44:15.9965441+02:00</Delivered>
     <IsRemoved>false</IsRemoved>
   </Parcel>
   <Parcel>
@@ -86,9 +86,9 @@
     <Priority>Urgent</Priority>
     <MyDroneID>0</MyDroneID>
     <Requested>2021-08-22T14:06:31</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
+    <Scheduled>2022-01-12T16:44:25.0154596+02:00</Scheduled>
+    <PickUp>2022-01-12T16:44:43.8023303+02:00</PickUp>
+    <Delivered>2022-01-12T16:44:52.0406781+02:00</Delivered>
     <IsRemoved>true</IsRemoved>
   </Parcel>
   <Parcel>
