@@ -47,6 +47,10 @@ namespace PL
             {
                 // var item = droneListWindow.droneToLists.Where(i => i.Key.Status == Drone.Status && i.Key.Weight == Drone.Weight).first();
                 bl.UpdateDrone(Drone);
+                droneListWindow.droneToLists = bl.GetDroneList();
+                CollectionView view;
+                PropertyGroupDescription groupDescription;
+                droneListWindow.GroupingDrone(out view, out groupDescription);
                 droneListWindow.DroneListView.Items.Refresh();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
@@ -69,6 +73,10 @@ namespace PL
             {
                 //send to the bl function
                 bl.SendDroneToCharge(Drone);
+                droneListWindow.droneToLists = bl.GetDroneList();
+                CollectionView view;
+                PropertyGroupDescription groupDescription;
+                droneListWindow.GroupingDrone(out view, out groupDescription);
                 droneListWindow.DroneListView.Items.Refresh();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
@@ -92,7 +100,11 @@ namespace PL
             {
                 //send to the bl function
                 bl.ReleasingDroneFromBaseStation(Drone);
-                droneListWindow.DroneListView.Items.Refresh();
+               droneListWindow.droneToLists = bl.GetDroneList();
+                CollectionView view;
+                PropertyGroupDescription groupDescription;
+                droneListWindow.GroupingDrone(out view, out groupDescription);
+                //droneListWindow.DroneListView.Items.Refresh();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -113,6 +125,10 @@ namespace PL
             {
                 //send to the bl function
                 bl.CollectionParcelByDrone(Drone);
+                droneListWindow.droneToLists = bl.GetDroneList();
+                CollectionView view;
+                PropertyGroupDescription groupDescription;
+                droneListWindow.GroupingDrone(out view, out groupDescription);
                 droneListWindow.DroneListView.Items.Refresh();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
@@ -134,7 +150,11 @@ namespace PL
             {
                 //send to the bl function
                 bl.AssignParcelToDrone(Drone);
-                droneListWindow.DroneListView.Items.Refresh();
+                CollectionView view;
+                PropertyGroupDescription groupDescription;
+                droneListWindow.GroupingDrone(out view, out groupDescription);
+
+                
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -155,6 +175,10 @@ namespace PL
             {
                 //send to the bl function
                 bl.DeliveryParcelByDrone(Drone);
+                droneListWindow.droneToLists = bl.GetDroneList();
+                CollectionView view;
+                PropertyGroupDescription groupDescription;
+                droneListWindow.GroupingDrone(out view, out groupDescription);
                 droneListWindow.DroneListView.Items.Refresh();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
@@ -247,6 +271,11 @@ namespace PL
                 {
                     //sending for add
                     bl.AddDrone(Drone, (int)comboStationSelector.SelectedItem);
+                    CollectionView view;
+                    PropertyGroupDescription groupDescription;
+                    droneListWindow.GroupingDrone(out view, out groupDescription);
+                    
+                    droneListWindow.droneToLists = bl.GetDroneList();
                     weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;                   
                     //success
                     MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
@@ -330,17 +359,17 @@ namespace PL
 
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
 
-        }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 bl.RemoveDrone(Drone);
-                droneListWindow.DroneListView.Items.Refresh();
+                CollectionView view;
+                PropertyGroupDescription groupDescription;
+                droneListWindow.GroupingDrone(out view, out groupDescription);
+           
                 MessageBox.Show("The drone has been removed successfully :)\n" + Drone.ToString());
                 _close = true;
                 Close();

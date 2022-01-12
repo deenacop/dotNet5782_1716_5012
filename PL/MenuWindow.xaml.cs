@@ -127,12 +127,11 @@ namespace PL
         #region drone item selected
         private void drone_Selected(object sender, RoutedEventArgs e)
         {
-            droneToLists = bL.GetDroneList().OrderBy(i => i.Id);//we want the items be sorted by ID
-            DroneListView.ItemsSource = droneToLists;
             //grouping by status
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
-            view.GroupDescriptions.Add(groupDescription);
+            CollectionView view;
+            PropertyGroupDescription groupDescription;
+            GroupingDrone(out view, out groupDescription);
+           
             droneGif.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Collapsed;
@@ -141,6 +140,16 @@ namespace PL
             btnAdd.Visibility = Visibility.Visible;
             //btnRemove.Visibility = Visibility.Visible;
         }
+
+        internal void GroupingDrone(out CollectionView view, out PropertyGroupDescription groupDescription)
+        {
+            droneToLists = bL.GetDroneList().OrderBy(i => i.Status).ThenBy(i=>i.Id);//we want the items be sorted by ID
+            DroneListView.ItemsSource = droneToLists;
+            view = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
+            groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
+        }
+
         private void DroneListViewSelectedItem()
         {
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
