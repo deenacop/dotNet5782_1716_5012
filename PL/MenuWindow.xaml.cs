@@ -60,10 +60,10 @@ namespace PL
     public partial class MenuWindow : Window
     {
         public Dictionary<FilterByWeightAndStatus, List<DroneToList>> droneToLists;//a dictionary to present the list of drones
-        public Dictionary<int, List<BaseStationToList>> sortedStationToLists;//a dictionary to present the sorted list of stations
+        //public Dictionary<int, List<BaseStationToList>> sortedStationToLists;//a dictionary to present the sorted list of stations
         public Dictionary<FilterByPriorityAndStatus, List<ParcelToList>> parcelToList;//a dictionary to present the list of parcels
         public ObservableCollection<CustomerToList> customerToLists;//an ObservableCollection to present the list of customers
-        public Dictionary<bool, List<BaseStationToList>> stationToLists;//a dictionary to present the list of stations
+        public IEnumerable<BaseStationToList> stationToLists { get; set; }//a dictionary to present the list of stations
         DispatcherTimer timer;//
         BlApi.IBL bL;
         double panelWidth;
@@ -186,7 +186,7 @@ namespace PL
             DroneListView.ItemsSource = null;
             if (status == DroneStatus.All && weight == WeightCategories.All)
                 DroneListView.ItemsSource = from item in droneToLists.Values.SelectMany(i => i)
-                                            orderby ( item.Weight, item.Status)
+                                            orderby (item.Weight, item.Status)
                                             select item;
             if (weight == WeightCategories.All && status != DroneStatus.All)
                 DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Status == (BO.DroneStatus)status).SelectMany(i => i.Value);
@@ -196,7 +196,7 @@ namespace PL
                 DroneListView.ItemsSource = droneToLists.Where(i => i.Key.Status == (BO.DroneStatus)status && i.Key.Weight == (BO.WeightCategories)weight).SelectMany(i => i.Value);
         }
 
-       
+
         /// <summary>
         /// Filter by wieght
         /// </summary>
@@ -210,7 +210,7 @@ namespace PL
         {
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
             if (drone != null)
-                new DroneWindow(bL, bL.GetDrone(drone.Id), this,1).Show();
+                new DroneWindow(bL, bL.GetDrone(drone.Id), this, 1).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -234,7 +234,7 @@ namespace PL
             stationLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
-           // btnRemove.Visibility = Visibility.Visible;
+            // btnRemove.Visibility = Visibility.Visible;
             customerToLists.CollectionChanged += CustomerToLists_CollectionChanged;
 
         }
@@ -270,7 +270,7 @@ namespace PL
             customerList.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
-           // btnRemove.Visibility = Visibility.Visible;
+            // btnRemove.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace PL
         {
             ParcelToList parcel = (ParcelToList)ParcelListView.SelectedItem;
             if (parcel != null)
-                new ParcelWindow(bL,bL.GetParcel(parcel.Id),this,1).Show();
+                new ParcelWindow(bL, bL.GetParcel(parcel.Id), this, 1).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
 
@@ -339,11 +339,10 @@ namespace PL
         #region station item selected
         private void station_Selected(object sender, RoutedEventArgs e)
         {
-            stationToLists = new Dictionary<bool, List<BaseStationToList>>();
-            stationToLists = (from item in bL.GetBaseStationList()
-                              group item by (item.NumOfAvailableChargingSlots > 0 ? true : false)).ToDictionary(i => i.Key, i => i.ToList());
+            stationToLists = from item in bL.GetBaseStationList()
+                             orderby item.NumOfAvailableChargingSlots
+                             select item;
             comboAvailableSlostSelector.ItemsSource = Enum.GetValues(typeof(AvailablityStation));
-            StationListView.ItemsSource = stationToLists.Values.SelectMany(i => i);
             comboAvailableSlostSelector.SelectedIndex = 2;
             droneGif.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Collapsed;
@@ -358,32 +357,26 @@ namespace PL
         {
             BaseStationToList station = (BaseStationToList)StationListView.SelectedItem;
             if (station != null)
-                new StationWindow(bL, bL.GetBaseStation(station.Id), this, 1).Show();          
+                new StationWindow(bL, bL.GetBaseStation(station.Id), this, 1).Show();
         }
 
-        
+
 
         internal void SelectionAvailablity()
         {
-            AvailablityStation availablity = (AvailablityStation)comboAvailableSlostSelector.SelectedItem;
             if (comboAvailableSlostSelector.SelectedIndex == -1)
-            {
                 comboAvailableSlostSelector.SelectedIndex = 2;
-            }
-            
-            if (availablity == AvailablityStation.All)
-                StationListView.ItemsSource = from item in stationToLists.Values.SelectMany(i => i)
-                                              orderby (item.NumOfAvailableChargingSlots)
-                                              select item;
-            if (availablity == AvailablityStation.Available)
-                StationListView.ItemsSource = stationToLists.Where(i => i.Key == true).SelectMany(i => i.Value);
-            if (availablity == AvailablityStation.Unavailable)
-                StationListView.ItemsSource = stationToLists.Where(i => i.Key == false).SelectMany(i => i.Value);
+            StationListView.ItemsSource = (AvailablityStation)comboAvailableSlostSelector.SelectedItem switch
+            {
+                AvailablityStation.All => stationToLists,
+                AvailablityStation.Available => stationToLists.Where(s => s.NumOfAvailableChargingSlots > 0),
+                AvailablityStation.Unavailable =>
+                stationToLists.Where(s => s.NumOfAvailableChargingSlots == 0),
+                _ => null
+            };
         }
-        private void comboAvailableSlostSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private void comboAvailableSlostSelector_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
             SelectionAvailablity();
-        }
         #endregion
 
         /// <summary>

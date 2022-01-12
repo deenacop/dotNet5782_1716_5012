@@ -100,7 +100,7 @@ namespace PL
     {
         public TTTTRRRRYYY()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

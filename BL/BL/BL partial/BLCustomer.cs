@@ -46,7 +46,7 @@ namespace BL
                 customerDO = (DO.Customer)obj;
                 customerDO.Latitude = customer.Location.Latitude;
                 customerDO.Longitude = customer.Location.Longitude;
-                dal.Remove(customerDO);
+                dal.RemoveCustomer(customerDO.Id);
             }
             catch (Exception ex)
             {
@@ -57,7 +57,7 @@ namespace BL
         public void UpdateCustomer(Customer customer)
         {
             if (customer.Name == null || customer.Name == "")
-                throw new WrongInputException("Missing drone model");
+                throw new WrongInputException("Missing customer name");
             if (customer.PhoneNumber == null || customer.PhoneNumber == "")
                 throw new WrongInputException("Missing phone number");
             CustomerToList Listcustomer = GetListCustomer().FirstOrDefault(i => i.Id == customer.Id);

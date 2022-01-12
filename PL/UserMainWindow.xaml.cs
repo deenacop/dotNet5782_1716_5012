@@ -43,8 +43,8 @@ namespace PL
             comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
 
-            ParcelListTo = bL.GetCustomer(User.Id).ToCustomer;
-            ParcelListFrom=bL.GetCustomer(User.Id).FromCustomer;
+            ParcelListTo = bL.GetCustomer(User.Id).ToCustomer.ToList();
+            ParcelListFrom=bL.GetCustomer(User.Id).FromCustomer.ToList();
             ParcelByCustomerView.ItemsSource = ParcelListFrom;
             ParcelByCustomerView1.ItemsSource = ParcelListTo;
         }

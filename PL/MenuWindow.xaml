@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
             Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize" Closing="Window_Closing" WindowStartupLocation="CenterScreen" WindowStyle="None"
-        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif">
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Window.Resources>
 
 

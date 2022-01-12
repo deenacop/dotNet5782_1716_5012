@@ -120,7 +120,7 @@ namespace BL
                     #region In maintenance mode
                     if (currentDrone.Status == DroneStatus.Maintenance)
                     {//In maintenance(בתחזוקה):
-                        DO.Station station = availableStations.Skip(rand.Next(0, availableStations.Count())).First();//Randomly selects one of the available station
+                        DO.Station station = availableStations.Skip(rand.Next(0, availableStations.Count())).FirstOrDefault();//Randomly selects one of the available station
                         Location location1 = new()//set the location
                         {
                             Latitude = station.Latitude,

@@ -79,7 +79,7 @@ namespace PL
         /// <param name="droneListWindow">access to the window</param>
         public StationWindow(BlApi.IBL bL, MenuWindow stationListWindow) : this(bL, new(), stationListWindow, 0)//sends to the other ctor
         {
-            Station.DronesInCharging = new();
+            //Station.DronesInCharging = new();
             txtId.IsEnabled = true;
             //show the add grid
             AddGrid.Visibility = Visibility.Visible;
@@ -108,12 +108,7 @@ namespace PL
 
                     //sending for add
                     bl.AddBaseStation(Station);
-                    bool key = Station.NumOfAvailableChargingSlots > 0 ? true : false;
-                    if (stationListWindow.stationToLists.ContainsKey(key))
-                        stationListWindow.stationToLists[key].Add(bl.GetBaseStationList().Last());
-                    else
-                        stationListWindow.stationToLists.Add(key, bl.GetBaseStationList().Where(i => i.Id == Station.Id).ToList());
-
+                    stationListWindow.stationToLists = bl.GetBaseStationList();
                     stationListWindow.SelectionAvailablity();
                     //success
                     MessageBox.Show("The drone has been added successfully :)\n" + Station.ToString());
@@ -176,7 +171,8 @@ namespace PL
             try
             {
                 bl.UpdateStation(Station);
-                stationListWindow.StationListView.Items.Refresh();
+                stationListWindow.stationToLists = bl.GetBaseStationList();
+                stationListWindow.SelectionAvailablity();
                 MessageBox.Show("The station has been updated successfully :)\n" + Station.ToString());
                 _close = true;
                 Close();
@@ -189,8 +185,8 @@ namespace PL
 
         private void Image_MouseDown(object sender, RoutedEventArgs e)
         {
-            if(Station.DronesInCharging.Count!=0)
-                new DroneInChargingWindow(bl, Station.DronesInCharging).Show();
+            if(Station.DronesInCharging.ToList().Count!=0)
+                new DroneInChargingWindow(bl, Station.DronesInCharging.ToList()).Show();
             else
                 MessageBox.Show("No drone are charging in this station ");
         }
@@ -200,9 +196,9 @@ namespace PL
             try
             {
                 bl.RemoveStation(Station);
-                //stationListWindow.StationListView.Items.Refresh();
-                MessageBox.Show("The station has been removed successfully :)\n" + Station.ToString());
+                stationListWindow.stationToLists = bl.GetBaseStationList();
                 stationListWindow.SelectionAvailablity();
+                MessageBox.Show("The station has been removed successfully :)\n" + Station.ToString());
                 _close = true;
                 Close();
             }

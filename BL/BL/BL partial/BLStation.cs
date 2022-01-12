@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DalApi;
 using System.Linq;
 
+
 namespace BL
 {
     internal partial class BL: BlApi.IBL
@@ -17,11 +18,14 @@ namespace BL
                 throw new UnlogicalLocationException("the location is unlogical");
             if (station.NumOfAvailableChargingSlots < 0)
                 throw new NegetiveException("There may not be a number of negative charging positions");
+            List<DroneInCharging> droneInChargings = new();
+            station.DronesInCharging = droneInChargings;
             try
             {
                 DO.Station tmpStation = new();
                 object obj = tmpStation;//Boxing and unBoxing
                 station.CopyPropertiesTo(obj);
+                
                 tmpStation = (DO.Station)obj;
                 tmpStation.Longitude = station.Location.Longitude;
                 tmpStation.Latitude = station.Location.Latitude;
@@ -43,7 +47,7 @@ namespace BL
                 stationlDO = (DO.Station)obj;
                 stationlDO.Latitude = baseStation.Location.Latitude;
                 stationlDO.Longitude = baseStation.Location.Longitude;
-                dal.Remove(stationlDO);
+                dal.RemoveStation(stationlDO.Id);
             }
             catch (Exception ex)
             {
@@ -54,7 +58,7 @@ namespace BL
         public void UpdateStation(BaseStation baseStation)
         {
             if (baseStation.Name == null || baseStation.Name == "")
-                throw new WrongInputException("Missing station model");
+                throw new WrongInputException("Missing station name");
             BaseStationToList stationList = new();
             baseStation.CopyPropertiesTo(stationList);
             object obj = new DO.Station();//Boxing and unBoxing

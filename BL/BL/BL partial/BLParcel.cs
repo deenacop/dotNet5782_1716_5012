@@ -51,8 +51,8 @@ namespace BL
                 object obj = parcelDO;//boxing and unBoxing
                 parcel.CopyPropertiesTo(obj);
                 parcelDO = (DO.Parcel)obj;
-                if (parcel.Scheduled == null)
-                    dal.Remove(parcelDO);
+                if(parcel.Scheduled==null)
+                    dal.RemoveParcel(parcelDO.Id);
                 else
                     throw new ItemCouldNotBeRemoved("The parcel has been associated already!");
             }
