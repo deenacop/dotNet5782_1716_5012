@@ -19,7 +19,7 @@ namespace BO
         /// <typeparam name="S">any type</typeparam>
         /// <param name="from">source object</param>
         /// <param name="to">destination object</param>
-        public static void CopyPropertiesTo<T, S>(this S from, T to)
+        public static T CopyPropertiesTo<T, S>(this S from, T to)
         {
             foreach (PropertyInfo propTo in to.GetType().GetProperties())
             {
@@ -30,6 +30,7 @@ namespace BO
                 if (value is ValueType || value is string)
                     propTo.SetValue(to, value);
             }
+            return to;
         }
         /// <summary>
         ///Copy properties (value type only) to destination object

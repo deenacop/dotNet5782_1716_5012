@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using DalApi;
+using System.Linq;
 
 namespace BL
 {
@@ -12,7 +13,7 @@ namespace BL
             try
             {
                 parcel.SenderCustomer.Name = dal.GetCustomer(parcel.SenderCustomer.Id).Name;
-                parcel.TargetidCustomer.Name=dal.GetCustomer(parcel.TargetidCustomer.Id).Name;
+                parcel.TargetidCustomer.Name = dal.GetCustomer(parcel.TargetidCustomer.Id).Name;
             }
             catch (Exception)
             {
@@ -24,7 +25,7 @@ namespace BL
                 throw new WrongInputException("Wrong input");
             parcel.Requested = DateTime.Now;
             parcel.MyDrone = new();
-            
+
             try
             {
                 DO.Parcel tmpParcel = new();
@@ -33,7 +34,7 @@ namespace BL
                 tmpParcel = (DO.Parcel)obj;
                 tmpParcel.Sender = parcel.SenderCustomer.Id;
                 tmpParcel.Targetid = parcel.TargetidCustomer.Id;
-                int id=dal.Add(tmpParcel);
+                int id = dal.Add(tmpParcel);
                 parcel.Id = id;
             }
             catch (Exception ex)
@@ -50,7 +51,7 @@ namespace BL
                 object obj = parcelDO;//boxing and unBoxing
                 parcel.CopyPropertiesTo(obj);
                 parcelDO = (DO.Parcel)obj;
-                if(parcel.Scheduled==null)
+                if (parcel.Scheduled == null)
                     dal.Remove(parcelDO);
                 else
                     throw new ItemCouldNotBeRemoved("The parcel has been associated already!");
@@ -83,9 +84,9 @@ namespace BL
                 throw new ItemNotExistException(ex.Message);
             }
             ///In case there is a drone:
-            if (parcelDO.Scheduled != null && parcelDO.Delivered==null)//if the parel is assigned and there is drone to update
+            if (parcelDO.Scheduled != null && parcelDO.Delivered == null)//if the parel is assigned and there is drone to update
             {
-                DroneToList drone = DroneListBL.Find(i => i.Id == parcelDO.MyDroneID);
+                DroneToList drone = DronesBL.Find(i => i.Id == parcelDO.MyDroneID);
                 parcelBO.MyDrone = new();
                 drone.CopyPropertiesTo(parcelBO.MyDrone);
             }
@@ -94,28 +95,21 @@ namespace BL
 
         public IEnumerable<ParcelToList> GetListParcel(Predicate<ParcelToList> predicate = null)
         {
-            IEnumerable<DO.Parcel> parcelsDO = dal.GetListParcel(i=>!i.IsRemoved);
-            List<ParcelToList> listParcelToList = new();
-            foreach (DO.Parcel currentParcel in parcelsDO)
-            {
-                ParcelToList tmpParcelBO = new();
-                Parcel tmp = GetParcel(currentParcel.Id);
-                tmp.CopyPropertiesTo(tmpParcelBO);
-                //Set the properties that needed to be set by hand
-                tmpParcelBO.NameOfSender = tmp.SenderCustomer.Name;
-                tmpParcelBO.NameOfTargetid = tmp.TargetidCustomer.Name;
-                if (tmp.Scheduled == null)//not schedule yet
-                    tmpParcelBO.Status = ParcelStatus.Defined;
-                else if (tmp.PickUp == null)//scheduled but has not been picked up
-                    tmpParcelBO.Status = ParcelStatus.Associated;
-                else if (tmp.Delivered == null) //scheduled and picked up  but has not been delivered
-                    tmpParcelBO.Status = ParcelStatus.PickedUp;
-                else tmpParcelBO.Status = ParcelStatus.Delivered;
-                listParcelToList.Add(tmpParcelBO);
-            }
-            return listParcelToList.FindAll(i => predicate == null ? true : predicate(i));
+            IEnumerable<ParcelToList> listParcelToList = from p in dal.GetListParcel(i => !i.IsRemoved)
+                                                         select p.CopyPropertiesTo(new ParcelToList
+                                                         {
+                                                             Status = p.Scheduled == null ?//not schedule yet
+                                                                      ParcelStatus.Defined :
+                                                                      (p.PickUp == null ?//scheduled but has not been picked up
+                                                                       ParcelStatus.Associated :
+                                                                       (p.Delivered == null ? //scheduled and picked up  but has not been delivered
+                                                                       ParcelStatus.PickedUp :
+                                                                       ParcelStatus.Delivered)),
+                                                             NameOfTargetid = dal.GetCustomer(p.Targetid).Name,
+                                                             NameOfSender = dal.GetCustomer(p.Sender).Name
+                                                         });
+            return listParcelToList.Where(i => predicate == null ? true : predicate(i));
         }
     }
 }
 
-  

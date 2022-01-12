@@ -92,47 +92,23 @@ namespace BL
             }
             //set the collections of parcels - parcels sent from the customer / parcels sent by the customer
             customerBO.FromCustomer = (from item in dal.GetListParcel(i => i.Sender == ID)
-                                       select HelpMethod(item, customerBO));
+                                       select HelpMethodToSetParcelInCustomer(item, customerBO));
             customerBO.ToCustomer = (from item in dal.GetListParcel(i => i.Targetid == ID)
-                                     select HelpMethod(item, customerBO));
+                                     select HelpMethodToSetParcelInCustomer(item, customerBO));
             return customerBO;
         }
 
         public IEnumerable<CustomerToList> GetListCustomer(Predicate<CustomerToList> predicate = null)
         {
-            IEnumerable<DO.Customer> customerDO = dal.GetListCustomer(item => !item.IsRemoved);
-            List<CustomerToList> customerToLists = new();
-            foreach (var (currentCustomer, customerList) in
-                from DO.Customer currentCustomer in customerDO
-                let customerList = new CustomerToList()
-                select (currentCustomer, customerList))
-            {
-                currentCustomer.CopyPropertiesTo(customerList);
-                customerList.NumberParcelSentAndDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered != null).Count();
-                customerList.NumberParcelSentAndNOTDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered == null).Count();
-                customerList.NumberOfParcelReceived = dal.GetListParcel(i => i.Targetid == currentCustomer.Id && i.Delivered != null).Count();
-                customerList.NumberOfParcelOnTheWayToCustomer = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered == null).Count();
-                customerToLists.Add(customerList);
-            }
-            //foreach (DO.Customer currentCustomer in customerDO)
-            //{
-            //    CustomerToList customerList = new();
-            //    currentCustomer.CopyPropertiesTo(customerList);
-            //    //Brings all the parcels that were send by the current customer and were delivered
-            //    IEnumerable<DO.Parcel> parcelsSendAndDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered != null);
-            //    customerList.NumberParcelSentAndDelivered = parcelsSendAndDelivered.Count();
-            //    //brings all the parcels that were send by the current customer and werent delivered
-            //    IEnumerable<DO.Parcel> parcelsSendAndNOTDelivered = dal.GetListParcel(i => i.Sender == currentCustomer.Id && i.Delivered == null && i.PickUp != null);
-            //    customerList.NumberParcelSentAndNOTDelivered = parcelsSendAndNOTDelivered.Count();
-            //    //brings all the parcels that were received by the current customer and were delivered
-            //    IEnumerable<DO.Parcel> parcelsReceived = dal.GetListParcel(i => i.Targetid == currentCustomer.Id && i.Delivered != null);
-            //    customerList.NumberOfParcelReceived = parcelsReceived.Count();
-            //    //brings all the parcels that were received by the current customer and werent delivered
-            //    IEnumerable<DO.Parcel> parcelsOnTheWay = dal.GetListParcel(i => i.Targetid == currentCustomer.Id && i.PickUp != null && i.Delivered == null);
-            //    customerList.NumberOfParcelOnTheWayToCustomer = parcelsOnTheWay.Count();
-            //    customerToLists.Add(customerList);
-            //}
-            return customerToLists.FindAll(i => predicate == null ? true : predicate(i));
+            IEnumerable<CustomerToList> customerSBO = from c in dal.GetListCustomer(item => !item.IsRemoved)
+                                                      select c.CopyPropertiesTo( new CustomerToList()
+                                                      {                                                     
+                                                          NumberParcelSentAndDelivered = dal.GetListParcel(i => i.Sender == c.Id && i.Delivered != null).Count(),
+                                                          NumberParcelSentAndNOTDelivered = dal.GetListParcel(i => i.Sender == c.Id && i.Delivered == null).Count(),
+                                                          NumberOfParcelReceived = dal.GetListParcel(i => i.Targetid == c.Id && i.Delivered != null).Count(),
+                                                          NumberOfParcelOnTheWayToCustomer = dal.GetListParcel(i => i.Targetid == c.Id && i.Delivered == null).Count()
+                                                      });
+            return customerSBO.Where(i => predicate == null ? true : predicate(i));
         }
     }
 }

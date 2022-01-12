@@ -410,10 +410,7 @@ namespace PL
             {
                 new StationWindow(bL, this).Show();
             }
-        }
-
-        
-
+        }     
        
     }
 }

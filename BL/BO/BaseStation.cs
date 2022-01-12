@@ -27,7 +27,7 @@ namespace BO
         /// <summary>
         /// list of the drones that charged at the station
         /// </summary>
-        public List<DroneInCharging> DronesInCharging { get; set; }
+        public IEnumerable<DroneInCharging> DronesInCharging { get; set; }
         public override string ToString()
         {
            string str = "ID:" + Id + "\nName:" + Name + "\nLocation:" +

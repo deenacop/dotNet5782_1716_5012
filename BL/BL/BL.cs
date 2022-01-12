@@ -23,7 +23,9 @@ namespace BL
         public static BL Instance { get { return instance.Value; } }// The internal Instance property to use
         
 
-        List<DroneToList> DroneListBL;//The list of drones that we will maintain throughout the project
+        List<DroneToList> DronesBL;//The list of drones that we will maintain throughout the project
+        //I chose to use the list and not IEnumerable, because IEnumerable mainly intended for viewing records and not for * maintaining * lists.
+        //The purpose of this list is to maintain the list of drones in the logical layer - the BL layer-  so I used the list!
 
         //static BL() { }// default => private
         private BL()
@@ -39,9 +41,9 @@ namespace BL
 
             #region Brings some of the lists that are needed from IDAL
 
-            DroneListBL = new List<DroneToList>();
+            DronesBL = new List<DroneToList>();
             IEnumerable<DO.Drone> DroneListDL = dal.GetListDrone();//Receive the drone list from the data layer.
-            DroneListDL.CopyPropertiesToIEnumerable(DroneListBL);//convret from DalApi to BL
+            DroneListDL.CopyPropertiesToIEnumerable(DronesBL);//convret from DalApi to BL
 
             List<ParcelToList> ParcelListBL = new();
             IEnumerable<DO.Parcel> ParcelListDL = dal.GetListParcel(i => i.MyDroneID != 0);//Receive the parcel list of parcels that are assign to drone (from the data layer).
@@ -62,10 +64,10 @@ namespace BL
             }
             #endregion
 
-            foreach (DroneToList currentDrone in DroneListBL)
+            foreach (DroneToList currentDrone in DronesBL)
             {
                 try
-                {
+                {           
                     DO.Parcel parcelDO = ParcelListDL.First(item => item.MyDroneID == currentDrone.Id
                      && item.Delivered == null);//Finds the parcel which is assigned to the current drone *and* the drone has been assigned .
                                                 //if !=-1 else: move to the catch block
@@ -104,19 +106,7 @@ namespace BL
                     double distanceToTargeted = DistanceCalculation(locationOfReceiver, currentDrone.Location);//The distance between the current location to the targetid
 
                     int minBatteryDrone = 0;
-
-                    switch ((int)currentDrone.Weight)
-                    {
-                        case (int)WeightCategories.Light:
-                            minBatteryDrone = (int)(distanceToTargeted * carriesLightWeight);
-                            break;
-                        case (int)WeightCategories.Medium:
-                            minBatteryDrone = (int)(distanceToTargeted * carriesMediumWeight);
-                            break;
-                        case (int)WeightCategories.Heavy:
-                            minBatteryDrone = (int)(distanceToTargeted * carriesHeavyWeight);
-                            break;
-                    }
+                    minBatteryDrone = setBattery(minBatteryDrone, distanceToTargeted, currentDrone.Weight);
                     minBatteryDrone += (int)(minDistance * vacant);//minimum battery that the drone needs
                     currentDrone.Battery = rand.Next(minBatteryDrone, 101);//between minimum to maximum(=>100)
                 }
@@ -158,19 +148,7 @@ namespace BL
                         double minDistance = MinDistanceLocation(BaseStationListBL, currentDrone.Location).Item2;
                         //the minimum battery the drones needs
                         int minBatteryDrone = 0;
-                        int weight = (int)currentDrone.Weight;
-                        switch (weight)
-                        {
-                            case (int)WeightCategories.Light:
-                                minBatteryDrone = (int)(minDistance * carriesLightWeight);
-                                break;
-                            case (int)WeightCategories.Medium:
-                                minBatteryDrone = (int)(minDistance * carriesMediumWeight);
-                                break;
-                            case (int)WeightCategories.Heavy:
-                                minBatteryDrone = (int)(minDistance * carriesHeavyWeight);
-                                break;
-                        }
+                        minBatteryDrone = setBattery(minBatteryDrone, minDistance, currentDrone.Weight);
                         //if (minBatteryDrone == 0)
                         //    currentDrone.Battery = 30;
                         currentDrone.Battery = rand.Next(minBatteryDrone, 101);//between minimum to maximum(=>100)

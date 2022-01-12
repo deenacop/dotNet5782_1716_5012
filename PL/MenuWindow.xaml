@@ -127,7 +127,6 @@
         </Grid>
 
         <Grid x:Name="customerList" Height="270" Width="540"  Visibility="Hidden" Margin="172,85,28,95" >
-
             <ListView x:Name="CustomerListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="CustomerListView_MouseDoubleClick"   Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}"   >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">

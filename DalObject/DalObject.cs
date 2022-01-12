@@ -304,7 +304,7 @@ namespace Dal
         }
         public User GetUser(string mail)
         {
-            int index = DataSource.Users.FindIndex(i => i.EmailAddress==mail);
+            int index = DataSource.Users.FindIndex(i => i.EmailAddress == mail);
             if (index == -1)//not exist
                 throw new ItemNotExistException("The parcel does not exists");
             return DataSource.Users[index];
@@ -313,61 +313,32 @@ namespace Dal
 
         #region Lists of items
         public IEnumerable<Drone> GetListDrone(Predicate<Drone> predicate = null)
-        {
-            return DataSource.Drones.FindAll(i => predicate == null ? true : predicate(i));
-            //return from item in DataSource.Drones 
-            //       where predicate == null ? true : predicate(item) 
-            //       select item;
-        }
+            => DataSource.Drones.FindAll(i => predicate == null ? true : predicate(i));
+
+
 
         public IEnumerable<Customer> GetListCustomer(Predicate<Customer> predicate = null)
-        {
-            return DataSource.Customers.FindAll(i => predicate == null ? true : predicate(i));
+            => DataSource.Customers.FindAll(i => predicate == null ? true : predicate(i));
 
-            //return from item in DataSource.Customers
-            //       where predicate == null ? true : predicate(item)
-            //       select item;
-
-        }
 
         public IEnumerable<Station> GetListStation(Predicate<Station> predicate = null)
-        {
-            //return from item in DataSource.Stations
-            //       where predicate == null ? true : predicate(item)
-            //       select item;
-            return DataSource.Stations.FindAll(i => predicate == null ? true : predicate(i));
+            => DataSource.Stations.FindAll(i => predicate == null ? true : predicate(i));
 
-        }
 
         public IEnumerable<Parcel> GetListParcel(Predicate<Parcel> predicate = null)
-        {
-            return DataSource.Parcels.FindAll(i => predicate == null ? true : predicate(i));
-        }
+            => DataSource.Parcels.FindAll(i => predicate == null ? true : predicate(i));
+
 
         public IEnumerable<DroneCharge> GetListDroneCharge(Predicate<DroneCharge> predicate = null)
-        {
-            return DataSource.DroneCharges.FindAll(i => predicate == null ? true : predicate(i));
+            => DataSource.DroneCharges.FindAll(i => predicate == null ? true : predicate(i));
 
-            //return from item in DataSource.DroneCharges
-            //       where predicate == null ? true : predicate(item)
-            //       select item;
-        }
         public IEnumerable<User> GetListUsers(Predicate<User> predicate = null)
-        {
-            return DataSource.Users.FindAll(i => predicate == null ? true : predicate(i));
-
-            //return from item in DataSource.Users
-            //       where (predicate == null ? true : predicate(item))
-            //       select item;
-        }
+            => DataSource.Users.FindAll(i => predicate == null ? true : predicate(i));
         #endregion
 
         public double[] ChargingDrone()
-        {
-            return new double[] { DataSource.Config.vacant, DataSource.Config.CarriesLightWeight,
+            => new double[] { DataSource.Config.vacant, DataSource.Config.CarriesLightWeight,
                     DataSource.Config.CarriesMediumWeight, DataSource.Config.CarriesHeavyWeight,DataSource.Config.DroneLoadingRate };
-
-        }
     }
 }
 

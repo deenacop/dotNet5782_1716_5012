@@ -12,7 +12,7 @@ namespace BL
         public void AddUser(User user)
         {
             try
-            {
+            {              
                 DO.User tmpUser = new();
                 object obj = tmpUser;//Boxing and unBoxing
                 user.CopyPropertiesTo(obj);

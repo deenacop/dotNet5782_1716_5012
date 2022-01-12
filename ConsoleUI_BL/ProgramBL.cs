@@ -85,7 +85,7 @@ namespace ConsoleUI_BL
 
                                     case (int)AddOptions.Station:
                                         BaseStation newStation = new();
-                                        newStation.DronesInCharging = new();
+                                       // newStation.DronesInCharging = new();
                                         newStation.Location = new();
                                         Console.WriteLine("Enter the station ID (4 digits)");
                                         int.TryParse(Console.ReadLine(), out ID);
@@ -228,8 +228,8 @@ namespace ConsoleUI_BL
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits)");
                                             int.TryParse(Console.ReadLine(), out int ID);
-                                            Console.WriteLine("and the the amount of time(by minute) that the drone was in the chaging base station");
-                                            int.TryParse(Console.ReadLine(), out int num);
+                                            //Console.WriteLine("and the the amount of time(by minute) that the drone was in the chaging base station");
+                                            //int.TryParse(Console.ReadLine(), out int num);
                                             Drone drone = bl.GetDrone(ID);
                                             bl.ReleasingDroneFromBaseStation(drone);
                                             break;
@@ -371,7 +371,7 @@ namespace ConsoleUI_BL
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-
+                    userAnswer = 0;
                 }
             }
         }

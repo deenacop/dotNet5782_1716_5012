@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using BO;
 using DalApi;
 
-
-
 namespace BL
 {
     internal partial class BL : BlApi.IBL
@@ -54,10 +52,7 @@ namespace BL
         /// </summary>
         /// <param name="num">ID item</param>
         /// <returns>amount of digits in the ID</returns>       
-        internal static int CheckNumOfDigits(int num)
-        {
-            return (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1);
-        }
+        internal static int CheckNumOfDigits(int num) => (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1);
 
         /// <summary>
         /// Function that checks if the drone has enough battery to do his delivary
@@ -71,18 +66,7 @@ namespace BL
             double distance = DistanceCalculation(drone.Location, GetCustomer(parcel.Sender).Location);
             minBattery = (int)distance * (int)vacant;
             distance = DistanceCalculation(GetCustomer(parcel.Sender).Location, GetCustomer(parcel.Targetid).Location);
-            switch ((int)parcel.Weight)//calculate from the sender to the targetid
-            {
-                case (int)WeightCategories.Light:
-                    minBattery += (int)(distance * carriesLightWeight);
-                    break;
-                case (int)WeightCategories.Medium:
-                    minBattery += (int)(distance * carriesMediumWeight);
-                    break;
-                case (int)WeightCategories.Heavy:
-                    minBattery += (int)(distance * carriesHeavyWeight);
-                    break;
-            }
+            minBattery = setBattery(minBattery, distance, (WeightCategories)parcel.Weight);
             List<BaseStation> BaseStationListBL = new();
             IEnumerable<DO.Station> StationListDL = dal.GetListStation();//Receive the station list from the data layer.
             StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from DalApi to BL
@@ -101,6 +85,32 @@ namespace BL
                 return true;
             return false;
         }
+
+        /// <summary>
+        /// The function regulates the battery and takes into account the weight and battery consumption accordingly
+        /// </summary>
+        /// <param name="battery">the battery that need to be set</param>
+        /// <param name="distance"></param>
+        /// <param name="weight"></param>
+        /// <returns></returns>
+        private int setBattery(int battery, double distance, WeightCategories weight)
+        {
+            switch (weight)
+            {
+                case WeightCategories.Light:
+                    battery += (int)(distance * carriesLightWeight);
+                    break;
+                case WeightCategories.Medium:
+                    battery += (int)(distance * carriesMediumWeight);
+                    break;
+                case WeightCategories.Heavy:
+                    battery += (int)(distance * carriesHeavyWeight);
+                    break;
+            }
+            return battery;
+        }
+
+
         /// <summary>
         /// A function that helps arrange a single customer (Get customer function).
         ///The function arranges the parcel received / sent by the customer
@@ -109,7 +119,7 @@ namespace BL
         /// <param name="item">a parcel(DO.Parcel)</param>
         /// <param name="customerBO">the customer we want to set</param>
         /// <returns>the parcel(ParcelByCustomer)</returns>
-        ParcelByCustomer HelpMethod(DO.Parcel item, Customer customerBO)
+        ParcelByCustomer HelpMethodToSetParcelInCustomer(DO.Parcel item, Customer customerBO)
         {
             ParcelByCustomer parcelBy = new();
             item.CopyPropertiesTo(parcelBy);
