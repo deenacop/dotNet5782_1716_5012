@@ -112,7 +112,7 @@ namespace Dal
             //checks if the drone exists and if not throws an exception
             int index = drones.FindIndex(i => i.Id == id);
             if(index==-1)
-                throw new AlreadyExistedItemException("The drone already exists");
+                throw new ItemNotExistException("The drone does not exists");
             Drone drone = drones[index];
             drone.IsRemoved = true;
             drones[index] = drone;

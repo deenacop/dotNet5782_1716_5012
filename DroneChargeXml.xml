@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DroneCharge>
-    <BaseStationID>1645</BaseStationID>
-    <Id>746</Id>
-    <EnterToChargBase>2022-01-09T23:21:58.5848161+02:00</EnterToChargBase>
-    <FinishedRecharging xsi:nil="true" />
-    <IsRemoved>false</IsRemoved>
-  </DroneCharge>
-  <DroneCharge>
     <BaseStationID>5839</BaseStationID>
     <Id>138</Id>
     <EnterToChargBase>2022-01-09T23:21:58.6946362+02:00</EnterToChargBase>
