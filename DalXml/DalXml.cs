@@ -234,16 +234,18 @@ namespace Dal
             if (index == -1)
                 throw new ItemNotExistException("The station does not exists");
             //creates a new varible of drone charge
-
-            DroneCharge ChargingDroneBattery = new();
-            ChargingDroneBattery.Id = droneID;
-            ChargingDroneBattery.BaseStationID = stationID;
-            ChargingDroneBattery.EnterToChargBase = DateTime.Now;
-            ChargingDroneBattery.FinishedRecharging = null;
-
+            DroneCharge ChargingDroneBattery = new()
+            {
+                Id = droneID,
+                BaseStationID = stationID,
+                EnterToChargBase = DateTime.Now,
+                FinishedRecharging = null,
+            };
             //adds
-            XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml).Add(ChargingDroneBattery);
+            List< DroneCharge> d=XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
+            d.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
+            XMLTools.SaveListToXMLSerializer(d, DroneChargeXml);
             Station tmp = stations[index];
             tmp.NumOfAvailableChargingSlots--;
             stations[index] = tmp;
