@@ -3,13 +3,13 @@
   <Drone>
     <Id>746</Id>
     <Model>3D Robotics Solo</Model>
-    <Weight>Light</Weight>
+    <Weight>Heavy</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
   <Drone>
     <Id>138</Id>
     <Model>Yuneec H520</Model>
-    <Weight>Heavy</Weight>
+    <Weight>Medium</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
   <Drone>
@@ -34,7 +34,7 @@
     <Id>867</Id>
     <Model>Yuneec H520</Model>
     <Weight>Medium</Weight>
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Drone>
   <Drone>
     <Id>879</Id>
@@ -46,7 +46,7 @@
     <Id>777</Id>
     <Model>DJI Mavic 2 Zoom</Model>
     <Weight>Medium</Weight>
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Drone>
   <Drone>
     <Id>123</Id>

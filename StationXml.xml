@@ -3,7 +3,7 @@
   <Station>
     <Id>5839</Id>
     <Name>Balfour street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>13</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>14</NumOfAvailableChargingSlots>
     <Longitude>35.738330082846026</Longitude>
     <Latitude>31.51242946158742</Latitude>
     <IsRemoved>false</IsRemoved>

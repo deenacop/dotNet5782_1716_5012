@@ -366,10 +366,7 @@ namespace PL
             try
             {
                 bl.RemoveDrone(Drone);
-                CollectionView view;
-                PropertyGroupDescription groupDescription;
-                droneListWindow.GroupingDrone(out view, out groupDescription);
-                droneListWindow.droneToLists = bl.GetDroneList();
+                droneListWindow.GroupingDrone(out CollectionView view, out PropertyGroupDescription groupDescription);
                 MessageBox.Show("The drone has been removed successfully :)\n" + Drone.ToString());
                 _close = true;
                 Close();

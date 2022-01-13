@@ -58,7 +58,7 @@ namespace BL
                 object obj = droneDO;//boxing and unBoxing
                 drone.CopyPropertiesTo(obj);
                 droneDO = (DO.Drone)obj;
-                if (drone.Status==DroneStatus.Available)
+                if (drone.Status == DroneStatus.Available)
                     dal.RemoveDrone(droneDO.Id);
                 if (drone.Status == DroneStatus.Maintenance)
                 {
@@ -94,13 +94,13 @@ namespace BL
                 if (drone.Status == DroneStatus.Delivery)
                     throw new ItemCouldNotBeRemoved("The drone is in delivery mode and could not be removed!");
 
-                drone.IsRemoved = true; 
+                drone.IsRemoved = true;
             }
             catch (ItemNotExistException ex)
             {
                 throw new ItemNotExistException(ex.Message);
             }
-            catch (InvalidOperationException )
+            catch (InvalidOperationException)
             {
                 throw new ItemCouldNotBeRemoved("The drone does not exist");
             }
@@ -204,12 +204,12 @@ namespace BL
         public void AssignParcelToDrone(Drone drone)
         {
             DroneToList droneToList = DronesBL.Find(i => i.Id == drone.Id);
-            if(droneToList==null)
+            if (droneToList == null)
                 throw new ItemNotExistException("Drone does not exist");
             if (drone.Status != DroneStatus.Available)
                 throw new WorngStatusException("The drone is not available");
             //Brings the list of parcels sorted by order of urgency
-            IEnumerable<DO.Parcel> parcels = dal.GetListParcel(i => i.MyDroneID == 0 && (int)i.Weight <= (int)drone.Weight && i.PickUp==null).
+            IEnumerable<DO.Parcel> parcels = dal.GetListParcel(i => i.MyDroneID == 0 && (int)i.Weight <= (int)drone.Weight && i.PickUp == null).
                 OrderByDescending(currentParcel => currentParcel.Priority).ThenByDescending(currentParcel =>
                  currentParcel.Weight).ThenByDescending(currentParcel =>
                      DistanceCalculation(drone.Location, GetCustomer(currentParcel.Sender).Location));
@@ -220,9 +220,10 @@ namespace BL
                 droneToList.Status = DroneStatus.Delivery;
                 droneToList.ParcelId = p.Id;
                 dal.AssignParcelToDrone(p.Id, drone.Id);
+                droneToList.CopyPropertiesTo(drone);
             }
             else
-                 throw new ItemNotExistException("There is no parcel to assign with the drone");
+                throw new ItemNotExistException("There is no parcel to assign with the drone");
         }
 
         public void CollectionParcelByDrone(Drone drone)
@@ -258,6 +259,7 @@ namespace BL
                 droneToList.Status = DroneStatus.Available;
                 droneToList.CopyPropertiesTo(drone);
                 dal.DeliveryParcelToCustomer(parcel.Id);
+                droneToList.CopyPropertiesTo(drone);
             }
             else throw new WorngStatusException("The parcel couldnt be delivered");
         }
@@ -296,7 +298,7 @@ namespace BL
                 throw new ItemNotExistException("drone does not exist");
             }
         }
-        public IEnumerable<DroneToList> GetDroneList(Predicate<DroneToList> predicate = null)=>
-            DronesBL.FindAll(i =>!i.IsRemoved);
+        public IEnumerable<DroneToList> GetDroneList(Predicate<DroneToList> predicate = null) =>
+            DronesBL.FindAll(i => !i.IsRemoved);
     }
 }

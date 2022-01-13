@@ -193,27 +193,27 @@ namespace ConsoleUI_BL
                                             break;
                                         }
 
-                                    case (int)UpdateOptions.UpdateCustomerDetails:
-                                        {
-                                            Console.WriteLine("Enter The customer ID (9 digits).");
-                                            int.TryParse(Console.ReadLine(), out int ID);
-                                            Console.WriteLine("if you want to change the name, enter the new name else continue");
-                                            string ansName = Console.ReadLine();
-                                            if (ansName == "")
-                                                ansName = null;
-                                            Console.WriteLine("if you want to change the phone number of the customer, enter the new phone number else continue");
-                                            string ansPhone = Console.ReadLine();
-                                            if (ansPhone == "")
-                                                ansName = null;lordmord200
-                                            Customer tmp = bl.GetCustomer(ID);
-                                            if(ansName!=null)
-                                                tmp.Name = ansName;
-                                            if (ansPhone != null)
-                                                tmp.PhoneNumber = ansPhone;
-                                            bl.UpdateCustomer(tmp);
-                                            bl.RemoveCustomer(tmp);
-                                            break;
-                                        }
+                                    //case (int)UpdateOptions.UpdateCustomerDetails:
+                                    //    {
+                                    //        //Console.WriteLine("Enter The customer ID (9 digits).");
+                                    //        //int.TryParse(Console.ReadLine(), out int ID);
+                                    //        //Console.WriteLine("if you want to change the name, enter the new name else continue");
+                                    //        //string ansName = Console.ReadLine();
+                                    //        //if (ansName == "")
+                                    //        //    ansName = null;
+                                    //        //Console.WriteLine("if you want to change the phone number of the customer, enter the new phone number else continue");
+                                    //        //string ansPhone = Console.ReadLine();
+                                    //        //if (ansPhone == "")
+                                    //        //    ansName = null;lordmord200
+                                    //        //Customer tmp = bl.GetCustomer(ID);
+                                    //        //if(ansName!=null)
+                                    //        //    tmp.Name = ansName;
+                                    //        //if (ansPhone != null)
+                                    //        //    tmp.PhoneNumber = ansPhone;
+                                    //        //bl.UpdateCustomer(tmp);
+                                    //        //bl.RemoveCustomer(tmp);
+                                    //        //break;
+                                    //    }
                                     case (int)UpdateOptions.SendDroneToCharge:
                                         {
                                             Console.WriteLine("Enter The drone ID (3 digits).");

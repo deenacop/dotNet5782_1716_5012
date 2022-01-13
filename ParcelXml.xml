@@ -6,11 +6,11 @@
     <Targetid>315296681</Targetid>
     <Weight>Heavy</Weight>
     <Priority>Urgent</Priority>
-    <MyDroneID>0</MyDroneID>
-    <Requested>2021-07-09T09:27:14</Requested>
-    <Scheduled>2021-07-09T13:31:38</Scheduled>
-    <PickUp>2021-07-09T13:34:20</PickUp>
-    <Delivered>2022-01-12T16:44:15.9965441+02:00</Delivered>
+    <MyDroneID>746</MyDroneID>
+    <Requested xsi:nil="true" />
+    <Scheduled>2022-01-14T00:55:21.8793948+02:00</Scheduled>
+    <PickUp xsi:nil="true" />
+    <Delivered xsi:nil="true" />
     <IsRemoved>false</IsRemoved>
   </Parcel>
   <Parcel>
@@ -45,11 +45,11 @@
     <Targetid>400638472</Targetid>
     <Weight>Light</Weight>
     <Priority>Urgent</Priority>
-    <MyDroneID>0</MyDroneID>
-    <Requested>2021-10-03T13:59:57</Requested>
-    <Scheduled>2021-10-03T18:47:56</Scheduled>
-    <PickUp>2021-10-03T19:29:30</PickUp>
-    <Delivered>2021-10-03T19:31:13</Delivered>
+    <MyDroneID>138</MyDroneID>
+    <Requested xsi:nil="true" />
+    <Scheduled>2022-01-14T00:50:36.1599604+02:00</Scheduled>
+    <PickUp xsi:nil="true" />
+    <Delivered xsi:nil="true" />
     <IsRemoved>false</IsRemoved>
   </Parcel>
   <Parcel>
@@ -71,11 +71,11 @@
     <Targetid>273291013</Targetid>
     <Weight>Light</Weight>
     <Priority>Normal</Priority>
-    <MyDroneID>0</MyDroneID>
+    <MyDroneID>554</MyDroneID>
     <Requested xsi:nil="true" />
-    <Scheduled>2022-01-12T21:32:42.0015332+02:00</Scheduled>
-    <PickUp>2022-01-12T21:32:56.4242428+02:00</PickUp>
-    <Delivered>2022-01-12T21:33:04.0955405+02:00</Delivered>
+    <Scheduled>2022-01-14T00:54:19.7795342+02:00</Scheduled>
+    <PickUp xsi:nil="true" />
+    <Delivered xsi:nil="true" />
     <IsRemoved>false</IsRemoved>
   </Parcel>
   <Parcel>
