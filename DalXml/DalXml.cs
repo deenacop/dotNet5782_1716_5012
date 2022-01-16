@@ -95,10 +95,10 @@ namespace Dal
             XElement CustomerElem = new XElement("Customer",
                                  new XElement("Id", customer.Id),
                                  new XElement("Name", customer.Name),
-                                 new XElement("Phone", customer.PhoneNumber),
-                                 new XElement("Latitude", customer.IsRemoved),
+                                 new XElement("PhoneNumber", customer.PhoneNumber),
                                  new XElement("Longitude", customer.Longitude),
-                                 new XElement("Latitude", customer.Latitude));
+                                 new XElement("Latitude", customer.Latitude),
+                                 new XElement("IsRemoved", customer.IsRemoved));
             customerXml.Add(CustomerElem);
             XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
         }
@@ -390,8 +390,8 @@ namespace Dal
                                      Name = cus.Element("Name").Value,
                                      PhoneNumber = cus.Element("PhoneNumber").Value,
                                      Longitude = double.Parse(cus.Element("Longitude").Value),
-                                     Latitude = double.Parse(cus.Element("Latitude").Value)
-
+                                     Latitude = double.Parse(cus.Element("Latitude").Value),
+                                     IsRemoved = bool.Parse(cus.Element("IsRemoved").Value)
                                  }
                         ).FirstOrDefault();
             if (customer.Id != 0)
@@ -431,7 +431,7 @@ namespace Dal
                 PhoneNumber = cus.Element("PhoneNumber").Value,
                 Longitude = double.Parse(cus.Element("Longitude").Value),
                 Latitude = double.Parse(cus.Element("Latitude").Value),
-                IsRemoved = bool.Parse(cus.Element("IsRemoved").Value ?? "false")
+                IsRemoved = bool.Parse(cus.Element("IsRemoved").Value)
             };
 
 

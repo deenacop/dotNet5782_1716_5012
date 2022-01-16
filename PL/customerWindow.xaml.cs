@@ -101,7 +101,8 @@ namespace PL
             try
             {
                 bl.UpdateCustomer(Customer);
-                //stationListWindow.StationListView.Items.Refresh();
+                
+                customerListWindow.customerToLists=new(bl.GetListCustomer());
                 MessageBox.Show("The customer has been updated successfully :)\n" + Customer.ToString());
                 _close = true;
                 Close();
@@ -129,7 +130,8 @@ namespace PL
                 {
                     //sending for add
                     bl.AddCustomer(Customer);
-                    customerListWindow.customerToLists.Add(bl.GetListCustomer().Last());
+                    customerListWindow.customerToLists.Add(bl.GetListCustomer(c => c.Id == Customer.Id).Last());
+                    //customerListWindow.customerToLists.Add(bl.GetListCustomer().Last());
                     //success
                     MessageBox.Show("The customer has been added successfully :)\n" + Customer.ToString());
                     _close = true;
@@ -188,7 +190,8 @@ namespace PL
             try
             {
                 bl.RemoveCustomer(Customer);
-                //stationListWindow.StationListView.Items.Refresh();
+                customerListWindow.customerToLists.Remove(bl.GetListCustomer(c => c.Id == Customer.Id).Last());
+
                 MessageBox.Show("The customer has been removed successfully :)\n" + Customer.ToString());
 
                 _close = true;

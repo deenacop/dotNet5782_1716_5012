@@ -61,7 +61,7 @@ namespace PL
     {
         //public Dictionary<FilterByWeightAndStatus, List<DroneToList>> droneToLists;//a dictionary to present the list of drones
         //public Dictionary<FilterByPriorityAndStatus, List<ParcelToList>> parcelToList;//a dictionary to present the list of parcels
-        public ObservableCollection<CustomerToList> customerToLists;//an ObservableCollection to present the list of customers
+        public ObservableCollection<CustomerToList> customerToLists { get; set; } //an ObservableCollection to present the list of customers
         public IEnumerable<BaseStationToList> stationToLists { get; set; }//a list to present the list of stations
         public IEnumerable<DroneToList> droneToLists { get; set; }//a list to present the list of drones
         public IEnumerable<ParcelToList> parcelToList { get; set; }//a list to present the list of parcels
@@ -76,6 +76,7 @@ namespace PL
         {
 
             bL = bl;
+            customerToLists = new(bL.GetListCustomer());
             InitializeComponent();
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);//Gets or sets the period of time between timer ticks.
@@ -167,11 +168,6 @@ namespace PL
         #region customer item selected
         private void customer_Selected(object sender, RoutedEventArgs e)
         {
-            customerToLists = new ObservableCollection<CustomerToList>();
-            IEnumerable<CustomerToList> tmp = bL.GetListCustomer();
-            foreach (var current in tmp)
-                customerToLists.Add(current);
-            CustomerListView.ItemsSource = customerToLists;
             droneGif.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
@@ -179,8 +175,6 @@ namespace PL
             customerList.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
             // btnRemove.Visibility = Visibility.Visible;
-            customerToLists.CollectionChanged += CustomerToLists_CollectionChanged;
-
         }
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -190,10 +184,6 @@ namespace PL
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
 
-        private void CustomerToLists_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            CustomerListView.Items.Refresh();
-        }
         #endregion
 
         #region parcel item selected
