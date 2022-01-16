@@ -17,12 +17,32 @@ namespace Dal
         private static string DroneChargeXml = @"DroneChargeXml.xml";
         private static string CustomerXml = @"CustomerXml.xml";
         private static string UserXml = @"UserXml.xml";
+
+        //for initialize
+        static internal int RunnerIDNumParcels = 100000;
+        static internal double vacant = 2;//per km
+        static internal double CarriesLightWeight = 5;//per km
+        static internal double CarriesMediumWeight = 8;//per km
+        static internal double CarriesHeavyWeight = 10;//per km
+        static internal double DroneLoadingRate = 20;//per min
         #region singelton
 
         private static readonly Lazy<DalXml> instance = new Lazy<DalXml>(() => new DalXml()); //Lazy initialization of an object means that its creation is deferred until it is first used.
 
         internal static DalXml Instance { get { return instance.Value; } }
-        static DalXml() { }
+        static DalXml()
+        {
+            //XMLTools.SaveListToXMLElement(new XElement("DroneChargeXml.xml"), DroneChargeXml);
+            XElement rootElem = new XElement("configLists", new XElement("RunnerIDNumParcels", 100010),
+                new XElement("pwrUsgEmpty", vacant),
+                new XElement("pwrUsgLight", CarriesLightWeight),
+                new XElement("pwrUsgMedium", CarriesMediumWeight),
+                new XElement("pwrUsgHeavy", CarriesHeavyWeight),
+                new XElement("chargePH", DroneLoadingRate));
+
+            //rootElem.Add(new int[] { , pwrUsgLight, pwrUsgMedium, pwrUsgHeavy, chargePH });
+            XMLTools.SaveListToXMLElement(rootElem, "config.xml");
+        }
         private DalXml() { }//ctor
 
         #endregion
@@ -172,7 +192,6 @@ namespace Dal
 
         #endregion
 
-
         #region Drone operations
         public void AssignParcelToDrone(int parcelID, int droneID)
         {
@@ -242,16 +261,15 @@ namespace Dal
                 FinishedRecharging = null,
             };
             //adds
-            List< DroneCharge> d=XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
-            d.Add(ChargingDroneBattery);
+            List<DroneCharge> droneCharges= XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
+            droneCharges.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
-            XMLTools.SaveListToXMLSerializer(d, DroneChargeXml);
+            XMLTools.SaveListToXMLSerializer(droneCharges, DroneChargeXml);
             Station tmp = stations[index];
             tmp.NumOfAvailableChargingSlots--;
             stations[index] = tmp;
             XMLTools.SaveListToXMLSerializer(stations, StationXml);
         }
-        //??????????
         public void ReleasingDroneFromChargingBaseStation(int droneID, int baseStationID)
         {
             List<DroneCharge> droneCharges = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
@@ -436,24 +454,12 @@ namespace Dal
 
         public double[] ChargingDrone()
         {
-            return new double[] { DataSource.Config.vacant, DataSource.Config.CarriesLightWeight,
-                    DataSource.Config.CarriesMediumWeight, DataSource.Config.CarriesHeavyWeight,DataSource.Config.DroneLoadingRate };
 
-            //List<double> con = XMLTools.LoadListFromXMLSerializer<double>(ConfigXml);
-            //return from item in con
-            //       select con;
-            //    return new double[]
-            //    {
-            //   int.Parse(con.Element("vacant").Value),
-            //    int.Parse(con.Element("CarriesLightWeight").Value),
-            //    int.Parse(p.Element("CarriesMediumWeight").Value),
-            //     int.Parse(p.Element("CarriesHeavyWeight").Value),
-            //   int.Parse(p.Element("DroneLoadingRate").Value),
-            //};
-
+            XElement tempPwr = XMLTools.LoadListFromXMLElement(@"config.xml");
+            double[] pwrUsg = { double.Parse(tempPwr.Element("pwrUsgEmpty").Value), double.Parse(tempPwr.Element("pwrUsgLight").Value), 
+                double.Parse(tempPwr.Element("pwrUsgMedium").Value), double.Parse(tempPwr.Element("pwrUsgHeavy").Value), double.Parse(tempPwr.Element("chargePH").Value) };
+            return pwrUsg;
         }
-
-
     }
 }
 
