@@ -101,7 +101,7 @@ namespace PL
                 //if not filled the details
                 if (txtNumOfSlots == null || txtID == null || txtName == null || txtLongitude == null || txtLatitude == null)
                 {
-                    MessageBox.Show("Missing drone details: ");
+                    MessageBox.Show("Missing station details: ");
                 }
                 else
                 {
@@ -111,15 +111,39 @@ namespace PL
                     stationListWindow.stationToLists = bl.GetBaseStationList();
                     stationListWindow.SelectionAvailablity();
                     //success
-                    MessageBox.Show("The drone has been added successfully :)\n" + Station.ToString());
+                    MessageBox.Show("The station has been added successfully :)\n" + Station.ToString());
 
+                    _close = true;
+                    try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+                }
+            }
+            catch (AskRecoverExeption ex)
+            {
+                string message = ex.Message;
+                string caption = "Confirmation";
+                MessageBoxButton buttons = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Question;
+                if (MessageBox.Show(message, caption, buttons, icon) == MessageBoxResult.Yes)
+                {
+                    bl.StationRecover(Station);
+                    stationListWindow.stationToLists = bl.GetBaseStationList();
+                    stationListWindow.SelectionAvailablity();
+                    //success
+                    MessageBox.Show("The station has been recovered successfully :)\n" + Station.ToString());
+
+                    _close = true;
+                    try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+
+                }
+                else
+                {
                     _close = true;
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
                 }
             }
             catch (Exception ex)//failed
             {
-                MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message);
+                MessageBox.Show("Failed to add the station: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
 

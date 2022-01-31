@@ -12,7 +12,7 @@ namespace DalApi
         /// </summary>
         /// <param name="drone">The new drone that will be added to the list of drones</param>
         ///<exception cref="DalObject.AlreadyExistedItemException"></exception>
-        public void Add(Drone drone);
+        public bool Add(Drone drone);
 
         /// <summary>
         /// Add a station
@@ -20,7 +20,7 @@ namespace DalApi
         /// <param name="station">The new station that will be added to the list of stations</param>
         ///<exception cref="DalObject.AlreadyExistedItemException"></exception>
         ///
-        public void Add(Station station);
+        public bool Add(Station station);
 
         /// <summary>
         /// Adds a new parcel
@@ -33,7 +33,7 @@ namespace DalApi
         /// </summary>
         /// <param name="customer">The new Customer that will be added to the list of customer</param>
         /// <exception cref="DalObject.AlreadyExistedItemException>"
-        public void Add(Customer customer);
+        public bool Add(Customer customer);
         /// <summary>
         /// Add a user
         /// </summary>
@@ -138,7 +138,7 @@ namespace DalApi
         /// </summary>
         /// <param name="customer">the update customer</param>
         /// <exception cref="DalObject.ItemNotExistException"></exception>
-        public void UpdateCustomer(int ID, string name = null, string phone = null);
+        public void UpdateCustomer(int Id, string name = null, string phone = null, double lon = 0, double lat = 0);
         /// <summary>
         /// Update the user password
         /// </summary>

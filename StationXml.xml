@@ -11,9 +11,17 @@
   <Station>
     <Id>1645</Id>
     <Name>4 David Remez Street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>2</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>0</NumOfAvailableChargingSlots>
     <Longitude>35.86691501870142</Longitude>
     <Latitude>31.88915404206568</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </Station>
+  <Station>
+    <Id>1234</Id>
+    <Name>Brand  Aaron street</Name>
+    <NumOfAvailableChargingSlots>12</NumOfAvailableChargingSlots>
+    <Longitude>35.4</Longitude>
+    <Latitude>31.2</Latitude>
     <IsRemoved>false</IsRemoved>
   </Station>
 </ArrayOfStation>

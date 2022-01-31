@@ -8,7 +8,7 @@
         Title="UserMainWindow" Height="450" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen" DataContext="{Binding ParcelByCustomer}">
     <Grid>
         <TabControl  TabStripPlacement="Bottom">
-            <TabItem Header="HOME" Height="50" Width="200" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" >
+            <TabItem Header="HOME" Height="50" Width="160" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" >
                 <Grid Background="WhiteSmoke" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1.3*"/>
@@ -25,14 +25,13 @@
                         </Grid.ColumnDefinitions>
                         <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\imagee\UserMenu.jpg" Grid.Column="1" Margin="9,0,-9,0"/>
                         <Label Content="WELCOME TO WINGS&#xA; future is alredy here" Margin="94,78,288,91" FontFamily="Aharoni" FontSize="38" Grid.ColumnSpan="3" Foreground="#FF0F3A63"/>
-                        <Expander Margin="101,181,10,10" Content="Drones offer a more cost-effective way to deliver,&#xA;by reducing shipping times and reducing operating costs.&#xA;Through our constant focus on customers, employees and safety&#xA;we create new and innovative logistics platforms for companies&#xA;and government agencies."
-                      FontSize="9" Header="Drones supply is a disruptive technology&#xA; that redefines the traditional logistics industry.&#xA;&#xA;read more" Foreground="#FF0F3A63"/>
+                        
                     </Grid>
                 </Grid>
                 <!--<Grid Grid.Row="2">-->
             </TabItem >
 
-            <TabItem Header="SEND A PARCEL" Height="50" Width="200" Foreground="#FF0F3A63"  FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15">
+            <TabItem Header="SEND A PARCEL" Height="50" Width="160" Foreground="#FF0F3A63"  FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15">
                 <Grid  Background="#FFC7E0F1">
                     <Grid  Background="#FF0F4E7A" DataContext="{Binding addParcel}" Width="250" Height="300" Visibility="Visible" Opacity="0.7" >
                         <Grid.ColumnDefinitions>
@@ -74,7 +73,7 @@
 
 
             </TabItem>
-            <TabItem Header="VIEW MY PARCELS"  Height="50" Width="200" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15">
+            <TabItem Header="VIEW MY PARCELS"  Height="50" Width="160" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15">
                 <Grid Background="#FF0F4E7A" Opacity="0.7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -141,17 +140,23 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="ABOUT US" Height="50" Width="160" Foreground="#FF0F3A63"  FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15">
+
+                <TextBlock Margin="49,181,62,10" Text="Drones offer a more cost-effective way to deliver,&#xA;by reducing shipping times and reducing operating costs.&#xA;Through our constant focus on customers, employees and safety&#xA;we create new and innovative logistics platforms for companies&#xA;and government agencies.Drones supply is a disruptive technology&#xA; that redefines the traditional logistics industry.&#xA;&#xA;"
+                      FontSize="20"  Foreground="#FF0F3A63"/>
+            </TabItem>
         </TabControl>
+
         <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="7*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3.9*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="1" Grid.Column="1" Content="LOG OUT" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FF0B222A" MouseDown="Label_MouseDown" Margin="0,0,0,1"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="LOG OUT" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" Background="#FF0B222A" MouseDown="Label_MouseDown" />
             <Image Grid.Row="1" Grid.Column="1" Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\shutdown.png" VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" MouseDown="Label_MouseDown" Margin="164,0,0,0"/>
         </Grid>
     </Grid>

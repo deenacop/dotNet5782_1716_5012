@@ -56,26 +56,47 @@ namespace Dal
         #endregion
 
         #region Add
-        public void Add(Drone drone)
+        public bool Add(Drone drone)
         {
             if (drones == null)
                 drones = XMLTools.LoadListFromXMLSerializer<Drone>(DroneXml);
             //checks if the drone exists and if not throws an exception
-            if (drones.Exists(i => i.Id == drone.Id))
-                throw new AlreadyExistedItemException("The drone already exists");
-            drones.Add(drone);
-            XMLTools.SaveListToXMLSerializer(drones, DroneXml);
+            try
+            {
+                //checks if the drone exists and if not throws an exception
+                Drone isExistDrone = drones.First(i => i.Id == drone.Id);
+                if (isExistDrone.IsRemoved == true)//the drone exist but have been removed
+                    return false;
+                else
+                    throw new AlreadyExistedItemException("The drone already exists");
+            }
+            catch (InvalidOperationException)//if isExistDrone is null its mean that the drone that we want to add isnt exist
+            {
+                drones.Add(drone);
+                XMLTools.SaveListToXMLSerializer(drones, DroneXml);
+                return true;
+            }
         }
 
-        public void Add(Station station)
+        public bool Add(Station station)
         {
             if (stations == null)
                 stations = XMLTools.LoadListFromXMLSerializer<Station>(StationXml);
-            //checks if the station exists and if not throws an exception
-            if (stations.Exists(i => i.Id == station.Id))
-                throw new AlreadyExistedItemException("The station already exists");
-            stations.Add(station);
-            XMLTools.SaveListToXMLSerializer(stations, StationXml);
+            try
+            {
+                //checks if the station exists and if not throws an exception
+                Station isExistStation = stations.First(i => i.Id == station.Id);
+                if (isExistStation.IsRemoved == true)//the station exist but have been removed
+                    return false;
+                else
+                    throw new AlreadyExistedItemException("The station already exists");
+            }
+            catch (InvalidOperationException)//if isExistStation is null its mean that the station that we want to add isnt exist
+            {
+                stations.Add(station);
+                XMLTools.SaveListToXMLSerializer(stations, StationXml);
+                return true;
+            }
         }
 
         public int Add(Parcel parcel)
@@ -93,7 +114,7 @@ namespace Dal
             return parcel.Id;
         }
 
-        public void Add(Customer customer)
+        public bool Add(Customer customer)
         {
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
             XElement newCustomer = (from cus in customerXml.Elements()
@@ -101,6 +122,9 @@ namespace Dal
                                     select cus).FirstOrDefault();
             if (newCustomer != null)
             {
+                if (newCustomer.Element("IsRemoved").Value == true.ToString())// the customer exist but have been removed
+                    return false;
+                //customer already exist
                 throw new AlreadyExistedItemException("The customer already exists.\n");//checks if customer exists
             }
             XElement CustomerElem = new XElement("Customer",
@@ -112,6 +136,7 @@ namespace Dal
                                  new XElement("IsRemoved", customer.IsRemoved));
             customerXml.Add(CustomerElem);
             XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
+            return true;
         }
 
         //public void Add(DroneCharge droneCharge)
@@ -340,7 +365,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(stations, StationXml);
 
         }
-        public void UpdateCustomer(int Id, string name = null, string phone = null)
+        public void UpdateCustomer(int Id, string name = null, string phone = null, double lon = 0, double lat = 0)
         {
             XElement customer = (from cus in XMLTools.LoadListFromXMLElement(CustomerXml).Elements()
                                  where cus.Element("Id").Value == Id.ToString()
@@ -353,8 +378,14 @@ namespace Dal
                 customer.Element("Name").Value = name;
             if (phone != null)
                 customer.Element("PhoneNumber").Value = phone;
-            customer.Element("Longitude").Value = customer.Element("Longitude").ToString();
-            customer.Element("Latitude").Value = customer.Element("Latitude").ToString();
+            if (lon != 0)
+                customer.Element("Longitude").Value = lon.ToString();
+            else
+                customer.Element("Longitude").Value = customer.Element("Longitude").ToString();
+            if (lat != 0)
+                customer.Element("Latitude").Value = lat.ToString();
+            else
+                customer.Element("Latitude").Value = customer.Element("Latitude").ToString();
             XMLTools.SaveListToXMLElement(XMLTools.LoadListFromXMLElement(CustomerXml), CustomerXml);
         }
 

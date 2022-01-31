@@ -28,12 +28,25 @@ namespace BL
                 tmpStation = (DO.Station)obj;
                 tmpStation.Longitude = station.Location.Longitude;
                 tmpStation.Latitude = station.Location.Latitude;
-                dal.Add(tmpStation);
+                if (!dal.Add(tmpStation))//calls the function from DALOBJECT
+                    throw new AskRecoverExeption($"The station has been deleted. Are you sure you want to recover? ");
             }
-            catch (Exception ex)
+            catch (ItemAlreadyExistsException ex)
             {
                 throw new ItemAlreadyExistsException(ex.Message);
             }
+        }
+        public void StationRecover(BaseStation station)
+        {
+            BaseStation deletedStation = GetBaseStation(station.Id);
+            station.DronesInCharging  = deletedStation.DronesInCharging;
+            DO.Station stationlDO = new();
+            object obj = stationlDO;//boxing and unBoxing
+            station.CopyPropertiesTo(obj);
+            stationlDO = (DO.Station)obj;
+            stationlDO.Longitude = station.Location.Longitude;
+            stationlDO.Latitude = station.Location.Latitude;
+            dal.UpdateStation(stationlDO); //calls the function from DALOBJECT
         }
 
         public void RemoveStation(BaseStation baseStation)

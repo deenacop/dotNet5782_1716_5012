@@ -1,0 +1,51 @@
+﻿<Window x:Class="PL.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Window.Resources>
+        <ControlTemplate x:Key="errorTemplate">
+            <Border BorderBrush="OrangeRed" BorderThickness="2">
+                <Grid>
+                    <AdornedElementPlaceholder/>
+                    <Image Source="C:\Users\97253\source\repos\WpfApp2\WpfApp2\error.png" Stretch="Fill"
+                           Height="15" Width="15" Margin="0,0,8,0" HorizontalAlignment="Right" 
+                           VerticalAlignment="Center"
+                           ></Image>
+                    <TextBlock Text="{Binding ErrorContent}" Foreground="OrangeRed"
+                               VerticalAlignment="Center" HorizontalAlignment="Right"
+                               Margin="0,0,25,0"/>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Grid>
+
+        <TextBox x:Name="t1"  Validation.ErrorTemplate="{StaticResource errorTemplate}" Background="AliceBlue" 
+                     Height="31" Width="223" VerticalAlignment="Top" 
+                     HorizontalAlignment="Right" Margin="-1,46,168,0"
+                     TextWrapping="Wrap">
+
+                <TextBox.Text>
+                    <Binding Path="UserName" ValidatesOnDataErrors="True" 
+                             UpdateSourceTrigger="LostFocus">
+
+                        <Binding.ValidationRules>
+                            <local:U MinimumCharacters="5"></local:U>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox x:Name="t2"  Text="{Binding Password, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"  Background="AliceBlue" 
+                ToolTip="{Binding ErrorMessges[Password]}" 
+                     FontWeight="Bold" FontSize="20" VerticalContentAlignment="Center" 
+                     HorizontalContentAlignment="Center" HorizontalAlignment="Left"
+                     Height="23" Margin="20,102,0,0" TextWrapping="Wrap"
+                     VerticalAlignment="Top" Width="182"/>
+
+        </Grid>
+</Window>

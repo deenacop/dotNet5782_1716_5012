@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
+using System.Windows.Threading;
 
 namespace PL
 {
@@ -44,7 +45,7 @@ namespace PL
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
 
             ParcelListTo = bL.GetCustomer(User.Id).ToCustomer.ToList();
-            ParcelListFrom=bL.GetCustomer(User.Id).FromCustomer.ToList();
+            ParcelListFrom = bL.GetCustomer(User.Id).FromCustomer.ToList();
             ParcelByCustomerView.ItemsSource = ParcelListFrom;
             ParcelByCustomerView1.ItemsSource = ParcelListTo;
         }
@@ -72,10 +73,13 @@ namespace PL
                 {
                     addParcel.SenderCustomer.Id = user.Id;
                     //sending for add
-                    bL.AddParcel(addParcel);                  
+                    bL.AddParcel(addParcel);
+                    txtReciver.SelectedItem = null;
+                    comboWeightSelector.SelectedItem = null;
+                    comboPrioritySelector.SelectedItem = null;
                     //success
                     MessageBox.Show("The parcel has been added successfully :)\n" + addParcel.ToString());
-                }  
+                }
                 catch (Exception ex)//failed
                 {
                     MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message);
@@ -84,4 +88,48 @@ namespace PL
 
         }
     }
+    //public partial class MediaPlayerVideoControlSample : Window
+    //{
+
+    //    public MediaPlayerVideoControlSample()
+    //    {
+    //        InitializeComponent();
+
+    //        DispatcherTimer timer = new DispatcherTimer();
+    //        timer.Interval = TimeSpan.FromSeconds(1);
+    //        timer.Tick += timer_Tick;
+    //        timer.Start();
+    //    }
+
+    //    private void InitializeComponent()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    void timer_Tick(object sender, EventArgs e)
+    //    {
+    //        if (mePlayer.Source != null)
+    //        {
+    //            if (mePlayer.NaturalDuration.HasTimeSpan)
+    //                lblStatus.Content = String.Format("{0} / {1}", mePlayer.Position.ToString(@"mm\:ss"), mePlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+    //        }
+    //        else
+    //            lblStatus.Content = "No file selected...";
+    //    }
+
+    //    private void btnPlay_Click(object sender, RoutedEventArgs e)
+    //    {
+    //        mePlayer.Play();
+    //    }
+
+    //    private void btnPause_Click(object sender, RoutedEventArgs e)
+    //    {
+    //        mePlayer.Pause();
+    //    }
+
+    //    private void btnStop_Click(object sender, RoutedEventArgs e)
+    //    {
+    //        mePlayer.Stop();
+    //    }
+    //}
 }

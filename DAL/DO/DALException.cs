@@ -37,6 +37,7 @@ namespace DO
             return Message;
         }
     }
+
     public class XMLFileLoadCreateException : Exception
     {
         public string xmlFilePath;
@@ -51,6 +52,22 @@ namespace DO
         public override string ToString()
         {
             return base.ToString() + $", fail to load or create xml file: {xmlFilePath}";
+        }
+    }
+    public class AskRecoverException : Exception
+    {
+        public string xmlFilePath;
+        public AskRecoverException(string xmlPath) : base() { xmlFilePath = xmlPath; }
+        public AskRecoverException(string xmlPath, string message) :
+            base(message)
+        { xmlFilePath = xmlPath; }
+        public AskRecoverException(string xmlPath, string message, Exception innerException) :
+            base(message, innerException)
+        { xmlFilePath = xmlPath; }
+
+        public override string ToString()
+        {
+            return base.ToString() + $", does have been removed, Sure you want to recover? {xmlFilePath}";
         }
     }
 }

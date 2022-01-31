@@ -34,7 +34,9 @@ namespace BL
                 drone.CopyPropertiesTo(listDrone);
                 object obj = new DO.Drone();//Boxing and unBoxing
                 drone.CopyPropertiesTo(obj);
-                dal.Add((DO.Drone)obj); //calls the function from DALOBJECT
+                if (!dal.Add((DO.Drone)obj)) //calls the function from DALOBJECT
+                    throw new AskRecoverExeption($"The drone has been deleted. Are you sure you want to recover? ");
+
                 DronesBL.Add(listDrone);//Should be added to the list maintained in BL  
                 dal.SendingDroneToChargingBaseStation(listDrone.Id, stationID);
             }
@@ -46,6 +48,27 @@ namespace BL
             {
                 throw new ItemAlreadyExistsException("Trying to add an existing drone", ex);
             }
+        }
+        public void DroneRecover(Drone drone, int stationID)
+        {
+            DroneToList deletedDrone = DronesBL.Find(i => i.Id == drone.Id);
+            DO.Station wantedStation = dal.GetStation(stationID);//update the location
+            //needs to be initialize by hand
+            drone.Location = new()
+            {
+                Longitude = wantedStation.Longitude,
+                Latitude = wantedStation.Latitude
+            };
+            drone.Status = DroneStatus.Maintenance;//By adding a drone it is initialized to a maintenance mode
+            drone.Battery = deletedDrone.Battery;
+            drone.Parcel = new();//Deleting a drone can only happen in a state of maintenance or availability = no package
+            drone.IsRemoved = false;
+            deletedDrone.IsRemoved = false;
+            deletedDrone.Status = DroneStatus.Maintenance;//By adding a drone it is initialized to a maintenance mode
+            object obj = new DO.Drone();//Boxing and unBoxing
+            drone.CopyPropertiesTo(obj);
+            dal.UpdateDrone((DO.Drone)obj); //calls the function from DALOBJECT
+            dal.SendingDroneToChargingBaseStation(drone.Id, stationID);
         }
 
         public void RemoveDrone(Drone drone)
