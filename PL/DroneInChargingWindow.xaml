@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneInChargingWindow" Height="270" Width="390" WindowStartupLocation="CenterScreen">
+        Title="DroneInChargingWindow" Height="270" Width="390" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow">
     <Grid>
         <Grid x:Name="DroneInChargingList" Height="270" Width="390" Background="#FFD6D6D6"  Visibility="Visible"   >
 

@@ -72,6 +72,7 @@ namespace BO
             return Message;
         }
     }
+
     [Serializable]
     public class NegetiveException : Exception
     {
@@ -83,6 +84,7 @@ namespace BO
             return Message;
         }
     }
+
     [Serializable]
     public class WrongInputException : Exception
     {
@@ -94,6 +96,20 @@ namespace BO
             return Message;
         }
     }
+
+    [Serializable]
+    public class AskRecoverExeption : Exception
+    {
+        public AskRecoverExeption() : base() { }
+        public AskRecoverExeption(string message) : base(message) { }
+        public AskRecoverExeption(string message, Exception inner) : base(message, inner) { }
+        public override string ToString()
+        {
+            return Message;
+        }
+    }
+
+    [Serializable]
     public class ItemCouldNotBeRemoved : Exception
     {
         public ItemCouldNotBeRemoved() : base() { }
@@ -105,5 +121,5 @@ namespace BO
         }
     }
 
-    
+
 }

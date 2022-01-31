@@ -19,22 +19,41 @@ namespace Dal
         #endregion
 
         #region Add
-        public void Add(Drone drone)
+        public bool Add(Drone drone)
         {
-            //checks if the drone exists and if not throws an exception
-            if (DataSource.Drones.Exists(i => i.Id == drone.Id))
-                throw new AlreadyExistedItemException("The drone already exists");
-            // drone.IsRemoved = false;
-            DataSource.Drones.Add(drone);
+            try
+            {
+                //checks if the drone exists and if not throws an exception
+                Drone isExistDrone = DataSource.Drones.First(i => i.Id == drone.Id);
+                if (isExistDrone.IsRemoved == true)//the drone exist but have been removed
+                    return false;
+                else
+                    throw new AlreadyExistedItemException("The drone already exists");
+            }
+            catch (InvalidOperationException)//if isExistDrone is null its mean that the drone that we want to add isnt exist
+            {
+                DataSource.Drones.Add(drone);
+                return true;
+            }
         }
 
-        public void Add(Station station)
+        public bool Add(Station station)
         {
-            //checks if the station exists and if not throws an exception
-            if (DataSource.Stations.Exists(i => i.Id == station.Id))
-                throw new AlreadyExistedItemException("The station already exists");
-            //station.IsRemoved = false;
-            DataSource.Stations.Add(station);
+            try
+            {
+                //checks if the station exists and if not throws an exception
+                Station isExistStation = DataSource.Stations.First(i => i.Id == station.Id);
+                if (isExistStation.IsRemoved == true)//the drone exist but have been removed
+                    return false;
+                else
+                    throw new AlreadyExistedItemException("The station already exists");
+                //station.IsRemoved = false;
+            }
+            catch (InvalidOperationException)//if isExistStation is null its mean that the drone that we want to add isnt exist
+            {
+                DataSource.Stations.Add(station);
+                return true;
+            }
         }
 
         public int Add(Parcel parcel)
@@ -47,14 +66,24 @@ namespace Dal
             return parcel.Id;
         }
 
-        public void Add(Customer customer)
+        public bool Add(Customer customer)
         {//For us the manager can add a non-user client !! That is, a customer who does not have the option to log in.
          //Therefore we will not add it as a user either
          //checks if the customer exists and if not throws an exception
-            if (DataSource.Customers.Exists(i => i.Id == customer.Id))
-                throw new AlreadyExistedItemException("The customer already exists");
-            //customer.IsRemoved = false;
-            DataSource.Customers.Add(customer);
+            try
+            {
+                //checks if the customer exists and if not throws an exception
+                Customer isExistCustomer = DataSource.Customers.First(i => i.Id == customer.Id);
+                if (isExistCustomer.IsRemoved == true)//the customer exist but have been removed
+                    return false;
+                else
+                    throw new AlreadyExistedItemException("The customer already exists");
+            }
+             catch (InvalidOperationException)//if isExistCustomer is null its mean that the drone that we want to add isnt exist
+            {
+                DataSource.Customers.Add(customer);
+                return true;
+            }
         }
         public void Add(User user)
         {
@@ -129,11 +158,11 @@ namespace Dal
         {
             //checks if the drone exists and if not throws an exception
             int index = DataSource.Drones.FindIndex(i => i.Id == droneID);
-            if (index == -1|| DataSource.Drones[index].IsRemoved)//not found
+            if (index == -1 || DataSource.Drones[index].IsRemoved)//not found
                 throw new ItemNotExistException("The drone does not exists");
             //finds the wanted parcel
             index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
-            if (index == -1 )//not found
+            if (index == -1)//not found
                 throw new ItemNotExistException("The parcel does not exists");
             //updates the parcel
             Parcel parcel = DataSource.Parcels[index];
@@ -146,11 +175,11 @@ namespace Dal
         {
             //checks if the drone exists and if not throws an exception
             int index = DataSource.Drones.FindIndex(i => i.Id == droneID);
-            if (index == -1 )//not found
+            if (index == -1)//not found
                 throw new ItemNotExistException("The drone does not exists");
             //finds the wanted parcel
             index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);
-            if (index == -1 )//not found
+            if (index == -1)//not found
                 throw new ItemNotExistException("The parcel does not exists");
             //updates the parcel
             Parcel tmp = DataSource.Parcels[index];
@@ -162,7 +191,7 @@ namespace Dal
         public void DeliveryParcelToCustomer(int parcelID)
         {
             int index = DataSource.Parcels.FindIndex(i => i.Id == parcelID);//finds the parcel
-            if (index == -1 )//not found
+            if (index == -1)//not found
                 throw new ItemNotExistException("The parcel does not exists");
             Parcel tmp = DataSource.Parcels[index];
             tmp.MyDroneID = 0;
@@ -237,9 +266,10 @@ namespace Dal
             DataSource.Stations[index] = station;
 
         }
-        public void UpdateCustomer(int ID, string name = null, string phone = null)
+        public void UpdateCustomer(int Id, string name = null, string phone = null, double lon = 0, double lat = 0)
+
         {
-            int index = DataSource.Customers.FindIndex(item => item.Id == ID);
+            int index = DataSource.Customers.FindIndex(item => item.Id == Id);
             if (index == -1 || DataSource.Customers[index].IsRemoved)//not exist
                 throw new ItemNotExistException("The customer does not exsit");
             Customer tmp = DataSource.Customers[index];

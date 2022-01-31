@@ -109,20 +109,8 @@ namespace BL
                 }
                 #endregion
                 //If the drone is not currently shipping(אם הרחפן לא מבצע משלוח):
-                catch (InvalidOperationException)
-                {
-                    //IEnumerable<DO.Station> availableStations = dal.GetListStation(i => i.NumOfAvailableChargingSlots > 0);//Receive the station list of stations that have available slots (from the data layer).
-                    //currentDrone.Status = (DroneStatus)rand.Next(0, 2);
-                    //if (currentDrone.Status == DroneStatus.Maintenance)
-                    //DO.Station station = availableStations.Skip(rand.Next(0, availableStations.Count())).FirstOrDefault();//Randomly selects one of the available station
-                    //Location location1 = new()//set the location
-                    //{
-                    //    Latitude = station.Latitude,
-                    //    Longitude = station.Longitude
-                    //};
-                    //currentDrone.Location = location1;
-                    //currentDrone.Battery = rand.Next(0, 21);//Randomly selects a battery percentage between 0 and 20
-                    //dal.SendingDroneToChargingBaseStation(currentDrone.Id, station.Id);//Sends the drone for charging                                                                                                      //available or maintenance(פנוי / תחזוקה)
+                catch (InvalidOperationException) //available or maintenance(פנוי / תחזוקה)
+                {                                                                                                 
                     #region In maintenance mode
                     try
                     {
@@ -166,25 +154,6 @@ namespace BL
                         currentDrone.Battery = rand.Next(minBatteryDrone, 101);//between minimum to maximum(=>100)
                     }
                     #endregion
-                    //if (currentDrone.Status == DroneStatus.Available)
-                    //{//Availabe (פנוי):
-                    //    DO.Parcel parcel = deliveredParcel.Skip(rand.Next(0, deliveredParcel.Count())).First();//Randomly selects one of the delivered parcel
-                    //    //After finding a parcel that was sent, asks to receive the location of the customer to whom the parcel was sent (in order to enter a logical location for the drone)
-                    //    DO.Customer targetid = dal.GetCustomer(parcel.Targetid);
-                    //    Location location2 = new()//set the location
-                    //    {
-                    //        Latitude = targetid.Latitude,
-                    //        Longitude = targetid.Longitude
-                    //    };
-                    //    currentDrone.Location = location2;
-                    //    //finds the closest station from the targeted
-                    //    double minDistance = MinDistanceLocation(BaseStationListBL, currentDrone.Location).Item2;
-                    //    //the minimum battery the drones needs
-                    //    int minBatteryDrone = 0;
-                    //    minBatteryDrone = setBattery(minBatteryDrone, minDistance, currentDrone.Weight);
-                    //    //if (minBatteryDrone == 0)
-                    //    //    currentDrone.Battery = 30;
-                    //    currentDrone.Battery = rand.Next(minBatteryDrone, 101);//between minimum to maximum(=>100)
                 }
             }
         }

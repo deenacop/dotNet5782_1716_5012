@@ -246,6 +246,10 @@ namespace BlApi
         public IEnumerable<DroneInCharging> GetDroneInChargingList(Predicate<DroneInCharging> predicate = null);
 
         #endregion
+        public void DroneRecover(Drone drone, int stationID);
+        public void CustonerRecover(Customer customer);
+        public void StationRecover(BaseStation station);
+
 
     }
 }

@@ -26,15 +26,20 @@ namespace BL
                 customerDO = (DO.Customer)obj;
                 //needs to update by hand the location
                 customerDO.Longitude = customer.Location.Longitude;
-                customerDO.Latitude = customer.Location.Latitude;
-                dal.Add(customerDO);//calls the function from DALOBJECT
+                customerDO.Latitude = customer.Location.Latitude;               
+                if (!dal.Add(customerDO))//calls the function from DALOBJECT
+                     throw new AskRecoverExeption($"The customer has been deleted. Are you sure you want to recover? ");
             }
             catch (Exception ex)
             {
                 throw new ItemAlreadyExistsException(ex.Message);
             }
         }
-
+        public void CustonerRecover(Customer customer)
+        {
+            dal.UpdateCustomer(customer.Id,customer.Name,customer.PhoneNumber
+                ,customer.Location.Longitude,customer.Location.Latitude); //calls the function from DALOBJECT
+        }
         public void RemoveCustomer(Customer customer)
         {
             try

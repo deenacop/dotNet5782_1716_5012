@@ -143,6 +143,28 @@ namespace PL
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
                 }
             }
+            catch (AskRecoverExeption ex)
+            {
+                string message = ex.Message;
+                string caption = "Confirmation";
+                MessageBoxButton buttons = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Question;
+                if (MessageBox.Show(message, caption, buttons, icon) == MessageBoxResult.Yes)
+                {
+                    bl.CustonerRecover(Customer);
+                    customerListWindow.customerToLists.Add(bl.GetListCustomer(c => c.Id == Customer.Id).Last());
+                    //customerListWindow.customerToLists.Add(bl.GetListCustomer().Last());
+                    //success
+                    MessageBox.Show("The customer has been recovered successfully :)\n" + Customer.ToString());
+                    _close = true;
+                    try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+                }
+                else
+                {
+                    _close = true;
+                    try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+                }
+            }
             catch (Exception ex)//failed
             {
                 MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message);

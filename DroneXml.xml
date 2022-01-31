@@ -21,7 +21,7 @@
   <Drone>
     <Id>584</Id>
     <Model>Flyability Elios Drone</Model>
-    <Weight>Heavy</Weight>
+    <Weight>Medium</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
   <Drone>
@@ -44,14 +44,26 @@
   </Drone>
   <Drone>
     <Id>777</Id>
-    <Model>DJI Mavic 2 Zoom</Model>
-    <Weight>Heavy</Weight>
+    <Model>try</Model>
+    <Weight>Light</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
   <Drone>
     <Id>123</Id>
-    <Model>vbn</Model>
-    <Weight>Light</Weight>
+    <Model>shiraa</Model>
+    <Weight>Medium</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>333</Id>
+    <Model>fly</Model>
+    <Weight>Heavy</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>298</Id>
+    <Model>fly 587</Model>
+    <Weight>Medium</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
 </ArrayOfDrone>

@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="entery"  Height="300" Width="550"  
-         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Bahnschrift SemiBold" >
+         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  WindowStyle="ThreeDBorderWindow" FontFamily="Bahnschrift SemiBold" > 
 
     <Grid Height="300" Width="550">
         <Grid.RowDefinitions>
@@ -34,7 +34,7 @@
         <TextBlock Margin="85,50,295,55" Text="GET  YOUR DELIVERY TODAY!" FontSize="25" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="36" Foreground="#FFFAF7F7" Grid.RowSpan="2"/>
         <TextBlock Margin="85,168,345,54" Background="White"/>
         <TextBlock Margin="85,187,365,55" Text="The new gimmick of today" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="18" FontSize="12" Foreground="#FFFAF7F7" Grid.RowSpan="2" />
-        <StackPanel Margin="345,50,46,30" Background="White" Opacity="0.8" Grid.RowSpan="2">
+        <StackPanel Margin="345,45,46,18" Background="White" Opacity="0.8" Grid.RowSpan="2">
             <TextBlock Text="___________________" HorizontalAlignment="Stretch" Height="23" Background="#FF0F4E7A" TextAlignment="Center" Foreground="White"/>
             <Label Height="35" Content="Fill in your details in order to sign in&#xA; to your acount." FontSize="9" Foreground="#FF0F4E7A"/>
             <Label Content="User Details" FontSize="8" Foreground="#FF0F4E7A" VerticalContentAlignment="Bottom" Height="20"/>
@@ -45,23 +45,34 @@
                     <ColumnDefinition Width="1.4*"/>
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="*"/>
+                    
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="0.5*"/>
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
-                <TextBox x:Name="username"  Grid.Column="2" Height="20"/> <!--Validation.ErrorTemplate="{StaticResource errorTemplate}"-->
+                <TextBox x:Name="username" FontSize="13" Grid.Column="2" Height="20" Width="90" />
+                <!--Validation.ErrorTemplate="{StaticResource errorTemplate}"-->
                 <Image  Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\user.png" Grid.Column="1" Margin="3,2,0,5"/>
-                <TextBox x:Name="passwordcode" Grid.Column="2" Grid.Row="2" Height="20"/>
+                <!--<TextBox x:Name="passwordcode" Grid.Column="2" Grid.Row="2" Height="20"/>-->
+                <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" Height="20">
+                    <Grid >
+                        <PasswordBox Name="passwordBox" PasswordChar="●" Width="90" Margin="3,0,-3,0"  />
+                        <TextBox Name="passwordcode" Visibility="Collapsed" Width="90" FontSize="13" Margin="3,0,-3,0" />
+                    </Grid>
+                </StackPanel>
+
                 <Image  Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\password.png" Grid.Column="1" Grid.Row="2" Margin="5,4,2,5"/>
             </Grid>
-            <Label Height="14"/>
-            <Label Content="forget your password?" Foreground="#FF0F4E7A" Height="21" Width="167"  FontSize="10" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick"  />
-            <Label Content="change your password?" Foreground="#FF0F4E7A" Height="21" Width="167"  FontSize="10" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick_1" />
-            <Button Content="Sign in" HorizontalAlignment="Stretch" Height="20" Background="#FF0F4E7A" Foreground="White" Click="Button_Click_2"/>
+            <CheckBox x:Name="showPassword" HorizontalAlignment="Right" Content="show password" FontSize="6"  Unchecked="ShowPassword_Unchecked"  Checked="ShowPassword_Checked" Width="109" Height="19" />
+            <Label Content="forget your password?" Foreground="#FF0F4E7A" Height="20" Width="167"  FontSize="9" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick"  />
+            <Label Content="change your password?" Foreground="#FF0F4E7A" Height="20" Width="167"  FontSize="9" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick_1" />
+            <Button Content="Sign in" HorizontalAlignment="Stretch" Height="28" Background="#FF0F4E7A" Foreground="White" Click="Button_Click_2"/>
         </StackPanel>
         <Button Margin="81,7,328,47" Background="White" Grid.Row="1" Opacity="0.8" BorderBrush="#FF131F5C" Content="SIGN UP" Foreground="#FF0F4E7A" Click="Button_Click" />
+        <!--<Button Click="Button_Click_1"></Button>-->
+
     </Grid>
 </Window>
 

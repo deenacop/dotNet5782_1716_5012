@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ParcelByCustomerWindow" Height="300" Width="750" DataContext="{Binding ParcelByCustomer}" WindowStartupLocation="CenterScreen">
+        Title="ParcelByCustomerWindow" Height="300" Width="750" DataContext="{Binding ParcelByCustomer}" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow">
     <Grid>
         <Grid x:Name="ParcelByCustomerList" Height="290" Width="750" Background="#FFD6D6D6"  Visibility="Visible"  >
 

@@ -276,10 +276,34 @@ namespace PL
                     droneListWindow.GroupingDrone(out view, out groupDescription);
                     
                     droneListWindow.droneToLists = bl.GetDroneList();
-                    weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;                   
+                    //weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;                   
                     //success
                     MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
 
+                    _close = true;
+                    try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+                }
+            }
+            catch(AskRecoverExeption ex)
+            {
+                string message = ex.Message;
+                string caption = "Confirmation";
+                MessageBoxButton buttons = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Question;
+                if (MessageBox.Show(message, caption, buttons, icon) == MessageBoxResult.Yes)
+                {
+                    bl.DroneRecover(Drone, (int)comboStationSelector.SelectedItem);
+                    CollectionView view;
+                    PropertyGroupDescription groupDescription;
+                    droneListWindow.GroupingDrone(out view, out groupDescription);
+
+                    droneListWindow.droneToLists = bl.GetDroneList();
+                    MessageBox.Show("The drone has been recovered successfully :)\n" + Drone.ToString());
+                    _close = true;
+                    try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+                }
+                else
+                {
                     _close = true;
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
                 }
