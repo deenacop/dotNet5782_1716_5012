@@ -20,7 +20,7 @@
   </Drone>
   <Drone>
     <Id>584</Id>
-    <Model>Flyability Elios Drone</Model>
+    <Model>fghj</Model>
     <Weight>Medium</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
@@ -28,7 +28,7 @@
     <Id>554</Id>
     <Model>3D Robotics Solo</Model>
     <Weight>Light</Weight>
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Drone>
   <Drone>
     <Id>867</Id>

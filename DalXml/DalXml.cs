@@ -388,25 +388,11 @@ namespace Dal
                                  new XElement("Id", Id),
                                  new XElement("Name", name != null ? name : customer.Element("Name").Value),
                                  new XElement("PhoneNumber", phone != null ? phone : customer.Element("PhoneNumber").Value),
-                                 new XElement("Longitude", customer.Element("Longitude").Value),
-                                 new XElement("Latitude", customer.Element("Latitude").Value),
+                                 new XElement("Longitude", lon != 0 ? lon : customer.Element("Longitude").Value),
+                                 new XElement("Latitude", lat != 0 ? lat : customer.Element("Latitude").Value),
                                  new XElement("IsRemoved", customer.Element("IsRemoved").Value));
             customer.ReplaceWith(CustomerElem);
             XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
-            customer.Element("Id").Value = Id.ToString();
-            if (name != null)
-                customer.Element("Name").Value = name;
-            if (phone != null)
-                customer.Element("PhoneNumber").Value = phone;
-            if (lon != 0)
-                customer.Element("Longitude").Value = lon.ToString();
-            else
-                customer.Element("Longitude").Value = customer.Element("Longitude").ToString();
-            if (lat != 0)
-                customer.Element("Latitude").Value = lat.ToString();
-            else
-                customer.Element("Latitude").Value = customer.Element("Latitude").ToString();
-            XMLTools.SaveListToXMLElement(XMLTools.LoadListFromXMLElement(CustomerXml), CustomerXml);
         }
 
         public void updateUser(string mail, string password)

@@ -7,14 +7,15 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="entery"  Height="300" Width="550"  
-         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  WindowStyle="ThreeDBorderWindow" FontFamily="Bahnschrift SemiBold" > 
+         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  WindowStyle="SingleBorderWindow" FontFamily="Bahnschrift SemiBold" >
 
     <Grid Height="300" Width="550">
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition/>
+            <RowDefinition Height="49*"/>
+            <RowDefinition Height="176*"/>
+            <RowDefinition Height="75*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="2">
+        <Grid Grid.RowSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.65*"/>
                 <ColumnDefinition Width="2*"/>
@@ -31,10 +32,10 @@
                 <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\imagee\Drone!!.png" Height="325" VerticalAlignment="Center"/>
             </Grid>
         </Grid>
-        <TextBlock Margin="85,50,295,55" Text="GET  YOUR DELIVERY TODAY!" FontSize="25" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="36" Foreground="#FFFAF7F7" Grid.RowSpan="2"/>
-        <TextBlock Margin="85,168,345,54" Background="White"/>
-        <TextBlock Margin="85,187,365,55" Text="The new gimmick of today" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="18" FontSize="12" Foreground="#FFFAF7F7" Grid.RowSpan="2" />
-        <StackPanel Margin="345,45,46,18" Background="White" Opacity="0.8" Grid.RowSpan="2">
+        <TextBlock Margin="85,1,295,55" Text="GET  YOUR DELIVERY TODAY!" FontSize="25" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="36" Foreground="#FFFAF7F7" Grid.RowSpan="2" Grid.Row="1"/>
+        <TextBlock Margin="85,119,345,54" Background="White" Grid.Row="1"/>
+        <TextBlock Margin="85,138,365,55" Text="The new gimmick of today" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="18" FontSize="12" Foreground="#FFFAF7F7" Grid.RowSpan="2" Grid.Row="1" />
+        <StackPanel Margin="345,45,46,18" Background="White" Opacity="0.8" Grid.RowSpan="3">
             <TextBlock Text="___________________" HorizontalAlignment="Stretch" Height="23" Background="#FF0F4E7A" TextAlignment="Center" Foreground="White"/>
             <Label Height="35" Content="Fill in your details in order to sign in&#xA; to your acount." FontSize="9" Foreground="#FF0F4E7A"/>
             <Label Content="User Details" FontSize="8" Foreground="#FF0F4E7A" VerticalContentAlignment="Bottom" Height="20"/>
@@ -45,7 +46,7 @@
                     <ColumnDefinition Width="1.4*"/>
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="*"/>
-                    
+
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
@@ -70,7 +71,7 @@
             <Label Content="change your password?" Foreground="#FF0F4E7A" Height="20" Width="167"  FontSize="9" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick_1" />
             <Button Content="Sign in" HorizontalAlignment="Stretch" Height="28" Background="#FF0F4E7A" Foreground="White" Click="Button_Click_2"/>
         </StackPanel>
-        <Button Margin="81,7,328,47" Background="White" Grid.Row="1" Opacity="0.8" BorderBrush="#FF131F5C" Content="SIGN UP" Foreground="#FF0F4E7A" Click="Button_Click" />
+        <Button Margin="81,7,328,47" Background="White" Grid.Row="2" Opacity="0.8" BorderBrush="#FF131F5C" Content="SIGN UP" Foreground="#FF0F4E7A" Click="Button_Click" />
         <!--<Button Click="Button_Click_1"></Button>-->
 
     </Grid>

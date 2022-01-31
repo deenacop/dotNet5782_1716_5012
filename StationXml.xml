@@ -2,10 +2,10 @@
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
     <Id>5839</Id>
-    <Name>Balfour street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>14</NumOfAvailableChargingSlots>
-    <Longitude>35.738330082846026</Longitude>
-    <Latitude>31.51242946158742</Latitude>
+    <Name>dfghj</Name>
+    <NumOfAvailableChargingSlots>23</NumOfAvailableChargingSlots>
+    <Longitude>35.9</Longitude>
+    <Latitude>31.4</Latitude>
     <IsRemoved>false</IsRemoved>
   </Station>
   <Station>
