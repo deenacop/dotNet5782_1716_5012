@@ -142,8 +142,9 @@
             </TabItem>
             <TabItem Header="ABOUT US" Height="50" Width="160" Foreground="#FF0F3A63"  FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15">
 
-                <TextBlock Margin="49,181,62,10" Text="Drones offer a more cost-effective way to deliver,&#xA;by reducing shipping times and reducing operating costs.&#xA;Through our constant focus on customers, employees and safety&#xA;we create new and innovative logistics platforms for companies&#xA;and government agencies.Drones supply is a disruptive technology&#xA; that redefines the traditional logistics industry.&#xA;&#xA;"
-                      FontSize="20"  Foreground="#FF0F3A63"/>
+                <TextBlock Margin="43,6,30,1" 
+                           Text="We are Dina Glazer and Shira Segal,&#xA;Second year students in computer science at the Lev Academic Center.&#xA;As part of a course that we took, we created this app   -  ″Wings″.&#xA;&#xA;At the beginning of creating this app we realized the renewed need for fast&#xA;and cheap deliveries.&#xA;We have created wings line by line  and we are proud of the process that&#xA;wings have done.&#xA;Of course, there is still a long way to go, but we will continue to operate the&#xA;system, improveand streamline it. We will refine the system where possible,&#xA;add to the existing and fix it where necessary.&#xA;&#xA;″Wings″-&#xA;&#xA;Drones offer a more cost-effective way to deliver, by reducing shipping times and reducing operating costs.&#xA;Through our constant focus on customers, employees and safety, we create new and innovative logistics&#xA;platforms for companies and government agencies.&#xA;Drones supply is a renewable technology Which redefines the traditional shipping industry.&#xA;&#xA;       For any comment, inquiry or request We would love to be in touch-&#xA;                                                                                          wingsdronedeliverysystem@gmail.com"
+                      FontSize="15"  Foreground="#FF0F3A63" FontFamily="Arial" FontWeight="Normal" />
             </TabItem>
         </TabControl>
 
