@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="entery"  Height="300" Width="550"  
-         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" FontFamily="Bahnschrift SemiBold" >
+         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  WindowStyle="ThreeDBorderWindow" FontFamily="Bahnschrift SemiBold" > 
 
     <Grid Height="300" Width="550">
         <Grid.RowDefinitions>

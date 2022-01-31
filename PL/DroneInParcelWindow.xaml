@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneInParcelWindow" Height="260" Width="200" WindowStartupLocation="CenterScreen"  DataContext="{Binding drone}">
+        Title="DroneInParcelWindow" Height="260" Width="200" WindowStartupLocation="CenterScreen"  DataContext="{Binding drone}" WindowStyle="ThreeDBorderWindow">
     <Grid Background="#FF0F4E7A" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

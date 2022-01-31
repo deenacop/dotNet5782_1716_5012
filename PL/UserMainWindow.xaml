@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="UserMainWindow" Height="450" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen" DataContext="{Binding ParcelByCustomer}">
+        Title="UserMainWindow" Height="450" Width="800" Closing="Window_Closing"  WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" DataContext="{Binding ParcelByCustomer}">
     <Grid>
         <TabControl  TabStripPlacement="Bottom">
             <TabItem Header="HOME" Height="50" Width="160" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" >

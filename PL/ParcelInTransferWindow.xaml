@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ParcelInTransferWindow" Height="350" Width="250" WindowStartupLocation="CenterScreen"  DataContext="{Binding customerIn}" >
+        Title="ParcelInTransferWindow" Height="350" Width="250" WindowStartupLocation="CenterScreen"  DataContext="{Binding customerIn}" WindowStyle="ThreeDBorderWindow">
     <Grid Background="#FF0F4E7A" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

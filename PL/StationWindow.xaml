@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="StationWindow" Height="{Binding Path=sizeH}" Width="{Binding Path=sizeW}" ResizeMode="NoResize" Closing="Window_Closing" WindowStartupLocation="CenterScreen" 
+        Title="StationWindow" Height="{Binding Path=sizeH}" Width="{Binding Path=sizeW}" ResizeMode="NoResize" Closing="Window_Closing" WindowStartupLocation="CenterScreen"  WindowStyle="None"
          xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif">
     <Window.Resources>
         <Style x:Key="btnB" TargetType="Button">
