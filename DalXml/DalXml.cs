@@ -148,24 +148,34 @@ namespace Dal
 
         public void RemoveCustomer(int id)
         {
-            List<Customer> customers = XMLTools.LoadListFromXMLSerializer<Customer>(CustomerXml);
-            //checks if the customer exists and if not throws an exception
-            int index = customers.FindIndex(i => i.Id == id);
-            if (index == -1)
-                throw new AlreadyExistedItemException("The customer already exists");
-            Customer customer = customers[index];
-            customer.IsRemoved = true;
-            customers[index] = customer;
-            XMLTools.SaveListToXMLSerializer(customers, CustomerXml);
+            XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
+
+            XElement customer = (from cus in customerXml.Elements()
+                                 where cus.Element("Id").Value == id.ToString()
+                                 select cus).FirstOrDefault();
+            if (customer == null)
+                throw new ItemNotExistException("The customer does not exist.\n");
+
+            XElement CustomerElem = new XElement("Customer",
+                                 new XElement("Id", id),
+                                 new XElement("Name", customer.Element("Name").Value),
+                                 new XElement("PhoneNumber", customer.Element("PhoneNumber").Value),
+                                 new XElement("Longitude", customer.Element("Longitude").Value),
+                                 new XElement("Latitude", customer.Element("Latitude").Value),
+                                 new XElement("IsRemoved", true));
+
+
+            customer.ReplaceWith(CustomerElem);
+            XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
 
             //Because our program is based on the fact that every user must also be a customer. 
             //If we delete a customer, we must make sure he was not a user in the first place. 
             //And if he was also a user - delete it completely from the list
             List<User> users = XMLTools.LoadListFromXMLSerializer<User>(UserXml);
-            index = users.FindIndex(i => i.Id == id);
-            if (index == -1)
-                throw new AlreadyExistedItemException("The user already exists");
-            users[index].IsRemoved = true;
+            int index = users.FindIndex(i => i.Id == id);
+            if (index != -1)
+                users[index].IsRemoved = true;
+            //throw new AlreadyExistedItemException("The user already exists");
             XMLTools.SaveListToXMLSerializer(users, UserXml);
         }
 
@@ -242,7 +252,7 @@ namespace Dal
                 FinishedRecharging = null,
             };
             //adds
-            List< DroneCharge> d=XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
+            List<DroneCharge> d = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
             d.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
             XMLTools.SaveListToXMLSerializer(d, DroneChargeXml);
@@ -302,20 +312,23 @@ namespace Dal
         }
         public void UpdateCustomer(int Id, string name = null, string phone = null)
         {
-            XElement customer = (from cus in XMLTools.LoadListFromXMLElement(CustomerXml).Elements()
+            XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
+
+            XElement customer = (from cus in customerXml.Elements()
                                  where cus.Element("Id").Value == Id.ToString()
                                  select cus).FirstOrDefault();
             if (customer == null)
                 throw new ItemNotExistException("The customer does not exist.\n");
 
-            customer.Element("Id").Value = Id.ToString();
-            if (name != null)
-                customer.Element("Name").Value = name;
-            if (phone != null)
-                customer.Element("PhoneNumber").Value = phone;
-            customer.Element("Longitude").Value = customer.Element("Longitude").ToString();
-            customer.Element("Latitude").Value = customer.Element("Latitude").ToString();
-            XMLTools.SaveListToXMLElement(XMLTools.LoadListFromXMLElement(CustomerXml), CustomerXml);
+            XElement CustomerElem = new XElement("Customer",
+                                 new XElement("Id", Id),
+                                 new XElement("Name", name != null ? name : customer.Element("Name").Value),
+                                 new XElement("PhoneNumber", phone != null ? phone : customer.Element("PhoneNumber").Value),
+                                 new XElement("Longitude", customer.Element("Longitude").Value),
+                                 new XElement("Latitude", customer.Element("Latitude").Value),
+                                 new XElement("IsRemoved", customer.Element("IsRemoved").Value));
+            customer.ReplaceWith(CustomerElem);
+            XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
         }
 
         public void updateUser(string mail, string password)
@@ -366,7 +379,7 @@ namespace Dal
         public Customer GetCustomer(int customerID)
         {
             Customer customer = (from cus in XMLTools.LoadListFromXMLElement(CustomerXml).Elements().Where(i => i.Element("Id").Value == customerID.ToString())
-                                 select new Customer()
+                                 select new Customer
                                  {
                                      Id = int.Parse(cus.Element("Id").Value),
                                      Name = cus.Element("Name").Value,
@@ -404,19 +417,34 @@ namespace Dal
             XMLTools.LoadListFromXMLSerializer<Drone>(DroneXml).Where(item => predicate == null ? true : predicate(item));
 
 
-        public IEnumerable<Customer> GetListCustomer(Predicate<Customer> predicate = null) =>
-            from cus in XMLTools.LoadListFromXMLElement(CustomerXml).Elements()
-            select new Customer()
-            {
-                Id = int.Parse(cus.Element("Id").Value),
-                Name = cus.Element("Name").Value,
-                PhoneNumber = cus.Element("PhoneNumber").Value,
-                Longitude = double.Parse(cus.Element("Longitude").Value),
-                Latitude = double.Parse(cus.Element("Latitude").Value),
-                IsRemoved = bool.Parse(cus.Element("IsRemoved").Value)
-            };
+        //public IEnumerable<Customer> GetListCustomer(Predicate<Customer> predicate = null) =>
+        //    from cus in XMLTools.LoadListFromXMLElement(CustomerXml).Elements()
+        //    select new Customer()
+        //    {
+        //        Id = int.Parse(cus.Element("Id").Value),
+        //        Name = cus.Element("Name").Value,
+        //        PhoneNumber = cus.Element("PhoneNumber").Value,
+        //        Longitude = double.Parse(cus.Element("Longitude").Value),
+        //        Latitude = double.Parse(cus.Element("Latitude").Value),
+        //        IsRemoved = bool.Parse(cus.Element("IsRemoved").Value)
+        //    };
 
+        public IEnumerable<Customer> GetListCustomer(Predicate<Customer> predicate = null)
+        {
+            XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
+            IEnumerable<Customer> customer = from cus in customerXml.Elements()
+                                             select new Customer()
+                                             {
+                                                 Id = int.Parse(cus.Element("Id").Value),
+                                                 Name = cus.Element("Name").Value,
+                                                 PhoneNumber = cus.Element("PhoneNumber").Value,
+                                                 Longitude = double.Parse(cus.Element("Longitude").Value),
+                                                 Latitude = double.Parse(cus.Element("Latitude").Value),
+                                                 IsRemoved = bool.Parse(cus.Element("IsRemoved").Value)
+                                             };
 
+            return customer.Where(item => predicate == null ? true : predicate(item));
+        }
 
 
 

@@ -181,7 +181,6 @@ namespace PL
             CustomerToList customer = (CustomerToList)CustomerListView.SelectedItem;
             if (customer != null)
                 new CustomerWindow(bL, bL.GetCustomer(customer.Id), this, 1).Show();
-            // DroneListView.ItemsSource = bL.GetDroneList();
         }
 
         #endregion

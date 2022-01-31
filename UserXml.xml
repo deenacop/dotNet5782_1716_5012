@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 <ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<User>
-		<Id>315296681</Id>
-		<Name>Mordechai Glecer</Name>
-		<PhoneNumber>0527689646</PhoneNumber>
-		<Password>mord1234</Password>
-		<EmailAddress>lordmord2000@gmail.com</EmailAddress>
-		<IsManager>false</IsManager>
-		<Longitude>35.0367638860069</Longitude>
-		<Latitude>31.383796884391362</Latitude>
-		<IsRemoved>false</IsRemoved>
-	</User>
-	<User>
-		<Id>210085012</Id>
-		<Name>try segal</Name>
-		<PhoneNumber>0548765252</PhoneNumber>
-		<Password>try</Password>
-		<EmailAddress>try</EmailAddress>
-		<IsManager>true</IsManager>
-		<Longitude>35.2</Longitude>
-		<Latitude>31.3</Latitude>
-		<IsRemoved>false</IsRemoved>
-	</User>
+  <User>
+    <Id>315296681</Id>
+    <Name>Mordechai Glecer</Name>
+    <PhoneNumber>0527689646</PhoneNumber>
+    <Password>mord1234</Password>
+    <EmailAddress>lordmord2000@gmail.com</EmailAddress>
+    <IsManager>false</IsManager>
+    <Longitude>35.0367638860069</Longitude>
+    <Latitude>31.383796884391362</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </User>
+  <User>
+    <Id>210085012</Id>
+    <Name>try segal</Name>
+    <PhoneNumber>0548765252</PhoneNumber>
+    <Password>try</Password>
+    <EmailAddress>try</EmailAddress>
+    <IsManager>true</IsManager>
+    <Longitude>35.2</Longitude>
+    <Latitude>31.3</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </User>
 </ArrayOfUser>

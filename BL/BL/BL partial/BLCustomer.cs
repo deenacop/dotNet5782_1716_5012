@@ -102,9 +102,9 @@ namespace BL
 
         public IEnumerable<CustomerToList> GetListCustomer(Predicate<CustomerToList> predicate = null)
         {
-            IEnumerable<CustomerToList> customerSBO = from c in dal.GetListCustomer(item => !item.IsRemoved)
-                                                      select c.CopyPropertiesTo( new CustomerToList()
-                                                      {                                                     
+            IEnumerable<CustomerToList> customerSBO = from c in dal.GetListCustomer(c =>!c.IsRemoved)
+                                                      select c.CopyPropertiesTo(new CustomerToList()
+                                                      {
                                                           NumberParcelSentAndDelivered = dal.GetListParcel(i => i.Sender == c.Id && i.Delivered != null).Count(),
                                                           NumberParcelSentAndNOTDelivered = dal.GetListParcel(i => i.Sender == c.Id && i.Delivered == null).Count(),
                                                           NumberOfParcelReceived = dal.GetListParcel(i => i.Targetid == c.Id && i.Delivered != null).Count(),

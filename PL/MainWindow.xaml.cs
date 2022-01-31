@@ -72,7 +72,8 @@ namespace PL
                     new MenuWindow(bl).Show();
                 else
                     new UserMainWindow(bl,tmp).Show();
-
+                passwordcode.Clear();//clears the text box
+                username.Clear();//clears the text box
             }
             catch (Exception)
             {

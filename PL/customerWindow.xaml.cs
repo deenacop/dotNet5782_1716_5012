@@ -98,14 +98,19 @@ namespace PL
         /// <param name="e"> event</param>
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+           
             try
             {
+                
                 bl.UpdateCustomer(Customer);
                 
                 customerListWindow.customerToLists=new(bl.GetListCustomer());
+           
+               
                 MessageBox.Show("The customer has been updated successfully :)\n" + Customer.ToString());
                 _close = true;
-                Close();
+                try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
+
             }
             catch (Exception ex)//faild
             {
@@ -189,8 +194,13 @@ namespace PL
         {
             try
             {
+                CustomerToList c = bl.GetListCustomer(i => i.Id == Customer.Id).Last();
+
+
                 bl.RemoveCustomer(Customer);
-                customerListWindow.customerToLists.Remove(bl.GetListCustomer(c => c.Id == Customer.Id).Last());
+
+                customerListWindow.customerToLists.Remove(c);
+               
 
                 MessageBox.Show("The customer has been removed successfully :)\n" + Customer.ToString());
 
@@ -199,7 +209,7 @@ namespace PL
             }
             catch (Exception ex)//faild
             {
-                MessageBox.Show("Failed to update the customer: " + ex.GetType().Name + "\n" + ex.Message);
+                MessageBox.Show("Failed to remove the customer: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
     }
