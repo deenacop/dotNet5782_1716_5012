@@ -54,6 +54,7 @@ namespace BL
                 customerDO.Latitude = customer.Location.Latitude;
                 customerDO.Longitude = customer.Location.Longitude;
                 dal.RemoveCustomer(customerDO.Id);
+
             }
             catch (Exception ex)
             {
