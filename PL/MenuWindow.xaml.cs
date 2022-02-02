@@ -18,41 +18,41 @@ using BO;
 
 namespace PL
 {
-    /// <summary>
-    /// The Drone status(פנוי,תחוזקה,משלוח)
-    /// </summary>
-    public enum DroneStatus { Available, Maintenance, Delivery, All }
-    /// <summary>
-    /// The drone weights
-    /// </summary>
-    public enum WeightCategories { Light, Medium, Heavy, All };
+    ///// <summary>
+    ///// The Drone status(פנוי,תחוזקה,משלוח)
+    ///// </summary>
+    //public enum DroneStatus { Available, Maintenance, Delivery, All }
+    ///// <summary>
+    ///// The drone weights
+    ///// </summary>
+    //public enum WeightCategories { Light, Medium, Heavy, All };
 
-    /// <summary>
-    /// Delivery priorities
-    /// </summary>
-    public enum Priorities { Normal, Fast, Urgent, All };
+    ///// <summary>
+    ///// Delivery priorities
+    ///// </summary>
+    //public enum Priorities { Normal, Fast, Urgent, All };
 
-    /// <summary>
-    /// The parcel status (הוגדר,שויך,נאסף עי רחפן,סופק ללקוח)
-    /// </summary>
-    public enum ParcelStatus { Defined, Associated, PickedUp, Delivered, All }
-    /// <summary>
-    /// The station status af availability (for the comboBox)
+    ///// <summary>
+    ///// The parcel status (הוגדר,שויך,נאסף עי רחפן,סופק ללקוח)
+    ///// </summary>
+    //public enum ParcelStatus { Defined, Associated, PickedUp, Delivered, All }
+    ///// <summary>
+    ///// The station status af availability (for the comboBox)
     /// </summary>
     public enum AvailablityStation { Available, Unavailable, All }
     /// <summary>
     /// A class by which the items in the list are sorted. The key to the dictionary is an object of the class
     /// </summary>
-    public struct FilterByWeightAndStatus
-    {//Type of structure because you want to avoid reference
-        public BO.WeightCategories Weight { get; set; }
-        public BO.DroneStatus Status { get; set; }
-    }
-    public struct FilterByPriorityAndStatus
-    {//Type of structure because you want to avoid reference
-        public BO.Priorities Priority { get; set; }
-        public BO.ParcelStatus Status { get; set; }
-    }
+    //public struct FilterByWeightAndStatus
+    //{//Type of structure because you want to avoid reference
+    //    public BO.WeightCategories Weight { get; set; }
+    //    public BO.DroneStatus Status { get; set; }
+    //}
+    //public struct FilterByPriorityAndStatus
+    //{//Type of structure because you want to avoid reference
+    //    public BO.Priorities Priority { get; set; }
+    //    public BO.ParcelStatus Status { get; set; }
+    //}
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
