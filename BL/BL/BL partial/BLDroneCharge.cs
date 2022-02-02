@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     internal partial class BL : BlApi.IBL
     {
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneInCharging GetDroneInCharge(int id, int stationId)
         {
             DroneInCharging droneInChargingBO = new();
@@ -25,6 +28,7 @@ namespace BL
             return droneInChargingBO;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneInCharging> GetDroneInChargingList(Predicate<DroneInCharging> predicate = null)
         {
             List<DroneInCharging> droneChargeBO = new();

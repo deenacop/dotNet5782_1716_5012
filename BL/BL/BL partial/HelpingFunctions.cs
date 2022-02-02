@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BO;
 using DalApi;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
@@ -20,6 +21,7 @@ namespace BL
         /// <param name="from">The location from were we want to calculate the distance</param>
         /// <param name="to">The location to were we want to calculate</param>
         /// <returns>returns the distance</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         internal static double DistanceCalculation(Location from, Location to)
         {
             double radiusOfLon = (from.Longitude - to.Longitude) * PI / 180;
@@ -36,6 +38,7 @@ namespace BL
         /// <param name="BaseStationListBL">list of stationBL</param>
         /// <param name="location">current location</param>
         /// <returns>Item 1:location/Item 2:distance/Item 3:StationID</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private static (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
         {
             List<double> locations = new();//Creates a list of locations
@@ -51,7 +54,8 @@ namespace BL
         /// checks if the ID of an item has the right amount of digits
         /// </summary>
         /// <param name="num">ID item</param>
-        /// <returns>amount of digits in the ID</returns>       
+        /// <returns>amount of digits in the ID</returns>  
+        [MethodImpl(MethodImplOptions.Synchronized)]
         internal static int CheckNumOfDigits(int num) => (int)(Math.Round(Math.Floor(Math.Log10(num))) + 1);
 
         /// <summary>
@@ -60,6 +64,7 @@ namespace BL
         /// <param name="parcel">The parcel that needs to be picked up</param>
         /// <param name="drone">The drone that needs to do the delivary</param>
         /// <returns>true or false</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         bool BatteryCheckingForDroneAndParcel(DO.Parcel parcel, Drone drone)
         {
             int minBattery = 0;
@@ -93,6 +98,7 @@ namespace BL
         /// <param name="distance"></param>
         /// <param name="weight"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private int setBattery(int battery, double distance, WeightCategories weight)
         {
             switch (weight)
@@ -119,6 +125,7 @@ namespace BL
         /// <param name="item">a parcel(DO.Parcel)</param>
         /// <param name="customerBO">the customer we want to set</param>
         /// <returns>the parcel(ParcelByCustomer)</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         ParcelByCustomer HelpMethodToSetParcelInCustomer(DO.Parcel item, Customer customerBO)
         {
             ParcelByCustomer parcelBy = new();

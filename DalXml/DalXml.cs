@@ -26,9 +26,11 @@ namespace Dal
         static internal double CarriesMediumWeight = 8;//per km
         static internal double CarriesHeavyWeight = 10;//per km
         static internal double DroneLoadingRate = 20;//per min
-        #region singelton
 
-        private static readonly Lazy<DalXml> instance = new Lazy<DalXml>(() => new DalXml()); //Lazy initialization of an object means that its creation is deferred until it is first used.
+
+        #region singelton
+        //Lazy initialization of an object means that its creation is deferred until it is first used.
+        private static readonly Lazy<DalXml> instance = new Lazy<DalXml>(() => new DalXml());
 
         //In order to shorten run times we will declare the lists,
         //in each function we will be asked if we loaded the list.
