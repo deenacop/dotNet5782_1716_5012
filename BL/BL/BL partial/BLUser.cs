@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     internal partial class BL : BlApi.IBL
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddUser(User user)
         {
             try
@@ -26,6 +28,8 @@ namespace BL
                 throw new ItemAlreadyExistsException(ex.Message);
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<User> GetListUsers(Predicate<User> predicate = null)
         {
             IEnumerable<DO.User> usersDO = dal.GetListUsers();
@@ -33,6 +37,8 @@ namespace BL
             usersDO.CopyPropertiesToIEnumerable(usersBO);
             return usersBO;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public User GetUser(string mail)
         {
             try
@@ -48,6 +54,8 @@ namespace BL
             }
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void updateUser(string mail, string password)
         {
             try

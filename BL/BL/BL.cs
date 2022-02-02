@@ -4,10 +4,11 @@ using System.Linq;
 using BO;
 using DalApi;
 using BlApi;
-
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
+    
     internal partial class BL : IBL
     {
         //Variables into which we will later enter the data on battery consumption
@@ -28,6 +29,7 @@ namespace BL
         //The purpose of this list is to maintain the list of drones in the logical layer - the BL layer-  so I used the list!
 
         //static BL() { }// default => private
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private BL()
         {
             Random rand = new(DateTime.Now.Millisecond);//Random variable for use along the constructor
