@@ -70,19 +70,19 @@
     <PhoneNumber>0547890087</PhoneNumber>
     <Longitude>35.29097429909323</Longitude>
     <Latitude>31.016315661844015</Latitude>
-    <IsRemoved>true</IsRemoved>
+    <IsRemoved>false</IsRemoved>
   </Customer>
   <Customer>
     <Id>773103599</Id>
     <Name>Lior Ackerman</Name>
-    <PhoneNumber>0505678876W</PhoneNumber>
+    <PhoneNumber>0505678876</PhoneNumber>
     <Longitude>35.09817567658526</Longitude>
     <Latitude>31.711170818522188</Latitude>
     <IsRemoved>true</IsRemoved>
   </Customer>
   <Customer>
     <Id>123456789</Id>
-    <Name>debra</Name>
+    <Name>debraA</Name>
     <PhoneNumber>0542302211</PhoneNumber>
     <Longitude>35.9</Longitude>
     <Latitude>31.2</Latitude>

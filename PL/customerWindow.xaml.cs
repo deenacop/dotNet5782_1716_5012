@@ -105,8 +105,12 @@ namespace PL
                 bl.UpdateCustomer(Customer);
                 
                 customerListWindow.customerToLists=new(bl.GetListCustomer());
-           
-               
+                customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
+
+
+                
+                
+
                 MessageBox.Show("The customer has been updated successfully :)\n" + Customer.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -216,14 +220,11 @@ namespace PL
         {
             try
             {
-                CustomerToList c = bl.GetListCustomer(i => i.Id == Customer.Id).Last();
-
-
+              
                 bl.RemoveCustomer(Customer);
-
-                customerListWindow.customerToLists.Remove(c);
+                customerListWindow.customerToLists = new(bl.GetListCustomer());
+                customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
                
-
                 MessageBox.Show("The customer has been removed successfully :)\n" + Customer.ToString());
 
                 _close = true;
