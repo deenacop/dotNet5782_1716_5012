@@ -27,7 +27,7 @@ namespace PL
         public Drone Drone { get; set; }//drone for binding
         private bool _close { get; set; } = false;//for closing the window
 
-        FilterByWeightAndStatus weightAndStatus;
+        //FilterByWeightAndStatus weightAndStatus;
 
         private MenuWindow droneListWindow;//brings the menu window of the drone list
 
@@ -218,7 +218,6 @@ namespace PL
         {
             bl = bL;
             Drone = drone;
-            weightAndStatus = new();
             Index = _Index;
             if (_Index == 0)
             {
