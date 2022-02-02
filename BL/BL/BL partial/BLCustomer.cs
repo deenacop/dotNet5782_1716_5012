@@ -30,7 +30,7 @@ namespace BL
                 if (!dal.Add(customerDO))//calls the function from DALOBJECT
                      throw new AskRecoverExeption($"The customer has been deleted. Are you sure you want to recover? ");
             }
-            catch (Exception ex)
+            catch (ItemAlreadyExistsException ex)
             {
                 throw new ItemAlreadyExistsException(ex.Message);
             }

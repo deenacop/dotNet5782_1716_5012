@@ -390,7 +390,7 @@ namespace Dal
                                  new XElement("PhoneNumber", phone != null ? phone : customer.Element("PhoneNumber").Value),
                                  new XElement("Longitude", lon != 0 ? lon : customer.Element("Longitude").Value),
                                  new XElement("Latitude", lat != 0 ? lat : customer.Element("Latitude").Value),
-                                 new XElement("IsRemoved", customer.Element("IsRemoved").Value));
+                                 new XElement("IsRemoved", false));
             customer.ReplaceWith(CustomerElem);
             XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
         }
