@@ -46,6 +46,8 @@
                      HorizontalContentAlignment="Center" HorizontalAlignment="Left"
                      Height="23" Margin="20,102,0,0" TextWrapping="Wrap"
                      VerticalAlignment="Top" Width="182"/>
+      
+    </Grid>
 
-        </Grid>
 </Window>
+

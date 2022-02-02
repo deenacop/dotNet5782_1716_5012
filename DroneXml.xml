@@ -64,6 +64,6 @@
     <Id>298</Id>
     <Model>fly 587</Model>
     <Weight>Medium</Weight>
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Drone>
 </ArrayOfDrone>

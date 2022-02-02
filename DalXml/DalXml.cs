@@ -122,7 +122,7 @@ namespace Dal
                                     select cus).FirstOrDefault();
             if (newCustomer != null)
             {
-                if (newCustomer.Element("IsRemoved").Value == true.ToString())// the customer exist but have been removed
+                if (newCustomer.Element("IsRemoved").Value == "true")// the customer exist but have been removed
                     return false;
                 //customer already exist
                 throw new AlreadyExistedItemException("The customer already exists.\n");//checks if customer exists

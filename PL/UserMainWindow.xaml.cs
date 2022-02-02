@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
 using System.Windows.Threading;
+using System.Windows.Navigation;
+using System.Diagnostics;
 
 namespace PL
 {
@@ -85,6 +87,15 @@ namespace PL
                     MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message);
                 }
             }
+
+        }
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+
+        {
+
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+
+            e.Handled = true;
 
         }
     }
