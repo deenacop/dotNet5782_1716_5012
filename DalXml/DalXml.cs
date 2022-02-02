@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -139,16 +140,7 @@ namespace Dal
             return true;
         }
 
-        //public void Add(DroneCharge droneCharge)
-        //{
-        //    List<DroneCharge> droneChargeRoot = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
-        //    if (droneChargeRoot.Exists(item => item.Id == droneCharge.Id))//chcks if the charger already exists
-        //    {
-        //        throw new AlreadyExistedItemException("The Drone Charge already exists.\n");
-        //    }
-        //    droneChargeRoot.Add(droneCharge);
-        //    XMLTools.SaveListToXMLSerializer(droneChargeRoot, DroneChargeXml);
-        //}
+       
 
         public void Add(User user)
         {

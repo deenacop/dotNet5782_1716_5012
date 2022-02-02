@@ -142,7 +142,7 @@ namespace PL
                     customerListWindow.customerToLists.Add(bl.GetListCustomer(c => c.Id == Customer.Id).Last());
                     customerListWindow.customerToLists = new(bl.GetListCustomer().OrderBy(item => item.Id));
                     customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
-                    //customerListWindow.customerToLists.Add(bl.GetListCustomer().Last());
+
                     //success
                     MessageBox.Show("The customer has been added successfully :)\n" + Customer.ToString());
                     _close = true;
