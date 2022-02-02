@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using BO;
 using DalApi;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     internal partial class BL : BlApi.IBL
     {
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone, int stationID)
         {
             Random rand = new(DateTime.Now.Millisecond);//Random variable for use along the function
@@ -49,6 +52,8 @@ namespace BL
                 throw new ItemAlreadyExistsException("Trying to add an existing drone", ex);
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DroneRecover(Drone drone, int stationID)
         {
             DroneToList deletedDrone = DronesBL.Find(i => i.Id == drone.Id);
@@ -71,6 +76,7 @@ namespace BL
             dal.SendingDroneToChargingBaseStation(drone.Id, stationID);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveDrone(Drone drone)
         {
             try
@@ -137,6 +143,8 @@ namespace BL
             }
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(Drone drone)
         {
             if (drone.Model == null || drone.Model == "")
@@ -158,6 +166,8 @@ namespace BL
                 throw new ItemNotExistException("Drone does not exist", ex);
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void SendDroneToCharge(Drone drone)
         {
             DroneToList listDrone = DronesBL.FirstOrDefault(d => d.Id == drone.Id);
@@ -198,6 +208,7 @@ namespace BL
             listDrone.CopyPropertiesTo(drone);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ReleasingDroneFromBaseStation(Drone drone)
         {
             if (drone.IsRemoved == true)
@@ -232,6 +243,7 @@ namespace BL
             listDrone.CopyPropertiesTo(drone);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AssignParcelToDrone(Drone drone)
         {
             DroneToList droneToList = DronesBL.Find(i => i.Id == drone.Id);
@@ -257,6 +269,7 @@ namespace BL
                 throw new ItemNotExistException("There is no parcel to assign with the drone");
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CollectionParcelByDrone(Drone drone)
         {
             DroneToList droneToList = DronesBL.Find(i => i.Id == drone.Id);
@@ -274,6 +287,7 @@ namespace BL
             dal.CollectionOfParcelByDrone(parcel.Id, drone.Id);//send to the function
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeliveryParcelByDrone(Drone drone)
         {
             DroneToList droneToList = DronesBL.Find(i => i.Id == drone.Id);
@@ -294,6 +308,8 @@ namespace BL
             }
             else throw new WorngStatusException("The parcel couldnt be delivered");
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int id)
         {
             try
@@ -329,6 +345,8 @@ namespace BL
                 throw new ItemNotExistException("drone does not exist");
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetDroneList(Predicate<DroneToList> predicate = null) =>
             DronesBL.FindAll(i => !i.IsRemoved);
     }

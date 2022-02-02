@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using BO;
 using DalApi;
-
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     internal partial class BL : BlApi.IBL
     {
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
             if (CheckNumOfDigits(customer.Id) != 9)//בדיקה
@@ -35,11 +37,15 @@ namespace BL
                 throw new ItemAlreadyExistsException(ex.Message);
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CustonerRecover(Customer customer)
         {
             dal.UpdateCustomer(customer.Id,customer.Name,customer.PhoneNumber
                 ,customer.Location.Longitude,customer.Location.Latitude); //calls the function from DALOBJECT
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveCustomer(Customer customer)
         {
             try
@@ -62,6 +68,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)
         {
             if (customer.Name == null || customer.Name == "")
@@ -80,6 +87,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int ID)
         {
             DO.Customer customerDO = new();
@@ -106,6 +114,7 @@ namespace BL
             return customerBO;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerToList> GetListCustomer(Predicate<CustomerToList> predicate = null)
         {
             IEnumerable<CustomerToList> customerSBO = from c in dal.GetListCustomer(c =>!c.IsRemoved)
