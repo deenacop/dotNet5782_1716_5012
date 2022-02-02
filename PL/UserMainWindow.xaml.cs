@@ -79,8 +79,13 @@ namespace PL
                     txtReciver.SelectedItem = null;
                     comboWeightSelector.SelectedItem = null;
                     comboPrioritySelector.SelectedItem = null;
+                    ParcelListTo = bL.GetCustomer(user.Id).ToCustomer.ToList();
+                    ParcelListFrom = bL.GetCustomer(user.Id).FromCustomer.ToList();
+                    ParcelByCustomerView.ItemsSource = ParcelListFrom;
+                    ParcelByCustomerView1.ItemsSource = ParcelListTo;
                     //success
                     MessageBox.Show("The parcel has been added successfully :)\n" + addParcel.ToString());
+                    addParcel.Id = 0;
                 }
                 catch (Exception ex)//failed
                 {
