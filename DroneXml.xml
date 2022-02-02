@@ -20,7 +20,7 @@
   </Drone>
   <Drone>
     <Id>584</Id>
-    <Model>fghj</Model>
+    <Model>DJI</Model>
     <Weight>Medium</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
@@ -52,7 +52,7 @@
     <Id>123</Id>
     <Model>shiraa</Model>
     <Weight>Medium</Weight>
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Drone>
   <Drone>
     <Id>333</Id>
@@ -65,5 +65,11 @@
     <Model>fly 587</Model>
     <Weight>Medium</Weight>
     <IsRemoved>true</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>124</Id>
+    <Model>straik drone</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
   </Drone>
 </ArrayOfDrone>

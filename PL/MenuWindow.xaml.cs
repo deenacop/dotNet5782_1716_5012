@@ -76,7 +76,7 @@ namespace PL
         {
 
             bL = bl;
-            customerToLists = new(bL.GetListCustomer());
+            customerToLists = new(bL.GetListCustomer().OrderBy(item => item.Id));
             InitializeComponent();
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);//Gets or sets the period of time between timer ticks.
@@ -168,6 +168,7 @@ namespace PL
         #region customer item selected
         private void customer_Selected(object sender, RoutedEventArgs e)
         {
+            
             droneGif.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;

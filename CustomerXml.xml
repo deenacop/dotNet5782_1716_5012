@@ -42,11 +42,11 @@
   </Customer>
   <Customer>
     <Id>215644200</Id>
-    <Name>Moshe Leon</Name>
+    <Name>Moshe LeonA</Name>
     <PhoneNumber>0537897889</PhoneNumber>
     <Longitude>35.233251401331856</Longitude>
     <Latitude>31.688916513085793</Latitude>
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Customer>
   <Customer>
     <Id>315296681</Id>
@@ -82,10 +82,26 @@
   </Customer>
   <Customer>
     <Id>123456789</Id>
-    <Name>debraA</Name>
-    <PhoneNumber>0542302211</PhoneNumber>
+    <Name>Dan Zilberstien</Name>
+    <PhoneNumber>058764534</PhoneNumber>
+    <Longitude>35.3</Longitude>
+    <Latitude>31.9</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </Customer>
+  <Customer>
+    <Id>678493234</Id>
+    <Name>keren</Name>
+    <PhoneNumber>056786545</PhoneNumber>
     <Longitude>35.9</Longitude>
-    <Latitude>31.2</Latitude>
+    <Latitude>31.8</Latitude>
     <IsRemoved>true</IsRemoved>
+  </Customer>
+  <Customer>
+    <Id>678954678</Id>
+    <Name>keren</Name>
+    <PhoneNumber>05667855</PhoneNumber>
+    <Longitude>35.9</Longitude>
+    <Latitude>31.3</Latitude>
+    <IsRemoved>false</IsRemoved>
   </Customer>
 </ArrayOfCustomer>
