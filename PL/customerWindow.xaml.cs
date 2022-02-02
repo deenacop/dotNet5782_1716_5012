@@ -140,6 +140,8 @@ namespace PL
                     //sending for add
                     bl.AddCustomer(Customer);
                     customerListWindow.customerToLists.Add(bl.GetListCustomer(c => c.Id == Customer.Id).Last());
+                    customerListWindow.customerToLists = new(bl.GetListCustomer().OrderBy(item => item.Id));
+                    customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
                     //customerListWindow.customerToLists.Add(bl.GetListCustomer().Last());
                     //success
                     MessageBox.Show("The customer has been added successfully :)\n" + Customer.ToString());
@@ -157,7 +159,9 @@ namespace PL
                 {
                     bl.CustonerRecover(Customer);
                     customerListWindow.customerToLists.Add(bl.GetListCustomer(c => c.Id == Customer.Id).Last());
-                    //customerListWindow.customerToLists.Add(bl.GetListCustomer().Last());
+                    customerListWindow.customerToLists.OrderBy(item => item.Id);
+                    customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
+                    
                     //success
                     MessageBox.Show("The customer has been recovered successfully :)\n" + Customer.ToString());
                     _close = true;

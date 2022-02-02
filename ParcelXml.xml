@@ -154,7 +154,7 @@
     <Scheduled xsi:nil="true" />
     <PickUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Parcel>
   <Parcel>
     <Id>100013</Id>
@@ -167,7 +167,7 @@
     <Scheduled xsi:nil="true" />
     <PickUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Parcel>
   <Parcel>
     <Id>100014</Id>
@@ -242,6 +242,32 @@
     <Priority>Fast</Priority>
     <MyDroneID>0</MyDroneID>
     <Requested>2022-02-02T23:40:39.6194375+02:00</Requested>
+    <Scheduled>2022-02-02T23:54:26.3602445+02:00</Scheduled>
+    <PickUp>2022-02-02T23:54:31.6720317+02:00</PickUp>
+    <Delivered>2022-02-02T23:54:36.7576765+02:00</Delivered>
+    <IsRemoved>false</IsRemoved>
+  </Parcel>
+  <Parcel>
+    <Id>100020</Id>
+    <Sender>324281716</Sender>
+    <Targetid>152006552</Targetid>
+    <Weight>Light</Weight>
+    <Priority>Normal</Priority>
+    <MyDroneID>0</MyDroneID>
+    <Requested>2022-02-02T23:59:52.4645919+02:00</Requested>
+    <Scheduled xsi:nil="true" />
+    <PickUp xsi:nil="true" />
+    <Delivered xsi:nil="true" />
+    <IsRemoved>false</IsRemoved>
+  </Parcel>
+  <Parcel>
+    <Id>100021</Id>
+    <Sender>152006552</Sender>
+    <Targetid>324281716</Targetid>
+    <Weight>Light</Weight>
+    <Priority>Normal</Priority>
+    <MyDroneID>0</MyDroneID>
+    <Requested>2022-02-03T00:00:16.7251563+02:00</Requested>
     <Scheduled xsi:nil="true" />
     <PickUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
