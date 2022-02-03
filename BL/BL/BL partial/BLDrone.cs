@@ -280,12 +280,24 @@ namespace BL
                          DistanceCalculation(drone.Location, GetCustomer(currentParcel.Sender).Location));
                 if (parcels.Any())//there is a parcel that matched to the drone
                 {
-                    DO.Parcel p = parcels.First(i => BatteryCheckingForDroneAndParcel(i, drone));
-                    drone.CopyPropertiesTo(droneToList);
-                    droneToList.Status = DroneStatus.Delivery;
-                    droneToList.ParcelId = p.Id;
-                    dal.AssignParcelToDrone(p.Id, drone.Id);
-                    droneToList.CopyPropertiesTo(drone);
+                    try
+                    {
+                        DO.Parcel p = parcels.First(i => BatteryCheckingForDroneAndParcel(i, drone));
+                        drone.CopyPropertiesTo(droneToList);
+                        droneToList.Status = DroneStatus.Delivery;
+                        droneToList.ParcelId = p.Id;
+                        dal.AssignParcelToDrone(p.Id, drone.Id);
+                        droneToList.CopyPropertiesTo(drone);
+                    }
+                    catch(InvalidOperationException)
+                    {
+                        if (drone.Battery < 100)
+                        {
+                            SendDroneToCharge(drone);
+                            return;
+                        }
+                        throw new ItemNotExistException("There is no parcel to assign with the drone");
+                    }
                 }
                 else
                 {
