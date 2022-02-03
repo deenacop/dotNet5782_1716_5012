@@ -11,7 +11,7 @@
             <TabItem Header="HOME" Height="50" Width="160" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" >
                 <Grid Background="WhiteSmoke" >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="2*"/>
                         <RowDefinition   Height="5*"/>
                     </Grid.RowDefinitions>
                     <Grid  Background="#FFCAA5A5" Margin="0,-19,0,39" >
@@ -22,8 +22,8 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                       
-                        <Label Content="Welcome To&#xA;DRONE STRIKE DELIVERY&#xA;future is alredy here" Margin="26,78,53,91" FontFamily="Aharoni" FontSize="38" Grid.ColumnSpan="2" Foreground="#FF0F3A63"/>
+                        <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\imagee\UserMenu.jpg" Margin="326,-99,0,-106" Grid.ColumnSpan="2" />
+                        <Label Content="Welcome To&#xA;DRONE STRIKE DELIVERY&#xA;future is alredy here" Margin="26,78,53,44" FontFamily="Aharoni" FontSize="38" Grid.ColumnSpan="2" Foreground="#FF0F3A63"/>
 
                     </Grid>
                 </Grid>
@@ -78,11 +78,12 @@
                     </Grid.ColumnDefinitions>
                     <CheckBox x:Name="SeeToMe" Content="check to see the parcel that in the way to you" Foreground="WhiteSmoke" FontSize="16" Margin="17,75,10,250" />
                     <CheckBox x:Name="SeefromMe" Content="check to see the parcel that you sent" Foreground="WhiteSmoke" FontSize="16" Margin="17,25,30,306" />
-                    <ListView x:Name="ParcelByCustomerView" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="128" Width="640"  Grid.ColumnSpan="2" Margin="77,96,0,0">
+                    <ListView x:Name="ParcelByCustomerView" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="128" Width="650"  Grid.ColumnSpan="2" Margin="77,96,0,0">
 
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="10"></Setter>
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.Style>
@@ -91,6 +92,7 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ElementName=SeefromMe, Path=IsChecked}" Value="True">
                                         <Setter Property="Visibility" Value="Visible"/>
+                                        <Setter Property="FontSize" Value="10"></Setter>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -107,15 +109,17 @@
                         </ListView.View>
                     </ListView>
 
-                    <ListView x:Name="ParcelByCustomerView1"  Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="104" Width="640" Margin="76,236,0,0">
+                    <ListView x:Name="ParcelByCustomerView1"  Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="104" Width="650" Margin="76,236,0,0">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="10"></Setter>
                             </Style>
                         </ListView.ItemContainerStyle>
                         <ListView.Style >
                             <Style TargetType="ListView">
                                 <Setter Property="Visibility" Value="Hidden"/>
+                                <Setter Property="FontSize" Value="10"></Setter>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ElementName=SeeToMe, Path=IsChecked}" Value="True">
                                         <Setter Property="Visibility" Value="Visible"/>
