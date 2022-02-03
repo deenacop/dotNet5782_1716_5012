@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="entery"  Height="300" Width="550"  
+        Title="entery"  Height="320" Width="550"  
          ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  WindowStyle="ThreeDBorderWindow"  FontFamily="Bahnschrift SemiBold" >
 
     <Grid Height="300" Width="550">
@@ -25,17 +25,16 @@
                 <RowDefinition Height="6*"/>
             </Grid.RowDefinitions>
             <Grid Background="#FF0F4E7A" Grid.ColumnSpan="2" Margin="0,0,0,261" Grid.RowSpan="2">
-                <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\exit.png" HorizontalAlignment="Left" Height="15" Margin="529,6,0,6" MouseDown="Image_MouseDown"/>
             </Grid>
             <Grid Background="#FF0F4E7A" Grid.ColumnSpan="2" Margin="0,22,405,0" Grid.RowSpan="2"/>
             <Grid Grid.Column="1" Grid.Row="1" >
-                <Image Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\imagee\Drone!!.png" Height="413" VerticalAlignment="Center"/>
+                <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\imagee\Drone!!.png" Height="500" VerticalAlignment="Top" Margin="0,10,0,0"/>
             </Grid>
         </Grid>
-        <TextBlock Margin="85,4,295,61" Text="GET  YOUR DELIVERY TODAY!" FontSize="25" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="36" Foreground="#FFFAF7F7" Grid.RowSpan="2" Grid.Row="1"/>
-        <TextBlock Margin="85,113,345,60" Background="White" Grid.Row="1"/>
-        <TextBlock Margin="85,126,365,67" Text="The new gimmick of today" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="18" FontSize="12" Foreground="#FFFAF7F7" Grid.RowSpan="2" Grid.Row="1" />
-        <StackPanel Margin="356,39,34,47" Background="White" Opacity="0.8" Grid.RowSpan="3">
+        <TextBlock Margin="85,47,295,67" Text="GET  YOUR DELIVERY TODAY!" FontSize="25" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="36" Foreground="#FFFAF7F7" Grid.RowSpan="3"/>
+        <TextBlock Margin="85,109,345,64" Background="White" Grid.Row="1"/>
+        <TextBlock Margin="85,122,365,71" Text="The new gimmick of today" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="18" FontSize="12" Foreground="#FFFAF7F7" Grid.RowSpan="2" Grid.Row="1" />
+        <StackPanel Margin="356,39,34,55" Background="White" Opacity="0.8" Grid.RowSpan="3">
             <TextBlock Text="-------------" HorizontalAlignment="Stretch" Height="16" Background="#FF0F4E7A" TextAlignment="Center" Foreground="White"/>
             <Label Height="30" Content="Fill in your details in order to sign in&#xA; to your acount." FontSize="9" Foreground="#FF0F4E7A"/>
             <Label Content="User Details" FontSize="8" Foreground="#FF0F4E7A" VerticalContentAlignment="Bottom" Height="20"/>
@@ -55,7 +54,7 @@
                 </Grid.RowDefinitions>
                 <TextBox x:Name="username" FontSize="10" VerticalContentAlignment="Center" Grid.Column="2" Height="20" Width="90" />
                 <!--Validation.ErrorTemplate="{StaticResource errorTemplate}"-->
-                <Image  Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\user.png" Grid.Column="1" Margin="3,2,0,5"/>
+                <Image  Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\user.png" Grid.Column="1" Margin="3,2,0,5"/>
                 <!--<TextBox x:Name="passwordcode" Grid.Column="2" Grid.Row="2" Height="20"/>-->
                 <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" Height="20">
                     <Grid >
@@ -64,14 +63,14 @@
                     </Grid>
                 </StackPanel>
 
-                <Image  Source="C:\Users\שירה סגל\source\Repos\dotNet5782_1716_5012\PL\icon\password.png" Grid.Column="1" Grid.Row="2" Margin="5,4,2,5"/>
+                <Image  Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\password.png" Grid.Column="1" Grid.Row="2" Margin="5,4,2,5"/>
             </Grid>
             <CheckBox x:Name="showPassword" HorizontalAlignment="Right" Content="show password" FontSize="6"  Unchecked="ShowPassword_Unchecked"  Checked="ShowPassword_Checked" Width="109" Height="19" />
             <Label Content="forget your password?" Foreground="#FF0F4E7A" Height="20" Width="167"  FontSize="9" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick"  />
             <Label Content="change your password?" Foreground="#FF0F4E7A" Height="20" Width="167"  FontSize="9" FontFamily="Franklin Gothic Book" MouseDoubleClick="Label_MouseDoubleClick_1" />
-            <Button Content="Sign in" HorizontalAlignment="Stretch" Height="21" Background="#FF0F4E7A" Foreground="White" Click="Button_Click_2"/>
+            <Button Content="Sign in" HorizontalAlignment="Stretch" Height="22" Background="#FF0F4E7A" Foreground="White" Click="Button_Click_2"/>
         </StackPanel>
-        <Button Margin="81,175,328,55" Background="White" Grid.Row="1" Opacity="0.8" BorderBrush="#FF131F5C" Content="SIGN UP" Foreground="#FF0F4E7A" Click="Button_Click" Grid.RowSpan="2" />
+        <Button Margin="81,165,328,65" Background="White" Grid.Row="1" Opacity="0.8" BorderBrush="#FF131F5C" Content="SIGN UP" Foreground="#FF0F4E7A" Click="Button_Click" Grid.RowSpan="2" />
         <!--<Button Click="Button_Click_1"></Button>-->
 
     </Grid>
