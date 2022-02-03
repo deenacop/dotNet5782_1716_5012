@@ -92,15 +92,7 @@ namespace PL
                 MessageBox.Show("you enter a non correct Username or password");
             }
         }
-        /// <summary>
-        /// close window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Image_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Close();
-        }
+
         /// <summary>
         /// for showing the password
         /// </summary>

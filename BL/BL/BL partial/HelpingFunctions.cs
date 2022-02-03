@@ -73,17 +73,20 @@ namespace BL
             distance = DistanceCalculation(GetCustomer(parcel.Sender).Location, GetCustomer(parcel.Targetid).Location);
             minBattery = setBattery(minBattery, distance, (WeightCategories)parcel.Weight);
             List<BaseStation> BaseStationListBL = new();
-            IEnumerable<DO.Station> StationListDL = dal.GetListStation();//Receive the station list from the data layer.
-            StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from DalApi to BL
-            //Set the locations:
-            IEnumerable<int> counter = Enumerable.Range(0, StationListDL.Count());
-            foreach (int j in counter)
+            lock (dal)
             {
-                BaseStationListBL.ElementAt(j).Location = new()
+                IEnumerable<DO.Station> StationListDL = dal.GetListStation();//Receive the station list from the data layer.
+                StationListDL.CopyPropertiesToIEnumerable(BaseStationListBL);//convret from DalApi to BL
+                                                                             //Set the locations:
+                IEnumerable<int> counter = Enumerable.Range(0, StationListDL.Count());
+                foreach (int j in counter)
                 {
-                    Longitude = StationListDL.ElementAt(j).Longitude,
-                    Latitude = StationListDL.ElementAt(j).Latitude
-                };
+                    BaseStationListBL.ElementAt(j).Location = new()
+                    {
+                        Longitude = StationListDL.ElementAt(j).Longitude,
+                        Latitude = StationListDL.ElementAt(j).Latitude
+                    };
+                }
             }
             minBattery += (int)MinDistanceLocation(BaseStationListBL, GetCustomer(parcel.Targetid).Location).Item2 * (int)vacant;
             if (minBattery <= drone.Battery)
@@ -139,21 +142,24 @@ namespace BL
             else//not delivere and not picked up and not assign
                 parcelBy.Status = ParcelStatus.Defined;
             //check if the other side is the targetid or the sender
-            if (item.Targetid == customerBO.Id)
+            lock (dal)
             {
-                parcelBy.SecondSideOfParcelCustomer = new()
+                if (item.Targetid == customerBO.Id)
                 {
-                    Id = item.Sender,
-                    Name = dal.GetCustomer(item.Sender).Name
-                };
-            }
-            else
-            {
-                parcelBy.SecondSideOfParcelCustomer = new()
+                    parcelBy.SecondSideOfParcelCustomer = new()
+                    {
+                        Id = item.Sender,
+                        Name = dal.GetCustomer(item.Sender).Name
+                    };
+                }
+                else
                 {
-                    Id = item.Targetid,
-                    Name = dal.GetCustomer(item.Targetid).Name
-                };
+                    parcelBy.SecondSideOfParcelCustomer = new()
+                    {
+                        Id = item.Targetid,
+                        Name = dal.GetCustomer(item.Targetid).Name
+                    };
+                }
             }
             return parcelBy;
         }

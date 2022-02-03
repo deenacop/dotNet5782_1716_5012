@@ -15,26 +15,32 @@ namespace BL
         public DroneInCharging GetDroneInCharge(int id, int stationId)
         {
             DroneInCharging droneInChargingBO = new();
-            try
+            lock (dal)
             {
-                DO.DroneCharge droneCharge = dal.GetDroneCharge(id, stationId);
-                droneCharge.CopyPropertiesTo(droneInChargingBO);
-                droneInChargingBO.Battery = DronesBL.Find(i => i.Id == id).Battery;
+                try
+                {
+                    DO.DroneCharge droneCharge = dal.GetDroneCharge(id, stationId);
+                    droneCharge.CopyPropertiesTo(droneInChargingBO);
+                    droneInChargingBO.Battery = DronesBL.Find(i => i.Id == id).Battery;
+                }
+                catch (Exception ex)
+                {
+                    throw new ItemNotExistException(ex.Message);
+                }
+                return droneInChargingBO;
             }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
-            }
-            return droneInChargingBO;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneInCharging> GetDroneInChargingList(Predicate<DroneInCharging> predicate = null)
         {
-            List<DroneInCharging> droneChargeBO = new();
-            droneChargeBO.AddRange (from DO.DroneCharge droneCharge in dal.GetListDroneCharge()
-                                   select GetDroneInCharge(droneCharge.Id, droneCharge.BaseStationID));
-            return droneChargeBO;
+            lock (dal)
+            {
+                List<DroneInCharging> droneChargeBO = new();
+                droneChargeBO.AddRange(from DO.DroneCharge droneCharge in dal.GetListDroneCharge()
+                                       select GetDroneInCharge(droneCharge.Id, droneCharge.BaseStationID));
+                return droneChargeBO;
+            }
         }
     }
 }

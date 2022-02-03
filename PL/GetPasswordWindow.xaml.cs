@@ -49,13 +49,13 @@ namespace PL
                 User tmp = bl.GetUser(email.Text);
                 MailMessage mail = new MailMessage();
                 mail.To.Add(tmp.EmailAddress);
-                mail.From = new MailAddress("wingsdronedeliverysystem@gmail.com");
+                mail.From = new MailAddress("drone.strike.delivery@gmail.com");
                 mail.Subject = "Password Recovery";
                 mail.Body = "Hi " + tmp.Name + "\nYour password is: " + tmp.Password;
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
                 {
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("wingsdronedeliverysystem@gmail.com", "Wings1234"),
+                    Credentials = new NetworkCredential("drone.strike.delivery@gmail.com", "shiradeena"),
                     EnableSsl = true
                 };
 
