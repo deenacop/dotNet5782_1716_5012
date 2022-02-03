@@ -11,7 +11,7 @@
             <TabItem Header="HOME" Height="50" Width="160" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" >
                 <Grid Background="WhiteSmoke" >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="2*"/>
                         <RowDefinition   Height="5*"/>
                     </Grid.RowDefinitions>
                     <Grid  Background="#FFCAA5A5" Margin="0,-19,0,39" >
@@ -22,7 +22,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\imagee\UserMenu.jpg" Margin="326,-75,0,-106" Grid.ColumnSpan="2" />
+                        <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\imagee\UserMenu.jpg" Margin="326,-99,0,-106" Grid.ColumnSpan="2" />
                         <Label Content="Welcome To&#xA;DRONE STRIKE DELIVERY&#xA;future is alredy here" Margin="26,78,53,44" FontFamily="Aharoni" FontSize="38" Grid.ColumnSpan="2" Foreground="#FF0F3A63"/>
 
                     </Grid>
