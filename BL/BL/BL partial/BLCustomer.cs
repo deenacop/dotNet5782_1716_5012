@@ -20,51 +20,60 @@ namespace BL
                 throw new UnlogicalLocationException("The location is unlogical");
             customer.FromCustomer = new List<ParcelByCustomer>();
             customer.ToCustomer = new List<ParcelByCustomer>();
-            try
+            lock (dal)
             {
-                DO.Customer customerDO = new();
-                object obj = customerDO;//boxing and unBoxing
-                customer.CopyPropertiesTo(obj);
-                customerDO = (DO.Customer)obj;
-                //needs to update by hand the location
-                customerDO.Longitude = customer.Location.Longitude;
-                customerDO.Latitude = customer.Location.Latitude;               
-                if (!dal.Add(customerDO))//calls the function from DALOBJECT
-                     throw new AskRecoverExeption($"The customer has been deleted. Are you sure you want to recover? ");
-            }
-            catch (ItemAlreadyExistsException ex)
-            {
-                throw new ItemAlreadyExistsException(ex.Message);
+                try
+                {
+                    DO.Customer customerDO = new();
+                    object obj = customerDO;//boxing and unBoxing
+                    customer.CopyPropertiesTo(obj);
+                    customerDO = (DO.Customer)obj;
+                    //needs to update by hand the location
+                    customerDO.Longitude = customer.Location.Longitude;
+                    customerDO.Latitude = customer.Location.Latitude;
+                    if (!dal.Add(customerDO))//calls the function from DALOBJECT
+                        throw new AskRecoverExeption($"The customer has been deleted. Are you sure you want to recover? ");
+                }
+                catch (ItemAlreadyExistsException ex)
+                {
+                    throw new ItemAlreadyExistsException(ex.Message);
+                }
             }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void CustonerRecover(Customer customer)
-        {
-            dal.UpdateCustomer(customer.Id,customer.Name,customer.PhoneNumber
-                ,customer.Location.Longitude,customer.Location.Latitude); //calls the function from DALOBJECT
+        {//a fanction that recover a customer
+            lock (dal)
+            {
+                dal.UpdateCustomer(customer.Id, customer.Name, customer.PhoneNumber
+                    , customer.Location.Longitude, customer.Location.Latitude); //calls the function from DALOBJECT
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveCustomer(Customer customer)
         {
-            try
+            lock (dal)
             {
-                CustomerToList customer1 = GetListCustomer().FirstOrDefault(i => i.Id == customer.Id);
-                if (customer1 == null)
-                    throw new ItemNotExistException("The customer does not exit");
-                DO.Customer customerDO = new();
-                object obj = customerDO;//boxing and unBoxing
-                customer.CopyPropertiesTo(obj);
-                customerDO = (DO.Customer)obj;
-                customerDO.Latitude = customer.Location.Latitude;
-                customerDO.Longitude = customer.Location.Longitude;
-                dal.RemoveCustomer(customerDO.Id);
+                try
+                {
+                    CustomerToList customer1 = GetListCustomer().FirstOrDefault(i => i.Id == customer.Id);
+                    if (customer1 == null)
+                        throw new ItemNotExistException("The customer does not exit");
+                    DO.Customer customerDO = new();
+                    object obj = customerDO;//boxing and unBoxing
+                    customer.CopyPropertiesTo(obj);
+                    customerDO = (DO.Customer)obj;
+                    customerDO.Latitude = customer.Location.Latitude;
+                    customerDO.Longitude = customer.Location.Longitude;
+                    dal.RemoveCustomer(customerDO.Id);
 
-            }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw new ItemNotExistException(ex.Message);
+                }
             }
         }
 
@@ -76,56 +85,65 @@ namespace BL
             if (customer.PhoneNumber == null || customer.PhoneNumber == "")
                 throw new WrongInputException("Missing phone number");
             CustomerToList Listcustomer = GetListCustomer().FirstOrDefault(i => i.Id == customer.Id);
-            try
+            lock (dal)
             {
-                customer.CopyPropertiesTo(Listcustomer);
-                dal.UpdateCustomer(customer.Id, customer.Name, customer.PhoneNumber);//calls the function from DALOBJECT
-            }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
+                try
+                {
+                    customer.CopyPropertiesTo(Listcustomer);
+                    dal.UpdateCustomer(customer.Id, customer.Name, customer.PhoneNumber);//calls the function from DALOBJECT
+                }
+                catch (Exception ex)
+                {
+                    throw new ItemNotExistException(ex.Message);
+                }
             }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int ID)
         {
-            DO.Customer customerDO = new();
-            Customer customerBO = new();
-            try
+            lock (dal)
             {
-                customerDO = dal.GetCustomer(ID);//ask the wanted customer
-                customerDO.CopyPropertiesTo(customerBO);//convert
-                customerBO.Location = new()//needs to be initialized by hand
+                DO.Customer customerDO = new();
+                Customer customerBO = new();
+                try
                 {
-                    Longitude = customerDO.Longitude,
-                    Latitude = customerDO.Latitude
-                };
+                    customerDO = dal.GetCustomer(ID);//ask the wanted customer
+                    customerDO.CopyPropertiesTo(customerBO);//convert
+                    customerBO.Location = new()//needs to be initialized by hand
+                    {
+                        Longitude = customerDO.Longitude,
+                        Latitude = customerDO.Latitude
+                    };
+                }
+                catch (Exception ex)
+                {
+                    throw new ItemNotExistException(ex.Message);
+                }
+                //set the collections of parcels - parcels sent from the customer / parcels sent by the customer
+                customerBO.FromCustomer = (from item in dal.GetListParcel(i => i.Sender == ID)
+                                           select HelpMethodToSetParcelInCustomer(item, customerBO));
+                customerBO.ToCustomer = (from item in dal.GetListParcel(i => i.Targetid == ID)
+                                         select HelpMethodToSetParcelInCustomer(item, customerBO));
+                return customerBO;
             }
-            catch (Exception ex)
-            {
-                throw new ItemNotExistException(ex.Message);
-            }
-            //set the collections of parcels - parcels sent from the customer / parcels sent by the customer
-            customerBO.FromCustomer = (from item in dal.GetListParcel(i => i.Sender == ID)
-                                       select HelpMethodToSetParcelInCustomer(item, customerBO));
-            customerBO.ToCustomer = (from item in dal.GetListParcel(i => i.Targetid == ID)
-                                     select HelpMethodToSetParcelInCustomer(item, customerBO));
-            return customerBO;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerToList> GetListCustomer(Predicate<CustomerToList> predicate = null)
         {
-            IEnumerable<CustomerToList> customerSBO = from c in dal.GetListCustomer(c =>!c.IsRemoved)
-                                                      select c.CopyPropertiesTo(new CustomerToList()
-                                                      {
-                                                          NumberParcelSentAndDelivered = dal.GetListParcel(i => i.Sender == c.Id && i.Delivered != null).Count(),
-                                                          NumberParcelSentAndNOTDelivered = dal.GetListParcel(i => i.Sender == c.Id && i.Delivered == null).Count(),
-                                                          NumberOfParcelReceived = dal.GetListParcel(i => i.Targetid == c.Id && i.Delivered != null).Count(),
-                                                          NumberOfParcelOnTheWayToCustomer = dal.GetListParcel(i => i.Targetid == c.Id && i.Delivered == null).Count()
-                                                      });
-            return customerSBO.Where(i => predicate == null ? true : predicate(i));
+            lock (dal)
+            {
+                IEnumerable<CustomerToList> customerSBO = from c in dal.GetListCustomer(c => !c.IsRemoved)
+                                                          select c.CopyPropertiesTo(new CustomerToList()
+                                                          {
+                                                              NumberParcelSentAndDelivered = dal.GetListParcel(i => i.Sender == c.Id && i.Delivered != null).Count(),
+                                                              NumberParcelSentAndNOTDelivered = dal.GetListParcel(i => i.Sender == c.Id && i.Delivered == null).Count(),
+                                                              NumberOfParcelReceived = dal.GetListParcel(i => i.Targetid == c.Id && i.Delivered != null).Count(),
+                                                              NumberOfParcelOnTheWayToCustomer = dal.GetListParcel(i => i.Targetid == c.Id && i.Delivered == null).Count()
+                                                          });
+                return customerSBO.Where(i => predicate == null ? true : predicate(i));
+            }
         }
     }
 }

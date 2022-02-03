@@ -286,8 +286,12 @@ namespace PL
             {
                 new StationWindow(bL, this).Show();
             }
-        }     
-       
+        }
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
 

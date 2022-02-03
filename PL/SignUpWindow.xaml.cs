@@ -197,13 +197,13 @@ namespace PL
             {
                 MailMessage mail = new MailMessage();
                 mail.To.Add(user.EmailAddress);
-                mail.From = new MailAddress("wingsdronedeliverysystem@gmail.com");
+                mail.From = new MailAddress("drone.strike.delivery@gmail.com");
                 mail.Subject = "Welcome to our delivery by drone System!";
                 mail.Body = "Hi " + user.Name + "\nRegistration for the system has been successfully completed.\nYour login information is: \nuser: " + user.Name + " password: " + user.Password;
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
                 {
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("wingsdronedeliverysystem@gmail.com", "Wings1234"),
+                    Credentials = new NetworkCredential("drone.strike.delivery@gmail.com", "shiradeena"),
                     EnableSsl = true
                 };
 

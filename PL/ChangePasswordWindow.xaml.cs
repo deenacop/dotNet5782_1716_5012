@@ -74,13 +74,13 @@ namespace PL
             {
                 MailMessage mail = new MailMessage();
                 mail.To.Add(mailAddress.Text);
-                mail.From = new MailAddress("wingsdronedeliverysystem@gmail.com");
+                mail.From = new MailAddress("drone.strike.delivery@gmail.com");
                 mail.Subject = "Get a new Password";
                 mail.Body = "Hi " + bL.GetUser(mailAddress.Text).Name + "\nYour new password is: " + newPassword.Text;
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
                 {
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("wingsdronedeliverysystem@gmail.com", "Wings1234"),
+                    Credentials = new NetworkCredential("drone.strike.delivery@gmail.com", "shiradeena"),
                     EnableSsl = true
                 };
 

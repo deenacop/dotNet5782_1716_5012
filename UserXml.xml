@@ -22,4 +22,26 @@
     <Latitude>31.3</Latitude>
     <IsRemoved>false</IsRemoved>
   </User>
+  <User>
+    <Id>213085012</Id>
+    <Name>shira</Name>
+    <PhoneNumber>0549096309</PhoneNumber>
+    <Password>shira123</Password>
+    <EmailAddress>103shira@gmail.com</EmailAddress>
+    <IsManager>false</IsManager>
+    <Longitude>35.4</Longitude>
+    <Latitude>31.23</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </User>
+  <User>
+    <Id>324281716</Id>
+    <Name>deena</Name>
+    <PhoneNumber>0504188440</PhoneNumber>
+    <Password>deena123</Password>
+    <EmailAddress>deenacop@gmail.com</EmailAddress>
+    <IsManager>false</IsManager>
+    <Longitude>35.423</Longitude>
+    <Latitude>0</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </User>
 </ArrayOfUser>
