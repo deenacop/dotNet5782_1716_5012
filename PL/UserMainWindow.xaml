@@ -11,19 +11,18 @@
             <TabItem Header="HOME" Height="50" Width="160" Foreground="#FF0F3A63" FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15" >
                 <Grid Background="WhiteSmoke" >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1.3*"/>
+                        <RowDefinition Height="0.5*"/>
                         <RowDefinition   Height="5*"/>
-
                     </Grid.RowDefinitions>
-                    <Grid  Background="#FFCAA5A5" Margin="0,-19,0,298" Grid.RowSpan="2" >
-                        <Label Content="contact details: wingsdronedeliverysystem@gmail.com" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF0F3A63"/>
+                    <Grid  Background="#FFCAA5A5" Margin="0,-19,0,39" >
+                        <Label Content="contact details: drone.strike.delivery@gmail.com" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF0F3A63"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\imagee\UserMenu.jpg" Grid.Column="1" Margin="9,0,-9,0"/>
+                       
                         <Label Content="Welcome To&#xA;DRONE STRIKE DELIVERY&#xA;future is alredy here" Margin="26,78,53,91" FontFamily="Aharoni" FontSize="38" Grid.ColumnSpan="2" Foreground="#FF0F3A63"/>
 
                     </Grid>
@@ -143,7 +142,7 @@
             <TabItem Header="ABOUT US" Height="50" Width="160" Foreground="#FF0F3A63"  FontFamily="Aharoni" FontWeight="Bold" FontStyle="Normal" FontSize="15">
 
                 <TextBlock Margin="43,20,30,-13" 
-                           Text="We are Deena Glecer and Shira Segal,&#xA;Second year students in computer science at the Lev Academic Center.&#xA;As part of a course that we took, we created this app   -  ″Drone Strike Delivery″.&#xA;&#xA;At the beginning of creating this app we realized the renewed need for fast&#xA;and cheap deliveries.&#xA;We have created drone strike delivery line by line  and we are proud of the process that&#xA;drone strike delivery has done.&#xA;Of course, there is still a long way to go, but we will continue to operate the&#xA;system, improveand streamline it. We will refine the system where possible,&#xA;add to the existing and fix it where necessary.&#xA;&#xA;″Drone Strike Delivery″-&#xA;&#xA;Drones offer a more cost-effective way to deliver, by reducing shipping times and reducing operating costs.&#xA;Through our constant focus on customers, employees and safety, we create new and innovative logistics&#xA;platforms for companies and government agencies.&#xA;Drones supply is a renewable technology Which redefines the traditional shipping industry.&#xA;&#xA;       For any comment, inquiry or request We would love to be in touch-&#xA;&#xA;                                                                                          wingsdronedeliverysystem@gmail.com"
+                           Text="We are Deena Glecer and Shira Segal,&#xA;Second year students in computer science at the Lev Academic Center.&#xA;As part of a course that we took, we created this app   -  ″Drone Strike Delivery″.&#xA;&#xA;At the beginning of creating this app we realized the renewed need for fast and cheap deliveries.&#xA;We have created drone strike delivery line by line  and we are proud of the process that drone strike delivery has done.&#xA;Of course, there is still a long way to go, but we will continue to operate the system, improveand streamline it.&#xA;We will refine the system where possible, add to the existing and fix it where necessary.&#xA;&#xA;″Drone Strike Delivery″-&#xA;&#xA;Drones offer a more cost-effective way to deliver, by reducing shipping times and reducing operating costs.&#xA;Through our constant focus on customers, employees and safety, we create new and innovative logistics platforms&#xA;for companies and government agencies.&#xA;Drones supply is a renewable technology Which redefines the traditional shipping industry.&#xA;&#xA;       For any comment, inquiry or request We would love to be in touch-&#xA;&#xA;&#xA;                                                                                         drone.strike.delivery@gmail.com"
                       FontSize="12"  Foreground="#FF0F3A63" FontFamily="Arial" FontWeight="Normal" />
             </TabItem>
         </TabControl>
