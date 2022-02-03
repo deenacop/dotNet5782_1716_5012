@@ -146,16 +146,7 @@ namespace Dal
             return true;
         }
 
-        //public void Add(DroneCharge droneCharge)
-        //{
-        //    List<DroneCharge> droneChargeRoot = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargeXml);
-        //    if (droneChargeRoot.Exists(item => item.Id == droneCharge.Id))//chcks if the charger already exists
-        //    {
-        //        throw new AlreadyExistedItemException("The Drone Charge already exists.\n");
-        //    }
-        //    droneChargeRoot.Add(droneCharge);
-        //    XMLTools.SaveListToXMLSerializer(droneChargeRoot, DroneChargeXml);
-        //}
+       
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(User user)

@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using DalApi;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     internal partial class BL : BlApi.IBL
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(Parcel parcel)
         {
             lock (dal)
@@ -46,6 +48,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveParcel(Parcel parcel)
         {
             lock (dal)
@@ -68,6 +71,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int ID)
         {
             lock (dal)
@@ -102,6 +106,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> GetListParcel(Predicate<ParcelToList> predicate = null)
         {
             lock (dal)

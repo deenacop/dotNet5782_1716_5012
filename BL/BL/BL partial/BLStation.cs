@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using DalApi;
 using System.Linq;
-
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     internal partial class BL: BlApi.IBL
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BaseStation station)
         {
             if (CheckNumOfDigits(station.Id) != 4)
@@ -36,6 +37,8 @@ namespace BL
                 throw new ItemAlreadyExistsException(ex.Message);
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void StationRecover(BaseStation station)
         {
             BaseStation deletedStation = GetBaseStation(station.Id);
@@ -49,6 +52,7 @@ namespace BL
             dal.UpdateStation(stationlDO); //calls the function from DALOBJECT
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void RemoveStation(BaseStation baseStation)
         {
             try
@@ -67,6 +71,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(BaseStation baseStation)
         {
             if (baseStation.Name == null || baseStation.Name == "")
@@ -90,6 +95,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public BaseStation GetBaseStation(int stationID)
         {
             try
@@ -117,6 +123,7 @@ namespace BL
             }
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BaseStationToList> GetBaseStationList(Predicate<BaseStationToList> predicate = null)
         {
             List<BaseStationToList> stationToLists = new();

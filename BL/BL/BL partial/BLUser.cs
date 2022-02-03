@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BO;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     internal partial class BL : BlApi.IBL
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddUser(User user)
         {
             lock (dal)
@@ -29,6 +31,8 @@ namespace BL
                 }
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<User> GetListUsers(Predicate<User> predicate = null)
         {
             lock (dal)
@@ -39,6 +43,8 @@ namespace BL
                 return usersBO;
             }
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public User GetUser(string mail)
         {
             lock (dal)
@@ -57,6 +63,8 @@ namespace BL
             }
 
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void updateUser(string mail, string password)
         {
             lock (dal)
