@@ -288,7 +288,14 @@ namespace BL
                     droneToList.CopyPropertiesTo(drone);
                 }
                 else
+                {
+                    if (drone.Battery < 100)
+                    {
+                        SendDroneToCharge(drone);
+                        return;
+                    }
                     throw new ItemNotExistException("There is no parcel to assign with the drone");
+                }
             }
         }
 
@@ -332,6 +339,7 @@ namespace BL
                 lock (dal)
                 {
                     dal.DeliveryParcelToCustomer(parcel.Id);
+                    droneToList.ParcelId = 0;//there is no parcel now that the drone needs to deliver
                     droneToList.CopyPropertiesTo(drone);
                 }
             }
