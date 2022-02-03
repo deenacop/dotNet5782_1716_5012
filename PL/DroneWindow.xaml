@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-     Title="AddDroneWindow" Height="{Binding Path=sizeH}" Width="{Binding Path=sizeW}" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"
+     Title="AddDroneWindow" Height="{Binding Path=sizeH}" Width="{Binding Path=sizeW}" Loaded="Window_Loaded" Closing="Window_Closing" FontFamily="Constantia" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow"
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif">
     <Window.Resources>
         <Style x:Key="btnB" TargetType="Button">

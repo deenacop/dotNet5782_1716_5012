@@ -37,7 +37,7 @@ namespace BL
             this.func = threadStop;
             var idal = bl.dal;
             this.reportProgress = reportProgress;
-            DroneToList drone = bl.GetDroneList(x => x.Id == droneId).First();
+            DroneToList drone = bl.GetDroneList(item=>item.Id== droneId).First();
             int? parcelId = null;
             int? StationId = null;
             BaseStation station = null;
@@ -67,8 +67,9 @@ namespace BL
                         lock (bl)
                         {
                             try
-                            { 
+                            {
                                 bl.AssignParcelToDrone(bl.GetDrone(droneId));
+
                                 parcelId = drone.ParcelId;
                             }
                             catch (NotEnoughBatteryException)

@@ -380,6 +380,6 @@ namespace BL
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetDroneList(Predicate<DroneToList> predicate = null) =>
-            DronesBL.FindAll(i => !i.IsRemoved);
+            DronesBL.FindAll(i => !i.IsRemoved && ( predicate == null ? true : predicate(i)));
     }
 }

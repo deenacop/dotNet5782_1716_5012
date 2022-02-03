@@ -405,11 +405,11 @@ namespace PL
             }
         }
 
-       
 
 
 
-      
+
+
 
         //private void UpdateWidowDrone()
         //{
@@ -450,8 +450,12 @@ namespace PL
         private void AutoRun_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             Drone = bl.GetDrone(Drone.Id);
-            DataContext = Drone;
-            //DataContext = this;
+            UpdateGrid.DataContext = Drone;
+            CollectionView view;
+            PropertyGroupDescription groupDescription;
+            droneListWindow.GroupingDrone(out view, out groupDescription);
+
+
         }
 
         private void AutoRun_DoWork(object sender, DoWorkEventArgs e)

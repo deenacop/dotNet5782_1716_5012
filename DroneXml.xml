@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
+    <Id>584</Id>
+    <Model>DJI</Model>
+    <Weight>Medium</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
     <Id>746</Id>
     <Model>3D Robotics Solo</Model>
     <Weight>Light</Weight>
@@ -15,12 +21,6 @@
   <Drone>
     <Id>903</Id>
     <Model>3D Robotics Solo</Model>
-    <Weight>Medium</Weight>
-    <IsRemoved>false</IsRemoved>
-  </Drone>
-  <Drone>
-    <Id>584</Id>
-    <Model>DJI</Model>
     <Weight>Medium</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
@@ -68,7 +68,7 @@
   </Drone>
   <Drone>
     <Id>124</Id>
-    <Model>straik drone</Model>
+    <Model>strike delivary</Model>
     <Weight>Light</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
