@@ -22,7 +22,7 @@ namespace BL
         /// <param name="to">The location to were we want to calculate</param>
         /// <returns>returns the distance</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        internal static double DistanceCalculation(Location from, Location to)
+        public double DistanceCalculation(Location from, Location to)
         {
             double radiusOfLon = (from.Longitude - to.Longitude) * PI / 180;
             double radiusOfLat = (from.Latitude - to.Latitude) * PI / 180;
@@ -39,7 +39,7 @@ namespace BL
         /// <param name="location">current location</param>
         /// <returns>Item 1:location/Item 2:distance/Item 3:StationID</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private static (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
+        public  (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
         {
             List<double> locations = new();//Creates a list of locations
             foreach (BaseStation currentStation in BaseStationListBL)
@@ -102,7 +102,7 @@ namespace BL
         /// <param name="weight"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private int setBattery(int battery, double distance, WeightCategories weight)
+        public int setBattery(int battery, double distance, WeightCategories weight)
         {
             switch (weight)
             {

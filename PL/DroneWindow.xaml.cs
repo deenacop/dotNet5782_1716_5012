@@ -399,5 +399,10 @@ namespace PL
                 MessageBox.Show("Failed to remove the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
+
+        private void btnSimulation_Click(object sender, RoutedEventArgs e)
+        {
+            if(Auto)
+        }
     }
 }

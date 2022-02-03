@@ -6,6 +6,24 @@ namespace BlApi
 {
     public interface IBL
     {
+        /// <summary>
+        /// Fution that starts simulation
+        /// </summary>
+        /// <param name="droneId">drone to start simulation on</param>
+        /// <param name="action">delegate to update the display</param>
+        /// <param name="stop">delegate to stop simulation</param>
+        public void StartSimulation(int droneId, Func<bool> func, Action action);
+
+
+        public int setBattery(int battery, double distance, WeightCategories weight);
+
+        public double DistanceCalculation(Location from, Location to);
+
+        public (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location);
+
+
+
+
         #region add
         /// <summary>
         /// Adds a station to the list of stations in the IDAL
@@ -246,10 +264,14 @@ namespace BlApi
         public IEnumerable<DroneInCharging> GetDroneInChargingList(Predicate<DroneInCharging> predicate = null);
 
         #endregion
+
+        #region recover
         public void DroneRecover(Drone drone, int stationID);
         public void CustonerRecover(Customer customer);
         public void StationRecover(BaseStation station);
+        #endregion
 
+       
 
     }
 }

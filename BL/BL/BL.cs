@@ -18,7 +18,7 @@ namespace BL
                carriesHeavyWeight,
                droneLoadingRate;
 
-        private static readonly IDal dal = DalFactory.GetDal();//instance of IDal
+        internal  DalApi.IDal dal = DalFactory.GetDal();//instance of IDal
         private static readonly Lazy<BL> instance = new Lazy<BL>(() => new BL()); //Lazy initialization of an object means that its creation is deferred until it is first used.
 
         public static BL Instance { get { return instance.Value; } }// The internal Instance property to use
@@ -158,6 +158,11 @@ namespace BL
                     #endregion
                 }
             }
+        }
+
+        public void StartSimulation(int droneId, Func<bool> func,Action action)
+        {
+            new Simulation(this, droneId,func, action); 
         }
     }
 }
