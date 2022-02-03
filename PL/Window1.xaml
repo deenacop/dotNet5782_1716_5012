@@ -35,7 +35,7 @@
                              UpdateSourceTrigger="LostFocus">
 
                         <Binding.ValidationRules>
-                            <local:U MinimumCharacters="5"></local:U>
+                           
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>

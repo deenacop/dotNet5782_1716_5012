@@ -421,6 +421,7 @@ namespace PL
 
         private void AutoRun_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+
             Drone = bl.GetDrone(Drone.Id);
             UpdateGrid.DataContext = Drone;
             CollectionView view;

@@ -4,11 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:PL"
+        xmlns:local="clr-namespace:PL" xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d"
         Title="entery"  Height="320" Width="550"  
          ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"  WindowStyle="ThreeDBorderWindow"  FontFamily="Bahnschrift SemiBold" >
-
     <Grid Height="300" Width="550">
         <Grid.RowDefinitions>
             <RowDefinition Height="49*"/>
@@ -34,7 +33,7 @@
         <TextBlock Margin="85,47,295,67" Text="GET  YOUR DELIVERY TODAY!" FontSize="25" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="36" Foreground="#FFFAF7F7" Grid.RowSpan="3"/>
         <TextBlock Margin="85,109,345,64" Background="White" Grid.Row="1"/>
         <TextBlock Margin="85,122,365,71" Text="The new gimmick of today" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial Rounded MT Bold" LineHeight="18" FontSize="12" Foreground="#FFFAF7F7" Grid.RowSpan="2" Grid.Row="1" />
-        <StackPanel Margin="356,39,34,55" Background="White" Opacity="0.8" Grid.RowSpan="3">
+        <StackPanel Margin="356,2,34,43" Background="White" Opacity="0.8" Grid.RowSpan="2" Grid.Row="1">
             <TextBlock Text="-------------" HorizontalAlignment="Stretch" Height="16" Background="#FF0F4E7A" TextAlignment="Center" Foreground="White"/>
             <Label Height="30" Content="Fill in your details in order to sign in&#xA; to your acount." FontSize="9" Foreground="#FF0F4E7A"/>
             <Label Content="User Details" FontSize="8" Foreground="#FF0F4E7A" VerticalContentAlignment="Bottom" Height="20"/>
