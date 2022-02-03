@@ -115,11 +115,6 @@ namespace PL
             passwordcode.Visibility = Visibility.Collapsed;
             passwordBox.Visibility = Visibility.Visible;
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new Window1().Show();
-        }
     }
    
 }

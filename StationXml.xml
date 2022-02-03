@@ -19,7 +19,7 @@
   <Station>
     <Id>1234</Id>
     <Name>Brand  Aaron street</Name>
-    <NumOfAvailableChargingSlots>18</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>15</NumOfAvailableChargingSlots>
     <Longitude>35.4</Longitude>
     <Latitude>31.2</Latitude>
     <IsRemoved>false</IsRemoved>

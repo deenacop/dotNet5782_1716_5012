@@ -87,7 +87,7 @@
         </Grid>
 
         <Grid x:Name="droneLists" Height="270" Width="560"  Visibility="Hidden" Margin="172,85,28,95">
-            <ListView x:Name="DroneListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  MouseDoubleClick="DroneListView_MouseDoubleClick" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Margin="-16,0,-45,0"  >
+            <ListView x:Name="DroneListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  MouseDoubleClick="DroneListView_MouseDoubleClick" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Margin="0,0,-24,10"  >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -96,12 +96,12 @@
 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="70"    ></GridViewColumn>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="60"    ></GridViewColumn>
                         <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="100"  ></GridViewColumn>
                         <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="90"></GridViewColumn>
                         <GridViewColumn Header="Battery " DisplayMemberBinding="{Binding Battery }" Width="60"></GridViewColumn>
                         <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="90"></GridViewColumn>
-                        <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location._ToString}" Width="110"></GridViewColumn>
+                        <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Location._ToString}" Width="100"></GridViewColumn>
 
                         <GridViewColumn Header="Parcel" DisplayMemberBinding="{Binding ParcelId}" Width="80"></GridViewColumn>
 
@@ -138,7 +138,7 @@
 
         <Grid x:Name="customerList" Height="270" Width="540"  Visibility="Hidden" Margin="172,85,28,95" >
             <ListView x:Name="CustomerListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="CustomerListView_MouseDoubleClick"
-                      Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" ItemsSource="{Binding customerToLists, Mode=OneWay}"  >
+                      Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" ItemsSource="{Binding customerToLists, Mode=OneWay}" HorizontalAlignment="Left" Width="540"  >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -157,7 +157,7 @@
         </Grid>
 
         <Grid x:Name="parcelLists" Height="270" Width="600"  Visibility="Hidden" Margin="172,85,28,95">
-            <ListView x:Name="ParcelListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="ParcelListView_MouseDoubleClick"  Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Grid.Row="1"   >
+            <ListView x:Name="ParcelListView" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="ParcelListView_MouseDoubleClick"  Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="{x:Null}" Margin="10,0,0,33" HorizontalAlignment="Left" Width="569"   >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -166,12 +166,12 @@
 
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="100"    ></GridViewColumn>
-                        <GridViewColumn Header="sender" DisplayMemberBinding="{Binding NameOfSender}" Width="130"  ></GridViewColumn>
-                        <GridViewColumn Header="reciever" DisplayMemberBinding="{Binding NameOfTargetid}" Width="130"></GridViewColumn>
-                        <GridViewColumn Header="weight " DisplayMemberBinding="{Binding Weight }" Width="100"></GridViewColumn>
-                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"></GridViewColumn>
-                        <GridViewColumn Header="priority" DisplayMemberBinding="{Binding Priority}" Width="100"></GridViewColumn>
+                        <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="60"    ></GridViewColumn>
+                        <GridViewColumn Header="sender" DisplayMemberBinding="{Binding NameOfSender}" Width="125"  ></GridViewColumn>
+                        <GridViewColumn Header="reciever" DisplayMemberBinding="{Binding NameOfTargetid}" Width="125"></GridViewColumn>
+                        <GridViewColumn Header="weight " DisplayMemberBinding="{Binding Weight }" Width="90"></GridViewColumn>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="90"></GridViewColumn>
+                        <GridViewColumn Header="priority" DisplayMemberBinding="{Binding Priority}" Width="90"></GridViewColumn>
                     </GridView>
                 </ListView.View>
 
