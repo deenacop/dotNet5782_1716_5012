@@ -35,6 +35,11 @@ namespace PL
 
         public int sizeH { get; set; }
         public int sizeW { get; set; }
+
+        BackgroundWorker AutoRun;
+        private void UpdatedTask() => AutoRun.ReportProgress(0); // invokes report progress action for thread updating
+        private bool chekEnd() => AutoRun.CancellationPending; // returns whether to cancel yet or not
+
         #region update
         /// <summary>
         /// Click event-update butten
@@ -100,7 +105,7 @@ namespace PL
             {
                 //send to the bl function
                 bl.ReleasingDroneFromBaseStation(Drone);
-               droneListWindow.droneToLists = bl.GetDroneList();
+                droneListWindow.droneToLists = bl.GetDroneList();
                 CollectionView view;
                 PropertyGroupDescription groupDescription;
                 droneListWindow.GroupingDrone(out view, out groupDescription);
@@ -154,7 +159,7 @@ namespace PL
                 PropertyGroupDescription groupDescription;
                 droneListWindow.GroupingDrone(out view, out groupDescription);
 
-                
+
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -273,7 +278,7 @@ namespace PL
                     CollectionView view;
                     PropertyGroupDescription groupDescription;
                     droneListWindow.GroupingDrone(out view, out groupDescription);
-                    
+
                     droneListWindow.droneToLists = bl.GetDroneList();
                     //weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;                   
                     //success
@@ -283,7 +288,7 @@ namespace PL
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
                 }
             }
-            catch(AskRecoverExeption ex)
+            catch (AskRecoverExeption ex)
             {
                 string message = ex.Message;
                 string caption = "Confirmation";
@@ -385,7 +390,7 @@ namespace PL
 
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             try
             {
                 bl.RemoveDrone(Drone);
@@ -400,9 +405,63 @@ namespace PL
             }
         }
 
-        private void btnSimulation_Click(object sender, RoutedEventArgs e)
+       
+
+
+
+      
+
+        //private void UpdateWidowDrone()
+        //{
+        //    Drone = bl.GetDrone(Drone.Id);
+        //    DataContext = Drone;
+        //    WindowUp();
+        //    if (droneListWindow != null)
+        //    {
+        //        IEditableCollectionView items = droneListWindow.DroneListView.Items;
+        //        if (items != null)
+        //        {
+        //            items.EditItem(droneListWindow.drone);
+        //            items.CommitEdit();
+        //        }
+        //    }
+        //}
+
+        private void Automatic_Click(object sender, RoutedEventArgs e)
         {
-            if(Auto)
+            //worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
+            ////report progress reports changes made in the display
+            //worker.DoWork += (sender, args) => bl.StartSimulation((int)args.Argument, () => worker.CancellationPending, () => worker.ReportProgress(0));
+            //worker.ProgressChanged += (sender, args) => UpdateWidowDrone();
+            //worker.RunWorkerAsync(Drone.Id);//runs the process
+
+            AutoRun = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
+            AutoRun.DoWork += AutoRun_DoWork;
+            AutoRun.ProgressChanged += AutoRun_ProgressChanged;
+            AutoRun.RunWorkerCompleted += AutoRun_RunWorkerCompleted;
+            AutoRun.RunWorkerAsync(Drone.Id);
+        }
+
+        private void Regular_Click(object sender, RoutedEventArgs e)
+        {
+            AutoRun?.CancelAsync();
+        }
+
+        private void AutoRun_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Drone = bl.GetDrone(Drone.Id);
+            DataContext = Drone;
+            //DataContext = this;
+        }
+
+        private void AutoRun_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bl.StartSimulation(Drone.Id, chekEnd, UpdatedTask);
+        }
+        private void AutoRun_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Drone management moved to manual");
+            // throw new NotImplementedException();
         }
     }
 }

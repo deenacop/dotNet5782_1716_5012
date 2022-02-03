@@ -20,10 +20,10 @@ namespace BL
     internal class Simulation
     {
         enum Maintenance { Finding, Going, Charging }
-        private const int VELOCITY = 100;
-        private const int DELAY = 500;
-        private const double SECONDS_PASSED = DELAY / 1000.0;
-        private const double WayTraveled = VELOCITY * SECONDS_PASSED;
+        private const int VELOCITY = 100;//מהירות רחפן
+        private const int DELAY = 2000;//זמן השהיה
+        private const double SECONDS_PASSED = DELAY / 1000.0;//שניות עברו
+        private const double WayTraveled = VELOCITY * SECONDS_PASSED;//כמה מרחק עבר
 
         private BL bl;
         private int droneId;
@@ -52,14 +52,13 @@ namespace BL
             {
 
                 parcel = idal.GetParcel(Id);
-                baterryUsage = idal.ChargingDrone()[(int)((DO.Parcel)parcel).Weight + 1];// (int)Enum.Parse(typeof(BatteryUsage), parcel?.Weight.ToString());
+                baterryUsage = idal.ChargingDrone()[(int)((DO.Parcel)parcel).Weight + 1];
                 pickedUp = parcel.PickUp is not null;
                 customer = bl.GetCustomer((pickedUp ? parcel.Targetid : parcel.Sender));
             }
 
             do
-            {
-                //(var next, var id)=drone.nextAction(bl);
+            { 
                 switch (drone)
                 {
                     case DroneToList { Status: DroneStatus.Available }:
@@ -111,10 +110,6 @@ namespace BL
                                 case (_, _):
                                     try
                                     {
-                                        //dal.ParcelSchedule((int)parcelId, droneId);
-                                        //bl.CollectingParcelByDrone(drone.Id);
-                                        //bl.DeliverParcelByDrone(droneId);
-                                        //drone.ParcelId = (int)parcelId;
                                         initDelivery((int)parcelId);
                                         drone.Status = DroneStatus.Delivery;
                                     }

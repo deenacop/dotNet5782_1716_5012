@@ -48,7 +48,7 @@
     <MyDroneID>138</MyDroneID>
     <Requested xsi:nil="true" />
     <Scheduled>2022-01-14T00:50:36.1599604+02:00</Scheduled>
-    <PickUp xsi:nil="true" />
+    <PickUp>2022-02-03T14:34:52.1087268+02:00</PickUp>
     <Delivered xsi:nil="true" />
     <IsRemoved>false</IsRemoved>
   </Parcel>
@@ -266,9 +266,9 @@
     <Targetid>324281716</Targetid>
     <Weight>Light</Weight>
     <Priority>Normal</Priority>
-    <MyDroneID>0</MyDroneID>
+    <MyDroneID>333</MyDroneID>
     <Requested>2022-02-03T00:00:16.7251563+02:00</Requested>
-    <Scheduled xsi:nil="true" />
+    <Scheduled>2022-02-03T14:39:56.0462526+02:00</Scheduled>
     <PickUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
     <IsRemoved>false</IsRemoved>

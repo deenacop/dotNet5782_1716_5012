@@ -32,11 +32,11 @@
                 <Button x:Name="btnRemove" Visibility="Visible" Background="White"  Style="{DynamicResource btnB}"  ToolTip="to remove a drone" HorizontalAlignment="Center"  VerticalAlignment="Top"  RenderTransformOrigin="0.5,0.5"  Click="btnRemove_Click" Height="40" Width="40" Margin="0,298,0,0"    >
                     <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\garbage.png" Height="50" Width="35"/>
                 </Button>
-                <Button x:Name="btnSimulation" Visibility="Visible" Background="White"  Style="{DynamicResource btnB}"  ToolTip="simulation" HorizontalAlignment="Center"  VerticalAlignment="Top"  RenderTransformOrigin="0.5,0.5"  Click="btnSimulation_Click"  Height="40" Width="40"  Margin="0,240,0,0"   >
-                    <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\drone update.png" Height="50" Width="35"/>
+                <Button x:Name="btnRegular" Visibility="Visible" Background="White"  Style="{DynamicResource btnB}"  ToolTip="stop simulation" HorizontalAlignment="Center"  VerticalAlignment="Top"  RenderTransformOrigin="0.5,0.5"  Click="Regular_Click"  Height="40" Width="40"  Margin="0,240,0,0"   >
+                    <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\stop.png" Height="50" Width="35"/>
                 </Button>
-                <Button x:Name="btnRegular" Visibility="Visible" Background="White"  Style="{DynamicResource btnB}"  ToolTip="simulation" HorizontalAlignment="Center"  VerticalAlignment="Top"  RenderTransformOrigin="0.5,0.5"  Click="btnSimulation_Click"  Height="40" Width="40"  Margin="0,180,0,0"   >
-                    <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\drone update.png" Height="50" Width="35"/>
+                <Button x:Name="btnSimulation" Visibility="Visible" Background="White"  Style="{DynamicResource btnB}"  ToolTip="simulation" HorizontalAlignment="Center"  VerticalAlignment="Top"  RenderTransformOrigin="0.5,0.5"  Click="Automatic_Click"  Height="40" Width="40"  Margin="0,180,0,0"   >
+                    <Image Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\play.png" Height="50" Width="35" Margin="5,0,0,0"/>
                 </Button>
             </Grid>
             <Image gif:AnimationBehavior.SourceUri="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\Properties\droneSmaller.gif" Height="100" Width="100"  Margin="300,197,41,63" Grid.ColumnSpan="2"/>
