@@ -72,7 +72,7 @@ namespace BL
 
                                 parcelId = drone.ParcelId;
                             }
-                            catch (NotEnoughBatteryException)
+                            catch (ItemNotExistException)
                             {
 
                             }

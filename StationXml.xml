@@ -19,7 +19,7 @@
   <Station>
     <Id>1234</Id>
     <Name>Brand  Aaron street</Name>
-    <NumOfAvailableChargingSlots>12</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>10</NumOfAvailableChargingSlots>
     <Longitude>35.4</Longitude>
     <Latitude>31.2</Latitude>
     <IsRemoved>false</IsRemoved>
@@ -27,7 +27,7 @@
   <Station>
     <Id>1256</Id>
     <Name>harnof</Name>
-    <NumOfAvailableChargingSlots>20</NumOfAvailableChargingSlots>
+    <NumOfAvailableChargingSlots>18</NumOfAvailableChargingSlots>
     <Longitude>35.8</Longitude>
     <Latitude>31.2</Latitude>
     <IsRemoved>false</IsRemoved>

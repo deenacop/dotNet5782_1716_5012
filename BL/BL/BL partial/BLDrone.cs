@@ -291,21 +291,11 @@ namespace BL
                     }
                     catch(InvalidOperationException)
                     {
-                        if (drone.Battery < 100)
-                        {
-                            SendDroneToCharge(drone);
-                            return;
-                        }
                         throw new ItemNotExistException("There is no parcel to assign with the drone");
                     }
                 }
                 else
                 {
-                    if (drone.Battery < 100)
-                    {
-                        SendDroneToCharge(drone);
-                        return;
-                    }
                     throw new ItemNotExistException("There is no parcel to assign with the drone");
                 }
             }
