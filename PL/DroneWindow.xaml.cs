@@ -405,36 +405,8 @@ namespace PL
             }
         }
 
-       
-
-
-
-      
-
-        //private void UpdateWidowDrone()
-        //{
-        //    Drone = bl.GetDrone(Drone.Id);
-        //    DataContext = Drone;
-        //    WindowUp();
-        //    if (droneListWindow != null)
-        //    {
-        //        IEditableCollectionView items = droneListWindow.DroneListView.Items;
-        //        if (items != null)
-        //        {
-        //            items.EditItem(droneListWindow.drone);
-        //            items.CommitEdit();
-        //        }
-        //    }
-        //}
-
         private void Automatic_Click(object sender, RoutedEventArgs e)
-        {
-            //worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true, };
-            ////report progress reports changes made in the display
-            //worker.DoWork += (sender, args) => bl.StartSimulation((int)args.Argument, () => worker.CancellationPending, () => worker.ReportProgress(0));
-            //worker.ProgressChanged += (sender, args) => UpdateWidowDrone();
-            //worker.RunWorkerAsync(Drone.Id);//runs the process
-
+        {         
             AutoRun = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
             AutoRun.DoWork += AutoRun_DoWork;
             AutoRun.ProgressChanged += AutoRun_ProgressChanged;
@@ -461,7 +433,6 @@ namespace PL
         private void AutoRun_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             MessageBox.Show("Drone management moved to manual");
-            // throw new NotImplementedException();
         }
     }
 }
