@@ -296,8 +296,7 @@ namespace BL
                 }
                 else
                 {
-                    droneToList.ParcelId = 0;
-                   
+                    throw new ItemNotExistException("There is no parcel to assign with the drone");
                 }
             }
         }

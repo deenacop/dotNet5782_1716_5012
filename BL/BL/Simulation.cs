@@ -74,7 +74,7 @@ namespace BL
                                 if (parcelId == 0)
                                     parcelId = null;
                             }
-                            catch (NotEnoughBatteryException)
+                            catch (ItemNotExistException)
                             {
 
                             }
