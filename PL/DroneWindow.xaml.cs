@@ -31,6 +31,8 @@ namespace PL
 
         private MenuWindow droneListWindow;//brings the menu window of the drone list
 
+        private MenuWindow stationListWindow;
+
         private int Index;
 
         public int sizeH { get; set; }
@@ -219,7 +221,7 @@ namespace PL
         /// <param name="drone">selected drone</param>
         /// <param name="_droneListWindow">access to the window</param>
         /// <param name="_Index">the drone index</param>
-        public DroneWindow(BlApi.IBL bL, Drone drone, MenuWindow _droneListWindow, int _Index)
+        public DroneWindow(BlApi.IBL bL, Drone drone, MenuWindow _droneListWindow, MenuWindow _stationListWindow, int _Index)
         {
             bl = bL;
             Drone = drone;
@@ -235,6 +237,8 @@ namespace PL
             DataContext = this;
             InitializeComponent();
             this.droneListWindow = _droneListWindow;
+            this.stationListWindow = _stationListWindow;
+
             comboWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
 
@@ -246,7 +250,7 @@ namespace PL
         /// </summary>
         /// <param name="bL">BL object</param>
         /// <param name="droneListWindow">access to the window</param>
-        public DroneWindow(BlApi.IBL bL, MenuWindow droneListWindow) : this(bL, new(), droneListWindow, 0)//sends to the other ctor
+        public DroneWindow(BlApi.IBL bL, MenuWindow droneListWindow, MenuWindow stationListWindow) : this(bL, new(), droneListWindow, stationListWindow, 0)//sends to the other ctor
         {
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             txtId.IsEnabled = true;
@@ -278,9 +282,10 @@ namespace PL
                     CollectionView view;
                     PropertyGroupDescription groupDescription;
                     droneListWindow.GroupingDrone(out view, out groupDescription);
-
                     droneListWindow.droneToLists = bl.GetDroneList();
-                    //weightAndStatus.Weight = /*(WeightCategories)*/Drone.Weight;                   
+                    stationListWindow.stationToLists = bl.GetBaseStationList();
+                    stationListWindow.SelectionAvailablity();//to update the stations list
+                                     
                     //success
                     MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
 
@@ -302,6 +307,8 @@ namespace PL
                     droneListWindow.GroupingDrone(out view, out groupDescription);
 
                     droneListWindow.droneToLists = bl.GetDroneList();
+                    stationListWindow.stationToLists = bl.GetBaseStationList();//to update the stations list
+                    stationListWindow.SelectionAvailablity();
                     MessageBox.Show("The drone has been recovered successfully :)\n" + Drone.ToString());
                     _close = true;
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -395,6 +402,8 @@ namespace PL
             {
                 bl.RemoveDrone(Drone);
                 droneListWindow.GroupingDrone(out CollectionView view, out PropertyGroupDescription groupDescription);
+                stationListWindow.stationToLists = bl.GetBaseStationList();
+                stationListWindow.SelectionAvailablity();//to update the stations list
                 MessageBox.Show("The drone has been removed successfully :)\n" + Drone.ToString());
                 _close = true;
                 Close();

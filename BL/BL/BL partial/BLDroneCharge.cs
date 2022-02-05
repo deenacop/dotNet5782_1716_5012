@@ -10,7 +10,6 @@ namespace BL
 {
     internal partial class BL : BlApi.IBL
     {
-
         [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneInCharging GetDroneInCharge(int id, int stationId)
         {
@@ -21,9 +20,9 @@ namespace BL
                 {
                     DO.DroneCharge droneCharge = dal.GetDroneCharge(id, stationId);
                     droneCharge.CopyPropertiesTo(droneInChargingBO);
-                    droneInChargingBO.Battery = DronesBL.Find(i => i.Id == id).Battery;
+                    droneInChargingBO.Battery = DronesBL.Find(i => i.Id == id).Battery;//updates the battery
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }

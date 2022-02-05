@@ -20,10 +20,10 @@ namespace BL
                 throw new WrongInputException("Missing drone model");
             lock (dal)
             {
+                DroneToList listDrone = new();
                 try
                 {
                     //we add a drone but the type is DroneToList
-                    DroneToList listDrone = new();
                     DO.Station wantedStation = dal.GetStation(stationID);
                     //needs to be initialize by hand
                     drone.Location = new()
@@ -41,11 +41,15 @@ namespace BL
                     drone.CopyPropertiesTo(obj);
                     if (!dal.Add((DO.Drone)obj)) //calls the function from DALOBJECT
                         throw new AskRecoverExeption($"The drone has been deleted. Are you sure you want to recover? ");
-
                     DronesBL.Add(listDrone);//Should be added to the list maintained in BL  
-                    dal.SendingDroneToChargingBaseStation(listDrone.Id, stationID);
+                    dal.SendingDroneToChargingBaseStation(listDrone.Id, stationID);//sends the drone to charge
                 }
-
+                catch (NegetiveException ex)
+                {
+                    DronesBL.Remove(listDrone);//if the drone hasn't been added because there were no amount of available slots in the station 
+                                               //we need to remove him from the list because he's been added already
+                    throw new NegetiveException(ex.Message);
+                }
                 catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException("Station does not exist", ex);
@@ -54,6 +58,7 @@ namespace BL
                 {
                     throw new ItemAlreadyExistsException("Trying to add an existing drone", ex);
                 }
+
             }
         }
 
@@ -63,23 +68,29 @@ namespace BL
             DroneToList deletedDrone = DronesBL.Find(i => i.Id == drone.Id);
             lock (dal)
             {
-                DO.Station wantedStation = dal.GetStation(stationID);//update the location
-                                                                     //needs to be initialize by hand
-                drone.Location = new()
+                try
                 {
-                    Longitude = wantedStation.Longitude,
-                    Latitude = wantedStation.Latitude
-                };
-                drone.Status = DroneStatus.Maintenance;//By adding a drone it is initialized to a maintenance mode
-                drone.Battery = deletedDrone.Battery;
-                drone.Parcel = new();//Deleting a drone can only happen in a state of maintenance or availability = no package
-                drone.IsRemoved = false;
-                deletedDrone.IsRemoved = false;
-                deletedDrone.Status = DroneStatus.Maintenance;//By adding a drone it is initialized to a maintenance mode
-                object obj = new DO.Drone();//Boxing and unBoxing
-                drone.CopyPropertiesTo(obj);
-                dal.UpdateDrone((DO.Drone)obj); //calls the function from DALOBJECT
-                dal.SendingDroneToChargingBaseStation(drone.Id, stationID);
+                    DO.Station wantedStation = dal.GetStation(stationID);//update the location
+                    drone.Location = new()
+                    {
+                        Longitude = wantedStation.Longitude,
+                        Latitude = wantedStation.Latitude
+                    };
+                    drone.Status = DroneStatus.Maintenance;//By adding a drone it is initialized to a maintenance mode
+                    drone.Battery = deletedDrone.Battery;
+                    drone.Parcel = new();//Deleting a drone can only happen in a state of maintenance or availability = no package
+                    drone.IsRemoved = false;
+                    deletedDrone.IsRemoved = false;
+                    deletedDrone.Status = DroneStatus.Maintenance;//By adding a drone it is initialized to a maintenance mode
+                    object obj = new DO.Drone();//Boxing and unBoxing
+                    drone.CopyPropertiesTo(obj);
+                    dal.SendingDroneToChargingBaseStation(drone.Id, stationID);
+                    dal.UpdateDrone((DO.Drone)obj); //calls the function from DALOBJECT
+                }
+                catch (ItemNotExistException ex)
+                {
+                    throw new ItemNotExistException(ex.Message);
+                }
             }
         }
 
@@ -103,7 +114,7 @@ namespace BL
                                 dal.RemoveDrone(droneDO.Id);
                                 break;
                             }
-                        case (int)DroneStatus.Maintenance:
+                        case (int)DroneStatus.Maintenance://if the drone is charging we will first release him and then remove him
                             {
                                 //Finds the wanted station:
                                 int baseStationId = dal.GetListStation().First(i => i.Latitude == drone.Location.Latitude && i.Longitude == drone.Location.Longitude).Id;
@@ -121,7 +132,7 @@ namespace BL
                                     //update
                                     dal.ReleasingDroneFromChargingBaseStation(droneList.Id, station.Id);
                                 }
-                                catch (Exception ex)
+                                catch (ItemNotExistException ex)
                                 {
                                     throw new ItemNotExistException(ex.Message);
                                 }
@@ -149,9 +160,9 @@ namespace BL
             }
             catch (InvalidOperationException)
             {
-                throw new ItemCouldNotBeRemoved("The drone does not exist");
+                throw new ItemCouldNotBeRemoved("The drone is in delivery mode and could not be removed!");
             }
-        
+
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -212,9 +223,13 @@ namespace BL
                     dal.SendingDroneToChargingBaseStation(
                         listDrone.Id, MinDistanceLocation(BaseStationListBL, listDrone.Location).Item3);//calls the function from DALOBJECT
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
+                }
+                catch (NotEnoughBatteryException ex)
+                {
+                    throw new NotEnoughBatteryException(ex.Message);
                 }
 
                 //if the drone *can* go to a charging Drone station:
@@ -250,7 +265,7 @@ namespace BL
                     //update
                     dal.ReleasingDroneFromChargingBaseStation(listDrone.Id, station.Id);
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }
@@ -289,7 +304,7 @@ namespace BL
                         dal.AssignParcelToDrone(p.Id, drone.Id);
                         droneToList.CopyPropertiesTo(drone);
                     }
-                    catch(InvalidOperationException)
+                    catch (InvalidOperationException)
                     {
                         throw new ItemNotExistException("There is no parcel to assign with the drone");
                     }
@@ -311,7 +326,7 @@ namespace BL
                 throw new WorngStatusException("The drone is not in delivery mode");
             Parcel parcel = GetParcel(drone.Parcel.Id);//the wanted parcel
             if (parcel.PickUp != null)
-                throw new WorngStatusException("The parcel has allready been picked up ");
+                throw new WorngStatusException("The parcel has already been picked up ");
             double distance = DistanceCalculation(drone.Location, GetCustomer(parcel.SenderCustomer.Id).Location);
             drone.Battery -= (int)(distance * vacant);//update the battery
             drone.CopyPropertiesTo(droneToList);
@@ -345,7 +360,7 @@ namespace BL
                     droneToList.CopyPropertiesTo(drone);
                 }
             }
-            else throw new WorngStatusException("The parcel couldnt be delivered");
+            else throw new WorngStatusException("The parcel couldn't be delivered");
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -390,6 +405,6 @@ namespace BL
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneToList> GetDroneList(Predicate<DroneToList> predicate = null) =>
-            DronesBL.FindAll(i => !i.IsRemoved && ( predicate == null ? true : predicate(i)));
+            DronesBL.FindAll(i => !i.IsRemoved && (predicate == null ? true : predicate(i)));
     }
 }

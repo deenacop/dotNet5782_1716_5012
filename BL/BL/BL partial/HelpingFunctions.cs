@@ -15,12 +15,7 @@ namespace BL
 
         const double PI = Math.PI;
         const int RADIUS = 6371;//the earth radius
-        /// <summary>
-        /// A function that calculates the distance between two coordinates on the map
-        /// </summary>
-        /// <param name="from">The location from were we want to calculate the distance</param>
-        /// <param name="to">The location to were we want to calculate</param>
-        /// <returns>returns the distance</returns>
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public double DistanceCalculation(Location from, Location to)
         {
@@ -32,14 +27,8 @@ namespace BL
             return distance;
         }
 
-        /// <summary>
-        /// Finds the minimum distance from a station to a location
-        /// </summary>
-        /// <param name="BaseStationListBL">list of stationBL</param>
-        /// <param name="location">current location</param>
-        /// <returns>Item 1:location/Item 2:distance/Item 3:StationID</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public  (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
+        public (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location)
         {
             List<double> locations = new();//Creates a list of locations
             foreach (BaseStation currentStation in BaseStationListBL)
@@ -94,13 +83,7 @@ namespace BL
             return false;
         }
 
-        /// <summary>
-        /// The function regulates the battery and takes into account the weight and battery consumption accordingly
-        /// </summary>
-        /// <param name="battery">the battery that need to be set</param>
-        /// <param name="distance"></param>
-        /// <param name="weight"></param>
-        /// <returns></returns>
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public int setBattery(int battery, double distance, WeightCategories weight)
         {

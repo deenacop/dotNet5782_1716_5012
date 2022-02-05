@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace BL
 {
-    internal partial class BL: BlApi.IBL
+    internal partial class BL : BlApi.IBL
     {
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddBaseStation(BaseStation station)
@@ -46,15 +46,22 @@ namespace BL
         {
             lock (dal)
             {
-                BaseStation deletedStation = GetBaseStation(station.Id);
-                station.DronesInCharging = deletedStation.DronesInCharging;
-                DO.Station stationlDO = new();
-                object obj = stationlDO;//boxing and unBoxing
-                station.CopyPropertiesTo(obj);
-                stationlDO = (DO.Station)obj;
-                stationlDO.Longitude = station.Location.Longitude;
-                stationlDO.Latitude = station.Location.Latitude;
-                dal.UpdateStation(stationlDO); //calls the function from DALOBJECT
+                try
+                {
+                    BaseStation deletedStation = GetBaseStation(station.Id);
+                    station.DronesInCharging = deletedStation.DronesInCharging;
+                    DO.Station stationlDO = new();
+                    object obj = stationlDO;//boxing and unBoxing
+                    station.CopyPropertiesTo(obj);
+                    stationlDO = (DO.Station)obj;
+                    stationlDO.Longitude = station.Location.Longitude;
+                    stationlDO.Latitude = station.Location.Latitude;
+                    dal.UpdateStation(stationlDO); //calls the function from DALOBJECT
+                }
+                catch (ItemNotExistException ex)
+                {
+                    throw new ItemNotExistException(ex.Message);
+                }
             }
         }
 
@@ -69,11 +76,22 @@ namespace BL
                     object obj = stationlDO;//boxing and unBoxing
                     baseStation.CopyPropertiesTo(obj);
                     stationlDO = (DO.Station)obj;
+                    //needs to be initialize by hand
                     stationlDO.Latitude = baseStation.Location.Latitude;
                     stationlDO.Longitude = baseStation.Location.Longitude;
-                    dal.RemoveStation(stationlDO.Id);
+                    BaseStationToList stationList = new();
+                    baseStation.CopyPropertiesTo(stationList);
+                    BaseStation tempS = GetBaseStation(stationList.Id);
+                    stationList.NumOfBusyChargingSlots = tempS.DronesInCharging.Count();
+                    if (stationList.NumOfBusyChargingSlots != 0)
+                        throw new ItemCouldNotBeRemoved("The station could not be removed");
+                    dal.RemoveStation(stationlDO.Id);//calls the function from DALOBJECT
                 }
-                catch (Exception ex)
+                catch (ItemCouldNotBeRemoved ex)
+                {
+                    throw new ItemCouldNotBeRemoved(ex.Message);
+                }
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }
@@ -100,7 +118,7 @@ namespace BL
                 {
                     dal.UpdateStation((DO.Station)obj);//calls the function from DALOBJECT
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }
@@ -131,7 +149,7 @@ namespace BL
                                                    });
                     return baseStation;
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }
@@ -148,7 +166,8 @@ namespace BL
                                         let tempS = GetBaseStation(s.Id)
                                         select tempS.CopyPropertiesTo(new BaseStationToList()
                                         {
-                                            NumOfBusyChargingSlots = tempS.DronesInCharging.Count()
+                                            NumOfBusyChargingSlots = tempS.DronesInCharging.Count()//the amount of drones
+                                                                                                   //in the station
                                         })
                                         );
                 return stationToLists.FindAll(i => predicate == null ? true : predicate(i));

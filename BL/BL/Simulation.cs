@@ -20,10 +20,10 @@ namespace BL
     internal class Simulation
     {
         enum Maintenance { Finding, Going, Charging }
-        private const int VELOCITY = 100;//מהירות רחפן
-        private const int DELAY = 2000;//זמן השהיה
-        private const double SECONDS_PASSED = DELAY / 1000.0;//שניות עברו
-        private const double WayTraveled = VELOCITY * SECONDS_PASSED;//כמה מרחק עבר
+        private const int VELOCITY = 100;//drone speed
+        private const int DELAY = 2000;//delay time
+        private const double SECONDS_PASSED = DELAY / 1000.0;//Seconds passed
+        private const double WayTraveled = VELOCITY * SECONDS_PASSED;//How much distance has passed
 
         private BL bl;
         private int droneId;
@@ -46,11 +46,10 @@ namespace BL
             DO.Parcel parcel=new();
             bool pickedUp = false;
             Customer customer = null;
-            Maintenance maintenance = Maintenance.Finding;
+            Maintenance maintenance = Maintenance.Finding;//available
 
             void initDelivery(int Id)
             {
-
                 parcel = idal.GetParcel(Id);
                 baterryUsage = idal.ChargingDrone()[(int)((DO.Parcel)parcel).Weight + 1];
                 pickedUp = parcel.PickUp is not null;

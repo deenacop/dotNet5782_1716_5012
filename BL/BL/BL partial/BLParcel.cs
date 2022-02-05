@@ -19,9 +19,9 @@ namespace BL
                     parcel.SenderCustomer.Name = dal.GetCustomer(parcel.SenderCustomer.Id).Name;
                     parcel.TargetidCustomer.Name = dal.GetCustomer(parcel.TargetidCustomer.Id).Name;
                 }
-                catch (Exception)
+                catch (ItemNotExistException)
                 {
-                    throw new WrongIDException("Bad custumers ID");
+                    throw new ItemNotExistException("customer does not exist");
                 }
                 if (parcel.Weight < WeightCategories.Light || parcel.Weight > WeightCategories.Heavy)
                     throw new WrongInputException("Wrong input");
@@ -29,7 +29,6 @@ namespace BL
                     throw new WrongInputException("Wrong input");
                 parcel.Requested = DateTime.Now;
                 parcel.MyDrone = new();
-
                 try
                 {
                     DO.Parcel tmpParcel = new();
@@ -38,10 +37,10 @@ namespace BL
                     tmpParcel = (DO.Parcel)obj;
                     tmpParcel.Sender = parcel.SenderCustomer.Id;
                     tmpParcel.Targetid = parcel.TargetidCustomer.Id;
-                    int id = dal.Add(tmpParcel);
+                    int id = dal.Add(tmpParcel);//the function returns the parcels id to update also the BL list of parcels
                     parcel.Id = id;
                 }
-                catch (Exception ex)
+                catch (ItemAlreadyExistsException ex)
                 {
                     throw new ItemAlreadyExistsException(ex.Message);
                 }
@@ -59,14 +58,18 @@ namespace BL
                     object obj = parcelDO;//boxing and unBoxing
                     parcel.CopyPropertiesTo(obj);
                     parcelDO = (DO.Parcel)obj;
-                    if (parcel.Scheduled == null)
+                    if (parcel.Scheduled == null)//if the parcel was associated you cant remove him
                         dal.RemoveParcel(parcelDO.Id);
                     else
                         throw new ItemCouldNotBeRemoved("The parcel has been associated already!");
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
+                }
+                catch (ItemCouldNotBeRemoved ex)
+                {
+                    throw new ItemCouldNotBeRemoved(ex.Message);
                 }
             }
         }
@@ -91,7 +94,7 @@ namespace BL
                     parcelBO.TargetidCustomer.Id = dal.GetCustomer(parcelDO.Targetid).Id;
                     parcelBO.TargetidCustomer.Name = dal.GetCustomer(parcelDO.Targetid).Name;
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }
