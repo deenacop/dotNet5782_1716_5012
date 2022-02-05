@@ -71,8 +71,7 @@ namespace BL
                                 bl.AssignParcelToDrone(bl.GetDrone(droneId));
 
                                 parcelId = drone.ParcelId;
-                                if (parcelId == 0)
-                                    parcelId = null;
+                               
                             }
                             catch (ItemNotExistException)
                             {
