@@ -50,8 +50,21 @@ namespace PL
             ParcelListFrom = bL.GetCustomer(User.Id).FromCustomer.ToList();
             ParcelByCustomerView.ItemsSource = ParcelListFrom;
             ParcelByCustomerView1.ItemsSource = ParcelListTo;
+            GroupingParcel();
         }
-
+        internal void GroupingParcel()
+        {
+            ParcelListTo = bL.GetCustomer(user.Id).ToCustomer.ToList(); ;//we want that all the items will be sorted by ID
+            ParcelListFrom = bL.GetCustomer(user.Id).FromCustomer.ToList();
+            ParcelByCustomerView1.ItemsSource = ParcelListTo;
+            ParcelByCustomerView.ItemsSource = ParcelListFrom;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelByCustomerView1.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
+            view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelByCustomerView.ItemsSource);
+            groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
+        }
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -92,7 +105,15 @@ namespace PL
                     MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message);
                 }
             }
-
+        }
+        private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ParcelByCustomer parcelFrom = (ParcelByCustomer)ParcelByCustomerView.SelectedItem;
+            ParcelByCustomer parcelTo = (ParcelByCustomer)ParcelByCustomerView1.SelectedItem;
+            if (parcelFrom != null)
+                new ParcelWindow(bL, bL.GetParcel(parcelFrom.Id), 1).Show();
+            if (parcelTo != null)
+                new ParcelWindow(bL, bL.GetParcel(parcelTo.Id), 1).Show();
         }
 
     }

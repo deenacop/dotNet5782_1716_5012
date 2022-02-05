@@ -213,7 +213,7 @@ namespace PL
         {
             ParcelToList parcel = (ParcelToList)ParcelListView.SelectedItem;
             if (parcel != null)
-                new ParcelWindow(bL, bL.GetParcel(parcel.Id), this, 1).Show();
+                new ParcelWindow(bL, bL.GetParcel(parcel.Id), 1,this).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
 
