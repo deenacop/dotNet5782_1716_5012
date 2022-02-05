@@ -155,7 +155,16 @@ namespace Dal
                 users = XMLTools.LoadListFromXMLSerializer<User>(UserXml);
             //checks if the station exists and if not throws an exception
             if (users.Exists(i => i.Id == user.Id))
-                throw new AlreadyExistedItemException("The station already exists");
+                throw new AlreadyExistedItemException("The user already exists");
+            if (customers == null)
+                customers = XMLTools.LoadListFromXMLSerializer<Customer>(CustomerXml);
+            //checks if the station exists and if not throws an exception
+            if (!customers.Exists(i => i.Id == user.Id))
+            {
+                Customer customer = user.ConverUserToCustomer();
+                customers.Add(customer);
+                XMLTools.SaveListToXMLSerializer(customers, CustomerXml);
+            }
             users.Add(user);
             XMLTools.SaveListToXMLSerializer(users, UserXml);
         }

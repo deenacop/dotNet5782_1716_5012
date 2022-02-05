@@ -44,4 +44,15 @@
     <Latitude>0</Latitude>
     <IsRemoved>false</IsRemoved>
   </User>
+  <User>
+    <Id>568431908</Id>
+    <Name>efrat</Name>
+    <PhoneNumber>0546798853</PhoneNumber>
+    <Password>efrat123</Password>
+    <EmailAddress>efratmr99@gmail.com</EmailAddress>
+    <IsManager>false</IsManager>
+    <Longitude>35.678</Longitude>
+    <Latitude>31.345</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </User>
 </ArrayOfUser>
