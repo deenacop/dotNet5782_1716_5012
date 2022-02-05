@@ -116,7 +116,7 @@ namespace BL
         {
             ParcelByCustomer parcelBy = new();
             item.CopyPropertiesTo(parcelBy);
-            if (item.Delivered == null)//item is already delivered
+            if (item.Delivered != null)//item is already delivered
                 parcelBy.Status = ParcelStatus.Delivered;
             else if (item.PickUp != null)//not delivere but already picked up
                 parcelBy.Status = ParcelStatus.PickedUp;

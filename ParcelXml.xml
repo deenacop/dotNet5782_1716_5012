@@ -105,19 +105,6 @@
     <IsRemoved>false</IsRemoved>
   </Parcel>
   <Parcel>
-    <Id>100009</Id>
-    <Sender>773103599</Sender>
-    <Targetid>400638472</Targetid>
-    <Weight>Medium</Weight>
-    <Priority>Urgent</Priority>
-    <MyDroneID>0</MyDroneID>
-    <Requested>2021-02-15T01:58:42</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickUp>2022-02-03T18:48:03.9648069+02:00</PickUp>
-    <Delivered>2022-02-03T18:48:05.9867799+02:00</Delivered>
-    <IsRemoved>true</IsRemoved>
-  </Parcel>
-  <Parcel>
     <Id>100011</Id>
     <Sender>315296681</Sender>
     <Targetid>213085012</Targetid>

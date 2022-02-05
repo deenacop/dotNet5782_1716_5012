@@ -50,8 +50,21 @@ namespace PL
             ParcelListFrom = bL.GetCustomer(User.Id).FromCustomer.ToList();
             ParcelByCustomerView.ItemsSource = ParcelListFrom;
             ParcelByCustomerView1.ItemsSource = ParcelListTo;
+            GroupingParcel();
         }
-
+        internal void GroupingParcel()
+        {
+            ParcelListTo = bL.GetCustomer(user.Id).ToCustomer.ToList(); ;//we want that all the items will be sorted by ID
+            ParcelListFrom = bL.GetCustomer(user.Id).FromCustomer.ToList();
+            ParcelByCustomerView1.ItemsSource = ParcelListTo;
+            ParcelByCustomerView.ItemsSource = ParcelListFrom;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelByCustomerView1.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
+            view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelByCustomerView.ItemsSource);
+            groupDescription = new PropertyGroupDescription("Status");
+            view.GroupDescriptions.Add(groupDescription);
+        }
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -92,60 +105,17 @@ namespace PL
                     MessageBox.Show("Failed to add the parcel: " + ex.GetType().Name + "\n" + ex.Message);
                 }
             }
-
         }
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-
+        private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
-
-            e.Handled = true;
-
+            ParcelByCustomer parcelFrom = (ParcelByCustomer)ParcelByCustomerView.SelectedItem;
+            ParcelByCustomer parcelTo = (ParcelByCustomer)ParcelByCustomerView1.SelectedItem;
+            if (parcelFrom != null)
+                new ParcelWindow(bL, bL.GetParcel(parcelFrom.Id), 1).Show();
+            if (parcelTo != null)
+                new ParcelWindow(bL, bL.GetParcel(parcelTo.Id), 1).Show();
         }
+
     }
-    //public partial class MediaPlayerVideoControlSample : Window
-    //{
-
-    //    public MediaPlayerVideoControlSample()
-    //    {
-    //        InitializeComponent();
-
-    //        DispatcherTimer timer = new DispatcherTimer();
-    //        timer.Interval = TimeSpan.FromSeconds(1);
-    //        timer.Tick += timer_Tick;
-    //        timer.Start();
-    //    }
-
-    //    private void InitializeComponent()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    void timer_Tick(object sender, EventArgs e)
-    //    {
-    //        if (mePlayer.Source != null)
-    //        {
-    //            if (mePlayer.NaturalDuration.HasTimeSpan)
-    //                lblStatus.Content = String.Format("{0} / {1}", mePlayer.Position.ToString(@"mm\:ss"), mePlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
-    //        }
-    //        else
-    //            lblStatus.Content = "No file selected...";
-    //    }
-
-    //    private void btnPlay_Click(object sender, RoutedEventArgs e)
-    //    {
-    //        mePlayer.Play();
-    //    }
-
-    //    private void btnPause_Click(object sender, RoutedEventArgs e)
-    //    {
-    //        mePlayer.Pause();
-    //    }
-
-    //    private void btnStop_Click(object sender, RoutedEventArgs e)
-    //    {
-    //        mePlayer.Stop();
-    //    }
-    //}
 }
+

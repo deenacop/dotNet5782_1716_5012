@@ -42,13 +42,13 @@ namespace PL
                 {
                     MessageBox.Show("you must fill all fields");
                 }
-                if (newPassword.Text.Length != 6)
+                if (newPassword.Text.Length != 8)
                 {
-                    MessageBox.Show("password should be with 6 digits");
+                    MessageBox.Show("password should be with 8 digits");
                 }
-                if (newPassword.Text == bL.GetUser(mailAddress.Text).Password)
+                if (oldPassword.Text != bL.GetUser(mailAddress.Text).Password)
                 {
-                    MessageBox.Show("Choose a password that does not exist in the system");
+                    MessageBox.Show("worng password");
                 }
                 else
                 {

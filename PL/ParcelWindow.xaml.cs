@@ -39,7 +39,7 @@ namespace PL
         /// <param name="parcel"></param>
         /// <param name="_menuWindow"></param>
         /// <param name="flag"></param>
-        public ParcelWindow(BlApi.IBL bL, Parcel parcel, MenuWindow _menuWindow, int flag)
+        public ParcelWindow(BlApi.IBL bL, Parcel parcel, int flag, MenuWindow _menuWindow=null)
         {
             bl = bL;
             Parcel = parcel;         
@@ -60,7 +60,7 @@ namespace PL
         /// </summary>
         /// <param name="bL">BL object</param>
         /// <param name="droneListWindow">access to the window</param>
-        public ParcelWindow(BlApi.IBL bL, MenuWindow menuWindow) : this(bL, new(), menuWindow, 0)//sends to the other ctor
+        public ParcelWindow(BlApi.IBL bL, MenuWindow menuWindow) : this(bL, new(),0, menuWindow)//sends to the other ctor
         {
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
