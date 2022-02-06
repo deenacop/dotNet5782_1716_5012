@@ -97,7 +97,6 @@ namespace PL
                     menuWindow.GroupingParcel();
                     //success
                     MessageBox.Show("The parcel has been added successfully :)\n" + Parcel.ToString());
-
                     _close = true;
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
                 }
