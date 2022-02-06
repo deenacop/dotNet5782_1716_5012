@@ -8,7 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86C7AB0C-E351-483A-95CD-492C4BC7B6F4}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		..\..\..\..\Downloads\בונוסים.docx = ..\..\..\..\Downloads\בונוסים.docx
+		בונוסים.docx = בונוסים.docx
 		xml\‏‏config.xml = xml\‏‏config.xml
 	EndProjectSection
 EndProject

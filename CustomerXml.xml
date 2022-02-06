@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Customer>
     <Id>213085012</Id>
@@ -110,7 +110,7 @@
     <PhoneNumber>2345</PhoneNumber>
     <Longitude>35.7</Longitude>
     <Latitude>31.3</Latitude>
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Customer>
   <Customer>
     <Id>987654345</Id>
@@ -118,6 +118,22 @@
     <PhoneNumber>3465</PhoneNumber>
     <Longitude>35.45</Longitude>
     <Latitude>31.23</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </Customer>
+  <Customer>
+    <Id>296397620</Id>
+    <Name>gideon copperman</Name>
+    <PhoneNumber>0547882886</PhoneNumber>
+    <Longitude>35.7</Longitude>
+    <Latitude>0</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </Customer>
+  <Customer>
+    <Id>208556316</Id>
+    <Name>gila</Name>
+    <PhoneNumber>0544990148</PhoneNumber>
+    <Longitude>35.9</Longitude>
+    <Latitude>0</Latitude>
     <IsRemoved>false</IsRemoved>
   </Customer>
 </ArrayOfCustomer>

@@ -33,4 +33,26 @@
     <Latitude>0</Latitude>
     <IsRemoved>false</IsRemoved>
   </User>
+  <User>
+    <Id>296397620</Id>
+    <Name>gideon copperman</Name>
+    <PhoneNumber>0547882886</PhoneNumber>
+    <Password>7035</Password>
+    <EmailAddress>gideoncopp@gmail.com</EmailAddress>
+    <IsManager>false</IsManager>
+    <Longitude>35.7</Longitude>
+    <Latitude>0</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </User>
+  <User>
+    <Id>208556316</Id>
+    <Name>gila</Name>
+    <PhoneNumber>0544990148</PhoneNumber>
+    <Password>7035</Password>
+    <EmailAddress>gilasarac@gmail.com</EmailAddress>
+    <IsManager>false</IsManager>
+    <Longitude>35.9</Longitude>
+    <Latitude>0</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </User>
 </ArrayOfUser>

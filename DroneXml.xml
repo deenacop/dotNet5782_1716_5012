@@ -10,7 +10,7 @@
     <Id>138</Id>
     <Model>Yuneec H520</Model>
     <Weight>Heavy</Weight>
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Drone>
   <Drone>
     <Id>903</Id>
@@ -63,6 +63,12 @@
   <Drone>
     <Id>232</Id>
     <Model>dfg</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>true</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>456</Id>
+    <Model>drone</Model>
     <Weight>Light</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
