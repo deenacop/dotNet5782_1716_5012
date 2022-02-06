@@ -40,7 +40,7 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
-            <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold" Content="ID:" />
+            <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold" Content="ID: (9 dig)" />
             <TextBox x:Name="txtID" FontWeight="Light" Grid.Column="1" Grid.Row="0"  FontSize="15" FontStyle="Italic" PreviewTextInput="NumberValidationTextBox"
                              TextWrapping="Wrap" Width="90"  Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial"
                              Text="{Binding Id, Mode=TwoWay}"  />
