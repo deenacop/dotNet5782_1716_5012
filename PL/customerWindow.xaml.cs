@@ -28,8 +28,8 @@ namespace PL
         private MenuWindow customerListWindow;//brings the menu window of the customer list
 
         private int Index;
-        public int sizeH { get; set; }
-        public int sizeW { get; set; }
+        public int sizeH { get; set; }//hight of the window
+        public int sizeW { get; set; }//width of the window
 
         public CustomerWindow(BlApi.IBL bL, Customer customer)
         {
@@ -50,7 +50,7 @@ namespace PL
         /// <param name="drone">selected drone</param>
         /// <param name="_droneListWindow">access to the window</param>
         /// <param name="_Index">the drone index</param>
-        public CustomerWindow(BlApi.IBL bL, Customer customer, MenuWindow _customerListWindow, int _Index)
+        public CustomerWindow(BlApi.IBL bL, Customer customer, MenuWindow _customerListWindow, int _Index)//update ctor
         {
             bl = bL;
             Customer = customer;
@@ -73,7 +73,7 @@ namespace PL
         /// </summary>
         /// <param name="bL">BL object</param>
         /// <param name="droneListWindow">access to the window</param>
-        public CustomerWindow(BlApi.IBL bL, MenuWindow customerListWindow) : this(bL, new(), customerListWindow, 0)//sends to the other ctor
+        public CustomerWindow(BlApi.IBL bL, MenuWindow customerListWindow) : this(bL, new(), customerListWindow, 0)//sends to the add ctor
         {
             bl = bL;
             txtId.IsEnabled = true;
@@ -98,24 +98,21 @@ namespace PL
         /// <param name="e"> event</param>
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-           
             try
             {
-                
                 bl.UpdateCustomer(Customer);
-                
-                customerListWindow.customerToLists=new(bl.GetListCustomer());
-                customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
+                customerListWindow.customerToLists = new(bl.GetListCustomer());//updates the pl list of customers
+                customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;//updates the view list
                 MessageBox.Show("The customer has been updated successfully :)\n" + Customer.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
-
             }
             catch (Exception ex)//faild
             {
                 MessageBox.Show("Failed to update the customer: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
+
         /// <summary>
         /// add butten
         /// </summary>
@@ -135,16 +132,15 @@ namespace PL
                     //sending for add
                     bl.AddCustomer(Customer);
                     customerListWindow.customerToLists.Add(bl.GetListCustomer(c => c.Id == Customer.Id).Last());
-                    customerListWindow.customerToLists = new(bl.GetListCustomer().OrderBy(item => item.Id));
-                    customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
-
+                    customerListWindow.customerToLists = new(bl.GetListCustomer().OrderBy(item => item.Id));//Sort the list by ID
+                    customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;//updates the view list
                     //success
                     MessageBox.Show("The customer has been added successfully :)\n" + Customer.ToString());
                     _close = true;
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
                 }
             }
-            catch (AskRecoverExeption ex)
+            catch (AskRecoverExeption ex)//if the customer is recovering
             {
                 string message = ex.Message;
                 string caption = "Confirmation";
@@ -153,10 +149,10 @@ namespace PL
                 if (MessageBox.Show(message, caption, buttons, icon) == MessageBoxResult.Yes)
                 {
                     bl.CustonerRecover(Customer);
-                    customerListWindow.customerToLists.Add(bl.GetListCustomer(c => c.Id == Customer.Id).Last());
-                    customerListWindow.customerToLists.OrderBy(item => item.Id);
-                    customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
-                    
+                    customerListWindow.customerToLists.Add(bl.GetListCustomer(c => c.Id == Customer.Id).Last());//adds
+                    customerListWindow.customerToLists.OrderBy(item => item.Id);// Sort the list by ID
+                    customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;//updates the view list
+
                     //success
                     MessageBox.Show("The customer has been recovered successfully :)\n" + Customer.ToString());
                     _close = true;
@@ -173,6 +169,7 @@ namespace PL
                 MessageBox.Show("Failed to add the drone: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
+
         /// <summary>
         /// prevents from the user to enter letters in the id box
         /// </summary>
@@ -183,6 +180,7 @@ namespace PL
             System.Text.RegularExpressions.Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
         /// <summary>
         /// The function is prevent force closing
         /// </summary>
@@ -196,6 +194,12 @@ namespace PL
                 MessageBox.Show("You can't force close the window");
             }
         }
+
+        /// <summary>
+        /// shows the parcel that is by the customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Image_MouseDown_sent(object sender, MouseButtonEventArgs e)
         {
             if (Customer.FromCustomer.ToList().Count != 0)
@@ -203,6 +207,12 @@ namespace PL
             else
                 MessageBox.Show("The cutomer didn't send any parcels!");
         }
+
+        /// <summary>
+        /// shows the parcel that is sent to the customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Image_MouseDown_received(object sender, MouseButtonEventArgs e)
         {
             if (Customer.ToCustomer.ToList().Count != 0)
@@ -210,6 +220,7 @@ namespace PL
             else
                 MessageBox.Show("The cutomer didn't receive any parcels!");
         }
+
         /// <summary>
         /// remove button for removing a customer
         /// </summary>
@@ -219,15 +230,11 @@ namespace PL
         {
             try
             {
-              
                 bl.RemoveCustomer(Customer);
-
                 customerListWindow.customerToLists = new(bl.GetListCustomer());
-                customerListWindow.customerToLists.OrderBy(item => item.Id);
-                customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
-
+                customerListWindow.customerToLists.OrderBy(item => item.Id);// Sort the list by ID
+                customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;//updates the view list
                 MessageBox.Show("The customer has been removed successfully :)\n" + Customer.ToString());
-
                 _close = true;
                 Close();
             }
