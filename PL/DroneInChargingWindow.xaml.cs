@@ -15,14 +15,14 @@ using BO;
 
 namespace PL
 {
-   
+
     /// <summary>
     /// Interaction logic for DroneInChargingWindow.xaml
     /// </summary>
     public partial class DroneInChargingWindow : Window
     {
         public List<DroneInCharging> DroneInChargingLists;
-       
+
         BlApi.IBL bL;
         private bool _close { get; set; } = false;//for closing the window
         public DroneInChargingWindow(BlApi.IBL bl, List<DroneInCharging> droneInChargingLists)
@@ -32,8 +32,7 @@ namespace PL
             DroneInChargingLists = new List<DroneInCharging>();
             DroneInChargingLists = droneInChargingLists;
             DroneInChargingView.ItemsSource = DroneInChargingLists;
-           
         }
-        
+
     }
 }

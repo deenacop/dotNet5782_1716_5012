@@ -35,8 +35,8 @@ namespace PL
 
         private int Index;
 
-        public int sizeH { get; set; }
-        public int sizeW { get; set; }
+        public int sizeH { get; set; }//hight window
+        public int sizeW { get; set; }//width window
 
         BackgroundWorker AutoRun;
         private void UpdatedTask() => AutoRun.ReportProgress(0); // invokes report progress action for thread updating
@@ -83,7 +83,7 @@ namespace PL
                 droneListWindow.droneToLists = bl.GetDroneList();
                 CollectionView view;
                 PropertyGroupDescription groupDescription;
-                droneListWindow.GroupingDrone(out view, out groupDescription);
+                droneListWindow.GroupingDrone(out view, out groupDescription);//grouping the list
                 droneListWindow.DroneListView.Items.Refresh();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
@@ -111,7 +111,6 @@ namespace PL
                 CollectionView view;
                 PropertyGroupDescription groupDescription;
                 droneListWindow.GroupingDrone(out view, out groupDescription);
-                //droneListWindow.DroneListView.Items.Refresh();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -135,7 +134,7 @@ namespace PL
                 droneListWindow.droneToLists = bl.GetDroneList();
                 CollectionView view;
                 PropertyGroupDescription groupDescription;
-                droneListWindow.GroupingDrone(out view, out groupDescription);
+                droneListWindow.GroupingDrone(out view, out groupDescription);//grouping the list
                 droneListWindow.DroneListView.Items.Refresh();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
@@ -146,6 +145,7 @@ namespace PL
                 MessageBox.Show("Failed to send the drone to collect a parcel: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
+
         /// <summary>
         /// Click event- update - assign parcel to a drone
         /// </summary>
@@ -160,8 +160,6 @@ namespace PL
                 CollectionView view;
                 PropertyGroupDescription groupDescription;
                 droneListWindow.GroupingDrone(out view, out groupDescription);
-
-
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
@@ -171,6 +169,7 @@ namespace PL
                 MessageBox.Show("Failed to assign the drone to charge: " + ex.GetType().Name + "\n" + ex.Message);
             }
         }
+
         /// <summary>
         /// Click event - update - deliver parcel
         /// </summary>
@@ -214,6 +213,7 @@ namespace PL
 
             }
         }
+
         /// <summary>
         /// ctor for update
         /// </summary>
@@ -238,12 +238,12 @@ namespace PL
             InitializeComponent();
             this.droneListWindow = _droneListWindow;
             this.stationListWindow = _stationListWindow;
-
             comboWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
 
         }
         #endregion
+
         #region add
         /// <summary>
         /// ctor for add
@@ -283,11 +283,8 @@ namespace PL
                     PropertyGroupDescription groupDescription;
                     droneListWindow.GroupingDrone(out view, out groupDescription);
                     droneListWindow.droneToLists = bl.GetDroneList();
-                  
-                    
                     stationListWindow.stationToLists = bl.GetBaseStationList();
                     stationListWindow.SelectionAvailablity();//to update the stations list
-                                     
                     //succe
                     MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
 
@@ -295,7 +292,7 @@ namespace PL
                     try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
                 }
             }
-            catch (AskRecoverExeption ex)
+            catch (AskRecoverExeption ex)//to recover the deleted drone
             {
                 string message = ex.Message;
                 string caption = "Confirmation";
@@ -307,7 +304,6 @@ namespace PL
                     CollectionView view;
                     PropertyGroupDescription groupDescription;
                     droneListWindow.GroupingDrone(out view, out groupDescription);
-
                     droneListWindow.droneToLists = bl.GetDroneList();
                     stationListWindow.stationToLists = bl.GetBaseStationList();//to update the stations list
                     stationListWindow.SelectionAvailablity();
@@ -382,6 +378,11 @@ namespace PL
             Close();
         }
 
+        /// <summary>
+        /// to show the detailes of the drone with out changing anything
+        /// </summary>
+        /// <param name="bL"></param>
+        /// <param name="drone"></param>
         public DroneWindow(IBL bL, Drone drone)
         {
             bl = bL;
@@ -393,11 +394,13 @@ namespace PL
             comboWeight.IsEnabled = false;
             TXTModel.IsEnabled = false;
             btnUpdate.Visibility = Visibility.Hidden;
-
         }
 
-
-
+        /// <summary>
+        /// removes the drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -416,8 +419,13 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// simulation of the drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Automatic_Click(object sender, RoutedEventArgs e)
-        {         
+        {
             AutoRun = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
             AutoRun.DoWork += AutoRun_DoWork;
             AutoRun.ProgressChanged += AutoRun_ProgressChanged;
@@ -425,27 +433,45 @@ namespace PL
             AutoRun.RunWorkerAsync(Drone.Id);
         }
 
+        /// <summary>
+        /// stop the simulation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Regular_Click(object sender, RoutedEventArgs e)
         {
             AutoRun?.CancelAsync();
         }
 
+        /// <summary>
+        /// updates the drone and the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AutoRun_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-
             Drone = bl.GetDrone(Drone.Id);
             UpdateGrid.DataContext = Drone;
             CollectionView view;
             PropertyGroupDescription groupDescription;
             droneListWindow.GroupingDrone(out view, out groupDescription);
-
-
         }
 
+        /// <summary>
+        /// to start the simulation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AutoRun_DoWork(object sender, DoWorkEventArgs e)
         {
             bl.StartSimulation(Drone.Id, chekEnd, UpdatedTask);
         }
+
+        /// <summary>
+        /// message box that tells the user that the simulation has finished
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AutoRun_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             MessageBox.Show("Drone management moved to manual");

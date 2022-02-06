@@ -32,6 +32,7 @@ namespace PL
             Drone.Location = bl.GetDrone(drone.Id).Location;
             menuWindow = menu;
         }
+
         /// <summary>
         /// a click event- send to the DroneWindow if user like to see all details
         /// </summary>
