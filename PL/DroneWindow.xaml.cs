@@ -283,10 +283,12 @@ namespace PL
                     PropertyGroupDescription groupDescription;
                     droneListWindow.GroupingDrone(out view, out groupDescription);
                     droneListWindow.droneToLists = bl.GetDroneList();
+                  
+                    
                     stationListWindow.stationToLists = bl.GetBaseStationList();
                     stationListWindow.SelectionAvailablity();//to update the stations list
                                      
-                    //success
+                    //succe
                     MessageBox.Show("The drone has been added successfully :)\n" + Drone.ToString());
 
                     _close = true;

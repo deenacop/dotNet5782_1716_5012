@@ -123,6 +123,7 @@ namespace Dal
                 //customer already exist
                 throw new AlreadyExistedItemException("The customer already exists.\n");//checks if customer exists
             }
+            //builds a new customer
             XElement CustomerElem = new XElement("Customer",
                                  new XElement("Id", customer.Id),
                                  new XElement("Name", customer.Name),
@@ -131,11 +132,9 @@ namespace Dal
                                  new XElement("Latitude", customer.Latitude),
                                  new XElement("IsRemoved", customer.IsRemoved));
             customerXml.Add(CustomerElem);
-            XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
+            XMLTools.SaveListToXMLElement(customerXml, CustomerXml);//save in the file
             return true;
         }
-
-       
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void Add(User user)
@@ -155,7 +154,6 @@ namespace Dal
                 XMLTools.SaveListToXMLSerializer(customers, CustomerXml);
             }
             users.Add(user);
-            
             XMLTools.SaveListToXMLSerializer(users, UserXml);
         }
         #endregion
@@ -174,8 +172,6 @@ namespace Dal
             Drone drone = drones[index];
             drone.IsRemoved = true;
             drones[index] = drone;
-
-
             XMLTools.SaveListToXMLSerializer(drones, DroneXml);
         }
 
@@ -189,7 +185,7 @@ namespace Dal
             if (index == -1)
                 throw new AlreadyExistedItemException("The station already exists");
             Station station = stations[index];
-            station.IsRemoved = true;
+            station.IsRemoved = true;//delete
             stations[index] = station;
             XMLTools.SaveListToXMLSerializer(stations, StationXml);
         }
@@ -203,7 +199,7 @@ namespace Dal
             if (indexParcel == -1)
                 throw new ItemNotExistException("No parcel found with this id");
             Parcel newParcel = parcels[indexParcel];
-            newParcel.IsRemoved = true;
+            newParcel.IsRemoved = true;//delete
             parcels[indexParcel] = newParcel;
             XMLTools.SaveListToXMLSerializer(parcels, ParcelXml);
         }
@@ -218,7 +214,7 @@ namespace Dal
                                  select cus).FirstOrDefault();
             if (customer == null)
                 throw new ItemNotExistException("The customer does not exist.\n");
-
+            //builds a new deleted customer an replaces him with undeleted one
             XElement CustomerElem = new XElement("Customer",
                                  new XElement("Id", id),
                                  new XElement("Name", customer.Element("Name").Value),
@@ -226,8 +222,6 @@ namespace Dal
                                  new XElement("Longitude", customer.Element("Longitude").Value),
                                  new XElement("Latitude", customer.Element("Latitude").Value),
                                  new XElement("IsRemoved", true));
-
-
             customer.ReplaceWith(CustomerElem);
             XMLTools.SaveListToXMLElement(customerXml, CustomerXml);
 
@@ -305,7 +299,6 @@ namespace Dal
         {
             if (stations == null)
                 stations = XMLTools.LoadListFromXMLSerializer<Station>(StationXml);
-            
             //find the station
             int index = stations.FindIndex(i => i.Id == stationID);
             if (index == -1)
@@ -329,8 +322,6 @@ namespace Dal
             droneCharges.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
             XMLTools.SaveListToXMLSerializer(droneCharges, DroneChargeXml);
-            
-
             tmp.NumOfAvailableChargingSlots--;
             stations[index] = tmp;
             XMLTools.SaveListToXMLSerializer(stations, StationXml);
@@ -348,15 +339,12 @@ namespace Dal
             int index = stations.FindIndex(i => i.Id == baseStationID);
             if (index == -1)
                 throw new ItemNotExistException("The station does not exists");
-
             int indexDC = droneCharges.FindIndex(indexOfDroneCharges => indexOfDroneCharges.Id == droneID);//finds index where drone is
             if (indexDC == -1)//checks if drone exists
                 throw new ItemNotExistException("The drone does not exist.\n");
-
             Station station = stations[index];
             station.NumOfAvailableChargingSlots++;
             stations[index] = station;
-
             droneCharges.Remove(droneCharges[indexDC]);
             XMLTools.SaveListToXMLSerializer(stations, StationXml);
             XMLTools.SaveListToXMLSerializer(droneCharges, DroneChargeXml);
@@ -375,7 +363,6 @@ namespace Dal
                 throw new ItemNotExistException("Drone does not exist");
             drones[index] = drone;
             XMLTools.SaveListToXMLSerializer(drones, DroneXml);
-
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -388,20 +375,17 @@ namespace Dal
                 throw new ItemNotExistException("The station does not exist");
             stations[index] = station;
             XMLTools.SaveListToXMLSerializer(stations, StationXml);
-
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(int Id, string name = null, string phone = null, double lon = 0, double lat = 0)
         {
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
-
             XElement customer = (from cus in customerXml.Elements()
                                  where cus.Element("Id").Value == Id.ToString()
                                  select cus).FirstOrDefault();
             if (customer == null)
                 throw new ItemNotExistException("The customer does not exist.\n");
-
             XElement CustomerElem = new XElement("Customer",
                                  new XElement("Id", Id),
                                  new XElement("Name", name != null ? name : customer.Element("Name").Value),

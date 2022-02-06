@@ -96,6 +96,8 @@ namespace PL
             CollectionView view;
             PropertyGroupDescription groupDescription;
             GroupingDrone(out view, out groupDescription);
+            comboAvailableSlostSelector.ItemsSource = Enum.GetValues(typeof(AvailablityStation));
+            comboAvailableSlostSelector.SelectedIndex = 2;
             droneGif.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Collapsed;
@@ -225,10 +227,8 @@ namespace PL
         /// </summary>
         internal void SelectionAvailablity()
         {
-            if (comboAvailableSlostSelector.SelectedItem == null)
-            {
-                comboAvailableSlostSelector.SelectedItem = AvailablityStation.All;
-            }
+            if (comboAvailableSlostSelector.SelectedIndex == -1)
+                comboAvailableSlostSelector.SelectedIndex = 2;
             StationListView.ItemsSource = (AvailablityStation)comboAvailableSlostSelector.SelectedItem switch
             {
                 AvailablityStation.All => stationToLists,
