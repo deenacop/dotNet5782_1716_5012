@@ -55,4 +55,15 @@
     <Latitude>31.345</Latitude>
     <IsRemoved>false</IsRemoved>
   </User>
+  <User>
+    <Id>137348770</Id>
+    <Name>D</Name>
+    <PhoneNumber>0582302211</PhoneNumber>
+    <Password>12345678</Password>
+    <EmailAddress>dcopperm@g.jct.ac.il</EmailAddress>
+    <IsManager>false</IsManager>
+    <Longitude>35.7</Longitude>
+    <Latitude>0</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </User>
 </ArrayOfUser>

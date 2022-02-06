@@ -83,7 +83,7 @@ namespace Dal
                 else
                     throw new AlreadyExistedItemException("The customer already exists");
             }
-             catch (InvalidOperationException)//if isExistCustomer is null its mean that the drone that we want to add isnt exist
+            catch (InvalidOperationException)//if isExistCustomer is null its mean that the drone that we want to add isnt exist
             {
                 DataSource.Customers.Add(customer);
                 return true;
@@ -237,7 +237,7 @@ namespace Dal
             //adds
             DataSource.DroneCharges.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
-           
+
             tmp.NumOfAvailableChargingSlots--;
             DataSource.Stations[index] = tmp;
         }

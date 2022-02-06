@@ -48,36 +48,29 @@ namespace BL
             Customer customer = null;
             Maintenance maintenance = Maintenance.Finding;//available
 
-            void initDelivery(int Id)
+            void initDelivery(int Id)//if the drone is in delivery mode
             {
                 parcel = idal.GetParcel(Id);
                 baterryUsage = idal.ChargingDrone()[(int)((DO.Parcel)parcel).Weight + 1];
-                pickedUp = parcel.PickUp is not null;
-                customer = bl.GetCustomer((pickedUp ? parcel.Targetid : parcel.Sender));
+                pickedUp = parcel.PickUp is not null;//if the parcel isnt picked up, so pickup=null.
+                customer = bl.GetCustomer((pickedUp ? parcel.Targetid : parcel.Sender));//brings the customer the drone id at
+                //if he didnt pick up the parcel he is by the sender else he is by the sender
             }
-
             do
             { 
                 switch (drone)
                 {
                     case DroneToList { Status: DroneStatus.Available }:
                         if (!sleepDelayTime()) break;
-
                         lock (bl)
                         {
                             try
                             {
                                 bl.AssignParcelToDrone(bl.GetDrone(droneId));
-
                                 parcelId = drone.ParcelId;
-                               
                             }
-                            catch (ItemNotExistException)
-                            {
-
-                            }
-
-
+                            catch (ItemNotExistException) { }
+                      
                             //gets the list of stations 
                             List<BaseStation> BaseStationListBL = new();
                             IEnumerable<DO.Station> StationListDL = idal.GetListStation();//Receive the station list from the data layer.
@@ -93,12 +86,12 @@ namespace BL
                                 };
                             }
 
-                            switch (parcelId, drone.Battery)
+                            switch (parcelId, drone.Battery)//checks the drone's battery and parcel if they are null
                             {
-                                case (null, 100):
+                                case (null, 100)://no parcel and full battery
                                     drone.Status = DroneStatus.Available;
                                     break;
-                                case (null, _):
+                                case (null, _)://no parcel and not full battery
                                     StationId = bl.MinDistanceLocation(BaseStationListBL,drone.Location).Item3;
                                     if (StationId != null)
                                     {
@@ -108,7 +101,7 @@ namespace BL
                                         bl.dal.SendingDroneToChargingBaseStation(droneId, (int)StationId);
                                     }
                                     break;
-                                case (_, _):
+                                case (_, _)://parcel and not full battery
                                     try
                                     {
                                         initDelivery((int)parcelId);
@@ -153,9 +146,8 @@ namespace BL
                                         break;
                                     lock (Bl)
                                     {
-                                        double actualDistance = distance < WayTraveled ? distance : WayTraveled;
+                                        double actualDistance = distance < WayTraveled ? distance : WayTraveled;//checks if the drone has enough battery to do the delivery
                                         distance -= actualDistance;
-                                        // drone.Battery = Max(0.0, droneBattery - actualDistance * Bl.BatteryUsages[DRONE_FREE]);
                                         drone.Battery = (int)Math.Max(0, drone.Battery - ((int)Math.Round(actualDistance) * idal.ChargingDrone()[0]));
                                     }
                                 }
@@ -165,10 +157,8 @@ namespace BL
                                 if (drone.Battery == 100)
                                     lock (Bl)
                                     {
-
                                         Bl.ReleasingDroneFromBaseStation(bl.GetDrone(droneId));
                                         drone.Status = DroneStatus.Available;
-                                        
                                     }
                                 else
                                 {
@@ -176,7 +166,6 @@ namespace BL
                                         break;
                                     lock (Bl)
                                     {
-                                       
                                         double batteryCharge = (SECONDS_PASSED) * idal.ChargingDrone()[4];// we have to change the dronepwrusg
                                         drone.Battery = Math.Min(100, drone.Battery + (int)batteryCharge);
                                     }
@@ -192,6 +181,7 @@ namespace BL
                             initDelivery(drone.ParcelId);
                             distance = bl.DistanceCalculation(drone.Location, customer.Location);
                         }
+                        //checks if the drone has enough battery to do the delivery
                         if (distance < 0.01 || drone.Battery <= drone.Battery - bl.setBattery(drone.Battery,distance, pickedUp ? bl.GetParcel(parcel.Id).Weight +1 : WeightCategories.Light)+3 )
                             lock (Bl)
                             {
@@ -199,7 +189,6 @@ namespace BL
                                 if (pickedUp)
                                 {
                                     bl.DeliveryParcelByDrone(bl.GetDrone(droneId));
-                                    //bl.DeliverParcelByDrone((int)parcel?.Id);
                                     drone.Status = DroneStatus.Available;
                                     parcel = new();
                                     parcelId = null;
@@ -207,7 +196,6 @@ namespace BL
                                 else
                                 {
                                     bl.CollectionParcelByDrone(bl.GetDrone(droneId));
-                                    //Dal.parcelPickup((int)parcel ? Id);
                                     customer = Bl.GetCustomer(parcel.Targetid);
                                     pickedUp = true;
                                 }
@@ -216,7 +204,7 @@ namespace BL
                         {
                             if (!sleepDelayTime()) break;
                             lock (Bl)
-                            {
+                            {//updates the drone
                                 double actualDistance = distance < WayTraveled ? distance : WayTraveled;
                                 double Proportion = actualDistance / distance;
                                 int usg = pickedUp ? ((int)((DO.Parcel)parcel).Weight + 1) : 0;
@@ -236,7 +224,6 @@ namespace BL
         }
         private static bool sleepDelayTime()
         {
-            // try { Thread.Sleep(DELAY); }
             try { Thread.Sleep(DELAY); }
             catch (ThreadInterruptedException)
             {

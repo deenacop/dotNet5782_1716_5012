@@ -123,7 +123,7 @@
         
         
         
-        <Grid x:Name="AddGrid" Background="#FF0F4E7A" DataContext="{Binding Drone}" Grid.Column="1" Height="370" Visibility="Hidden"  >
+        <Grid x:Name="AddGrid" Background="#FF0F4E7A" DataContext="{Binding Drone}" Grid.Column="1" Height="330" Visibility="Hidden"  >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

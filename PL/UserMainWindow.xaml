@@ -44,7 +44,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.ColumnSpan="2" Content="plesce enter yours parcel details" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Foreground="White"  FontSize="13" FontFamily="Arial" BorderBrush="#FFF5E6E6" BorderThickness="1"/>
+                        <Label Grid.ColumnSpan="2" Content="please enter yours parcel details" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Foreground="White"  FontSize="13" FontFamily="Arial" BorderBrush="#FFF5E6E6" BorderThickness="1"/>
 
                         <Label Content="please choose the ID&#xA;of the recipient of the&#xA;parcel" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Foreground="White"  FontSize="9" FontFamily="Arial" />
                         <ComboBox x:Name="txtReciver"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" 

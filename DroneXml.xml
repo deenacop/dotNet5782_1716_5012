@@ -64,7 +64,7 @@
     <Id>124</Id>
     <Model>strike delivary</Model>
     <Weight>Light</Weight>
-    <IsRemoved>false</IsRemoved>
+    <IsRemoved>true</IsRemoved>
   </Drone>
   <Drone>
     <Id>456</Id>
@@ -112,6 +112,12 @@
     <Id>101</Id>
     <Model>xcvbn</Model>
     <Weight>Light</Weight>
+    <IsRemoved>true</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>889</Id>
+    <Model>AAB</Model>
+    <Weight>Heavy</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
 </ArrayOfDrone>

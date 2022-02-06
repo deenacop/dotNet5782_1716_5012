@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Customer>
     <Id>213085012</Id>
@@ -35,7 +35,7 @@
   <Customer>
     <Id>400638472</Id>
     <Name>Yossi Cohen</Name>
-    <PhoneNumber>0525678997</PhoneNumber>
+    <PhoneNumber>0525678998</PhoneNumber>
     <Longitude>35.99984202114858</Longitude>
     <Latitude>31.120998439901044</Latitude>
     <IsRemoved>false</IsRemoved>
@@ -111,5 +111,21 @@
     <Longitude>35.678</Longitude>
     <Latitude>31.345</Latitude>
     <IsRemoved>false</IsRemoved>
+  </Customer>
+  <Customer>
+    <Id>137348770</Id>
+    <Name>D</Name>
+    <PhoneNumber>0582302211</PhoneNumber>
+    <Longitude>35.7</Longitude>
+    <Latitude>0</Latitude>
+    <IsRemoved>false</IsRemoved>
+  </Customer>
+  <Customer>
+    <Id>123456777</Id>
+    <Name>gnm,</Name>
+    <PhoneNumber>3456789</PhoneNumber>
+    <Longitude>35.9</Longitude>
+    <Latitude>31.4</Latitude>
+    <IsRemoved>true</IsRemoved>
   </Customer>
 </ArrayOfCustomer>
