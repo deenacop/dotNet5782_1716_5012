@@ -221,9 +221,11 @@ namespace PL
             {
               
                 bl.RemoveCustomer(Customer);
+
                 customerListWindow.customerToLists = new(bl.GetListCustomer());
+                customerListWindow.customerToLists.OrderBy(item => item.Id);
                 customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
-               
+
                 MessageBox.Show("The customer has been removed successfully :)\n" + Customer.ToString());
 
                 _close = true;

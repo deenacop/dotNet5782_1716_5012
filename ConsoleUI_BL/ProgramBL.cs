@@ -72,7 +72,7 @@ namespace ConsoleUI_BL
                                         newDrone.Id = ID;
                                         Console.WriteLine("Enter the drone model");
                                         newDrone.Model = Console.ReadLine();
-                                        Console.WriteLine("Choose the drone Weight: 1 for light, 2 for midium, and 3 for heavy");
+                                        Console.WriteLine("Choose the drone Weight: 0 for light, 1 for midium, and 2 for heavy");
                                         int.TryParse(Console.ReadLine(), out int status);
                                         newDrone.Weight = (WeightCategories)status;
                                         Console.WriteLine("Enter the ID station which in you want to charge the new drone (4 digits) -from the list:");
@@ -117,7 +117,7 @@ namespace ConsoleUI_BL
                                         foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.Id); }
                                         int.TryParse(Console.ReadLine(), out ID);
                                         newParcel.TargetidCustomer.Id = ID;
-                                        Console.WriteLine("Choose the parcel Weight: 1 for light, 2 for midium, and 3 for heavy");
+                                        Console.WriteLine("Choose the parcel Weight: 0 for light, 1 for midium, and 2 for heavy");
                                         int.TryParse(Console.ReadLine(), out status);
                                         newParcel.Weight = (WeightCategories)status;
                                         Console.WriteLine("Enter the parcel priority");
@@ -168,7 +168,7 @@ namespace ConsoleUI_BL
                                           
                                             tmp.Model = model;
                                             bl.UpdateDrone(tmp);
-                                            bl.RemoveDrone(tmp);
+                                            
                                             break;
                                         }
 
@@ -189,7 +189,7 @@ namespace ConsoleUI_BL
                                             if (ansNum != 0)
                                                 tmp.NumOfAvailableChargingSlots = ansNum;
                                             bl.UpdateStation(tmp);
-                                            bl.RemoveStation(tmp);
+                                          
                                             break;
                                         }
 
@@ -211,7 +211,7 @@ namespace ConsoleUI_BL
                                             if (ansPhone != null)
                                                 tmp.PhoneNumber = ansPhone;
                                             bl.UpdateCustomer(tmp);
-                                            bl.RemoveCustomer(tmp);
+                                           
                                             break;
                                         }
                                     case (int)UpdateOptions.SendDroneToCharge:

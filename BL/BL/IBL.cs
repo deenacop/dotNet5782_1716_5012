@@ -14,15 +14,30 @@ namespace BlApi
         /// <param name="stop">delegate to stop simulation</param>
         public void StartSimulation(int droneId, Func<bool> func, Action action);
 
-
+        /// <summary>
+        /// The function regulates the battery and takes into account the weight and battery consumption accordingly
+        /// </summary>
+        /// <param name="battery">the battery that need to be set</param>
+        /// <param name="distance"></param>
+        /// <param name="weight"></param>
+        /// <returns>the drones battery</returns>
         public int setBattery(int battery, double distance, WeightCategories weight);
 
+        /// <summary>
+        /// A function that calculates the distance between two coordinates on the map
+        /// </summary>
+        /// <param name="from">The location from were we want to calculate the distance</param>
+        /// <param name="to">The location to were we want to calculate</param>
+        /// <returns>returns the distance</returns>
         public double DistanceCalculation(Location from, Location to);
 
+        /// <summary>
+        /// Finds the minimum distance from a station to a location
+        /// </summary>
+        /// <param name="BaseStationListBL">list of stationBL</param>
+        /// <param name="location">current location</param>
+        /// <returns>Item 1:location/Item 2:distance/Item 3:StationID</returns>
         public (Location, double, int) MinDistanceLocation(List<BaseStation> BaseStationListBL, Location location);
-
-
-
 
         #region add
         /// <summary>
@@ -60,6 +75,7 @@ namespace BlApi
         /// <exception cref="BlApi.BO.WrongIDException"></exception>
         /// <exception cref="BlApi.BO.AlreadyExistedItemException"></exception>
         void AddParcel(Parcel parcel);
+
         /// <summary>
         /// Add a user to the list of users in the IDAL
         /// </summary>
@@ -74,24 +90,31 @@ namespace BlApi
         /// Removes the drone from the list
         /// </summary>
         /// <param name="drone">the drone that needs to be removed</param>
+        /// <exception cref="BO.ItemCouldNotBeRemoved"></exception>
+        /// <exception cref="BO.ItemNotExistException"></exception>
         void RemoveDrone(Drone drone);
 
         /// <summary>
         /// Removes the parcel from the list
         /// </summary>
         /// <param name="parcel">the parcel that needs to be removed</param>
+        /// <exception cref="BO.ItemCouldNotBeRemoved"></exception>
+        /// <exception cref="BO.ItemNotExistException"></exception>
         void RemoveParcel(Parcel parcel);
 
         /// <summary>
         /// Removes the customer from the list
         /// </summary>
         /// <param name="customer">the customer that needs to be removed</param>
+        /// <exception cref="BO.ItemNotExistException"></exception>
         void RemoveCustomer(Customer customer);
 
         /// <summary>
         /// Removes the baseStation from the list
         /// </summary>
         /// <param name="baseStation">the baseStation that needs to be removed</param>
+        /// <exception cref="BO.ItemCouldNotBeRemoved"></exception>
+        /// <exception cref="BO.ItemNotExistException"></exception>
         void RemoveStation(BaseStation baseStation);
 
         #endregion
@@ -223,7 +246,7 @@ namespace BlApi
         /// </summary>
         /// <param name="mail">the user mail</param>
         /// <exception cref="BlApi.BO.ItemNotExistException"></exception>
-        void updateUser(string mail,string password);
+        void updateUser(string mail, string password);
 
         #endregion
 
@@ -266,12 +289,28 @@ namespace BlApi
         #endregion
 
         #region recover
+        /// <summary>
+        /// this function adds a drone that already has been removed 
+        /// </summary>
+        /// <param name="drone">the drone that is added</param>
+        /// <param name="stationID">the station in which he is charging</param>
+        /// <exception cref="BO.ItemNotExistException"></exception>
         public void DroneRecover(Drone drone, int stationID);
+
+        /// <summary>
+        /// this function adds a customer that already has been removed 
+        /// </summary>
+        /// <param name="customer">the customer that is added</param>
+        /// <exception cref="BO.ItemNotExistException"></exception>
         public void CustonerRecover(Customer customer);
+
+        /// <summary>
+        /// this function adds a station that already has been removed 
+        /// </summary>
+        /// <param name="station">the station that is added</param>
+        /// <exception cref="BO.ItemNotExistException"></exception>
         public void StationRecover(BaseStation station);
         #endregion
-
-       
 
     }
 }

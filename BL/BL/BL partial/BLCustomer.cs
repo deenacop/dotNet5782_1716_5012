@@ -13,7 +13,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
-            if (CheckNumOfDigits(customer.Id) != 9)//בדיקה
+            if (CheckNumOfDigits(customer.Id) != 9)//Input check
                 throw new WrongIDException("Bad custumer ID");
             if (customer.Location.Latitude < 31 || customer.Location.Latitude > 32
              || customer.Location.Longitude < 35 || customer.Location.Longitude > 36)//Checking that the location is in the allowed range (Jerusalem area)
@@ -34,9 +34,9 @@ namespace BL
                     if (!dal.Add(customerDO))//calls the function from DALOBJECT
                         throw new AskRecoverExeption($"The customer has been deleted. Are you sure you want to recover? ");
                 }
-                catch (ItemAlreadyExistsException ex)
+                catch (ItemNotExistException ex)
                 {
-                    throw new ItemAlreadyExistsException(ex.Message);
+                    throw new ItemNotExistException(ex.Message);
                 }
             }
         }
@@ -46,9 +46,17 @@ namespace BL
         {//a fanction that recover a customer
             lock (dal)
             {
-                dal.UpdateCustomer(customer.Id, customer.Name, customer.PhoneNumber
-                    , customer.Location.Longitude, customer.Location.Latitude); //calls the function from DALOBJECT
+                try
+                {
+                    dal.UpdateCustomer(customer.Id, customer.Name, customer.PhoneNumber
+                        , customer.Location.Longitude, customer.Location.Latitude); //calls the function from DALOBJECT
+                }
+                catch(ItemNotExistException ex)
+                {
+                    throw new ItemNotExistException(ex.Message);
+                }
             }
+
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -68,9 +76,8 @@ namespace BL
                     customerDO.Latitude = customer.Location.Latitude;
                     customerDO.Longitude = customer.Location.Longitude;
                     dal.RemoveCustomer(customerDO.Id);
-
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }
@@ -92,7 +99,7 @@ namespace BL
                     customer.CopyPropertiesTo(Listcustomer);
                     dal.UpdateCustomer(customer.Id, customer.Name, customer.PhoneNumber);//calls the function from DALOBJECT
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }
@@ -116,7 +123,7 @@ namespace BL
                         Latitude = customerDO.Latitude
                     };
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }

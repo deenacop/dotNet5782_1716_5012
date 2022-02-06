@@ -8,7 +8,6 @@ using System.Runtime.CompilerServices;
 
 namespace BL
 {
-    
     internal partial class BL : IBL
     {
         //Variables into which we will later enter the data on battery consumption
@@ -18,17 +17,13 @@ namespace BL
                carriesHeavyWeight,
                droneLoadingRate;
 
-        internal  DalApi.IDal dal = DalFactory.GetDal();//instance of IDal
+        internal DalApi.IDal dal = DalFactory.GetDal();//instance of IDal
         private static readonly Lazy<BL> instance = new Lazy<BL>(() => new BL()); //Lazy initialization of an object means that its creation is deferred until it is first used.
-
         public static BL Instance { get { return instance.Value; } }// The internal Instance property to use
-
-
         List<DroneToList> DronesBL;//The list of drones that we will maintain throughout the project
-        //I chose to use the list and not IEnumerable, because IEnumerable mainly intended for viewing records and not for * maintaining * lists.
-        //The purpose of this list is to maintain the list of drones in the logical layer - the BL layer-  so I used the list!
+                                   //I chose to use the list and not IEnumerable, because IEnumerable mainly intended for viewing records and not for * maintaining * lists.
+                                   //The purpose of this list is to maintain the list of drones in the logical layer - the BL layer-  so I used the list!
 
-        //static BL() { }// default => private
         [MethodImpl(MethodImplOptions.Synchronized)]
         private BL()
         {
@@ -112,7 +107,7 @@ namespace BL
                 #endregion
                 //If the drone is not currently shipping(אם הרחפן לא מבצע משלוח):
                 catch (InvalidOperationException) //available or maintenance(פנוי / תחזוקה)
-                {                                                                                                 
+                {
                     #region In maintenance mode
                     try
                     {
@@ -160,9 +155,9 @@ namespace BL
             }
         }
 
-        public void StartSimulation(int droneId, Func<bool> func,Action action)
+        public void StartSimulation(int droneId, Func<bool> func, Action action)
         {
-            new Simulation(this, droneId,func, action); 
+            new Simulation(this, droneId, func, action);//sinds the drone to simulation
         }
     }
 }

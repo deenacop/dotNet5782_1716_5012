@@ -11,14 +11,14 @@ namespace DalApi
         /// Add a drone
         /// </summary>
         /// <param name="drone">The new drone that will be added to the list of drones</param>
-        ///<exception cref="DalObject.AlreadyExistedItemException"></exception>
+        ///<exception cref="AlreadyExistedItemException"></exception>
         public bool Add(Drone drone);
 
         /// <summary>
         /// Add a station
         /// </summary>
         /// <param name="station">The new station that will be added to the list of stations</param>
-        ///<exception cref="DalObject.AlreadyExistedItemException"></exception>
+        ///<exception cref="AlreadyExistedItemException"></exception>
         ///
         public bool Add(Station station);
 
@@ -32,7 +32,7 @@ namespace DalApi
         /// Add a customer
         /// </summary>
         /// <param name="customer">The new Customer that will be added to the list of customer</param>
-        /// <exception cref="DalObject.AlreadyExistedItemException>"
+        /// <exception cref="AlreadyExistedItemException>"
         public bool Add(Customer customer);
         /// <summary>
         /// Add a user
@@ -47,7 +47,7 @@ namespace DalApi
         /// Remove a drone
         /// </summary>
         /// <param name="drone">The new drone that will be removeed to the list of drones</param>
-        ///<exception cref="DalObject.AlreadyExistedItemException"></exception>
+        ///<exception cref="DO.ItemNotExistException"></exception>
         public void RemoveDrone(int id);
 
 
@@ -55,7 +55,7 @@ namespace DalApi
         /// Remove a station
         /// </summary>
         /// <param name="station">The new station that will be removeed to the list of stations</param>
-        ///<exception cref="DalObject.AlreadyExistedItemException"></exception>
+        ///<exception cref="DO.ItemNotExistException"></exception>
         ///
         public void RemoveStation(int id);
 
@@ -63,13 +63,14 @@ namespace DalApi
         /// Remove a new parcel
         /// </summary>
         /// <param name="parcel">The new parcel that will be removeed to the list of parcels</param>
+        /// <exception cref="DO.ItemNotExistException"></exception>
         public void RemoveParcel(int id);
 
         /// <summary>
         /// Remove a customer
         /// </summary>
         /// <param name="customer">The new Customer that will be removeed to the list of customer</param>
-        /// <exception cref="DalObject.AlreadyExistedItemException>"
+        /// <exception cref="DO.ItemNotExistException"></exception>
         public void RemoveCustomer(int id);
         
        
@@ -85,6 +86,7 @@ namespace DalApi
         /// <exception cref="DalObject.ItemNotExistException"></exception>
         /// <exception cref="DalObject.ItemNotExistException"></exception>
         public void AssignParcelToDrone(int parcelID, int droneID);
+
         /// <summary>
         /// Collection of a requested parcel (by a drone)
         /// </summary>
@@ -99,6 +101,7 @@ namespace DalApi
         /// <param name="parcelID">The parcel that needs to be collected</param>
         /// <exception cref="DalObject.ItemNotExistException"></exception>
         public void DeliveryParcelToCustomer(int parcelID);
+
         /// <summary>
         /// Sending drone to charging base station
         /// </summary>
@@ -123,6 +126,7 @@ namespace DalApi
         /// Puts the updated drone on the list in IDAL
         /// </summary>
         /// <param name="drone">the update drone</param>
+        /// <exception cref="ItemNotExistException"></exception>
         void UpdateDrone(Drone drone);
 
         /// <summary>
@@ -130,21 +134,22 @@ namespace DalApi
         /// </summary>
         /// <param name="station">the update station</param>
         /// <param name="numOfSlots">new number of slots</param>
-        /// <exception cref="DalObject.ItemNotExistException"></exception>
+        /// <exception cref="ItemNotExistException"></exception>
         public void UpdateStation(Station station);
 
         /// <summary>
         /// Puts the updated customer on the list in IDAL
         /// </summary>
         /// <param name="customer">the update customer</param>
-        /// <exception cref="DalObject.ItemNotExistException"></exception>
+        /// <exception cref="ItemNotExistException"></exception>
         public void UpdateCustomer(int Id, string name = null, string phone = null, double lon = 0, double lat = 0);
+
         /// <summary>
         /// Update the user password
         /// </summary>
         /// <param name="mail">the user mail</param>
         /// <param name="password">the new password</param>
-        /// <exception cref="DalObject.ItemNotExistException"></exception>
+        /// <exception cref="ItemNotExistException"></exception>
         public void updateUser(string mail, string password);
 
         #endregion

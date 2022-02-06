@@ -155,7 +155,7 @@ namespace PL
         {
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
             if (drone != null)
-                new DroneWindow(bL, bL.GetDrone(drone.Id), this, 1).Show();
+                new DroneWindow(bL, bL.GetDrone(drone.Id), this,this, 1).Show();
             // DroneListView.ItemsSource = bL.GetDroneList();
         }
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -272,7 +272,7 @@ namespace PL
             //check which grid is currently open
             if (menuListView.SelectedItem == drone)
             {
-                new DroneWindow(bL, this).Show();
+                new DroneWindow(bL, this, this).Show();
             }
             if (menuListView.SelectedItem == customer)
             {

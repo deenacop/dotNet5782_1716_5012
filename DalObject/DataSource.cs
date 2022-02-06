@@ -33,7 +33,7 @@ namespace Dal
             static internal double CarriesLightWeight = 5;//per km
             static internal double CarriesMediumWeight = 8;//per km
             static internal double CarriesHeavyWeight = 10;//per km
-            static internal double DroneLoadingRate = 20;//per min
+            static internal double DroneLoadingRate = 10;//per min
         }
 
         /// <summary>
@@ -73,14 +73,14 @@ namespace Dal
             Drones.Insert(0, new()
             {
                 Id = 746,
-                Model=modelArr[0],
-                Weight= WeightCategories.Heavy,
+                Model = modelArr[0],
+                Weight = WeightCategories.Heavy,
                 IsRemoved = false
             });
             Drones.Insert(1, new()
             {
                 Id = 138,
-                Model= modelArr[1],
+                Model = modelArr[1],
                 Weight = WeightCategories.Heavy,
                 IsRemoved = false
             });
@@ -243,14 +243,14 @@ namespace Dal
             {
                 BaseStationID = Stations[0].Id,
                 Id = 746,
-                EnterToChargBase = new DateTime( 2022,1,9),
+                EnterToChargBase = new DateTime(2022, 1, 9),
                 IsRemoved = false
             });
             DroneCharges.Insert(0, new()
             {
                 BaseStationID = Stations[1].Id,
                 Id = 138,
-                EnterToChargBase = new DateTime(2022, 1,8 ),
+                EnterToChargBase = new DateTime(2022, 1, 8),
                 IsRemoved = false
             });
             #endregion
@@ -276,19 +276,7 @@ namespace Dal
                 Latitude = 31.4
             });
             #endregion
-
-            //XMLTools.SaveListToXMLSerializer(Drones, DroneXml);
-            //XMLTools.SaveListToXMLSerializer(Parcels, ParcelXml);
-            //XMLTools.SaveListToXMLSerializer(Stations, StationXml);
-            //XMLTools.SaveListToXMLSerializer(DroneCharges, DroneChargeXml);
-            //XMLTools.SaveListToXMLSerializer(Customers, CustomerXml);
-
         }
-        //private static string DroneXml = @"DroneXml.xml";
-        //private static string ParcelXml = @"ParcelXml.xml";
-        //private static string StationXml = @"StationXml.xml";
-        //private static string DroneChargeXml = @"DroneChargeXml.xml";
-        //private static string CustomerXml = @"CustomerXml.xml";
     }
 }
 

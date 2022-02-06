@@ -83,7 +83,7 @@ namespace Dal
                 else
                     throw new AlreadyExistedItemException("The customer already exists");
             }
-             catch (InvalidOperationException)//if isExistCustomer is null its mean that the drone that we want to add isnt exist
+            catch (InvalidOperationException)//if isExistCustomer is null its mean that the drone that we want to add isnt exist
             {
                 DataSource.Customers.Add(customer);
                 return true;
@@ -224,6 +224,9 @@ namespace Dal
             index = DataSource.Stations.FindIndex(i => i.Id == stationID);
             if (index == -1 || DataSource.Stations[index].IsRemoved)//not found
                 throw new ItemNotExistException("The station does not exists");
+            Station tmp = DataSource.Stations[index];
+            if (tmp.NumOfAvailableChargingSlots == 0)
+                throw new NegetiveException("There is no available slots in this current station. Try a different station");
             //creates a new varible of drone charge
             DroneCharge ChargingDroneBattery = new()
             {
@@ -234,7 +237,7 @@ namespace Dal
             //adds
             DataSource.DroneCharges.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
-            Station tmp = DataSource.Stations[index];
+
             tmp.NumOfAvailableChargingSlots--;
             DataSource.Stations[index] = tmp;
         }

@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 namespace Dal
 {
     internal sealed class DalXml : IDal
-    {
+    {//files
         private static string DroneXml = @"DroneXml.xml";
         private static string ParcelXml = @"ParcelXml.xml";
         private static string StationXml = @"StationXml.xml";
@@ -25,7 +25,7 @@ namespace Dal
         static internal double CarriesLightWeight = 5;//per km
         static internal double CarriesMediumWeight = 8;//per km
         static internal double CarriesHeavyWeight = 10;//per km
-        static internal double DroneLoadingRate = 20;//per min
+        static internal double DroneLoadingRate = 10;//per min
 
 
         #region singelton
@@ -43,17 +43,6 @@ namespace Dal
 
 
         internal static DalXml Instance { get { return instance.Value; } }
-
-        //static DalXml()
-        //{
-        //    XElement rootElem = new XElement("configLists", new XElement("RunnerIDNumParcels", 100010),
-        //        new XElement("pwrUsgEmpty", vacant),
-        //        new XElement("pwrUsgLight", CarriesLightWeight),
-        //        new XElement("pwrUsgMedium", CarriesMediumWeight),
-        //        new XElement("pwrUsgHeavy", CarriesHeavyWeight),
-        //        new XElement("chargePH", DroneLoadingRate));
-        //    XMLTools.SaveListToXMLElement(rootElem, "config.xml");
-        //}
         private DalXml() { }//ctor
 
         #endregion
@@ -166,6 +155,7 @@ namespace Dal
                 XMLTools.SaveListToXMLSerializer(customers, CustomerXml);
             }
             users.Add(user);
+            
             XMLTools.SaveListToXMLSerializer(users, UserXml);
         }
         #endregion
@@ -315,13 +305,17 @@ namespace Dal
         {
             if (stations == null)
                 stations = XMLTools.LoadListFromXMLSerializer<Station>(StationXml);
-            //checks if the drone exists and if not throws an exception
-            if (!XMLTools.LoadListFromXMLSerializer<Drone>(DroneXml).Exists(i => i.Id == droneID))
-                throw new ItemNotExistException("The drone does not exists");
+            
             //find the station
             int index = stations.FindIndex(i => i.Id == stationID);
             if (index == -1)
                 throw new ItemNotExistException("The station does not exists");
+            Station tmp = stations[index];
+            if (tmp.NumOfAvailableChargingSlots == 0)
+                throw new NegetiveException("There is no available slots in this current station. Try a different station");
+            //checks if the drone exists and if not throws an exception
+            if (!XMLTools.LoadListFromXMLSerializer<Drone>(DroneXml).Exists(i => i.Id == droneID))
+                throw new ItemNotExistException("The drone does not exists");
             //creates a new varible of drone charge
             DroneCharge ChargingDroneBattery = new()
             {
@@ -335,7 +329,8 @@ namespace Dal
             droneCharges.Add(ChargingDroneBattery);
             //up dates the number of available charging slots
             XMLTools.SaveListToXMLSerializer(droneCharges, DroneChargeXml);
-            Station tmp = stations[index];
+            
+
             tmp.NumOfAvailableChargingSlots--;
             stations[index] = tmp;
             XMLTools.SaveListToXMLSerializer(stations, StationXml);

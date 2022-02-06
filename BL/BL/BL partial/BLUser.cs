@@ -56,7 +56,7 @@ namespace BL
                     userDO.CopyPropertiesTo(userBO);
                     return userBO;
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }
@@ -73,7 +73,7 @@ namespace BL
                 {
                     dal.updateUser(mail, password);
                 }
-                catch (Exception ex)
+                catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
                 }

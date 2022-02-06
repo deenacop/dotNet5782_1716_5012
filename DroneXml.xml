@@ -13,12 +13,6 @@
     <IsRemoved>false</IsRemoved>
   </Drone>
   <Drone>
-    <Id>138</Id>
-    <Model>Yuneec H520</Model>
-    <Weight>Heavy</Weight>
-    <IsRemoved>false</IsRemoved>
-  </Drone>
-  <Drone>
     <Id>903</Id>
     <Model>3D Robotics Solo</Model>
     <Weight>Medium</Weight>
@@ -50,9 +44,9 @@
   </Drone>
   <Drone>
     <Id>123</Id>
-    <Model>shiraa</Model>
-    <Weight>Medium</Weight>
-    <IsRemoved>true</IsRemoved>
+    <Model>AAA</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
   </Drone>
   <Drone>
     <Id>333</Id>
@@ -70,6 +64,60 @@
     <Id>124</Id>
     <Model>strike delivary</Model>
     <Weight>Light</Weight>
+    <IsRemoved>true</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>456</Id>
+    <Model>mavik</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>890</Id>
+    <Model>SSS</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>600</Id>
+    <Model>ZZZ</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>900</Id>
+    <Model>WWW</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>true</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>111</Id>
+    <Model>ZSW</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>400</Id>
+    <Model>fgh</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>100</Id>
+    <Model>xcvbn</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>101</Id>
+    <Model>xcvbn</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>true</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>889</Id>
+    <Model>AAB</Model>
+    <Weight>Heavy</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
 </ArrayOfDrone>
