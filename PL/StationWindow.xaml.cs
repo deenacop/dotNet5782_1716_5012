@@ -31,20 +31,7 @@ namespace PL
         public int sizeH { get; set; }
         public int sizeW { get; set; }
         private bool _close { get; set; } = false;//for closing the window
-
-
         private MenuWindow stationListWindow;
-        //public StationWindow(BlApi.IBL bL, MenuWindow _stationListWindow)
-        //{
-
-        //    bl = bL;
-        //    Station = new();
-        //    Station.Location = new();
-        //    Station.DronesInCharging = new();
-        //    DataContext = this;
-        //    InitializeComponent();
-        //    this.stationListWindow = _stationListWindow;
-        //}
 
         /// <summary>
         /// ctor for update
@@ -57,7 +44,7 @@ namespace PL
         {
             bl = bL;
             Station = station;
-           
+
             Index = _Index;
             if (_Index == 0)
             {
@@ -79,16 +66,12 @@ namespace PL
         /// <param name="droneListWindow">access to the window</param>
         public StationWindow(BlApi.IBL bL, MenuWindow stationListWindow) : this(bL, new(), stationListWindow, 0)//sends to the other ctor
         {
-            //Station.DronesInCharging = new();
             txtId.IsEnabled = true;
             //show the add grid
             AddGrid.Visibility = Visibility.Visible;
             UpdateGrid.Visibility = Visibility.Hidden;
-            //btnUpdate.Visibility = Visibility.Collapsed;
-            
         }
 
-        #region
         /// <summary>
         /// add butten
         /// </summary>
@@ -172,7 +155,6 @@ namespace PL
                 MessageBox.Show("You can't force close the window");
             }
         }
-        #endregion
 
         /// <summary>
         /// Cancel button - closes a window
@@ -207,9 +189,14 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// view the drone in charging
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Image_MouseDown(object sender, RoutedEventArgs e)
         {
-            if(Station.DronesInCharging.ToList().Count!=0)
+            if (Station.DronesInCharging.ToList().Count != 0)
                 new DroneInChargingWindow(bl, Station.DronesInCharging.ToList()).Show();
             else
                 MessageBox.Show("No drone are charging in this station ");

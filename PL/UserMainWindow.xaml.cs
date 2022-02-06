@@ -32,7 +32,11 @@ namespace PL
         IEnumerable<ParcelByCustomer> ParcelListTo;
         IEnumerable<ParcelByCustomer> ParcelListFrom;
         private bool _close { get; set; } = false;//for closing the window
-
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="User"></param>
         public UserMainWindow(BlApi.IBL bl, User User)
         {
             user = User;
@@ -52,6 +56,9 @@ namespace PL
             ParcelByCustomerView1.ItemsSource = ParcelListTo;
             GroupingParcel();
         }
+        /// <summary>
+        /// grouping the parcels of the user by its status
+        /// </summary>
         internal void GroupingParcel()
         {
             ParcelListTo = bL.GetCustomer(user.Id).ToCustomer.ToList(); ;//we want that all the items will be sorted by ID
@@ -65,6 +72,11 @@ namespace PL
             groupDescription = new PropertyGroupDescription("Status");
             view.GroupDescriptions.Add(groupDescription);
         }
+        /// <summary>
+        /// log out
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -76,6 +88,11 @@ namespace PL
 
         }
 
+        /// <summary>
+        /// add a parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             if (comboPrioritySelector.SelectedItem == null || txtReciver == null || comboWeightSelector == null)
@@ -106,6 +123,12 @@ namespace PL
                 }
             }
         }
+
+        /// <summary>
+        /// show an individual prcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ParcelByCustomer parcelFrom = (ParcelByCustomer)ParcelByCustomerView.SelectedItem;

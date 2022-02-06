@@ -17,12 +17,19 @@ namespace PL
 {
     /// <summary>
     /// Interaction logic for ParcelInTransferWindow.xaml
+    /// To view a package in delivery
     /// </summary>
     public partial class ParcelInTransferWindow : Window
     {
         BlApi.IBL bL;
         MenuWindow menuWindow;
-        ParcelInTransfer parcelInTransfer; 
+        ParcelInTransfer parcelInTransfer;
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="parcelIn"></param>
+        /// <param name="bl"></param>
+        /// <param name="menu"></param>
         public ParcelInTransferWindow(ParcelInTransfer parcelIn, BlApi.IBL bl, MenuWindow menu)
         {
             InitializeComponent();
@@ -31,13 +38,20 @@ namespace PL
             bL = bl;
             menuWindow = menu;
         }
-        
-
+        /// <summary>
+        /// view the sender customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Image_MouseDown_sender(object sender, MouseButtonEventArgs e)
         {
-            new CustomerInParcelWindow(parcelInTransfer.SenderCustomer,bL, menuWindow).Show();
+            new CustomerInParcelWindow(parcelInTransfer.SenderCustomer, bL, menuWindow).Show();
         }
-
+        /// <summary>
+        /// view the rerciever customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Image_MouseDown_receiver(object sender, MouseButtonEventArgs e)
         {
             new CustomerInParcelWindow(parcelInTransfer.ReceiverCustomer, bL, menuWindow).Show();

@@ -37,6 +37,10 @@ namespace PL
         double panelWidth;
         bool hidden;//menu is open or close
         private bool _close { get; set; } = false;//for closing the window
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="bl"></param>
         public MenuWindow(BlApi.IBL bl)
         {
             bL = bl;
@@ -49,6 +53,15 @@ namespace PL
         }
 
         #region menu open and close
+        /// <summary>
+        /// Open the menu.
+        /// If the user presses, the timer immediately starts running.
+        /// Until it reaches its maximum size the Boolean variable does not change. 
+        /// When the Boolean variable arrives, the variable changes and the clock stops.
+        /// And vice versa for closing a menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
             if (hidden)
@@ -70,7 +83,11 @@ namespace PL
                 }
             }
         }
-
+        /// <summary>
+        /// start the timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             timer.Start();
@@ -78,6 +95,11 @@ namespace PL
         #endregion
 
         #region logOut item selected
+        /// <summary>
+        /// user select log out
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void logOut_Selected(object sender, RoutedEventArgs e)
         {
             _close = true;
@@ -90,6 +112,11 @@ namespace PL
         #endregion
 
         #region drone item selected
+        /// <summary>
+        /// user select drone view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void drone_Selected(object sender, RoutedEventArgs e)
         {
             //grouping by status
@@ -112,18 +139,20 @@ namespace PL
         /// <param name="groupDescription"></param>
         internal void GroupingDrone(out CollectionView view, out PropertyGroupDescription groupDescription)
         {
-            droneToLists = bL.GetDroneList().OrderBy(i => i.Status).ThenBy(i=>i.Id);//we want the items be sorted by ID
+            droneToLists = bL.GetDroneList().OrderBy(i => i.Status).ThenBy(i => i.Id);//we want the items be sorted by ID
             DroneListView.ItemsSource = droneToLists;
             view = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
             groupDescription = new PropertyGroupDescription("Status");
             view.GroupDescriptions.Add(groupDescription);
         }
-
+        /// <summary>
+        /// display an individual drone
+        /// </summary>
         private void DroneListViewSelectedItem()
         {
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
             if (drone != null)
-                new DroneWindow(bL, bL.GetDrone(drone.Id), this,this, 1).Show();
+                new DroneWindow(bL, bL.GetDrone(drone.Id), this, this, 1).Show();
         }
         /// <summary>
         /// display an indevidual drone
@@ -138,9 +167,14 @@ namespace PL
         #endregion
 
         #region customer item selected
+        /// <summary>
+        /// user select customer view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void customer_Selected(object sender, RoutedEventArgs e)
         {
-            
+
             droneGif.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
@@ -163,8 +197,13 @@ namespace PL
         #endregion
 
         #region parcel item selected
+        /// <summary>
+        /// user select parcel view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void parcel_Selected(object sender, RoutedEventArgs e)
-        {        
+        {
             //grouping by status
             GroupingParcel();
             droneGif.Visibility = Visibility.Collapsed;
@@ -194,12 +233,17 @@ namespace PL
         {
             ParcelToList parcel = (ParcelToList)ParcelListView.SelectedItem;
             if (parcel != null)
-                new ParcelWindow(bL, bL.GetParcel(parcel.Id), 1,this).Show();
+                new ParcelWindow(bL, bL.GetParcel(parcel.Id), 1, this).Show();
         }
 
         #endregion
 
         #region station item selected
+        /// <summary>
+        /// user select station view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void station_Selected(object sender, RoutedEventArgs e)
         {
             stationToLists = from item in bL.GetBaseStationList()
@@ -214,7 +258,11 @@ namespace PL
             stationLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// display an individual station
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BaseStationToList station = (BaseStationToList)StationListView.SelectedItem;

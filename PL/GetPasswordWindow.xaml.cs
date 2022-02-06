@@ -24,12 +24,20 @@ namespace PL
     public partial class GetPasswordWindow : Window
     {
         BlApi.IBL bl;
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="bL"></param>
         public GetPasswordWindow(BlApi.IBL bL)
         {
             bl = bL;
             InitializeComponent();
         }
-
+        /// <summary>
+        /// a button click event- function that send a mail with the user password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try

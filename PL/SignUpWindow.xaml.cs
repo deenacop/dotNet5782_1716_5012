@@ -51,14 +51,14 @@ namespace PL
         {
             try
             {
-                if (user.Password == null||  user.Name == null || user.EmailAddress == null )
+                if (user.Password == null || user.Name == null || user.EmailAddress == null)
                 {
                     MessageBox.Show("you must fill all fields");
                     return;
                 }
                 else
                 {
-                    if(!IsValidMailFormat(user.EmailAddress))
+                    if (!IsValidMailFormat(user.EmailAddress))
                     {
                         MessageBox.Show("wrong mail format", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -89,7 +89,7 @@ namespace PL
         /// <returns></returns>
         private bool IsValidMailFormat(string email)
         {
-            if (email.EndsWith("@gmail.com")|| email.EndsWith("@g.jct.ac.il") )
+            if (email.EndsWith("@gmail.com") || email.EndsWith("@g.jct.ac.il"))
                 return true;
             if (email.Contains(" "))
                 return false;
@@ -122,6 +122,17 @@ namespace PL
                 //תפיסה וטיפול בשגיאות
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// prevents from the user to enter letters in the id box
+        /// </summary>
+        /// <param name="sender">text box</param>
+        /// <param name="e">event</param>
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            System.Text.RegularExpressions.Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
