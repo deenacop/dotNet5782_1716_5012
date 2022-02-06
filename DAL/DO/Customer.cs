@@ -10,7 +10,7 @@ namespace DO
         /// <summary>
         /// id number
         /// </summary>
-        public string Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// customer name
         /// </summary>

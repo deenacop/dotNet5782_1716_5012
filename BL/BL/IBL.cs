@@ -191,7 +191,7 @@ namespace BlApi
         /// <param name="ID">customer ID</param>
         /// <returns>The wanted customer</returns>
         /// <exception cref="BlApi.BO.ItemNotExistException"></exception>
-        Customer GetCustomer(string ID);
+        Customer GetCustomer(int ID);
 
         /// <summary>
         /// Display one drone in charge

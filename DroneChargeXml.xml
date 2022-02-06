@@ -14,4 +14,11 @@
     <FinishedRecharging xsi:nil="true" />
     <IsRemoved>false</IsRemoved>
   </DroneCharge>
+  <DroneCharge>
+    <BaseStationID>1645</BaseStationID>
+    <Id>232</Id>
+    <EnterToChargBase>2022-02-06T10:34:08.8320465+02:00</EnterToChargBase>
+    <FinishedRecharging xsi:nil="true" />
+    <IsRemoved>false</IsRemoved>
+  </DroneCharge>
 </ArrayOfDroneCharge>

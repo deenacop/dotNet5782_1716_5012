@@ -60,4 +60,10 @@
     <Weight>Light</Weight>
     <IsRemoved>false</IsRemoved>
   </Drone>
+  <Drone>
+    <Id>232</Id>
+    <Model>dfg</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
 </ArrayOfDrone>

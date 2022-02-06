@@ -90,8 +90,8 @@ namespace PL
                 {
                     Parcel.SenderCustomer = new();
                     Parcel.TargetidCustomer = new();
-                    Parcel.SenderCustomer.Id = (string)txtSender.SelectedItem;
-                    Parcel.TargetidCustomer.Id = (string)txtReciver.SelectedItem;
+                    Parcel.SenderCustomer.Id = (int)txtSender.SelectedItem;
+                    Parcel.TargetidCustomer.Id = (int)txtReciver.SelectedItem;
                     //sending for add
                     bl.AddParcel(Parcel);
                     menuWindow.GroupingParcel();

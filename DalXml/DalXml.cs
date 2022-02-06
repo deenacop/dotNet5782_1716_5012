@@ -205,7 +205,7 @@ namespace Dal
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void RemoveCustomer(string id)
+        public void RemoveCustomer(int id)
         {
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
 
@@ -378,7 +378,7 @@ namespace Dal
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void UpdateCustomer(string Id, string name = null, string phone = null, double lon = 0, double lat = 0)
+        public void UpdateCustomer(int Id, string name = null, string phone = null, double lon = 0, double lat = 0)
         {
             XElement customerXml = XMLTools.LoadListFromXMLElement(CustomerXml);
             XElement customer = (from cus in customerXml.Elements()
@@ -449,12 +449,12 @@ namespace Dal
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Customer GetCustomer(string customerID)
+        public Customer GetCustomer(int customerID)
         {
             Customer customer = (from cus in XMLTools.LoadListFromXMLElement(CustomerXml).Elements().Where(i => i.Element("Id").Value == customerID.ToString())
                                  select new Customer
                                  {
-                                     Id = cus.Element("Id").Value,
+                                     Id = int.Parse(cus.Element("Id").Value),
                                      Name = cus.Element("Name").Value,
                                      PhoneNumber = cus.Element("PhoneNumber").Value,
                                      Longitude = double.Parse(cus.Element("Longitude").Value),
@@ -462,7 +462,7 @@ namespace Dal
                                      IsRemoved = bool.Parse(cus.Element("IsRemoved").Value)
                                  }
                         ).FirstOrDefault();
-            if (customer.Id != "")
+            if (customer.Id != 0)
                 return customer;
             else
                 throw new ItemNotExistException("The customer does not exist.\n");
@@ -503,7 +503,7 @@ namespace Dal
             IEnumerable<Customer> customer = from cus in customerXml.Elements()
                                              select new Customer()
                                              {
-                                                 Id = cus.Element("Id").Value,
+                                                 Id = int.Parse(cus.Element("Id").Value),
                                                  Name = cus.Element("Name").Value,
                                                  PhoneNumber = cus.Element("PhoneNumber").Value,
                                                  Longitude = double.Parse(cus.Element("Longitude").Value),

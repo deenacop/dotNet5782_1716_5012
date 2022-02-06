@@ -109,12 +109,14 @@ namespace ConsoleUI_BL
                                         newParcel.TargetidCustomer = new();
                                         Console.WriteLine("Enter the parcel sender ID (9 digits) from the customer list");
                                         IEnumerable<CustomerToList> ListOfCustomer = bl.GetListCustomer();
-                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.Id); }                      
-                                        newParcel.SenderCustomer.Id = Console.ReadLine();
+                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.Id); }
+                                        int.TryParse(Console.ReadLine(), out int Id1);
+                                        newParcel.SenderCustomer.Id = Id1;
                                         Console.WriteLine("Enter the parcel targetid ID (9 digits)from the customer list");
 
                                         foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.Id); }
-                                        newParcel.TargetidCustomer.Id = Console.ReadLine();
+                                        int.TryParse(Console.ReadLine(), out Id1);
+                                        newParcel.TargetidCustomer.Id = Id1;
                                         Console.WriteLine("Choose the parcel Weight: 0 for light, 1 for midium, and 2 for heavy");
                                         int.TryParse(Console.ReadLine(), out status);
                                         newParcel.Weight = (WeightCategories)status;
@@ -128,7 +130,8 @@ namespace ConsoleUI_BL
                                         Customer newCustomer = new();
                                         newCustomer.Location = new();
                                         Console.WriteLine("Enter the customer ID (9 digits)");
-                                        newCustomer.Id = Console.ReadLine();
+                                        int.TryParse(Console.ReadLine(), out  Id1);
+                                        newCustomer.Id = Id1;
                                         Console.WriteLine("Enter the customer name");
                                         newCustomer.Name = Console.ReadLine();
                                         Console.WriteLine("Enter the customer phone number");
@@ -162,10 +165,10 @@ namespace ConsoleUI_BL
                                             Console.WriteLine("Enter the wanted model");
                                             string model = Console.ReadLine();
                                             Drone tmp = bl.GetDrone(ID);
-                                          
+
                                             tmp.Model = model;
                                             bl.UpdateDrone(tmp);
-                                            
+
                                             break;
                                         }
 
@@ -181,12 +184,12 @@ namespace ConsoleUI_BL
                                             if (!int.TryParse(Console.ReadLine(), out int ansNum))
                                                 ansNum = 0;
                                             BaseStation tmp = bl.GetBaseStation(ID);
-                                            if(ansName!=null)
-                                               tmp.Name = ansName;
+                                            if (ansName != null)
+                                                tmp.Name = ansName;
                                             if (ansNum != 0)
                                                 tmp.NumOfAvailableChargingSlots = ansNum;
                                             bl.UpdateStation(tmp);
-                                          
+
                                             break;
                                         }
 
@@ -201,14 +204,14 @@ namespace ConsoleUI_BL
                                             Console.WriteLine("if you want to change the phone number of the customer, enter the new phone number else continue");
                                             string ansPhone = Console.ReadLine();
                                             if (ansPhone == "")
-                                                ansName = null;
+                                                ansPhone = null;
                                             Customer tmp = bl.GetCustomer(ID);
-                                            if(ansName!=null)
+                                            if (ansName != null)
                                                 tmp.Name = ansName;
                                             if (ansPhone != null)
                                                 tmp.PhoneNumber = ansPhone;
                                             bl.UpdateCustomer(tmp);
-                                           
+
                                             break;
                                         }
                                     case (int)UpdateOptions.SendDroneToCharge:
@@ -339,7 +342,7 @@ namespace ConsoleUI_BL
                                         break;
                                     case (int)DisplayListOptions.ListOfUnassignedParcels:
                                         {
-                                            IEnumerable<ParcelToList> ListOfParcel = bl.GetListParcel(i => i.Status ==ParcelStatus.Defined);
+                                            IEnumerable<ParcelToList> ListOfParcel = bl.GetListParcel(i => i.Status == ParcelStatus.Defined);
                                             foreach (ParcelToList tmp in ListOfParcel) { Console.WriteLine(tmp); }
                                             break;
                                         }

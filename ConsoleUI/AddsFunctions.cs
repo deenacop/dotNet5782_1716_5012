@@ -46,9 +46,13 @@ namespace ConsoleUI
             DateTime DateAndTime = new();
             DO.Parcel NewParcel = new();
             Console.WriteLine("*parcel sender ID (6 digits)");
-            NewParcel.Sender = Console.ReadLine();
+            int.TryParse(Console.ReadLine(), out int Id1);
+
+            NewParcel.Sender=Id1;
             Console.WriteLine("*parcel targetid");
-            NewParcel.Targetid = Console.ReadLine();
+            int.TryParse(Console.ReadLine(), out  Id1);
+
+            NewParcel.Targetid = Id1;
             Console.WriteLine("*weight- for light type 0, for midium type 1, for heavy type 2");
             int.TryParse(Console.ReadLine(), out tmpInt);
             NewParcel.Weight = (WeightCategories)tmpInt;
@@ -70,7 +74,9 @@ namespace ConsoleUI
         {
             DO.Customer NewCustomer = new();
             Console.WriteLine("Enter the new customer details: *customer ID (9 digits)");
-            NewCustomer.Id = Console.ReadLine();
+            int.TryParse(Console.ReadLine(), out int Id1);
+
+            NewCustomer.Id = Id1;
             Console.WriteLine("*customer name");
             NewCustomer.Name = Console.ReadLine();
             Console.WriteLine("*customer phone number");

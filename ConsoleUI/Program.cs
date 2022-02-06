@@ -197,7 +197,9 @@ namespace ConsoleUI
                                     case (int)DisplayIndividualOptions.DisplayCustomer:
                                         {
                                             Console.WriteLine("Enter customer ID (9 digits).");
-                                            Customer custumerWanted = Dal.GetCustomer(Console.ReadLine());
+                                            int.TryParse(Console.ReadLine(), out int Id1);
+
+                                            Customer custumerWanted = Dal.GetCustomer(Id1);
                                             Console.WriteLine(custumerWanted);
                                             break;
                                         }
