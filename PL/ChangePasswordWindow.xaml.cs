@@ -25,7 +25,6 @@ namespace PL
     public partial class ChangePasswordWindow : Window
     {
         BlApi.IBL bL;
-        private string email;
 
         public ChangePasswordWindow(BlApi.IBL bl)
         {

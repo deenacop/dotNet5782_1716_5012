@@ -31,6 +31,11 @@ namespace PL
         public int sizeH { get; set; }//hight of the window
         public int sizeW { get; set; }//width of the window
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="bL"></param>
+        /// <param name="customer"></param>
         public CustomerWindow(BlApi.IBL bL, Customer customer)
         {
             bl = bL;
