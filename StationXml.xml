@@ -1,43 +1,19 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Station>
-    <Id>5839</Id>
-    <Name>dfghj</Name>
-    <NumOfAvailableChargingSlots>21</NumOfAvailableChargingSlots>
-    <Longitude>35.9</Longitude>
-    <Latitude>31.4</Latitude>
-    <IsRemoved>true</IsRemoved>
-  </Station>
-  <Station>
-    <Id>1645</Id>
-    <Name>4 David Remez Street, Jerusalem</Name>
-    <NumOfAvailableChargingSlots>9</NumOfAvailableChargingSlots>
-    <Longitude>35.86691501870142</Longitude>
-    <Latitude>31.88915404206568</Latitude>
-    <IsRemoved>false</IsRemoved>
-  </Station>
-  <Station>
-    <Id>1234</Id>
-    <Name>Brand  Aaron street</Name>
-    <NumOfAvailableChargingSlots>1</NumOfAvailableChargingSlots>
-    <Longitude>35.4</Longitude>
-    <Latitude>31.2</Latitude>
-    <IsRemoved>false</IsRemoved>
-  </Station>
-  <Station>
-    <Id>1256</Id>
-    <Name>harnof</Name>
-    <NumOfAvailableChargingSlots>9</NumOfAvailableChargingSlots>
-    <Longitude>35.8</Longitude>
-    <Latitude>31.2</Latitude>
-    <IsRemoved>true</IsRemoved>
-  </Station>
-  <Station>
-    <Id>3456</Id>
-    <Name>King George</Name>
-    <NumOfAvailableChargingSlots>3</NumOfAvailableChargingSlots>
-    <Longitude>35.2</Longitude>
-    <Latitude>31.4</Latitude>
-    <IsRemoved>false</IsRemoved>
-  </Station>
+	<Station>
+		<Id>5839</Id>
+		<Name>Balfour street, Jerusalem</Name>
+		<NumOfAvailableChargingSlots>13</NumOfAvailableChargingSlots>
+		<Longitude>35.738330082846026</Longitude>
+		<Latitude>31.51242946158742</Latitude>
+		<IsRemoved>false</IsRemoved>
+	</Station>
+	<Station>
+		<Id>1645</Id>
+		<Name>4 David Remez Street, Jerusalem</Name>
+		<NumOfAvailableChargingSlots>2</NumOfAvailableChargingSlots>
+		<Longitude>35.86691501870142</Longitude>
+		<Latitude>31.88915404206568</Latitude>
+		<IsRemoved>false</IsRemoved>
+	</Station>
 </ArrayOfStation>
