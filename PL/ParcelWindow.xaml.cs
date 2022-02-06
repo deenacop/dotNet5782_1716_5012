@@ -39,10 +39,10 @@ namespace PL
         /// <param name="parcel"></param>
         /// <param name="_menuWindow"></param>
         /// <param name="flag"></param>
-        public ParcelWindow(BlApi.IBL bL, Parcel parcel, int flag, MenuWindow _menuWindow=null)
+        public ParcelWindow(BlApi.IBL bL, Parcel parcel, int flag, MenuWindow _menuWindow = null)
         {
             bl = bL;
-            Parcel = parcel;         
+            Parcel = parcel;
             if (flag == 0)
             {
                 sizeW = 340; sizeH = 370;
@@ -60,7 +60,7 @@ namespace PL
         /// </summary>
         /// <param name="bL">BL object</param>
         /// <param name="droneListWindow">access to the window</param>
-        public ParcelWindow(BlApi.IBL bL, MenuWindow menuWindow) : this(bL, new(),0, menuWindow)//sends to the other ctor
+        public ParcelWindow(BlApi.IBL bL, MenuWindow menuWindow) : this(bL, new(), 0, menuWindow)//sends to the other ctor
         {
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             comboPrioritySelector.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
@@ -142,15 +142,21 @@ namespace PL
             Close();
         }
 
+        /// <summary>
+        /// view the drone that associated to the parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(Parcel.MyDrone.Id!=0)
-                 new DroneInParcelWindow(Parcel.MyDrone,bl,menuWindow).Show();
-            else if(Parcel.Delivered==null)
+            if (Parcel.MyDrone.Id != 0)
+                new DroneInParcelWindow(Parcel.MyDrone, bl, menuWindow).Show();
+            else if (Parcel.Delivered == null)
                 MessageBox.Show("The parcel has not been associated yet - there are no details about the drone");
             else
                 MessageBox.Show("The parcel has been delivered - there are no details about the drone");
         }
+
         /// <summary>
         /// a click event- see sender details 
         /// </summary>
@@ -158,8 +164,9 @@ namespace PL
         /// <param name="e"></param>
         private void Image_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-            new CustomerInParcelWindow(Parcel.SenderCustomer,bl,menuWindow).Show();
+            new CustomerInParcelWindow(Parcel.SenderCustomer, bl, menuWindow).Show();
         }
+
         /// <summary>
         /// a click event- see targetid details 
         /// </summary>
@@ -170,6 +177,11 @@ namespace PL
             new CustomerInParcelWindow(Parcel.TargetidCustomer, bl, menuWindow).Show();
         }
 
+        /// <summary>
+        /// delete a parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
             try

@@ -13,7 +13,7 @@ namespace PL
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    { 
+    {
         BlApi.IBL bl;
         /// <summary>
         /// ctor for the window
@@ -23,12 +23,6 @@ namespace PL
             bl = BlFactory.GetBl();
             InitializeComponent();
         }
-        // public override ValidationResult validate(Object value, CultureInfo culterInfo)
-        //{
-        //    string charString = value as string;
-        //    if (charString.Length < 0)
-        //        return new ValidationResult(false, $"email address");
-        //}
         /// <summary>
         /// send to a get password window 
         /// </summary>
@@ -83,7 +77,7 @@ namespace PL
                 if (tmp.IsManager == true)
                     new MenuWindow(bl).Show();
                 else
-                    new UserMainWindow(bl,tmp).Show();
+                    new UserMainWindow(bl, tmp).Show();
                 passwordcode.Clear();//clears the text box
                 username.Clear();//clears the text box
             }
@@ -116,5 +110,5 @@ namespace PL
             passwordBox.Visibility = Visibility.Visible;
         }
     }
-   
+
 }

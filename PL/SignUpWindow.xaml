@@ -27,9 +27,9 @@
             <Label Content="_Mail:" Target="{Binding ElementName=txtMail}" Foreground="#FF0F4E7A" />
             <TextBox Name="txtMail" Text="{Binding EmailAddress, Mode=TwoWay}" BorderBrush="#FF0F4E7A" BorderThickness="2"  Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi"/>
             <Label Content="_Id:" Target="{Binding ElementName=txtMail}" Foreground="#FF0F4E7A" />
-            <TextBox Name="txtId" Text="{Binding Id, Mode=TwoWay}"  BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi"/>
+            <TextBox Name="txtId" Text="{Binding Id, Mode=TwoWay}"  BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" PreviewTextInput="NumberValidationTextBox"/>
             <Label Content="_Phone Number:" Target="{Binding ElementName=txtMail}" Foreground="#FF0F4E7A" />
-            <TextBox Name="txtPhoneNumber" Text="{Binding PhoneNumber, Mode=TwoWay}" BorderBrush="#FF0F4E7A" BorderThickness="2"  Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" />
+            <TextBox Name="txtPhoneNumber" Text="{Binding PhoneNumber, Mode=TwoWay}" BorderBrush="#FF0F4E7A" BorderThickness="2"  Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" PreviewTextInput="NumberValidationTextBox" />
             <Label Content="_Password:" Target="{Binding ElementName=txtMail}" Foreground="#FF0F4E7A" />
             <TextBox Name="txtPassword" Text="{Binding Password, Mode=TwoWay}"  BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi"/>
             <Label Content="_Longitude:(35-36)" Target="{Binding ElementName=txtMail}" Foreground="#FF0F4E7A" />
