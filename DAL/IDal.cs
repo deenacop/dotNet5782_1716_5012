@@ -71,7 +71,7 @@ namespace DalApi
         /// </summary>
         /// <param name="customer">The new Customer that will be removeed to the list of customer</param>
         /// <exception cref="DO.ItemNotExistException"></exception>
-        public void RemoveCustomer(int id);
+        public void RemoveCustomer(string id);
         
        
 
@@ -142,7 +142,7 @@ namespace DalApi
         /// </summary>
         /// <param name="customer">the update customer</param>
         /// <exception cref="ItemNotExistException"></exception>
-        public void UpdateCustomer(int Id, string name = null, string phone = null, double lon = 0, double lat = 0);
+        public void UpdateCustomer(string Id, string name = null, string phone = null, double lon = 0, double lat = 0);
 
         /// <summary>
         /// Update the user password
@@ -186,7 +186,7 @@ namespace DalApi
         /// </summary>
         /// <param name="StationID">The requested station</param>
         /// <exception cref="DalObject.ItemNotExistException"></exception>
-        public Customer GetCustomer(int customerID);
+        public Customer GetCustomer(string customerID);
 
         /// <summary>
         /// Return the wanted parcel

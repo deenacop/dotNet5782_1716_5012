@@ -20,8 +20,8 @@ namespace ConsoleUI
         #region Add
         public static void AddStation()
         {
-            DO.Station NewStation = new ();
-            Console.WriteLine("Enter the new station details: *station ID (4 digits)");        
+            DO.Station NewStation = new();
+            Console.WriteLine("Enter the new station details: *station ID (4 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewStation.Id = tmpInt;
             Console.WriteLine("*station name");
@@ -43,14 +43,12 @@ namespace ConsoleUI
         /// </summary>
         public static void AddParcel()
         {
-            DateTime DateAndTime = new ();
-            DO.Parcel NewParcel = new ();
+            DateTime DateAndTime = new();
+            DO.Parcel NewParcel = new();
             Console.WriteLine("*parcel sender ID (6 digits)");
-            if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewParcel.Sender = tmpInt;
+            NewParcel.Sender = Console.ReadLine();
             Console.WriteLine("*parcel targetid");
-            if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewParcel.Targetid = tmpInt;
+            NewParcel.Targetid = Console.ReadLine();
             Console.WriteLine("*weight- for light type 0, for midium type 1, for heavy type 2");
             int.TryParse(Console.ReadLine(), out tmpInt);
             NewParcel.Weight = (WeightCategories)tmpInt;
@@ -70,10 +68,9 @@ namespace ConsoleUI
         /// </summary>
         public static void AddCustomer()
         {
-            DO.Customer NewCustomer = new ();
+            DO.Customer NewCustomer = new();
             Console.WriteLine("Enter the new customer details: *customer ID (9 digits)");
-            if (int.TryParse(Console.ReadLine(), out tmpInt))
-                NewCustomer.Id = tmpInt;
+            NewCustomer.Id = Console.ReadLine();
             Console.WriteLine("*customer name");
             NewCustomer.Name = Console.ReadLine();
             Console.WriteLine("*customer phone number");
@@ -92,7 +89,7 @@ namespace ConsoleUI
         /// </summary>
         public static void AddDrone()
         {
-            DO.Drone NewDrone = new ();
+            DO.Drone NewDrone = new();
             Console.WriteLine("Enter the new drone details: *drone ID (3 digits)");
             if (int.TryParse(Console.ReadLine(), out tmpInt))
                 NewDrone.Id = tmpInt;

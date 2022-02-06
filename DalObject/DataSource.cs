@@ -119,12 +119,13 @@ namespace Dal
 
             string[] phoneArr = { "0548482282" , "0504188440", "0548324567" , "0547687689", "0525678997",
                                       "0537897889","0527689646","0526789997","0547890087","0505678876"};
+            string[] IdArr = { "123456786", "123456267", "098768908", "906351838", "209865231", "654326189", "875648392", "234567654", "909890976", "342324524" };
             //Initializing variables into 10 customers.
             for (int i = 0; i < 10; i++)
             {
                 Customers.Insert(i, new()
                 {
-                    Id = rand.Next(100000000, 1000000000),//9 digits
+                    Id = IdArr[i],//9 digits
                     Latitude = rand.NextDouble() + 31,
                     Longitude = rand.NextDouble() + 35,
                     Name = nameArr[i],
@@ -258,7 +259,7 @@ namespace Dal
             //////neeeddd ttoo beee deleteddd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             Users.Insert(2, new()
             {
-                Id = 567891234,
+                Id = "567891234",
                 Name = "try",
                 PhoneNumber = "0549096309",
                 Password = "try",
@@ -269,7 +270,7 @@ namespace Dal
             });
             Customers.Insert(10, new()
             {
-                Id = 567891234,
+                Id = "567891234",
                 Name = "try",
                 PhoneNumber = "0549096309",
                 Longitude = 35.8,

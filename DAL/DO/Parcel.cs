@@ -15,11 +15,11 @@ namespace DO
         /// <summary>
         /// Id of seder customer 
         /// </summary>
-        public int Sender { get; set; }//according the ID
+        public string Sender { get; set; }//according the ID
         /// <summary>
         /// Id of targetid customer
         /// </summary>
-        public int Targetid { get; set; }//according the ID
+        public string Targetid { get; set; }//according the ID
         /// <summary>
         /// parcel weight
         /// </summary>

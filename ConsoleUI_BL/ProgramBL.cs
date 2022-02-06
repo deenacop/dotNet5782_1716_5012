@@ -109,14 +109,12 @@ namespace ConsoleUI_BL
                                         newParcel.TargetidCustomer = new();
                                         Console.WriteLine("Enter the parcel sender ID (9 digits) from the customer list");
                                         IEnumerable<CustomerToList> ListOfCustomer = bl.GetListCustomer();
-                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.Id); }
-                                        int.TryParse(Console.ReadLine(), out ID);
-                                        newParcel.SenderCustomer.Id = ID;
+                                        foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.Id); }                      
+                                        newParcel.SenderCustomer.Id = Console.ReadLine();
                                         Console.WriteLine("Enter the parcel targetid ID (9 digits)from the customer list");
 
                                         foreach (CustomerToList tmp in ListOfCustomer) { Console.WriteLine("\t" + tmp.Name + "\t" + tmp.Id); }
-                                        int.TryParse(Console.ReadLine(), out ID);
-                                        newParcel.TargetidCustomer.Id = ID;
+                                        newParcel.TargetidCustomer.Id = Console.ReadLine();
                                         Console.WriteLine("Choose the parcel Weight: 0 for light, 1 for midium, and 2 for heavy");
                                         int.TryParse(Console.ReadLine(), out status);
                                         newParcel.Weight = (WeightCategories)status;
@@ -130,8 +128,7 @@ namespace ConsoleUI_BL
                                         Customer newCustomer = new();
                                         newCustomer.Location = new();
                                         Console.WriteLine("Enter the customer ID (9 digits)");
-                                        int.TryParse(Console.ReadLine(), out ID);
-                                        newCustomer.Id = ID;
+                                        newCustomer.Id = Console.ReadLine();
                                         Console.WriteLine("Enter the customer name");
                                         newCustomer.Name = Console.ReadLine();
                                         Console.WriteLine("Enter the customer phone number");

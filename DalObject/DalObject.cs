@@ -144,7 +144,7 @@ namespace Dal
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void RemoveCustomer(int id)
+        public void RemoveCustomer(string id)
         {
             //checks if the customer exists and if not throws an exception
             int index = DataSource.Customers.FindIndex(item => item.Id == id);
@@ -289,7 +289,7 @@ namespace Dal
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void UpdateCustomer(int Id, string name = null, string phone = null, double lon = 0, double lat = 0)
+        public void UpdateCustomer(string Id, string name = null, string phone = null, double lon = 0, double lat = 0)
 
         {
             int index = DataSource.Customers.FindIndex(item => item.Id == Id);
@@ -350,7 +350,7 @@ namespace Dal
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Customer GetCustomer(int customerID)
+        public Customer GetCustomer(string customerID)
         {
 
             int index = DataSource.Customers.FindIndex(i => i.Id == customerID);

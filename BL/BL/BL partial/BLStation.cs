@@ -166,8 +166,8 @@ namespace BL
                                         let tempS = GetBaseStation(s.Id)
                                         select tempS.CopyPropertiesTo(new BaseStationToList()
                                         {
-                                            NumOfBusyChargingSlots = tempS.DronesInCharging.Count()//the amount of drones
-                                                                                                   //in the station
+                                            NumOfBusyChargingSlots = tempS.DronesInCharging.Where(i => i.FinishedRecharging == null).Count()//the amount of drones
+                                                                                                                                            //in the station
                                         })
                                         );
                 return stationToLists.FindAll(i => predicate == null ? true : predicate(i));

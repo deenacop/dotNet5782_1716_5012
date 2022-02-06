@@ -102,7 +102,9 @@ namespace BL
                     int minBatteryDrone = 0;
                     minBatteryDrone = setBattery(minBatteryDrone, distanceToTargeted, currentDrone.Weight);
                     minBatteryDrone += (int)(minDistance * vacant);//minimum battery that the drone needs
-                    currentDrone.Battery = rand.Next(minBatteryDrone, 101);//between minimum to maximum(=>100)
+                    currentDrone.Battery = rand.Next(minBatteryDrone + 10, 101);//between minimum to maximum(=>100)
+                    if (currentDrone.Battery > 100)
+                        currentDrone.Battery = 100;
                 }
                 #endregion
                 //If the drone is not currently shipping(אם הרחפן לא מבצע משלוח):

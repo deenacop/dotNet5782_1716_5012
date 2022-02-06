@@ -10,7 +10,7 @@ namespace BO
         /// <summary>
         /// Id number
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
         /// <summary>
         /// name of customer
         /// </summary>

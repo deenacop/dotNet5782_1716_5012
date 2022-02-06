@@ -85,6 +85,8 @@ namespace PL
                 PropertyGroupDescription groupDescription;
                 droneListWindow.GroupingDrone(out view, out groupDescription);//grouping the list
                 droneListWindow.DroneListView.Items.Refresh();
+                droneListWindow.stationToLists = bl.GetBaseStationList();
+                droneListWindow.SelectionAvailablity();
                 MessageBox.Show("The drone has been updated successfully :)\n" + Drone.ToString());
                 _close = true;
                 //success
@@ -108,6 +110,8 @@ namespace PL
                 //send to the bl function
                 bl.ReleasingDroneFromBaseStation(Drone);
                 droneListWindow.droneToLists = bl.GetDroneList();
+                droneListWindow.stationToLists = bl.GetBaseStationList();
+                droneListWindow.SelectionAvailablity();
                 CollectionView view;
                 PropertyGroupDescription groupDescription;
                 droneListWindow.GroupingDrone(out view, out groupDescription);
@@ -455,6 +459,7 @@ namespace PL
             CollectionView view;
             PropertyGroupDescription groupDescription;
             droneListWindow.GroupingDrone(out view, out groupDescription);
+            droneListWindow.SelectionAvailablity();
         }
 
         /// <summary>

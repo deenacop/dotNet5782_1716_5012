@@ -13,7 +13,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
-            if (CheckNumOfDigits(customer.Id) != 9)//Input check
+            if (customer.Id.Length != 9)//Input check
                 throw new WrongIDException("Bad custumer ID");
             if (customer.Location.Latitude < 31 || customer.Location.Latitude > 32
              || customer.Location.Longitude < 35 || customer.Location.Longitude > 36)//Checking that the location is in the allowed range (Jerusalem area)
@@ -107,7 +107,7 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Customer GetCustomer(int ID)
+        public Customer GetCustomer(string ID)
         {
             lock (dal)
             {
