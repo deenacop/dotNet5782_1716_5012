@@ -33,6 +33,9 @@ namespace PL
 
         private MenuWindow stationListWindow;
 
+        private MenuWindow parcelListWindow;
+
+
         private int Index;
 
         public int sizeH { get; set; }//hight window
@@ -52,7 +55,7 @@ namespace PL
         {
             try
             {
-                // var item = droneListWindow.droneToLists.Where(i => i.Key.Status == Drone.Status && i.Key.Weight == Drone.Weight).first();
+               
                 bl.UpdateDrone(Drone);
                 droneListWindow.droneToLists = bl.GetDroneList();
                 CollectionView view;
@@ -221,7 +224,7 @@ namespace PL
         /// <param name="drone">selected drone</param>
         /// <param name="_droneListWindow">access to the window</param>
         /// <param name="_Index">the drone index</param>
-        public DroneWindow(BlApi.IBL bL, Drone drone, MenuWindow _droneListWindow, MenuWindow _stationListWindow, int _Index)
+        public DroneWindow(BlApi.IBL bL, Drone drone, MenuWindow _droneListWindow, MenuWindow _stationListWindow, MenuWindow _menuWindow , int _Index)
         {
             bl = bL;
             Drone = drone;
@@ -238,6 +241,7 @@ namespace PL
             InitializeComponent();
             this.droneListWindow = _droneListWindow;
             this.stationListWindow = _stationListWindow;
+            this.parcelListWindow = _menuWindow;
             comboWeight.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             comboStationSelector.ItemsSource = bl.GetBaseStationList().Select(s => s.Id);
 
@@ -250,7 +254,7 @@ namespace PL
         /// </summary>
         /// <param name="bL">BL object</param>
         /// <param name="droneListWindow">access to the window</param>
-        public DroneWindow(BlApi.IBL bL, MenuWindow droneListWindow, MenuWindow stationListWindow) : this(bL, new(), droneListWindow, stationListWindow, 0)//sends to the other ctor
+        public DroneWindow(BlApi.IBL bL, MenuWindow droneListWindow, MenuWindow stationListWindow, MenuWindow parcelListWindow) : this(bL, new(), droneListWindow, stationListWindow, parcelListWindow, 0)//sends to the other ctor
         {
             comboWeightSelector.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             txtId.IsEnabled = true;
@@ -455,6 +459,9 @@ namespace PL
             CollectionView view;
             PropertyGroupDescription groupDescription;
             droneListWindow.GroupingDrone(out view, out groupDescription);
+            parcelListWindow.GroupingParcel();
+            stationListWindow.stationToLists = bl.GetBaseStationList();
+            stationListWindow.SelectionAvailablity();//to update the stations list
         }
 
         /// <summary>
