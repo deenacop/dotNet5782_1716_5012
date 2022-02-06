@@ -18,49 +18,16 @@ using BO;
 
 namespace PL
 {
-    ///// <summary>
-    ///// The Drone status(פנוי,תחוזקה,משלוח)
-    ///// </summary>
-    //public enum DroneStatus { Available, Maintenance, Delivery, All }
-    ///// <summary>
-    ///// The drone weights
-    ///// </summary>
-    //public enum WeightCategories { Light, Medium, Heavy, All };
-
-    ///// <summary>
-    ///// Delivery priorities
-    ///// </summary>
-    //public enum Priorities { Normal, Fast, Urgent, All };
-
-    ///// <summary>
-    ///// The parcel status (הוגדר,שויך,נאסף עי רחפן,סופק ללקוח)
-    ///// </summary>
-    //public enum ParcelStatus { Defined, Associated, PickedUp, Delivered, All }
-    ///// <summary>
-    ///// The station status af availability (for the comboBox)
+    /// <summary>
+    /// for filtering stations
     /// </summary>
     public enum AvailablityStation { Available, Unavailable, All }
-    /// <summary>
-    /// A class by which the items in the list are sorted. The key to the dictionary is an object of the class
-    /// </summary>
-    //public struct FilterByWeightAndStatus
-    //{//Type of structure because you want to avoid reference
-    //    public BO.WeightCategories Weight { get; set; }
-    //    public BO.DroneStatus Status { get; set; }
-    //}
-    //public struct FilterByPriorityAndStatus
-    //{//Type of structure because you want to avoid reference
-    //    public BO.Priorities Priority { get; set; }
-    //    public BO.ParcelStatus Status { get; set; }
-    //}
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MenuWindow : Window
     {
-        //public Dictionary<FilterByWeightAndStatus, List<DroneToList>> droneToLists;//a dictionary to present the list of drones
-        //public Dictionary<FilterByPriorityAndStatus, List<ParcelToList>> parcelToList;//a dictionary to present the list of parcels
         public ObservableCollection<CustomerToList> customerToLists { get; set; } //an ObservableCollection to present the list of customers
         public IEnumerable<BaseStationToList> stationToLists { get; set; }//a list to present the list of stations
         public IEnumerable<DroneToList> droneToLists { get; set; }//a list to present the list of drones
@@ -69,12 +36,9 @@ namespace PL
         BlApi.IBL bL;
         double panelWidth;
         bool hidden;//menu is open or close
-
         private bool _close { get; set; } = false;//for closing the window
-
         public MenuWindow(BlApi.IBL bl)
         {
-
             bL = bl;
             customerToLists = new(bL.GetListCustomer().OrderBy(item => item.Id));
             InitializeComponent();
@@ -140,9 +104,12 @@ namespace PL
             stationLists.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
-            //btnRemove.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// display grouping
+        /// </summary>
+        /// <param name="view"></param>
+        /// <param name="groupDescription"></param>
         internal void GroupingDrone(out CollectionView view, out PropertyGroupDescription groupDescription)
         {
             droneToLists = bL.GetDroneList().OrderBy(i => i.Status).ThenBy(i=>i.Id);//we want the items be sorted by ID
@@ -157,8 +124,12 @@ namespace PL
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
             if (drone != null)
                 new DroneWindow(bL, bL.GetDrone(drone.Id), this,this, 1).Show();
-            // DroneListView.ItemsSource = bL.GetDroneList();
         }
+        /// <summary>
+        /// display an indevidual drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DroneListViewSelectedItem();
@@ -176,8 +147,12 @@ namespace PL
             stationLists.Visibility = Visibility.Collapsed;
             customerList.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
-            // btnRemove.Visibility = Visibility.Visible;
         }
+        /// <summary>
+        /// display an individual customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             CustomerToList customer = (CustomerToList)CustomerListView.SelectedItem;
@@ -198,9 +173,10 @@ namespace PL
             customerList.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
-            // btnRemove.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// grouping display
+        /// </summary>
         internal void GroupingParcel()
         {
             parcelToList = bL.GetListParcel().OrderBy(i => i.Id);//we want that all the items will be sorted by ID
@@ -209,13 +185,16 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
             view.GroupDescriptions.Add(groupDescription);
         }
-
+        /// <summary>
+        /// display individual parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ParcelToList parcel = (ParcelToList)ParcelListView.SelectedItem;
             if (parcel != null)
                 new ParcelWindow(bL, bL.GetParcel(parcel.Id), 1,this).Show();
-            // DroneListView.ItemsSource = bL.GetDroneList();
         }
 
         #endregion
@@ -234,7 +213,6 @@ namespace PL
             customerList.Visibility = Visibility.Collapsed;
             stationLists.Visibility = Visibility.Visible;
             btnAdd.Visibility = Visibility.Visible;
-            //btnRemove.Visibility = Visibility.Visible;
         }
 
         private void StationListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -244,12 +222,13 @@ namespace PL
                 new StationWindow(bL, bL.GetBaseStation(station.Id), this, 1).Show();
         }
 
-
-
+        /// <summary>
+        /// selected a filter 
+        /// </summary>
         internal void SelectionAvailablity()
         {
             if (comboAvailableSlostSelector.SelectedIndex == -1)
-                comboAvailableSlostSelector.SelectedIndex = (int)AvailablityStation.All;
+                comboAvailableSlostSelector.SelectedIndex = 2;
             StationListView.ItemsSource = (AvailablityStation)comboAvailableSlostSelector.SelectedItem switch
             {
                 AvailablityStation.All => stationToLists,
@@ -259,6 +238,12 @@ namespace PL
                 _ => null
             };
         }
+
+        /// <summary>
+        /// comboBox chaenged
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboAvailableSlostSelector_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
             SelectionAvailablity();
         #endregion

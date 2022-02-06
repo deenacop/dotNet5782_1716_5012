@@ -32,9 +32,9 @@
             <TextBox Name="txtPhoneNumber" Text="{Binding PhoneNumber, Mode=TwoWay}" BorderBrush="#FF0F4E7A" BorderThickness="2"  Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" />
             <Label Content="_Password:" Target="{Binding ElementName=txtMail}" Foreground="#FF0F4E7A" />
             <TextBox Name="txtPassword" Text="{Binding Password, Mode=TwoWay}"  BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi"/>
-            <Label Content="_Longitude:" Target="{Binding ElementName=txtMail}" Foreground="#FF0F4E7A" />
+            <Label Content="_Longitude:(35-36)" Target="{Binding ElementName=txtMail}" Foreground="#FF0F4E7A" />
             <TextBox Name="txtLongitude" Text="{Binding Location.Longitude, Mode=TwoWay}"  BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" />
-            <Label Content="_Latitude:" Target="{Binding ElementName=txtMail}" Foreground="#FF0F4E7A"/>
+            <Label Content="_Latitude: (31-32)" Target="{Binding ElementName=txtMail}" Foreground="#FF0F4E7A"/>
             <TextBox Name="txtLatitude" Text="{Binding Location.Latitude, Mode=TwoWay}"   BorderBrush="#FF0F4E7A" BorderThickness="2" Width="132" Height="24" Background="{x:Null}"  Foreground="Black" FontWeight="Bold" FontFamily="Franklin Gothic Demi" />
             <Label Content=""  />
 

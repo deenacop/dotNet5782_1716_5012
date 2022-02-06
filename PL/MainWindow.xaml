@@ -51,10 +51,8 @@
                     <RowDefinition Height="0.5*"/>
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
-                <TextBox x:Name="username" FontSize="10" VerticalContentAlignment="Center" Grid.Column="2" Height="20" Width="90"  />
-                <!--Validation.ErrorTemplate="{StaticResource errorTemplate}"-->
+                <TextBox x:Name="username" ToolTip="enter your email address" FontSize="10" VerticalContentAlignment="Center" Grid.Column="2" Height="20" Width="90" />
                 <Image  Source="C:\Users\User\source\repos\dotNet5782_1716_5012\dotNet5782_1716_5012\PL\icon\user.png" Grid.Column="1" Margin="3,2,0,5"/>
-                <!--<TextBox x:Name="passwordcode" Grid.Column="2" Grid.Row="2" Height="20"/>-->
                 <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" Height="20">
                     <Grid >
                         <PasswordBox Name="passwordBox" PasswordChar="●" Width="90" Margin="3,0,-3,0"  />

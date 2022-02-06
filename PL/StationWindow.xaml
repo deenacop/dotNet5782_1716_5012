@@ -40,27 +40,27 @@
 
             </Grid.RowDefinitions>
 
-            <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold" Content="ID:" />
+            <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" FontSize="15" FontWeight="Bold" Content="ID:" />
             <TextBox x:Name="txtID" FontWeight="Light" Grid.Column="1" Grid.Row="0"  FontSize="15" FontStyle="Italic" PreviewTextInput="NumberValidationTextBox"
                              TextWrapping="Wrap" Width="90"  Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial"
                              Text="{Binding Id, Mode=TwoWay}"  />
 
 
-            <Label VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" VerticalContentAlignment="Center" Foreground="White"  FontSize="20" FontWeight="Bold" Content="Name:"   Grid.Row="1"/>
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" VerticalContentAlignment="Center" Foreground="White"  FontSize="15" FontWeight="Bold" Content="Name:"   Grid.Row="1"/>
             <TextBox x:Name="txtName"  Grid.Column="1" Grid.Row="1"  FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalAlignment="Center" VerticalContentAlignment="Center" 
                              Width="90"  Height="30"  HorizontalAlignment="Center" FontFamily="Arial"
                              Text="{Binding Name, Mode=TwoWay}"  />
 
 
-            <Label  VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Top"  Grid.Column="0" Grid.Row="2" Foreground="White"  FontSize="20" FontWeight="Bold" Content="Number of slots:" />
+            <Label  VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Top"  Grid.Column="0" Grid.Row="2" Foreground="White"  FontSize="15" FontWeight="Bold" Content="Number of slots:" />
             <TextBox x:Name="txtNumOfSlots"  Grid.Column="1" Width="90"  Height="30" Grid.Row="2" PreviewTextInput="NumberValidationTextBox" FontFamily="Arial"
                                Text="{Binding NumOfAvailableChargingSlots, Mode=TwoWay}"  HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-                <Label Foreground="White"  FontSize="20" FontWeight="Bold"  Grid.Column="0" Grid.Row="3" VerticalContentAlignment="Top" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Longitude:" />
+                <Label Foreground="White"  FontSize="15" FontWeight="Bold"  Grid.Column="0" Grid.Row="3" VerticalContentAlignment="Top" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Longitude: (35-36)" />
             <TextBox Name="txtLongitude"  Grid.Column="1" Grid.Row="3" FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalAlignment="Center" VerticalContentAlignment="Center" 
                              Width="90"  Height="30"  HorizontalAlignment="Center" FontFamily="Arial"
                            Text="{Binding Location.Longitude, Mode=TwoWay}"  />
-                <Label Foreground="White"  FontSize="20" FontWeight="Bold"  Grid.Column="0" Grid.Row="4" VerticalContentAlignment="Top" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Latitude:" />
+                <Label Foreground="White"  FontSize="15" FontWeight="Bold"  Grid.Column="0" Grid.Row="4" VerticalContentAlignment="Top" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Latitude: (31-32)" />
             <TextBox Name="txtLatitude"  Grid.Column="1" Grid.Row="4"  FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalAlignment="Center" VerticalContentAlignment="Center" 
                              Width="90"  Height="30"  HorizontalAlignment="Center" FontFamily="Arial"
                            Text="{Binding Location.Latitude, Mode=TwoWay}" />

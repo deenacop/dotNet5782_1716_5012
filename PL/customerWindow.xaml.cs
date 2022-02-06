@@ -106,11 +106,6 @@ namespace PL
                 
                 customerListWindow.customerToLists=new(bl.GetListCustomer());
                 customerListWindow.CustomerListView.ItemsSource = customerListWindow.customerToLists;
-
-
-                
-                
-
                 MessageBox.Show("The customer has been updated successfully :)\n" + Customer.ToString());
                 _close = true;
                 try { DialogResult = true; } catch (InvalidOperationException) { Close(); }
