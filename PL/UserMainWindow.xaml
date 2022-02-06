@@ -136,66 +136,7 @@
                             </GroupStyle>
                         </ListView.GroupStyle>
                     </ListView>
-                    <!--<ListView x:Name="ParcelByCustomerView" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="128" Width="650"  Grid.ColumnSpan="2" Margin="77,96,0,0">
-
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                <Setter Property="FontSize" Value="10"></Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.Style>
-                            <Style TargetType="ListView">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=SeefromMe, Path=IsChecked}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                        <Setter Property="FontSize" Value="10"></Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListView.Style>
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="60"    ></GridViewColumn>
-                                <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="70"  ></GridViewColumn>
-                                <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding  Priority}" Width="70"></GridViewColumn>
-                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding  Status}" Width="70"></GridViewColumn>
-                                <GridViewColumn Header="Id of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Id}" Width="170"></GridViewColumn>
-                                <GridViewColumn Header="Name of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Name}" Width="200"></GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>-->
-
-                    <!--<ListView x:Name="ParcelByCustomerView1"  Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF0F4E7A" BorderBrush="{x:Null}" Background="#FFC7E0F1" Height="104" Width="650" Margin="76,236,0,0">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                <Setter Property="FontSize" Value="10"></Setter>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.Style >
-                            <Style TargetType="ListView">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                                <Setter Property="FontSize" Value="10"></Setter>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=SeeToMe, Path=IsChecked}" Value="True">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListView.Style>
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}" Width="60"    ></GridViewColumn>
-                                <GridViewColumn Header="Weight" DisplayMemberBinding="{Binding Weight}" Width="70"  ></GridViewColumn>
-                                <GridViewColumn Header="Priority" DisplayMemberBinding="{Binding  Priority}" Width="70"></GridViewColumn>
-                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding  Status}" Width="70"></GridViewColumn>
-                                <GridViewColumn Header="Id of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Id}" Width="170"></GridViewColumn>
-                                <GridViewColumn Header="Name of the recipient" DisplayMemberBinding="{Binding  SecondSideOfParcelCustomer.Name}" Width="200"></GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>-->
+                    
                     <ListView x:Name="ParcelByCustomerView1"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Grid.Row="2" MouseDoubleClick="ParcelListView_MouseDoubleClick"  Foreground="#FF0C283B" BorderBrush="#FFADD0E9" Background="#FFD6D6D6" Height="130" Width="680" >
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">

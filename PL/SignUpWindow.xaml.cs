@@ -42,8 +42,6 @@ namespace PL
             InitializeComponent();
         }
 
-   
-
         /// <summary>
         /// save details and sign in
         /// </summary>
@@ -60,9 +58,10 @@ namespace PL
                 }
                 else
                 {
-                    if (user.Password.Length != 8)
+                    if(!IsValidMailFormat(user.EmailAddress))
                     {
-                        MessageBox.Show("password should be with 8 digits");
+                        MessageBox.Show("wrong mail format", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
                     else
                     {
@@ -82,8 +81,23 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
+
         /// <summary>
-        /// send mail to the new user
+        /// checks the mails format
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private bool IsValidMailFormat(string email)
+        {
+            if (email.EndsWith("@gmail.com")|| email.EndsWith("@g.jct.ac.il") )
+                return true;
+            if (email.Contains(" "))
+                return false;
+            return false;
+        }
+
+        /// <summary>
+        /// function for sending a mail to a user
         /// </summary>
         private void SendMail()
         {

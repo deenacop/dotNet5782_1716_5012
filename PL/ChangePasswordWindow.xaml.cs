@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +25,8 @@ namespace PL
     public partial class ChangePasswordWindow : Window
     {
         BlApi.IBL bL;
+        private string email;
+
         public ChangePasswordWindow(BlApi.IBL bl)
         {
             InitializeComponent();
@@ -38,28 +42,29 @@ namespace PL
         {
             try
             {
+                MessageBoxImage icon = MessageBoxImage.Error;
                 if (mailAddress.Text == "" || oldPassword.Text == "" || newPassword.Text == "")
                 {
-                    MessageBox.Show("you must fill all fields");
+                    MessageBox.Show("you must fill all fields", "Confirmation", MessageBoxButton.OK, icon);
+                    return;
                 }
-                if (newPassword.Text.Length != 8)
+                if (!IsValidMailFormat(mailAddress.Text))
                 {
-                    MessageBox.Show("password should be with 8 digits");
+                    MessageBox.Show("wrong mail format", "Confirmation", MessageBoxButton.OK, icon);
+                    return;
                 }
                 if (oldPassword.Text != bL.GetUser(mailAddress.Text).Password)
                 {
-                    MessageBox.Show("worng password");
+                    MessageBox.Show("worng password", "Confirmation", MessageBoxButton.OK, icon);
+                    return;
                 }
+
                 else
                 {
                     SendMail();
                     bL.updateUser(mailAddress.Text, newPassword.Text);
                     Close();
                 }
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("invalid mail format");
             }
             catch (Exception ex)
             {
@@ -68,6 +73,24 @@ namespace PL
             }
 
         }
+
+        /// <summary>
+        /// checks the mails format
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private bool IsValidMailFormat(string email)
+        {
+            if (email.EndsWith("@gmail.com") || email.EndsWith("@g.jct.ac.il"))
+                return true;
+            if (email.Contains(" "))
+                return false;
+            return false;
+        }
+
+        /// <summary>
+        /// function for sending a mail to a user
+        /// </summary>
         private void SendMail()
         {
             try

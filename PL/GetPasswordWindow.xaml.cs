@@ -34,6 +34,11 @@ namespace PL
         {
             try
             {
+                if (!IsValidMailFormat(email.Text))
+                {
+                    MessageBox.Show("wrong mail format", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 User tmp = bl.GetUser(email.Text);
                 SendMail();
                 Close();
@@ -43,6 +48,23 @@ namespace PL
                 MessageBox.Show("invalid mail address");
             }
         }
+        /// <summary>
+        /// checks the mails format
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private bool IsValidMailFormat(string email)
+        {
+            if (email.EndsWith("@gmail.com") || email.EndsWith("@g.jct.ac.il"))
+                return true;
+            if (email.Contains(" "))
+                return false;
+            return false;
+        }
+
+        /// <summary>
+        /// function for sending a mail to a user
+        /// </summary>
         private void SendMail()
         {
             try
@@ -67,50 +89,6 @@ namespace PL
                 //תפיסה וטיפול בשגיאות
                 MessageBox.Show(ex.Message);
             }
-        }
-        private void TextBox_Email_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            if (text == null) return;
-            if (e == null) return;
-
-            //allow get out of the text box
-            if (e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Tab)
-            {
-                e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
-            }
-
-            //allow list of system keys 
-            if (e.Key == Key.Escape || e.Key == Key.Back || e.Key == Key.Delete ||
-                e.Key == Key.CapsLock || e.Key == Key.LeftShift || e.Key == Key.Home
-             || e.Key == Key.End || e.Key == Key.Insert || e.Key == Key.Down || e.Key == Key.Right)
-                return;
-
-            char c = (char)KeyInterop.VirtualKeyFromKey(e.Key);
-
-            //allow control system keys
-            if (Char.IsControl(c)) return;
-
-            //allow dot
-            if (e.Key == Key.OemPeriod)
-            {
-                return;
-            }
-
-            //allow @
-            if (e.Key == Key.Attn)
-            {
-                return;
-            }
-
-
-            //allow digits (without Shift or Alt)
-            if (Char.IsLetterOrDigit(c))
-                if (!(Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightAlt)))
-                    return; //let this key be written inside the textbox
-                            //forbid letters and signs (#,$, %, ...)
-            e.Handled = true; //ignore this key. mark event as handled, will not be routed to other controls
-            return;
         }
     }
 }

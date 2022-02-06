@@ -56,11 +56,11 @@
             <TextBox x:Name="txtNumOfSlots"  Grid.Column="1" Width="90"  Height="30" Grid.Row="2" PreviewTextInput="NumberValidationTextBox" FontFamily="Arial"
                                Text="{Binding NumOfAvailableChargingSlots, Mode=TwoWay}"  HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-                <Label Foreground="White"  FontSize="20" FontWeight="Bold"  Grid.Column="0" Grid.Row="3" VerticalContentAlignment="Top" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Longitude:" />
+                <Label Foreground="White"  FontSize="20" FontWeight="Bold"  Grid.Column="0" Grid.Row="3" VerticalContentAlignment="Top" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Longitude: (35-36)" />
             <TextBox Name="txtLongitude"  Grid.Column="1" Grid.Row="3" FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalAlignment="Center" VerticalContentAlignment="Center" 
                              Width="90"  Height="30"  HorizontalAlignment="Center" FontFamily="Arial"
                            Text="{Binding Location.Longitude, Mode=TwoWay}"  />
-                <Label Foreground="White"  FontSize="20" FontWeight="Bold"  Grid.Column="0" Grid.Row="4" VerticalContentAlignment="Top" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Latitude:" />
+                <Label Foreground="White"  FontSize="20" FontWeight="Bold"  Grid.Column="0" Grid.Row="4" VerticalContentAlignment="Top" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Latitude: (31-32)" />
             <TextBox Name="txtLatitude"  Grid.Column="1" Grid.Row="4"  FontSize="15" FontWeight="Light" FontStyle="Italic" VerticalAlignment="Center" VerticalContentAlignment="Center" 
                              Width="90"  Height="30"  HorizontalAlignment="Center" FontFamily="Arial"
                            Text="{Binding Location.Latitude, Mode=TwoWay}" />
