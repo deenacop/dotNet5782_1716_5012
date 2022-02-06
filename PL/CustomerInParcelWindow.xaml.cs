@@ -32,6 +32,11 @@ namespace PL
             menuWindow = menu;
         }
 
+        /// <summary>
+        /// sends to the current customer window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             new CustomerWindow(bL, bL.GetCustomer(customer.Id)).Show();

@@ -68,6 +68,10 @@ namespace PL
             }
 
         }
+
+        /// <summary>
+        /// send the mail to the user
+        /// </summary>
         private void SendMail()
         {
             try
