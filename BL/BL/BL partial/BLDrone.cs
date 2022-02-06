@@ -231,6 +231,14 @@ namespace BL
                 {
                     throw new NotEnoughBatteryException(ex.Message);
                 }
+                catch (NegetiveException ex)
+                {
+                    throw new NegetiveException(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
 
                 //if the drone *can* go to a charging Drone station:
                 listDrone.Battery -= (int)(distance * vacant);
@@ -268,6 +276,10 @@ namespace BL
                 catch (ItemNotExistException ex)
                 {
                     throw new ItemNotExistException(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
                 }
                 //update the drone
                 listDrone.Battery += (int)(minuteInCharge * droneLoadingRate);

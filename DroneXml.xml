@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Drone>
+    <Id>746</Id>
+    <Model>3D Robotics Solo</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>138</Id>
+    <Model>Yuneec H520</Model>
+    <Weight>Heavy</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>903</Id>
+    <Model>3D Robotics Solo</Model>
+    <Weight>Medium</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>584</Id>
+    <Model>Flyability Elios Drone</Model>
+    <Weight>Heavy</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>554</Id>
+    <Model>3D Robotics Solo</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>867</Id>
+    <Model>Yuneec H520</Model>
+    <Weight>Medium</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>879</Id>
+    <Model>Yuneec H520</Model>
+    <Weight>Heavy</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>777</Id>
+    <Model>DJI Mavic 2 Zoom</Model>
+    <Weight>Medium</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>123</Id>
+    <Model>vbn</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+  <Drone>
+    <Id>500</Id>
+    <Model>AAA</Model>
+    <Weight>Light</Weight>
+    <IsRemoved>false</IsRemoved>
+  </Drone>
+</ArrayOfDrone>

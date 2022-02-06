@@ -152,7 +152,7 @@ namespace PL
         {
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
             if (drone != null)
-                new DroneWindow(bL, bL.GetDrone(drone.Id), this, this, 1).Show();
+                new DroneWindow(bL, bL.GetDrone(drone.Id), this,this,this, 1).Show();
         }
         /// <summary>
         /// display an indevidual drone
@@ -251,6 +251,7 @@ namespace PL
                              select item;
             comboAvailableSlostSelector.ItemsSource = Enum.GetValues(typeof(AvailablityStation));
             comboAvailableSlostSelector.SelectedIndex = 2;
+            StationListView.ItemsSource = stationToLists;
             droneGif.Visibility = Visibility.Collapsed;
             droneLists.Visibility = Visibility.Collapsed;
             parcelLists.Visibility = Visibility.Collapsed;
@@ -306,7 +307,7 @@ namespace PL
             //check which grid is currently open
             if (menuListView.SelectedItem == drone)
             {
-                new DroneWindow(bL, this, this).Show();
+                new DroneWindow(bL, this, this,this).Show();
             }
             if (menuListView.SelectedItem == customer)
             {
